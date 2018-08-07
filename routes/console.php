@@ -16,3 +16,32 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+Artisan::command('mud:cache_user', function () {
+    $files = \Storage::disk('mud')->allFiles('user');
+    //dd($files);
+    foreach ($files as $file) {
+        $id = str_after($file, '/');
+        $id = str_before($id, '.');
+        $file = \Storage::disk('mud')->get($file);
+        $file = iconv('GBK', 'UTF-8', $file);
+        $file = explode("\n", $file);
+        foreach ($file as $info) {
+            $keys = ['alias', 'killer', 'want_kills', 'dbase', 'skills', 'skill_map', 'autoload'];
+            foreach ($keys as $key) {
+                if (starts_with($info, $key)) {
+                    $info = str_replace($key, '', $info);
+                    $info = str_replace("([", "{", $info);
+                    $info = str_replace("])", "}", $info);
+                    $info = str_replace("({", "[", $info);
+                    $info = str_replace("})", "]", $info);
+                    $user[$id][$key] = $info;
+                    $users[$id][$key] = $user[$id][$key];
+                }
+            }
+        }
+        \Cache::forever('user:'.$id, $user);
+    }
+    \Cache::forever('users', $users);
+    $this->comment("玩家数据缓存成功，共".count($users)."位角色^_^");
+})->describe('缓存MUD玩家数据');

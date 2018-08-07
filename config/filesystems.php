@@ -63,6 +63,10 @@ return [
             'bucket' => env('AWS_BUCKET'),
         ],
 
+        'mud' => [
+            'driver' => 'local',
+            'root' => str_finish(env('MUD_DATA', '/'), '/'),
+        ],
     ],
 
 ];
