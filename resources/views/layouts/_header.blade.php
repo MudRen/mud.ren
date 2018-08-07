@@ -12,7 +12,7 @@
 
             <!-- Branding Image -->
             <a class="navbar-brand" href="{{ url('/') }}">
-                LaraBBS
+                梦幻泥潭
             </a>
         </div>
 

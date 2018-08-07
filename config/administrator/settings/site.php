@@ -54,8 +54,8 @@ return [
     'before_save' => function(&$data)
     {
         // 为网站名称加上后缀，加上判断是为了防止多次添加
-        if (strpos($data['site_name'], 'Powered by LaraBBS') === false) {
-            $data['site_name'] .= ' - Powered by LaraBBS';
+        if (strpos($data['site_name'], 'mud.ren') === false) {
+            $data['site_name'] .= ' - mud.ren';
         }
     },
 

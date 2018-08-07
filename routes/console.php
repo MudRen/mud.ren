@@ -20,8 +20,11 @@ Artisan::command('inspire', function () {
 Artisan::command('mud:cache_user', function () {
     $files = \Storage::disk('mud')->allFiles('user');
     //dd($files);
+    $users = [];
     foreach ($files as $file) {
-        $id = str_after($file, '/');
+        $id = $file;
+        while (str_contains($id, '/'))
+            $id = str_after($id, '/');
         $id = str_before($id, '.');
         $file = \Storage::disk('mud')->get($file);
         $file = iconv('GBK', 'UTF-8', $file);
@@ -36,11 +39,11 @@ Artisan::command('mud:cache_user', function () {
                     $info = str_replace("({", "[", $info);
                     $info = str_replace("})", "]", $info);
                     $user[$id][$key] = $info;
-                    $users[$id][$key] = $user[$id][$key];
                 }
             }
         }
         \Cache::forever('user:'.$id, $user);
+        $users += $user;
     }
     \Cache::forever('users', $users);
     $this->comment("玩家数据缓存成功，共".count($users)."位角色^_^");

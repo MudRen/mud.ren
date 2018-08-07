@@ -4,7 +4,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Models\Topic::class, function (Faker $faker) {
 
-    $sentence = $faker->sentence();
+    $sentence = $faker->catchPhrase();
 
     // 随机取一个月以内的时间
     $updated_at = $faker->dateTimeThisMonth();
