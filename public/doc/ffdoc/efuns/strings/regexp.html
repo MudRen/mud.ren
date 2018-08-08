@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - strings - regexp</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>regexp(3)　 MudOS v21c2　　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称：</FONT>
+<UL>　 regexp() - 正规描述式(regular expression)处理程序</UL>
+<FONT COLOR="#FFFFCC">　语法：</FONT>
+<UL>　 string *regexp( string *lines, string pattern, void | int flag );
+
+<P>　 字符串 *regexp( 字符串 *lines, 字符串 pattern, 无参数 | 整数 flag );</UL>
+<FONT COLOR="#FFFFCC">　用法：</FONT>
+<UL>　 一般而言，当以多行文字的数组和正规描述式表达时，regexp(3) 会返回一个含有那几行符合指定的正规描述式文字之数组。如果
+flag（预设值 0）的位元 2 被设定，则将返回不符合者而非符合者。而如果 flag
+的位元 1 被设定，则会返回这般格式 ({ 注标 1 + 1, 符合 1, ..., 注标 n +
+1, 符合 n }) 的数组，这里的注标 1 是指第一个符合或是不符合者在文字行数组中的注标(index)。</UL>
+<FONT COLOR="#FFFFCC">　正规描述式语法：</FONT>
+<UL>　 一个正规描述式含有零个或是多个由 `|' 分隔的分段(branch)。它可配对任何符合这些分段之一。
+
+<P>　 一个分段是由零个或多个部份(piece)相连成的。它可配对依序符合第一个单元、第二个单元等等。
+<BR>　
+<BR>　 一个部份是一个可以接着 `*'、`+' 或 `?' 的单元(atom)。一个接着 `*'的单元可配对一串零个或是多个符合的单元。一个接着
+`+' 的单元可以配对一串一个或多个符合的单元。一个接着 `?' 的单元则可以配对一个单元或是空字符串。
+
+<P>　 一个单元可以是一个在括弧中的正规描述式（配对这个正规描述式）、一个范围(range)（后面会说明）、`.'（配对任何单一字符）、
+`^'（配对输入字符串开头的空字符串）、一个接着单一字符的 `\'（配对这个字符）或是一个没有特殊意义的单一字符（配对这个字符）。
+
+<P>　 一个范围是一串包含在 `[]' 内的字符。它一般是配对任何在序列中的任何单一字符。如果这个序列是以
+`^' 开始，则它只能配对不是来自序列后半部的任何字符。如果在序列中的二个字符被
+`-' 所分隔的话，则这是个含有介于它们间所有 ASCII 字符的简写（例如， `[0-9]'
+可配对任何十进位数字）。要在序列中包含字符 `]'的话，就要将它放在第一个或是最后一个字符。</UL>
+<FONT COLOR="#FFFFCC">　不明确性(ambiguity)：</FONT>
+<UL>　 如果一个正规描述式可以符合输入字符串的二个不同部份，则它将只会配对较早开始的那个。若二个都在相同位置开始但符合长度不同，或是符合方法不同而同长度的话，情况就会变的很复杂，详述如下：
+
+<P>　 一般上来说，一串分段的可能性是依由左至右的顺序，`*'、`+' 和 `?' 总是尽量地配对最长的字符串，巢状结构则会由外层开始，而连结(concatenated)的结构是由最左边的开始。将会选用的配对是使用了最早可能性的选择。如果有多于一个选择，则下一个也会因第一个选择而采取同样的方法（最早可能性），一直持续下去。
+
+<P>　 举例来说，`(ab|a)b*c' 可以有二种方式配对 `abc' 。第一个选择是 `ab'
+或 `a'；因为 `ab' 较早符合而且可以配对成功，所以它被选用。由于 `b' 已被配对，所以
+`b*' 必须配对它最后的可能－－空字符串，因为它必须遵从较早的选择。
+
+<P>　 一个没有 `|' 而只有一个 `*'、`+' 或 `?' 的特殊情况，它的净效应是最长可能配对将会被选用。因此，对
+`xabbby' 来说，`ab*' 将会配对 `abbbb'。注意到如果改对 `xabyabbbz' 来说，它将只会配对到
+`x' 之后的 `ab'。（结果是，决定从哪里开始配对是第一个要做的选择，因为其后的选择也必须遵从它，甚至如果这只是个不太好的决定。）</UL>
+<FONT COLOR="#FFFFCC">　参考：</FONT>
+<UL>　 <A HREF="sscanf.html">sscanf(3)</A>, <A HREF="explode.html">explode(3)</A>,
+<A HREF="strsrch.html">strsrch(3)</A>, <A HREF="../interactive/ed.html">ed(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译：</FONT>
+<UL>　 Kenny@Broken.History　 97.Jul.26　　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../strings.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

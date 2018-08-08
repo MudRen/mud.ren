@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - objects - reload_object</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>reload_object(3) MudOS v21c2　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 reload_object - 把一个物件还原成刚刚载入的状态.</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 void reload_object( object ob );
+
+<P>　 无返回值 reload_object( 物件 ob );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 对 ob 调用 reload_object() 时, 所有由驱动程序管理的物件特性 (心跳
+heart_beat,　 外部调用 call_outs,　 光线 light, 阴影 shadow 等) 和内部变量都会重新初始化
+(re-initialized), 然后调用　 create(). 这个函数的效果相当于先摧毁再载入物件,
+用不着存取磁碟.</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="../mudlib/export_uid.html">export_uid(3)</A>, <A HREF="new.html">new(3)</A>,
+<A HREF="clone_object.html">clone_object(3)</A>, <A HREF="destruct.html">destruct(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.May.26.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../objects.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

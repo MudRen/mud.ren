@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - mudlib - domain_stats</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>domain_stats(3)　 MudOS v21c2　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 domain_stats() - 返回区域的一些统计数据.
+<BR>　 author_stats() - 返回作者的一些统计数据.</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 mapping domain_stats( string domain | void );
+<BR>　 mapping author_stats( string domain | void );
+
+<P>　 映射 domain_stats( 字符串 domain 或 void );
+<BR>　 映射 author_stats( 字符串 domain 或 void );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 author_stats() 和 domain_stats()　 都会返回一个储存在映射变量的数据.
+如果没有加上参数 (argument) , 就会返回所有作者 (或所有区域) 每个人 (或每个区域)
+的映射数据. 每份映射数据包含有: 移动数 (moves), 耗费时间数 (cost), 错误数
+(errors),　 心跳数 (heart_beats), 价值数 (worth), 数组数 (array_size),　
+和 物件数 (objects). 每一项都是包含在返回的映射变量中的整数值. 移动数是在指定作者
+(或区域) 中, 物件被移动到另一物件中的多寡. 耗费数是所有在指定作者 (或区域)
+里的物件所耗费的计算数目 (eval_cost). 错误数是在指定作者 (或区域) 中物件总共发生的系统错误多寡.
+心跳数是在指定作者 (或区域) 中, 所有物件调用 heartbeat　 的次数. 价值数则是使用
+add_worth(3)　 函数的情形 (这项数值常常用来追踪指定巫师作者所流出和流入的金钱数目)
+. 数组数是指定区域中数组所配置的内存位元数. 物件数是指定区域中被创造出来的物件总数.
+当这两个函数被调用时, 如果没有指定参数, 返回的映射就会像这样:
+<BR>　
+<UL><FONT COLOR="#FFCC99">　 ([ domain0 : info0, domain1 : info1, ... ])</FONT></UL>
+　 而 info0 的内容格式是:
+<BR>　
+<UL><FONT COLOR="#FFCC99">　 ([ "moves" : moves, "cost" : cost, "errors"
+: errors, "heart_beats" : heart_beats, "worth" : worth, "array_size" :
+array_size, "objects" : objects ])</FONT></UL>
+　 有指定参数时, 就会返回像 info0 的格式.</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="../../applies/master/domain_file.html">domain_file(4)</A>,
+<A HREF="../../applies/master/author_file.html">author_file(4)</A>, <A HREF="set_author.html">set_author(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF　　 96.Oct.15.　　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../mudlib.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

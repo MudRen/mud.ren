@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - interactive - add_action</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>add_action(3)　 MudOS v21c2　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 add_action() - 把局部函数 (local function) 加进玩家可用的命令动词
+(command verb).</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 void add_action( string | function fun, string | string *cmd, int
+flag );
+
+<P>　 无回传值 add_action( 字符串 或 函数 fun, 字符串 或 字符串 *cmd, 整数 flag
+);</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 当玩家键入与 &lt;cmd>　 符合的命令时, 调用局部函数 (local function)
+fun. 玩家命令中所打的参数 (argument), 会以字符串传入被调用到的函数. 如果命令错误,
+则返回 0, 没错则必须返回 1.
+
+<P>　 如果第二个参数是一个数组, 则所有在数组中的命令会调用第二个函数. 你可以用
+query_verb() 找出调用函数的命令.
+
+<P>　 如果是错误的命令, 则会继续搜寻其他的命令, 直到找到相符的命令、参数或返回错误消息给玩家.
+
+<P>　 通常 add_action() 只会被 init() 的程序调用. 有定义附加命令的物件必须是玩家可以接触到的:
+玩家物件本身、被玩家携带、玩家所处的房间、或是与玩家处于同一个房间的物件.
+
+<P>　 如果参数 &lt;flag> 是 1　 , 只要参数前面的字符 (leading characters)
+符合动作命令 &lt;cmd>　 即可, 而整个动作命令的字符 (entire verb) 会由 query_verb()　
+返回. 如果参数是 2 , 结果同前, 但是 query_verb()　 只会返回 &lt;cmd> 后面的字符
+(characters following &lt;cmd>).</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="../parsing/query_verb.html">query_verb(3)</A>, <A HREF="remove_action.html">remove_action(3)</A>,
+<A HREF="../../applies/general/init.html">init(4)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 96.Oct.11.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../interactive.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

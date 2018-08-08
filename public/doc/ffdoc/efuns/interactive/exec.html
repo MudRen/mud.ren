@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - interactive - exec</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>exec(3)　　 MudOS v21c2　 (5 Sep
+1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 exec() -　 将一个可互动的 (interactive) 玩家 (player) 物件切换连结 (connection)
+到另外一个物件上.</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 int exec( object to, object from );
+
+<P>　 整数 exec( 物件 to, 物件 from );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 这个函数允许指定的物件把可互动的连结 (link) 迁移到另外一个物件上.
+也就是说, 成功地执行 exec( to, from ) 之后, interactive( to ) 会返回 1,
+而 interactive( from ) 会返回 0. 而控制 from 的玩家会转移控制权到 to 的身上.
+
+<P>　 请注意这个函数的权力非常大, 不当地使用会危及 MUD　 的系统安全. 正确地限制使用此函数的方法是另外写一个同名的模拟外部函数
+(simulated emulated function, simul_efun), 并使用 valid_override(4)　 来限制此一模拟外部函数的使用.
+(意即 efun::exec() )
+
+<P>　 exec() 函数在成功地转换之后返回 1, 转换失败则返回 0.</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="interactive.html">interactive(3)</A>, <A HREF="../../applies/master/valid_override.html">valid_override(4)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Feb.12.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../interactive.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

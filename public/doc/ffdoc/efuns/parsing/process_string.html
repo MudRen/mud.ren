@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - parsing - process_string</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>process_string(3) MudOS v21c2　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 process_string() - 在字符串中以调用函数的结果替代某些字.</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 string process_string( string combinestring );
+
+<P>　 字符串 process_string( 字符串 combinestring );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 以指定的格式替代一个字符串中的某些字. 这个格式相当于调用函数所返回的字符串.
+
+<P>　 格式如下:
+
+<P><FONT COLOR="#FFCC99">　 "@@函数名称[:文件名称][ | 参数 1 | 参数 2....|
+参数 N ]@@"</FONT>
+
+<P>　 上面这行可以当作是下面这行的函数调用:
+
+<P><FONT COLOR="#FFCC99">　 文件名称->函数名称( 参数 1, 参数 2, ....., 参数
+N );</FONT>
+
+<P>　 请注意, process_string()　 不会接受函数递回 (recuse) 调用返回第二次以后的字符串.
+如果函数返回第二次字符串, process_string() 不会换掉第一次返回的字符串.
+
+<P>　 在 combinestring　 中调用用来处理字符串的函数, 如果返回值不是字符串, 则关于调用格式的那些字都会维持不变地放在字符串里.
+
+<P>　 请注意, 物件的文件名称、参数都以表示可有可无的 [] 中括号框起来. 请勿把这些括号也写进字符串里.</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 process_value(3)</UL>
+<FONT COLOR="#FFFFCC">　警告:</FONT>
+<UL>　 在 mud　 函数库 (mudlib) 中, 常常使用函数调用的返回值. 最好能在使用
+process_string() 之前, 设定物件的有效使用者辨识名称 (effuserid, euid)　 为
+0　 .</UL>
+<FONT COLOR="#FFFFCC">　范例:</FONT>
+<UL><FONT COLOR="#99FF99">　 "@@query_the_name:/obj/monster#123@@正在你身后穷追不舍."</FONT>
+
+<P>　 会以下面的形式替换掉一些字:
+
+<P><FONT COLOR="#FFCCCC">　 "安老大正在你身后穷追不舍."</FONT>
+
+<P>　　 (假设 monster#123 的 query_the_name 函数返回 "安老大")</UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Apr.25.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../parsing.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

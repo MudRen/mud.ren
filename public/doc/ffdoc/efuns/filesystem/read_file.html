@@ -1,0 +1,39 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - filesystem - read_file</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>read_file(3)　 MudOS v21c2　 (5
+Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 read_file() - 把一个文件的内容读进一个字符串变量里.</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 string read_file( string file, int start_line, int number_of_lines
+);
+
+<P>　 字符串 read_file( 字符串 file, 整数 start_line, 整数 number_of_lines );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 从一个文件中读入几行文字到一个字符串中. 第二个和第三个参数可以选择.
+如果只指定 file 的参数, 整个文件都会被读进一个字符串中. start_line　 是指定你要从文件的第几行开始读取.
+如果你指定的行数超过文件的尾端或是指定的数字为负数, 则会返回 0.</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="write_file.html">write_file(3)</A>, <A HREF="../buffers/read_buffer.html">read_buffer(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.May.24.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../filesystem.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

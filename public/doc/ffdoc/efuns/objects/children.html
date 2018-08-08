@@ -1,0 +1,44 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - objects - children</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>children(3)　 MudOS v21c2　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 children() - 返回一个指定物件 (object) 所复制出来的物件数组.</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 object * children( string name );
+
+<P>　 物件 *children( 字符串 name );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 这个函数返回一个物件数组 (array), 物件群则是文件名称为 name 的物件所复制出来的.
+一个使用的范例是找出所有从使用者物件 (user object)　 复制出来的物件:
+<BR>　
+<UL><FONT COLOR="#99FF99">　　 object *list;</FONT>
+
+<P><FONT COLOR="#99FF99">　　 list = children("/obj/user");</FONT></UL>
+　 这样可以让您找出所有的使用者 (包括已经断线的使用者),　 而 users() 只会回报还能互动的
+(interactive) 使用者.</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="../system/deep_inherit_list.html">deep_inherit_list(3)</A>,
+<A HREF="../system/inherit_list.html">inherit_list(3)</A>, <A HREF="objects.html">objects(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Jan.26.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../objects.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

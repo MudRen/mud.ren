@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - lpc - types - strings</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER>
+<H1>
+<FONT COLOR="#FF99FF">strings</FONT></H1></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><FONT COLOR="#FFFFCC">字符串的子范围 (sub ranging) - 注解: Grey@TMI-2</FONT></CENTER>
+
+<HR WIDTH="100%">
+
+<P>您可以使用子字符串运算 (substring operation)　 从一个字符串变量中, 取出字符串的一部份
+(substring). 其形式为:
+<UL><FONT COLOR="#FFCC99">字符串名称[n1..n2]</FONT></UL>
+正整数代表由左开始算起, 而负整数从左算起. 如果数字超过字符串的长度, 则视为字符串的长度.
+
+<P>如果两个数字相等［<FONT COLOR="#99FF99">字符串名称[n1..n1]</FONT>］, 则返回字符串的第
+n1 个字符 (character). 如果两个数字都超过字符串的长度, 则会返回空字符串 (null
+string)［""］. 如果第一个数字所指的位置在第二个数字之后, 也会返回空字符串.
+
+<P>范例:
+<UL><FONT COLOR="#99FF99">str = "abcdefg"</FONT></UL>
+则
+<UL><FONT COLOR="#FFCCCC">str[0..0] ==　　　　　　 "a"</FONT>
+<BR><FONT COLOR="#FFCCCC">str[0..-1] ==　　　　　 "abcdefg"</FONT>
+<BR><FONT COLOR="#FFCCCC">str[-4..-2] ==　　　　 "def"</FONT>
+<BR><FONT COLOR="#FFCCCC">str[-7..6] ==　　　　　 "abcdefg"</FONT>
+<BR><FONT COLOR="#FFCCCC">str[3..2] ==　　　　　　 ""</FONT></UL>
+
+<HR WIDTH="100%">
+<CENTER><FONT COLOR="#FFFFCC">翻译: Spock @ FF 97.Aug.11.</FONT></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../types.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - objects - objects</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>objects(3)　 MudOS v21c2　 (5 Sep
+1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 objects - 返回一个已载入之物件的数组 (array).</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 object *objects( string func, object ob );
+<BR>　 object *objects( function f );
+
+<P>　 物件 *objects( 字符串 func, 物件 ob );
+<BR>　 物件 *objects( 函数指针 f );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 objects() 返回 mud　 里已经载入之物件的数组. 请注意, 如果系统设定的最大数组长度
+(maximum array size)太低, objects() 返回的数组内容会中断在最大长度的地方.
+这样一来, objects() 也就没有什么用处.
+
+<P>　 如果指定了 func 和 ob 两个参数, 则会调用 ob->func(), 并以所有已经载入的物件作为
+func() 的参数. 如果函数返回非零值, 此物件就会被 objects()　 返回来. 如果是零则不会.
+
+<P>　 如果指定 f, 所有已载入的物件都会调用函数指针 f. 例如: objects( (: clonep
+:) ) 会返回现存全部的复制物件的列表.</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="../mudlib/livings.html">livings(3)</A>, <A HREF="../interactive/users.html">users(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Apr.24.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../objects.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

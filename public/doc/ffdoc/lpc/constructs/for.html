@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考资料 - lpc - constructs - for</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER>
+<H1>
+<FONT COLOR="#FF99FF">for</FONT></H1></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><FONT COLOR="#FFFFCC">* LPC 的 for 循环 :</FONT></CENTER>
+
+<HR WIDTH="100%">
+
+<P>LPC 的 for 循环与 C 提供的相同. 语法如下:
+<UL><FONT COLOR="#FFCC99">for ( 运算式 0; 运算式 1; 运算式 2 ) {</FONT></UL>
+
+<UL>
+<UL><FONT COLOR="#FFCC99">语句;</FONT>
+<BR><FONT COLOR="#FFCC99">...;</FONT></UL>
+<FONT COLOR="#FFCC99">}</FONT></UL>
+执行循环之前, 会先计算「运算式 0」. 每次循环周期开始时, 计算「运算式 1」.
+如果「运算式 1」计算的结果得到 0, 则循环停止. 「计算式 2」则于每次循环周期结束时计算之.
+
+<P>循环里面的 break 会让循环停止. continue 则会跳过此次循环周期剩余的部分,
+从下一个周期开始 (会先计算「运算式 2」).
+
+<P>典型的 for 循环, 用以固定的次数重覆执行一段循环中的语句.
+
+<P>范例:
+<UL>int i;</UL>
+
+<UL>for (i = 0; i &lt; 10; i++) {
+<UL>write("i == " + i + "\n");
+<BR>write("10 - i == " + (10 - i) + "\n");</UL>
+}</UL>
+
+<HR WIDTH="100%">
+<CENTER><FONT COLOR="#FFFFCC">翻译: Spock @ FF 97.Aug.9.</FONT></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../constructs.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - mappings - match_path</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>match_path(3)　 MudOS v21c2　 (5
+Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 match_path() - 在一个映射变量 (mapping) 中找寻路径名称 (path)</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 mixed match_path( mapping m, string str );
+
+<P>　 混合 match_path( 映射 m, 字符串 str );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 match_path() 在一个映射变量中找路径名. match_path() 会假设所有的关键字
+(key) 为字符串 (string) 类型. 而内容值 (value) 是啥则无关紧要. 这个外部函数
+(efun) 会找出符合条件的最长字符串. 以 / 结尾的关键字会找出此关键字底下所有的路径名称,
+意即 / 算是一个万用字符 (wildcard), 视为此路径底下的任何东西 (译按: 相当于文件或路径名称用的
+* 号).</UL>
+<FONT COLOR="#FFFFCC">　作者:</FONT>
+<UL>　 Cygnus</UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Apr.13.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../mappings.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

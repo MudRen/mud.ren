@@ -1,0 +1,44 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - mudlib - seteuid</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>seteuid(3)　 MudOS v21c2　 (5 Sep
+1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 seteuid() - 设定一个物件的有效使用者识别名称 (effective user id, euid)</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 int seteuid( string str );
+
+<P>　 整数 seteuid( 字符串 str );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 设定有效使用者识别名称为 str　 的内容. 在 master.c 中的 valid_seteuid()
+函数决定着一个物件的有效使用者识别名称可以设定为何.
+
+<P>　 当一个物件的有效使用者识别名称为 0, 则这个物件的使用者识别名称 (uid)　
+只能用 export_uid() 更改.
+
+<P>　 同时, 这个物件不能载入或是复制任何物件.</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="export_uid.html">export_uid(3)</A>, <A HREF="getuid.html">getuid(3)</A>,
+<A HREF="geteuid.html">geteuid(3)</A>, <A HREF="../calls/this_object.html">this_object(3)</A>,
+<A HREF="../../applies/master/valid_seteuid.html">valid_seteuid(4)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Jul.20.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../mudlib.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

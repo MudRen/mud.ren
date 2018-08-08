@@ -1,0 +1,172 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - parsing - parse_command</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>parse_command(3)　 MudOS v21c2　　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称：</FONT>
+<UL>　 parse_command() - 尝试以给定样式(pattern)来配对一个字符串
+<BR>　</UL>
+<FONT COLOR="#FFFFCC">　语法：</FONT>
+<UL>　 int parse_command( string command, object env|object *oblist, string
+pattern, mixed arg, ... );
+
+<P>　 整数 parse_command( 字符串 command, 物件 env|物件 *oblist, 字符串 pattern,
+混合 arg, ... );
+<BR>　</UL>
+<FONT COLOR="#FFFFCC">　用法：</FONT>
+<UL>　 parse_command() 是通过操作在字符串上 sscanf(3) 的。它的运作类似于有一个样式和一个目的参数之变量集合的
+sscanf(3)。它以传递其他变量的参照(refence)和数组的方式，结合唯一的外部函数(efun)
+sscanf(3)。因此，parse_command() 将返回值置于它的参数上。
+
+<P>　 若 'command' 配对成功，parse_command() 会返回 1。
+
+<P>　 参数 'env' 或是 'oblist' 不是一个物件就会是一个物件数组。如果它是单一物件的话，它将会以增加此物件的
+deep_inventory 方式来自动建立一个物件数组，例如下面这二个函数是等效的：
+<BR>　
+<UL><FONT COLOR="#99FF99">　　 parse_command(cmd, environment(), pattern,
+arg)</FONT></UL>
+　 和
+<BR>　
+<UL><FONT COLOR="#99FF99">　　 parse_command( cmd, ({ environment() })
++ deep_inventory(environment()), pattern, arg)</FONT></UL>
+　 假设有一个字符串是 " 'get' / 'take' %i "
+<BR>　 语法：
+<UL>　　 <FONT COLOR="#FFCC99">'word'</FONT>　　　　　　　　　 必备的文字(text)
+<BR>　　 <FONT COLOR="#FFCC99">[word]</FONT>　　　　　　　　　 可省略的文字
+<BR>　　 <FONT COLOR="#FFCC99">/</FONT>　　　　　　　　　　　　　　 选择性的记号(marker)
+<BR>　　 <FONT COLOR="#FFCC99">%o</FONT>　　　　　　　　　　　　　 单一项目(item),
+物件
+<BR>　　 <FONT COLOR="#FFCC99">%l</FONT>　　　　　　　　　　　　　 生物(living
+object)
+<BR>　　 <FONT COLOR="#FFCC99">%s</FONT>　　　　　　　　　　　　　 任何文字
+<BR>　　 <FONT COLOR="#FFCC99">%w</FONT>　　　　　　　　　　　　　 任何单字(word)
+<BR>　　 <FONT COLOR="#FFCC99">%p</FONT>　　　　　　　　　　　　　 串列(list)
+(介系词)
+<BR>　　 <FONT COLOR="#FFCC99">%i</FONT>　　　　　　　　　　　　　 任何项目
+<BR>　　 <FONT COLOR="#FFCC99">%d</FONT>　　　　　　　　　　　　　 数字
+0- 或是 tx(0-99)</UL>
+　 'arg' 串列可以是零个或是多个参数。这些是如同 sscanf 内的结果变量。注意到每一个变量都需要一个
+%。
+
+<P>　 不同 %_ 的返回类型是：
+<UL>　　 <FONT COLOR="#FFCC99">%o</FONT>　　　　　 返回一个物件
+<BR>　　 <FONT COLOR="#FFCC99">%s</FONT>　　　　　 返回单字的字符串
+<BR>　　 <FONT COLOR="#FFCC99">%w</FONT>　　　　　 返回单一单字的字符串
+<BR>　　 <FONT COLOR="#FFCC99">%p</FONT>　　　　　 可以是一个含有单字符串列的数组或是一个空变量
+<UL>　　　 返回：
+<UL>　　　　 如果是空变量：一个字符串
+<BR>　　　　 如果是数组：array[0] 就是配对的单字</UL>
+</UL>
+　　 <FONT COLOR="#FFCC99">%i</FONT>　　　　　 返回一个下列格式的特定数组：
+<UL><FONT COLOR="#FFCC99">　　　 [0] = (int) +(wanted) -(order) 0(all)</FONT>
+<BR><FONT COLOR="#FFCC99">　　　 [1..n] (object) 物件指针(objectpointers)</FONT></UL>
+　　 <FONT COLOR="#FFCC99">%l</FONT>　　　　　 返回一个下列格式的特定数组：
+<UL><FONT COLOR="#FFCC99">　　　 [0] = (int) +(wanted) -(order) 0(all)</FONT>
+<BR><FONT COLOR="#FFCC99">　　　 [1..n] (object) 物件指针</FONT>
+<UL>　　　　 这些都是生物。</UL>
+</UL>
+　　 <FONT COLOR="#FFCC99">%d</FONT>　　　　　 返回一个数值</UL>
+　　 用到所有已载入信息的 % 类型只有 %i 和 %l。事实上，除了 %l 在尝试剖析(parse)前会从所有物件串列中过滤掉非生物外，这些都是一样的。
+
+<P>　　 %i 和 %l 的返回值也是最复杂的。他们返回一个由数字带头，接着是所有可能配对之物件组成的数组。一个典型由
+%i、%l 配对的字符串看来像是 'three red roses'，在这之中有数个构造可以被配对：
+
+<P>　　 如果 numeral>0 则 tree, four, five 等会被配对；
+<BR>　　 如果 numeral&lt;0 则 second, twentyfirst 等会被配对；
+<BR>　　 如果 numeral==0 则 'all' 或是一般的复数形式如 'apples'会被配对。
+<BR>　</UL>
+<FONT COLOR="#FFFFCC">　注意！</FONT>
+<UL>　 这个外部函数(efun)不管给定数值的隐含语意。若给予 'all apples' 或是
+'second apple'，它都不会关心的。%i 将会返回所有数组内可以配对的物件。它留给调用者来决定
+'second' 在给定内容的意思。并且，当给定一个物件而非一个外显的(explicit)物件数组时，整个给定物件的递回内容将会被搜寻。它也留给调用者来决定实际上可看到的物件中，哪个是
+'second' ，而不是返回之物件数组中第二个物件。
+<BR>　</UL>
+<FONT COLOR="#FFFFCC">　警告：</FONT>
+<UL>　 "%s %w %i" 这些类型的样式可能不如预期的有用。%w 将总会成功，以至于相对于
+%s 的参数将总会是空的。
+<BR>　</UL>
+<FONT COLOR="#FFFFCC">　问题：</FONT>
+<UL>　 'word' 和 [word] 这类型的样式中，'word' 不能包含空白。它必须是单一单字。这是因为样式会以
+" " (空白) 来剖析，所以一个样式单元(element)不能含有空白。
+
+<P>　 以空白来剖析的另一个影响是，用来分隔一个样式的部份(piece)必须是以空白隔开，例如不能是
+" 'word'/%i " 而须是 " 'word' / %i"。
+<BR>　</UL>
+<FONT COLOR="#FFFFCC">　例子：</FONT>
+<UL>
+<UL><FONT COLOR="#99FF99">　　 if (parse_command("spray car",environment(this_player()),</FONT>
+<UL><FONT COLOR="#99FF99">　　　 " 'spray' / 'paint' [paint] %i ",items))</FONT>
+<BR><FONT COLOR="#99FF99">　　　 {</FONT>
+<BR>　　 /*
+<BR>　　 如果这个样式被配对的话，则 items 会返回在 'destargs'
+<BR>　　 之后如同上述 %i 的数组。
+<BR>　　 */
+<BR><FONT COLOR="#99FF99">　　　 }</FONT></UL>
+</UL>
+　</UL>
+<FONT COLOR="#FFFFCC">　 MUDLIB 之支援：</FONT>
+<UL>　 为了使这个外部函数有用，它必须有来自 mudlib 的支援，它需要一组函数让它在判断机制(sensible
+manner)内进行剖析前调用，以取得相关信息。
+
+<P>　 在早期的版本中，它使用在 LPC 物件中一般的 id() lfun 以找到一个特定字符串所指定的物件。由于它在剖析非常长的指令时，会产生数百甚至数千个调用，所以十分没有效率。
+
+<P>　 新的版本则依赖着提供这三个 'names' 串列的 LPC 物件。
+<BR>　
+<UL>　　 1 - 一般单一的名字；
+<BR>　　 2 - 复数格式的名字；
+<BR>　　 3 - 公认的物件形容词。</UL>
+　 以上可以由调用下列函数得到：
+<BR>　
+<UL><FONT COLOR="#FFCC99">　　 1 - string *parse_command_id_list();</FONT>
+<BR><FONT COLOR="#FFCC99">　　 2 - string *parse_command_plural_id_list();</FONT>
+<BR><FONT COLOR="#FFCC99">　　 3 - string *parse_command_adjectiv_id_list();</FONT></UL>
+　 真正唯一需要的串列是第一个。如果第二个不存在的话，这个外部函数将会试着由单一串列建立出来。因为文法上的因素，它并不是完美到总是会成功。尤其当
+'names' 不是单一单字而是片语时，更是如此。
+
+<P>　 The third is very nice to have because it makes constructs like
+<BR>　（译注：无法翻译此原文。）
+
+<P>　　 除了这些函数应该存在于所有物件外，最好它们能置于基本的 mudlib 物件内，当中也有一些函数是母物件(master
+object) 所需要的。这些虽不是绝对必须的，但它们真的给了这个外部函数额外的能力。
+
+<P>　 基本上，这些母物件的 lfuns 需要设定由每个物件得到之名称串列的预设值。
+
+<P>　 这些串列上的名字可应用于任何所有的物件上。在这些物件里的前三个对这些
+lfuns 是一样的：
+<BR>　
+<UL><FONT COLOR="#FFCC99">　　 string *parse_command_id_list()</FONT>
+<UL>　　　 - 一般会返回: <FONT COLOR="#FFCCCC">({ "one", "thing" })</FONT></UL>
+<FONT COLOR="#FFCC99">　　 string *parse_command_plural_id_list()</FONT>
+<UL>　　　 - 一般会返回: <FONT COLOR="#FFCCCC">({ "ones", "things", "them"
+})</FONT></UL>
+<FONT COLOR="#FFCC99">　　 string *parse_command_adjectiv_id_list()</FONT>
+<UL>　　　 - 一般会返回: <FONT COLOR="#FFCCCC">({ "iffish" })</FONT></UL>
+　</UL>
+　 最后二个是介系词的内定串列，所以：
+<UL><FONT COLOR="#FFCC99">　　 string *parse_command_prepos_list()</FONT>
+<UL>　　　 - 一般会返回: <FONT COLOR="#FFCCCC">({ "in", "on", "under" })</FONT></UL>
+<FONT COLOR="#FFCC99">　　 string parse_command_all_word()</FONT>
+<UL>　　　 - 一般会返回: <FONT COLOR="#FFCCCC">"all"</FONT></UL>
+</UL>
+　</UL>
+<FONT COLOR="#FFFFCC">　翻译：</FONT>
+<UL>　 Kenny@Broken.History　 97.Jul.26　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../parsing.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

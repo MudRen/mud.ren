@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - sockets - socket_write</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>socket_write(3)　 MudOS v21c2　　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称：</FONT>
+<UL>　 socket_write() - 通过一个 socket 传送数据</UL>
+<FONT COLOR="#FFFFCC">　语法：</FONT>
+<UL>　 #include &lt;socket_err.h>
+
+<P>　 int socket_write( int s, mixed message, void | string address );
+
+<P>　 整数 socket_write( 整数 s, 混合 message, 无参数 | 字符串 address );</UL>
+<FONT COLOR="#FFFFCC">　用法：</FONT>
+<UL>　 socket_write() 用一个 socket s 来传送数据。如果 socket s 是 STREAM
+或是 MUD 类型，这个 socket 就必须是已连接的(connected) 而且不能指定位址。如果
+socket 是 DATAGRAM 类型，就必须指定位址。位址的格式是 "127.0.0.1 23"。</UL>
+<FONT COLOR="#FFFFCC">　返回值：</FONT>
+<UL>　 socket_write() 返回：
+<BR>&nbsp;
+<UL>　　 成功时是 EESUCCESS。
+
+<P>　　 失败时是一个含有下述意义的负值。</UL>
+</UL>
+<FONT COLOR="#FFFFCC">　错误值：</FONT>
+<UL>　 EEFDRANGE　　　　　 描述值(descriptor)超出范围。
+
+<P>　 EEBADF　　　　　　　　 无效的描述值。
+
+<P>　 EESECURITY　　　　 企图违反安全。
+
+<P>　 EENOADDR　　　　　　 socket 未指定位址。
+
+<P>　 EEBADADDR　　　　　 位址格式问题。
+
+<P>　 EENOTCONN　　　　　 socket 尚未连接。
+
+<P>　 EEALREADY　　　　　 操作已在进行中。
+
+<P>　 EETYPENOTSUPP　 不支援此物件类型。
+
+<P>　 EEBADDATA　　　　　 传送数据含有太多层次。
+
+<P>　 EESENDTO　　　　　　 sendto 问题。
+
+<P>　 EEMODENOTSUPP　 不支援此 socket 类型。
+
+<P>　 EEWOULDBLOCK　　 操作将会停滞(blocked)。
+
+<P>　 EESEND　　　　　　　　 传送问题。
+
+<P>　 EECALLBACK　　　　 等待回呼(callback)中。</UL>
+<FONT COLOR="#FFFFCC">　参照：</FONT>
+<UL>　 <A HREF="socket_connet.html">socket_connect(3)</A>, <A HREF="socket_create.html">socket_create(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译：</FONT>
+<UL>　 Kenny@Broken.History　　　　　　 97.Jul.27　　　　　　 (printed
+3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../sockets.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

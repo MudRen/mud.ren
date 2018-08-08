@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - functions - bind</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>bind(3)　　 MudOS v21c2　 (5
+Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 bind() - 变更一个函数指针 (function pointer)　 所指向的函数.</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 function bind( function f, object ob )
+
+<P>　 函数指针 bind( 函数 f, 物件 ob )</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 返回一个指向 f 的函数指针, 但是指针属于物件 ob , 而不是创造 f 的物件.
+如果 f 的创造者被摧毁、f 是一个外部函数 (emulated function, 即 efun) 的指针、或是指针指向的外部函数会对
+this_object 做一些处理时, bind() 就很有用.
+<BR>　</UL>
+<FONT COLOR="#FFFFCC">　 范例:</FONT>
+<UL>
+<UL><FONT COLOR="#99FF99">　 void make_living(object ob) {</FONT>
+<UL><FONT COLOR="#99FF99">　　 function f;</FONT><FONT COLOR="#99FF99"></FONT>
+
+<P><FONT COLOR="#99FF99">　　 f = bind( (: enable_commands :), ob );</FONT><FONT COLOR="#99FF99"></FONT>
+
+<P><FONT COLOR="#99FF99">　　 evaluate(f);</FONT></UL>
+<FONT COLOR="#99FF99">　 }</FONT></UL>
+
+
+<P>　 以上例子的作用, 相当于物件 ob 自己处理 enable_commands() 的外部函数.
+注意 !! 这个例子会引发一些系统安全上的风险, 因为 bind() 可以让你强迫其他的物件执行一段源代码.
+为了要防止 bind() 被滥用, 有一个主控物件函数 (master apply) valid_bind()
+可以用来决定 bind() 的执行与否. 调用 bind() 时, 如果 valid_bind() 返回
+1 即可执行, 返回 0 就无法执行.</UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 96.Oct.16.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../functions.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

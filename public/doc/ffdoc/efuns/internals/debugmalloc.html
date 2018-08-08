@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - internals - debugmalloc</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>debugmalloc(3)　 MudOS v21c2　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 debugmalloc() - 将已配置的内存 (malloc'd memory) 信息倾印到一个文件里.</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 void debugmalloc( string filename, int mask );
+
+<P>　 无返回值 debugmalloc( 字符串 filename, 整数 mask );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 这个外部函数 (efun) 必须在编译驱动程序 (driver) 时, 于 options.h　
+同时定义 DEBUGMALLOC 和 DEBUGMALLOC_EXTENSIONS　 两者才有效. debugmalloc()
+会倾印 DMALLOC()　 配置的内存区块的信息及相关的 macros. (如果 macro 有
+mask bitwise and'd (&amp;) with the tag, 即 mask &amp; tag　 不是零) 详细情形请参阅驱动程序原始码中的
+md.c 及 config.h</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="set_malloc_mask.html">set_malloc_mask(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Jul.23.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../internals.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

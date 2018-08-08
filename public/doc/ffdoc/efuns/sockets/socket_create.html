@@ -1,0 +1,84 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - sockets - socket_create</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>socket_create(3)　 MudOS v21c2　　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称：</FONT>
+<UL>　 socket_create() - 建立一个 efun socket</UL>
+<FONT COLOR="#FFFFCC">　语法：</FONT>
+<UL>　 #include &lt;socket_err.h>
+
+<P>　 int socket_create( int mode, string read_callback, void | string close_callback
+);
+
+<P>　 整数 socket_create( 整数 mode, 字符串 read_callback, 无参数 | 字符串 close_callback
+);</UL>
+<FONT COLOR="#FFFFCC">　用法：</FONT>
+<UL>　 socket_create() 建立一个 efun socket。mode 决定了要建立哪种类型的
+socket。目前支援的 socket 类型有：
+
+<P>　 MUD　　　　　　　　 以 TCP 协议传送 LPC 数据。
+
+<P>　 STREAM　　　　　 以 TCP 协议传送原始数据。
+
+<P>　 DATAGRAM　　　 以 UDP 协议传送数据。
+
+<P>　 read_callback 这个参数是给驱动程序在 socket 由对方接到数据时调用用的函数名称。这个读取回呼(callback)函数应该是如下格式：
+<BR>&nbsp;
+<UL><FONT COLOR="#FFCC99">　　 void read_callback(int fd, mixed message)</FONT></UL>
+
+
+<P>　 这里的 fd 是接收数据的 socket，而 message 是接收到的数据。
+
+<P>　 close_callback 这个参数是给驱动程序在 socket 不正常关闭时调用的函数名称，如不同于
+socket_close() 的调用结果。这个关闭回呼函数应该是如下格式：
+<BR>&nbsp;
+<UL><FONT COLOR="#FFCC99">　　 void close_callback(int fd)</FONT></UL>
+
+
+<P>　 这里的 fd 是已被开闭的 socket。注意：close_callback 不能用在 DATAGRAM
+类型的 socket 上。</UL>
+<FONT COLOR="#FFFFCC">　返回值：</FONT>
+<UL>　 socket_create() 返回：
+<BR>&nbsp;
+<UL>　　 成功时是一个非负的描述值(descriptor)。
+
+<P>　　 失败时是一个下列意义的负值。</UL>
+</UL>
+<FONT COLOR="#FFFFCC">　错误值：</FONT>
+<UL>　 EEMODENOTSUPP　 不支援此 socket 类型。
+
+<P>　 EESOCKET　　　　　　 建立 socket 的问题。
+
+<P>　 EESETSOCKOPT　　 setsockopt 的问题。
+
+<P>　 EENONBLOCK　　　　 设定非停滞(non-blocking)模式的问题。
+
+<P>　 EENOSOCKS　　　　　 没有多余的 efun sockets。
+
+<P>　 EESECURITY　　　　 企图违反安全。</UL>
+<FONT COLOR="#FFFFCC">　参照：</FONT>
+<UL>　 <A HREF="socket_accept.html">socket_accept(3)</A>, <A HREF="socket_bind.html">socket_bind(3)</A>,
+<A HREF="socket_close.html">socket_close(3)</A>, <A HREF="socket_connet.html">socket_connect(3)</A>,
+<A HREF="socket_listen.html">socket_listen(3)</A>, <A HREF="socket_write.html">socket_write(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译：</FONT>
+<UL>　 Kenny@Broken.History　 97.Jul.26　　　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../sockets.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

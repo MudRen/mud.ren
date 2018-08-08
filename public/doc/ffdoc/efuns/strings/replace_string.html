@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - strings - replace_string</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>replace_string(3) MudOS v21c2　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 replace_string() - 替换一个字符串中符合条件的字.</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 string replace_string( str, pattern, replace );
+<BR>　 string replace_string( str, pattern, replace, max );
+<BR>　 string replace_string( str, pattern, replace, first, last );
+
+<P>　 string str, pattern replace;
+<BR>　 int max, first, last;
+
+<P>　 字符串 replace_string( str, pattern, replace );
+<BR>　 字符串 replace_string( str, pattern, replace, max );
+<BR>　 字符串 replace_string( str, pattern, replace, first, last );
+
+<P>　 字符串 str, pattern replace;
+<BR>　 整数 max, first, last;</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 replace_string() 将 str 中所有符合条件的字 pattern 替换成指定的字
+replace. 如果 pattern 没有内容 (为零) , 就返回原来的 str . 如果返回的字符串超过定义的最大字符串长度,
+则返回一个 undefindp() 返回 1, stringp() 返回 0　 的值.
+
+<P>　 replace_string() 可以指定 replace　 为空的字符串, 以用来除去字符串中特定的字.
+举例来说: <FONT COLOR="#99FF99">replace_string(" 1 2 3 ", " ", "")</FONT>
+会返回 "123". replace_string() 执行的速度比用 explode() 和 implode() 快.
+
+<P>　 第四和第五个参数可有可无 (这是为了相容于以前的版本). 这两个附加的参数有以下的功用:
+
+<P>　 第四个参数 first:
+
+<P>　 指定同一个字符串最多替换几次 (从 1　 开始算). 如果这里指定为 0, 就当作是全部都换.
+所以 r<FONT COLOR="#99FF99">eplace_string("xyxx", "x", "z", 2)</FONT> 会返回
+"zyzx".
+
+<P>　 第五个参数 last:
+
+<P>　 第五个参数限制符合条件的范围:
+<BR>　 first &lt; 1: 从头开始全部替换.
+<BR>　 last == 0 或 last > 最高符合数(max_matches): 全部替换到最后.
+<BR>　 first > last: 完全不改变.
+<UL>　　 举例:
+<UL><FONT COLOR="#99FF99">replace_string("xyxxy", "x", "z", 2, 3) 返回
+"xyzzy".</FONT></UL>
+</UL>
+</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="sscanf.html">sscanf(3)</A>, <A HREF="explode.html">explode(3)</A>,
+<A HREF="strsrch.html">strsrch(3)</A></UL>
+<FONT COLOR="#FFFFCC">　作者:</FONT>
+<UL>　 Zak@TMI-2 撰写限制条件的部份.</UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Jun.2.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../strings.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

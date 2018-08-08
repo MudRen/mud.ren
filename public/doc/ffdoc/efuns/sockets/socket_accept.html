@@ -1,0 +1,90 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - sockets - socket_accept</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>socket_accept(3)　 MudOS v21c2　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称：</FONT>
+<UL>　 socket_accept() - 接受一个 socket 的连接(connection)
+<BR>　</UL>
+<FONT COLOR="#FFFFCC">　语法：</FONT>
+<UL>　 #include &lt;socket_err.h>
+
+<P>　 int socket_accept( int s, string read_callback, string write_callback
+);
+
+<P>　 整数 socket_accept( 整数 s, 字符串 read_callback, 字符串 write_callback
+);
+<BR>　</UL>
+<FONT COLOR="#FFFFCC">　用法：</FONT>
+<UL>　 参数 s 是一个已用 socket_create(3) 建立、用 socket_bind(3) 指定了一个位址，并且正倾听(listen)在
+socket_listen(3) 之后连接的 socket。socket_accept() 从未处理(pending)的连接序列中选取第一个连接，建立一个和
+s 相同属性的新 socket 并且配置一个新的描述值(descriptor)。如果在序列中没有未处理的连接，socket_accept()
+会返回如后面会提到的错误值。这个被接受的 socket 将被用来从相连的另一端读写数据；它不能用来接受别的连接。原先的
+socket s 则保持开启以接受未来的连接。
+
+<P>　 read_callback 这个参数是给驱动程序在一个新的 socket（不是正要接受的
+socket）接收数据时调用的函数名称。这个读取回呼函数 (callback) 应该是下列格式：
+<BR>　
+<UL><FONT COLOR="#FFCC99">　　 void read_callback(int fd)</FONT></UL>
+　 这里的 fd 是准备接收数据的 socket。
+
+<P>　 write_callback 这个参数是给驱动程序在新的 socket（不是正要接受的
+socket）准备好写入时调用的函数名称。这个写入回呼函数应该是下列格式：
+<BR>　
+<UL><FONT COLOR="#FFCC99">　　 void write_callback(int fd)</FONT></UL>
+　 这里的 fd 是准备好写入的 socket。
+
+<P>　 注意：如果新 socket 不正常关闭，譬如和 socket_close(3) 的调用结果不同的话，则会调用正要接受的
+socket（不是新的 socket）的 close_callback。这个关闭回呼函数应该是如下格式：
+<BR>　
+<UL><FONT COLOR="#FFCC99">　　 void close_callback(int fd)</FONT></UL>
+　 这里的 fd 是已关闭的 socket。
+<BR>　</UL>
+<FONT COLOR="#FFFFCC">　返回值：</FONT>
+<UL>　 socket_accept() 在成功时会返回一个对于已接受 socket 的非负数描述值。失败时，它返回一个负值。socket_error(3)
+可以用来得到这个错误码的文字语句。
+<BR>　</UL>
+<FONT COLOR="#FFFFCC">　错误值：</FONT>
+<UL>　 EEFDRANGE　　　　　 描述值超出范围。
+
+<P>　 EEBADF　　　　　　　　 无效的描述值。
+
+<P>　 EESECURITY　　　　 企图违反安全。
+
+<P>　 EEMODENOTSUPP　 不支援此 socket 类型。
+
+<P>　 EENOTLISTN　　　　 socket 不在倾听中。
+
+<P>　 EEWOULDBLOCK　　 操作将被停滞(block)。
+
+<P>　 EEINTR　　　　　　　　 中断的系统调用。
+
+<P>　 EEACCEPT　　　　　　 接受问题。
+
+<P>　 EENOSOCKS　　　　　 没有多余的 efun sockets。
+<BR>　</UL>
+<FONT COLOR="#FFFFCC">　参照：</FONT>
+<UL>　 <A HREF="socket_bind.html">socket_bind(3)</A>, <A HREF="socket_connet.html">socket_connect(3)</A>,
+<A HREF="socket_create.html">socket_create(3)</A>, <A HREF="socket_listen.html">socket_listen(3)</A>
+<BR>　</UL>
+<FONT COLOR="#FFFFCC">　翻译：</FONT>
+<UL>　 Kenny@Broken.History　 97.Jul.26　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../sockets.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - strings - break_string</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>break_string(3)　 MudOS v21c2　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 break_string() - 以固定的间隔打断一个字符串 (string).</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 string break_string( string str | int foobar, int len, void | int
+indent | string indent );
+
+<P>　 字符串 break_string( 字符串 str 或 整数 foobar, 整数 len, 无参数 或 整数
+indent 或 字符串 indent );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 break_string() 以每 len　 个字符 (character) 打断一个没有换行的字符串,
+并在每一个打断的片段后面换行. 如果 indent 是一个字符串, 那每个片段在换行之前会加上
+indent.
+
+<P>　 如果第一个参数 (argument) 是一个整数, break_string() 就只会返回 0.</UL>
+<FONT COLOR="#FFFFCC">　错误:</FONT>
+<UL>　 break_string()　 的处理完全与字符串内容无关. 这个函数不会认得句号 '.'
+和换行 '\n' .　 所以这个函数执行的结果, 不见得会如你预期的一样. 我的经验是:
+您应该在句号之后加一个空白, 也别加上 '\n' , 然后再使用 break_string().
+您也许不会喜欢用 break_string() 提供的格式. 在往后 MudOS 的版本里, 也许会让
+break_string() 认得 '\n' .</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="implode.html">implode(3)</A>, <A HREF="explode.html">explode(3)</A>,
+<A HREF="sprintf.html">sprintf(3)</A></UL>
+<FONT COLOR="#FFFFCC">　作者:</FONT>
+<UL>　 Cygnus</UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 96.Oct.16.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../strings.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

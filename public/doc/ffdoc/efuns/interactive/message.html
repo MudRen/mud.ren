@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - interactive - message</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>message(3)　 MudOS v21c2　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 message() - 送消息给活着的 (living) 物件.</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 void message( mixed class, string message, mixed target, mixed exclude
+);
+
+<P>　 无返回值 message( 混合 class, 字符串 message, 混合 target, 混合 exclude
+);</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 message() 调用目标名单中所有物件 (除了 exclude 名单以外) 的 receive_message(
+混合 class, 字符串 message ) 函数. 这样基本上只是告诉此物件一个消息.
+<BR>　
+<BR>　 class 是此段消息的种类, 用于处理消息的介面之类的地方. 例如 combat,
+shout, emergency 等等.
+
+<P>　 message 是欲送出的消息字符串.
+
+<P>　 target 是欲送达消息的物件名单, 可以是一个物件或物件指针 (pointer).
+如果目标是一个非活着的 (non-living) 的物件, 在此物件内的所有物件都会收到消息.
+
+<P>　 exclude 是不应收到此消息的物件名单, 可以是一个物件或物件数组 (array).</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="say.html">say(3)</A>, <A HREF="write.html">write(3)</A>,
+<A HREF="shout.html">shout(3)</A>, <A HREF="../objects/tell_object.html">tell_object(3)</A>,
+<A HREF="../objects/tell_room.html">tell_room(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Apr.15.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../interactive.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

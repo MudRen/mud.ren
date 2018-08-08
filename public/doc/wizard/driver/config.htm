@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0045)http://micro.go2game.com/gm/driver/config.htm -->
+<HTML><HEAD><TITLE>MUD 系统架设</TITLE>
+<META content="text/html; charset=gb2312" http-equiv=Content-Type><LINK 
+rel=stylesheet type=text/css href="../home.css">
+<META name=GENERATOR content="MSHTML 9.00.8112.16437"></HEAD>
+<BODY class=body_bg>
+<TABLE class=page_bg align=center>
+  <TBODY>
+  <TR>
+    <TD>
+      <TABLE class=table_top align=center>
+        <TBODY>
+        <TR>
+          <TD>运行配置文件</TD></TR></TBODY></TABLE>
+      <TABLE class=table align=center>
+        <TBODY>
+        <TR>
+          <TD>
+            <ADDRESS>&nbsp;[<A 
+            href="../">首页</A>][<A 
+            href="../driver">前页</A>]</ADDRESS></TD></TR>
+        <TR>
+          <TD><BR><PRE>######################################################################
+#                                                                    #
+#         MudOS v22b12 for Windows 运行配置文件（config.cfg）        #
+#                                                                    #
+# ------------------------------------------------------------------ #
+#                                                                    #
+# 注释：1. 除了 MudLib 和 Binary 目录要设置绝对路径外，其它路径都是  #
+#          相对 MudLib 目录的表示方法。                              #
+#       2. 任何以“#”或者换行符号开头的行均属于注释行。             #
+#                                                                    #
+# ------------------------------------------------------------------ #
+# Translate By Micro@TianXia (1997-08-09)                            #
+######################################################################
+
+
+# 设置：游戏名称
+# 注释：1. 在游戏程序中使用到的 MUD_NAME 宏定义。
+name : 天下
+
+# 设置：游戏端口
+# 注释：1. 玩家连线时使用的端口数值。
+#       2. 请选择使用一个空白的端口。
+port number : 3428
+ 
+# 设置：域名服务器地址和端口
+# 注释：1. 域名服务器可以使游戏将域名转换为地址数据。
+#       2. 请选择使用一个空白的端口。
+address server ip : localhost
+address server port : 3428
+ 
+# 设置：游戏执行程序 Binary（Driver/Config）路径        （绝对路径）
+binary directory : /TianXia
+
+# 设置：游戏运行库 MudLib 路径                          （绝对路径）
+mudlib directory : /TianXia
+
+# 设置：头文件路径                                      （相对路径）
+# 注释：1. 如果存在多个路径，请用“:”符号进行分隔。
+include directories : /inc
+
+# 设置：全程定义头文件文件名                            （相对路径）
+# 注释：1. 因为这是全程定义，所以往后不必再 #include 这个头文件。
+global include file : <GLOBALS.H>
+
+# 设置：保存二进制文件目录路径                          （相对路径）
+# 注释：1. 如果 BINARIES 已经定义，才会收到效果。
+save binaries directory : /bin
+
+# 设置：Simulated Efun 文件文件名                       （相对路径）
+# 注释：1. 系统启动时载入的第一个对象。
+simulated efun file : /sys/object/simul_efun
+
+# 设置：Master 文件文件名                               （相对路径）
+# 注释：1. 系统启动时载入的第二个对象。
+master file : /sys/object/master
+
+# 设置：交换文件文件名                                  （相对路径）
+swap file : /sys/swap/swapfile
+
+# 设置：日志文件路径                                    （相对路径）
+log directory : /log
+
+# 设置：查错日志文件文件名                              （相对路径）
+debug log file : debug.log
+
+######################################################################
+#                                                                    #
+#                         较少使用的运行设置                         #
+#                                                                    #
+######################################################################
+
+# 设置：交换时间
+# 注释：1. 如果主机拥有大量的玩家和很少的内存，可以设置为：  900
+#       2. 如果主机拥有少量的玩家和较多的内存，可以设置为：10000
+#       3. 如果主机拥有无限的内存，            可以设置为：    0
+time to swap : 120
+
+# 设置：整理时间
+# 注释：1. 一个对象正当整理期间，会自动呼叫 clean_up 函数。这个函数能做
+#          任何事情，包括把对象清除，但是如果你没有定义这个函数时，将什
+#          么也不会发生。
+#       2. 整理时间要充分长于交换时间的设置。
+time to clean up : 180
+
+# 设置：复位时间
+time to reset : 900
+
+# 设置：函数允许的最大本地变量数
+maximum local variables : 50
+
+# 设置：数组允许的最大数目
+maximum array size : 15000
+
+# 设置：位域允许的最大位数
+maximum bits in a bitfield : 1200
+
+# 设置：String 变量允许的最大长度
+maximum string length : 200000
+
+# 设置：Buffer 类型变量允许的最大尺寸
+maximum buffer size : 400000
+
+# 设置：Mapping 类型变量允许的最大尺寸
+maximum mapping size : 15000
+
+# 设置：继承链允许的最大深度
+inherit chain size : 30
+
+# 设置：Read_file() 函数读出内容的最大允许尺寸
+maximum read file size : 200000
+
+# 设置：Read_bytes() 和 Write_bytes() 函数处理内容的最大允许尺寸
+maximum byte transfer : 10000
+
+# 设置：Malloc() 函数能保留扩展内存的最大允许尺寸
+# 注释：1. 如果取值为零，则不保留任何内存
+reserved size : 0
+
+# 设置：最大的评估代价
+# 注释：1. 如果超越这个数值（最初设置300000），将会造成死锁。
+maximum evaluation cost : 500000
+
+# 设置：共享字串哈希表尺寸
+# 注释：1. 这是最初的设置值，取值或许在 1000 至 30000 之间。
+#       2. 如果设置的数目是所有独特字符总数的 1/5 时，你可能会在寻找一
+#          个字串进行比较时得到很接近于 1 的碰撞比率。因为找到字串将自
+#          动被移动到哈希字串链的首部。根本不需要更多，你将会在一个更
+#          小的表里一直得到好的结果
+hash table size : 4096
+
+# 设置：对象哈希表尺寸
+# 注释：1. 对象哈希表尺寸的设置有些类似于共享字串哈希表尺寸的设置。
+#       2. 或许应设置为游戏对象总数的 1/4，因为对对象通路的分配显得比
+#          字串会更加一致。
+object table size : 4096
+
+# 设置：缺省失败动作信息
+default fail message : [1;33m你发现自己不知道在做些什么。[2;37;0m
+
+# 设置：缺省 Error() 函数发生信息
+default error message : [1;33m你发现事情不大对了，但是又说不上来。[2;37;0m
+
+######################################################################
+#                                                                    #
+#                         极少使用的运行设置                         #
+#                                                                    #
+######################################################################
+
+# 设置：游戏允许最大玩家数目
+maximum users : 1000
+
+# 设置：计算堆栈最大尺寸
+evaluator stack size : 1000
+
+# 设置：编译堆栈最大尺寸
+compiler stack size : 200
+
+# 设置：函数调用最大深度
+maximum call depth : 30
+
+# 设置：活动对象哈希表最大尺寸
+# 注释：1. 这个数值被 Find_living() 函数所使用。
+living hash table size : 1024
+</PRE><BR></TD></TR>
+        <TR>
+          <TD align=right>
+            <ADDRESS>[<A 
+            href="#top">回到顶部</A>]&nbsp;</ADDRESS></TD></TR></TBODY></TABLE>
+      <TABLE class=table_bottom align=center>
+        <TBODY>
+        <TR>
+          <TD>天下创作室</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></BODY></HTML>

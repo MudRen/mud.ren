@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考资料 - lpc - types - buffer</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER>
+<H1>
+<FONT COLOR="#FF99FF">buffer</FONT></H1></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+
+<P>缓冲区 (buffer) 介于 LPC　 数组 (array) 形态和 LPC 字符串形态之间.
+<BR>缓冲区的目的是便于操作二进位数据.
+<BR>缓冲区不是「零值终止」(zero-terminated) ［就是说, buffer　 有一个联合长度
+(associated length)］.
+<BR>缓冲区是一个字节 (bytes)　 的数组, 而每个元素只有一个字节.
+<UL><FONT COLOR="#FFCC99">buf[i] = x 和 x = buf[i];</FONT>
+<BR><FONT COLOR="#FFCC99">sizeof(buf);</FONT>
+<BR><FONT COLOR="#FFCC99">bufferp(buf);</FONT>
+<BR><FONT COLOR="#FFCC99">buf[i..j];</FONT>
+<BR><FONT COLOR="#FFCC99">buff = read_buffer(file_name, ...); (参数与 read_bytes
+相同)</FONT>
+<BR><FONT COLOR="#FFCC99">int write_buffer(string file, int start, mixed
+source);</FONT>
+<BR><FONT COLOR="#FFCC99">buf = buf1 + buf2;</FONT>
+<BR><FONT COLOR="#FFCC99">buf += buf1;</FONT>
+<BR><FONT COLOR="#FFCC99">buf = allocate_buffer(size);</FONT></UL>
+以上这些语法都能使用.
+
+<P>socket 的外部函数已经过修改, 可以接受并返回缓冲区形态. (STREAM_BINARY
+(3) 和 DATAGRAM_BINARY (4)　 模式.)
+
+<P>
+<HR WIDTH="100%">
+<CENTER><FONT COLOR="#FFFFCC">翻译: Spock @ FF 97.Aug.10.</FONT></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../types.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

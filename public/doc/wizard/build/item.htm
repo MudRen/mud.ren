@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0042)http://micro.go2game.com/gm/build/item.htm -->
+<HTML><HEAD><TITLE>MUD 内容设计</TITLE>
+<META content="text/html; charset=gb2312" http-equiv=Content-Type><LINK 
+rel=stylesheet type=text/css href="../home.css">
+<META name=GENERATOR content="MSHTML 9.00.8112.16437"></HEAD>
+<BODY class=body_bg>
+<TABLE class=page_bg align=center>
+  <TBODY>
+  <TR>
+    <TD>
+      <TABLE class=table_top align=center>
+        <TBODY>
+        <TR>
+          <TD>如何设计物品</TD></TR></TBODY></TABLE>
+      <TABLE class=table align=center>
+        <TBODY>
+        <TR>
+          <TD>
+            <ADDRESS>&nbsp;[<A 
+            href="../">首页</A>][<A 
+            href="../build">前页</A>]</ADDRESS></TD></TR>
+        <TR>
+          <TD><BR>　　在 es2 mudlib 所定义的世界里，除了房间跟生物以外，所有使用者看得见摸得到的物品都会继承 ITEM 
+            这个标准物件，包括你身上携带的所有东西跟房间里看得到的东西。事实上所有的生物也具有一切 ITEM 
+            所具有的特性跟函数，但是因为生物在许多方面的特性和其它物品不同，因此独立开来，而房间是因为它是一个「假想」的容器，用来容纳生物跟物品，不像生物跟物品可以到处移动和被检视。<BR><BR>　　说到移动被检视，我们可以从这里引导出「物品」的定义了，es2 
+            mudlib 定义「凡是可以被移动和被检视的物件」称为「物品」，什么意思呢？请你用 ilist 观察 ITEM 这个标准物件( 通常是 
+            /std/item.c，见 /include/globals.h )，你可以看到它继承了 F_NAME 
+            (/feature/name.c) 跟 F_MOVE (/feature/move.c) 两个特性。<BR><BR>　　F_NAME 
+            定义一个物件的 name()、short()、long() 跟提供 present() 这个 efun 
+            辨认一个物品的介面，并且也处理物品的隐形和其他有关「名称」的杂务。<BR><BR>　　F_MOVE 定义 move() 
+            这个函数使得物件可以被放入另一个物件中( 这里指的是由 MudOS 所提供的 mud 世界中物品位置关系，而不是资料结构上的关系 
+            )，并且合并处理所有物品移动之后重量和负重量的计算。<BR><BR>　　物品范例<BR><PRE>// An example item
+
+inherit ITEM;
+
+void create()
+{
+    set_name("石块", ({ "stone rock", "stone", "rock" }));
+    set_weight(500);
+    if( !clonep() ) {
+        set("unit", "块");
+        set("long", "一块毫不起眼的石块。\n");
+    }
+    setup();
+}
+</PRE>　　上面就是一个简单的物品范例，不要小看这个简单的物件，让我一行一行地解释每一道叙述的意义后你就知道为什么。<BR><PRE>inherit ITEM;
+</PRE>　　这一行表示我们写的这个物件要继承 ITEM 这个标准物件，事实上 ITEM 是我们定义在 globals.h 
+            的巨集，可是我们明明没有 #include <GLOBALS.H>啊？ 是的，globals.h 是我们执行 MudOS 时设定的 
+            default include file，MudOS 在编译所有的物件时会自动引含他的内容，es2 mudlib 
+            将一些常用的标准物件定义成巨集放在这个档案里，让巫师写的程式看起来简洁一些，并且预防万一以后更动了标准物件的路径时，不必一个一个修改所有继承他的物件。<BR><BR>　　你可以看到这个物件只有一个 
+            create() 函数，这个函数有点类似 C++ 中 class 的 constructor，用来做一个物件的初始化工作，不过 
+            create() 不会传入任何参数，详细细艇i以参考 help create。<BR><BR>　　create() 
+            函数所要做的工作就是将物件初始化，在 create() return 
+            之后这个物件就会被放在它该在的地方，并且在该被呼叫的时候被呼叫适当的函数，这种程式设计的方法和 Windows 
+            环境下所谓的事件驱动程式设计很像，只不过我们可以直接定义对应某一事件的函数( 因为 LPC 的函数是 runtime linking 
+            )，上面讲的如果你看不懂，没有关系，只是提供修过程式语言的人做参考。<BR><BR>　　set_name() 这个函数是 F_NAME 
+            所提供的用来快速设定一个物品名称的介面，第一个参数是物品的中文名称，在大部份跟物品有关的指令产生的讯息中，用的就是这个名称，第二个参数是一个阵列，里面列出的是所有可以用来指定这项物品的英文名称，而且阵列的第一个元素会成为这个物品的英文 
+            id，常常被放在中文名称后面的括号中。<BR><BR>　　set_weight() 是 F_MOVE 
+            所提供用来设定一个物品的重量，es2 
+            所用的单位是公克，如果你改写整个游戏制度的话，用其它单位也无妨，只要一致就好了。<BR><BR>　　if( !clonep() ) 
+            ... 这一行是 es2 mudlib 用来节省记忆体的一种方法，当物件的 create() 在物件被复制时被呼叫( clonep() 
+            传回非零值 
+            )时，我们假设记忆体中已经存有一份相同的物件，并且已经在第一次载入的时候设定好接下来我们将要设定的东西，因此我们让这个被复制的物件和先前载入的物件去共用这些资料，在概念上类似 
+            Java 的 static final 常数，但是因为 LPC 的支援不够，因此我们用函数自己摹拟，这项功能由 F_DBASE 
+            提供，所以只能共用 set() 所设定的东西，有兴趣的话可以参考 F_DBASE 的文件。<BR><BR>　　在 if( 
+            !clonep() ) { ..... 的部份我们设定了一些物品的属性，上面的范例中只设定了 unit 跟 long，unit 
+            是这个物品的计数单位，long 是物品的详细外观，想必不难猜得出来。<BR><BR>　　最后一行的 setup() 定义在 ITEM 
+            里，用来帮你补足你忘了设定的东西跟检查错误，不管你写任何物品，记得加上这一行就对了。<BR><BR>By 
+            Annihilator(04/06/96)<BR><BR></TD></TR>
+        <TR>
+          <TD align=right>
+            <ADDRESS>[<A 
+            href="#top">回到顶部</A>]&nbsp;</ADDRESS></TD></TR></TBODY></TABLE>
+      <TABLE class=table_bottom align=center>
+        <TBODY>
+        <TR>
+          <TD>天下创作室</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></BODY></HTML>

@@ -1,0 +1,77 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - lpc - constructs - if</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER>
+<H1>
+<FONT COLOR="#FF99FF">if</FONT></H1></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><FONT COLOR="#FFFFCC">* if 与 else 语句:</FONT></CENTER>
+
+<HR WIDTH="100%">
+
+<P>LPC 的 if 语句与 C 提供的相同. 语法如下:
+<UL><FONT COLOR="#FFCC99">if (运算式)</FONT>
+<UL><FONT COLOR="#FFCC99">语句;</FONT></UL>
+</UL>
+第二种语法:
+<UL><FONT COLOR="#FFCC99">if (运算式) {</FONT>
+<UL><FONT COLOR="#FFCC99">语句;</FONT></UL>
+<FONT COLOR="#FFCC99">}</FONT></UL>
+第三种:
+<UL><FONT COLOR="#FFCC99">if (运算式一) {</FONT>
+<UL><FONT COLOR="#FFCC99">　语句一;</FONT></UL>
+<FONT COLOR="#FFCC99">} else {</FONT>
+<UL><FONT COLOR="#FFCC99">　语句二;</FONT></UL>
+<FONT COLOR="#FFCC99">}</FONT></UL>
+第四种:
+<UL><FONT COLOR="#FFCC99">if (运算式一) {</FONT>
+<UL><FONT COLOR="#FFCC99">语句一;</FONT></UL>
+<FONT COLOR="#FFCC99">} else if (运算式二) {</FONT>
+<UL><FONT COLOR="#FFCC99">运算式二;</FONT></UL>
+<FONT COLOR="#FFCC99">}</FONT></UL>
+else if 子句没有什么数量上的限制.
+
+<P>
+<HR WIDTH="100%">
+
+<P>另一个好用的程序结构是 <FONT COLOR="#FFCC99">? :</FONT> 运算符. 它与
+C 提供的一样. 语法如下:
+
+<P>　　　 运算式一 <FONT COLOR="#FFCC99">?</FONT> 运算式一为<FONT COLOR="#FF6666">真</FONT>则进行运算式二
+<FONT COLOR="#FFCC99">:</FONT> 运算式一为<FONT COLOR="#FF6666">假</FONT>则进行运算式三
+
+<P>某些情形下, <FONT COLOR="#FFCC99">? :</FONT> 算是以下程序结构的缩写:
+
+<P>　　　 if (运算式一)
+<BR>　　　　　　　 变量 = 运算式二;
+<BR>　　　 else
+<BR>　　　　　　　 变量 = 运算式三;
+
+<P>上面这段程序可以转换成下面这行:
+
+<P>　　　 变量 = 运算式一 <FONT COLOR="#FFCC99">?</FONT> 运算式二 <FONT COLOR="#FFCC99">:</FONT>
+运算式三;
+
+<P>
+<HR WIDTH="100%">
+<CENTER><FONT COLOR="#FFFFCC">翻译: Spock @ FF 97.Aug.9.</FONT></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../constructs.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

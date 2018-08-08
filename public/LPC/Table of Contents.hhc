@@ -1,0 +1,1160 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<!-- Sitemap 1.0 -->
+</HEAD><BODY>
+<OBJECT type="text/site properties">
+	<param name="ImageType" value="Folder">
+</OBJECT>
+<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="《管理员守则》">
+		<param name="Local" value="rules.html">
+		<param name="ImageNumber" value="12">
+		</OBJECT>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="阵列相关函数(arrays)">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="allocate">
+			<param name="Local" value="efuns/arrays/allocate.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="filter_array">
+			<param name="Local" value="efuns/arrays/filter_array.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="map_array">
+			<param name="Local" value="efuns/arrays/map_array.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="member_array">
+			<param name="Local" value="efuns/arrays/member_array.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="sort_array">
+			<param name="Local" value="efuns/arrays/sort_array.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="unique_array">
+			<param name="Local" value="efuns/arrays/unique_array.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="缓冲区相关函数(buffers)">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="allocate_buffer">
+			<param name="Local" value="efuns/buffers/allocate_buffer.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="crc32">
+			<param name="Local" value="efuns/buffers/crc32.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="read_buffer">
+			<param name="Local" value="efuns/buffers/read_buffer.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="write_buffer">
+			<param name="Local" value="efuns/buffers/write_buffer.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="调用相关函数(calls)">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="call_other">
+			<param name="Local" value="efuns/calls/call_other.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="call_out">
+			<param name="Local" value="efuns/calls/call_out.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="call_out_info">
+			<param name="Local" value="efuns/calls/call_out_info.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="call_stack">
+			<param name="Local" value="efuns/calls/call_stack.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="catch">
+			<param name="Local" value="efuns/calls/catch.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="find_call_out">
+			<param name="Local" value="efuns/calls/find_call_out.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="origin">
+			<param name="Local" value="efuns/calls/origin.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="previous_object">
+			<param name="Local" value="efuns/calls/previous_object.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="remove_call_out">
+			<param name="Local" value="efuns/calls/remove_call_out.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="编译相关函数(compile)">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="generate_source">
+			<param name="Local" value="efuns/compile/generate_source.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="数据库相关函数(dbase)">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="db_affected">
+			<param name="Local" value="efuns/dbase/db_affected.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="db_close">
+			<param name="Local" value="efuns/dbase/db_close.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="db_commit">
+			<param name="Local" value="efuns/dbase/db_commit.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="db_connect">
+			<param name="Local" value="efuns/dbase/db_connect.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="db_exec">
+			<param name="Local" value="efuns/dbase/db_exec.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="db_fetch">
+			<param name="Local" value="efuns/dbase/db_fetch.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="db_rollback">
+			<param name="Local" value="efuns/dbase/db_rollback.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="db_status">
+			<param name="Local" value="efuns/dbase/db_status.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="文件处理相关函数(filesystem)">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="cp">
+			<param name="Local" value="efuns/filesystem/cp.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="file_name">
+			<param name="Local" value="efuns/filesystem/file_name.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="file_size">
+			<param name="Local" value="efuns/filesystem/file_size.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="get_dir">
+			<param name="Local" value="efuns/filesystem/get_dir.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="link">
+			<param name="Local" value="efuns/filesystem/link.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="mkdir">
+			<param name="Local" value="efuns/filesystem/mkdir.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="read_bytes">
+			<param name="Local" value="efuns/filesystem/read_bytes.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="read_file">
+			<param name="Local" value="efuns/filesystem/read_file.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="rename">
+			<param name="Local" value="efuns/filesystem/rename.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="rm">
+			<param name="Local" value="efuns/filesystem/rm.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="rmdir">
+			<param name="Local" value="efuns/filesystem/rmdir.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="stat">
+			<param name="Local" value="efuns/filesystem/stat.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="write_bytes">
+			<param name="Local" value="efuns/filesystem/write_bytes.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="write_file">
+			<param name="Local" value="efuns/filesystem/write_file.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="浮点数相关函数(floats)">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="acos">
+			<param name="Local" value="efuns/floats/acos.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="asin">
+			<param name="Local" value="efuns/floats/asin.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="atan">
+			<param name="Local" value="efuns/floats/atan.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="ceil">
+			<param name="Local" value="efuns/floats/ceil.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="cos">
+			<param name="Local" value="efuns/floats/cos.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="exp">
+			<param name="Local" value="efuns/floats/exp.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="floor">
+			<param name="Local" value="efuns/floats/floor.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="log">
+			<param name="Local" value="efuns/floats/log.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="pow">
+			<param name="Local" value="efuns/floats/pow.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="sin">
+			<param name="Local" value="efuns/floats/sin.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="sqrt">
+			<param name="Local" value="efuns/floats/sqrt.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="tan">
+			<param name="Local" value="efuns/floats/tan.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="to_int">
+			<param name="Local" value="efuns/floats/to_int.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="函数相关函数(functions)">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="apply">
+			<param name="Local" value="efuns/functions/apply.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="bind">
+			<param name="Local" value="efuns/functions/bind.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="evaluate">
+			<param name="Local" value="efuns/functions/evaluate.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="function_owner">
+			<param name="Local" value="efuns/functions/function_owner.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="process_value">
+			<param name="Local" value="efuns/functions/process_value.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="一般相关函数(general)">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="filter">
+			<param name="Local" value="efuns/general/filter.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="map">
+			<param name="Local" value="efuns/general/map.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="restore_variable">
+			<param name="Local" value="efuns/general/restore_variable.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="save_variable">
+			<param name="Local" value="efuns/general/save_variable.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="sizeof">
+			<param name="Local" value="efuns/general/sizeof.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="store_variable">
+			<param name="Local" value="efuns/general/store_variable.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="typeof">
+			<param name="Local" value="efuns/general/typeof.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="互动物件相关函数(interactive)">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="add_action">
+			<param name="Local" value="efuns/interactive/add_action.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="command">
+			<param name="Local" value="efuns/interactive/command.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="commands">
+			<param name="Local" value="efuns/interactive/commands.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="disable_commands">
+			<param name="Local" value="efuns/interactive/disable_commands.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="disable_wizard">
+			<param name="Local" value="efuns/interactive/disable_wizard.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="ed">
+			<param name="Local" value="efuns/interactive/ed.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="ed_cmd">
+			<param name="Local" value="efuns/interactive/ed_cmd.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="ed_start">
+			<param name="Local" value="efuns/interactive/ed_start.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="enable_commands">
+			<param name="Local" value="efuns/interactive/enable_commands.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="enable_wizard">
+			<param name="Local" value="efuns/interactive/enable_wizard.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="exec">
+			<param name="Local" value="efuns/interactive/exec.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="find_player">
+			<param name="Local" value="efuns/interactive/find_player.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="get_char">
+			<param name="Local" value="efuns/interactive/get_char.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="heart_beat_info">
+			<param name="Local" value="efuns/interactive/heart_beat_info.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="heart_beats">
+			<param name="Local" value="efuns/interactive/heart_beats.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="in_edit">
+			<param name="Local" value="efuns/interactive/in_edit.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="in_input">
+			<param name="Local" value="efuns/interactive/in_input.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="input_to">
+			<param name="Local" value="efuns/interactive/input_to.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="interactive">
+			<param name="Local" value="efuns/interactive/interactive.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="message">
+			<param name="Local" value="efuns/interactive/message.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="notify_fail">
+			<param name="Local" value="efuns/interactive/notify_fail.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="parse_command">
+			<param name="Local" value="efuns/interactive/parse_command.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="printf">
+			<param name="Local" value="efuns/interactive/printf.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="query_ed_mode">
+			<param name="Local" value="efuns/interactive/query_ed_mode.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="query_host_name">
+			<param name="Local" value="efuns/interactive/query_host_name.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="query_idle">
+			<param name="Local" value="efuns/interactive/query_idle.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="query_ip_name">
+			<param name="Local" value="efuns/interactive/query_ip_name.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="query_ip_number">
+			<param name="Local" value="efuns/interactive/query_ip_number.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="query_ip_port">
+			<param name="Local" value="efuns/interactive/query_ip_port.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="query_notify_fail">
+			<param name="Local" value="efuns/interactive/query_notify_fail.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="query_snoop">
+			<param name="Local" value="efuns/interactive/query_snoop.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="query_snooping">
+			<param name="Local" value="efuns/interactive/query_snooping.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="query_verb">
+			<param name="Local" value="efuns/interactive/query_verb.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="receive">
+			<param name="Local" value="efuns/interactive/receive.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="remove_action">
+			<param name="Local" value="efuns/interactive/remove_action.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="remove_interactive">
+			<param name="Local" value="efuns/interactive/remove_interactive.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="resolve">
+			<param name="Local" value="efuns/interactive/resolve.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="say">
+			<param name="Local" value="efuns/interactive/say.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="set_this_player">
+			<param name="Local" value="efuns/interactive/set_this_player.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="shout">
+			<param name="Local" value="efuns/interactive/shout.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="snoop">
+			<param name="Local" value="efuns/interactive/snoop.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="this_interactive">
+			<param name="Local" value="efuns/interactive/this_interactive.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="this_player">
+			<param name="Local" value="efuns/interactive/this_player.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="this_user">
+			<param name="Local" value="efuns/interactive/this_user.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="userp">
+			<param name="Local" value="efuns/interactive/userp.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="users">
+			<param name="Local" value="efuns/interactive/users.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="wizardp">
+			<param name="Local" value="efuns/interactive/wizardp.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="write">
+			<param name="Local" value="efuns/interactive/write.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="内部处理相关函数(internals)">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="cache_stats">
+			<param name="Local" value="efuns/internals/cache_stats.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="debug_info">
+			<param name="Local" value="efuns/internals/debug_info.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="debugmalloc">
+			<param name="Local" value="efuns/internals/debugmalloc.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="dump_file_descriptors">
+			<param name="Local" value="efuns/internals/dump_file_descriptors.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="dump_prog">
+			<param name="Local" value="efuns/internals/dump_prog.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="dump_socket_status">
+			<param name="Local" value="efuns/internals/dump_socket_status.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="dumpallobj">
+			<param name="Local" value="efuns/internals/dumpallobj.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="get_config">
+			<param name="Local" value="efuns/internals/get_config.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="malloc_status">
+			<param name="Local" value="efuns/internals/malloc_status.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="memory_info">
+			<param name="Local" value="efuns/internals/memory_info.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="memory_summary">
+			<param name="Local" value="efuns/internals/memory_summary.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="moncontrol">
+			<param name="Local" value="efuns/internals/moncontrol.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="mud_status">
+			<param name="Local" value="efuns/internals/mud_status.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="opcprof">
+			<param name="Local" value="efuns/internals/opcprof.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="query_bandwide">
+			<param name="Local" value="efuns/internals/query_bandwide.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="query_load_average">
+			<param name="Local" value="efuns/internals/query_load_average.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="refs">
+			<param name="Local" value="efuns/internals/refs.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="rusage">
+			<param name="Local" value="efuns/internals/rusage.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="set_debug_level">
+			<param name="Local" value="efuns/internals/set_debug_level.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="set_malloc_mask">
+			<param name="Local" value="efuns/internals/set_malloc_mask.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="swap">
+			<param name="Local" value="efuns/internals/swap.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="time_expression">
+			<param name="Local" value="efuns/internals/time_expression.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="trace">
+			<param name="Local" value="efuns/internals/trace.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="traceprefix">
+			<param name="Local" value="efuns/internals/traceprefix.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="映射相关函数(mappings)">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="allocate_mapping">
+			<param name="Local" value="efuns/mappings/allocate_mapping.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="each">
+			<param name="Local" value="efuns/mappings/each.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="filter_mapping">
+			<param name="Local" value="efuns/mappings/filter_mapping.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="keys">
+			<param name="Local" value="efuns/mappings/keys.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="map_delete">
+			<param name="Local" value="efuns/mappings/map_delete.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="map_mapping">
+			<param name="Local" value="efuns/mappings/map_mapping.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="match_path">
+			<param name="Local" value="efuns/mappings/match_path.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="unique_mapping">
+			<param name="Local" value="efuns/mappings/unique_mapping.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="values">
+			<param name="Local" value="efuns/mappings/values.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="混合类型相关函数(mixed)">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="arrayp">
+			<param name="Local" value="efuns/mixed/arrayp.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="bufferp">
+			<param name="Local" value="efuns/mixed/bufferp.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="copy">
+			<param name="Local" value="efuns/mixed/copy.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="errorp">
+			<param name="Local" value="efuns/mixed/errorp.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="floatp">
+			<param name="Local" value="efuns/mixed/floatp.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="functionp">
+			<param name="Local" value="efuns/mixed/functionp.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="intp">
+			<param name="Local" value="efuns/mixed/intp.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="mapp">
+			<param name="Local" value="efuns/mixed/mapp.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="nullp">
+			<param name="Local" value="efuns/mixed/nullp.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="objectp">
+			<param name="Local" value="efuns/mixed/objectp.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="pointerp">
+			<param name="Local" value="efuns/mixed/pointerp.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="stringp">
+			<param name="Local" value="efuns/mixed/stringp.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="undefinedp">
+			<param name="Local" value="efuns/mixed/undefinedp.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Mudlib相关函数(mudlib)">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="author_stats">
+			<param name="Local" value="efuns/mudlib/author_stats.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="domain_stats">
+			<param name="Local" value="efuns/mudlib/domain_stats.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="export_uid">
+			<param name="Local" value="efuns/mudlib/export_uid.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="find_living">
+			<param name="Local" value="efuns/mudlib/find_living.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="geteuid">
+			<param name="Local" value="efuns/mudlib/geteuid.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="getuid">
+			<param name="Local" value="efuns/mudlib/getuid.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="living">
+			<param name="Local" value="efuns/mudlib/living.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="livings">
+			<param name="Local" value="efuns/mudlib/livings.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="query_privs">
+			<param name="Local" value="efuns/mudlib/query_privs.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="set_author">
+			<param name="Local" value="efuns/mudlib/set_author.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="set_light">
+			<param name="Local" value="efuns/mudlib/set_light.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="set_living_name">
+			<param name="Local" value="efuns/mudlib/set_living_name.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="set_privs">
+			<param name="Local" value="efuns/mudlib/set_privs.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="seteuid">
+			<param name="Local" value="efuns/mudlib/seteuid.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="throw">
+			<param name="Local" value="efuns/mudlib/throw.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="数字相关函数(numbers)">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="chinese_number">
+			<param name="Local" value="efuns/numbers/chinese_number.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="random">
+			<param name="Local" value="efuns/numbers/random.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="to_float">
+			<param name="Local" value="efuns/numbers/to_float.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="物件相关函数(objects)">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="all_inventory">
+			<param name="Local" value="efuns/objects/all_inventory.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="children">
+			<param name="Local" value="efuns/objects/children.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="clone_object">
+			<param name="Local" value="efuns/objects/clone_object.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="clonep">
+			<param name="Local" value="efuns/objects/clonep.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="deep_inventory">
+			<param name="Local" value="efuns/objects/deep_inventory.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="destruct">
+			<param name="Local" value="efuns/objects/destruct.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="environment">
+			<param name="Local" value="efuns/objects/environment.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="find_object">
+			<param name="Local" value="efuns/objects/find_object.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="first_inventory">
+			<param name="Local" value="efuns/objects/first_inventory.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="load_object">
+			<param name="Local" value="efuns/objects/load_object.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="master">
+			<param name="Local" value="efuns/objects/master.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="move_object">
+			<param name="Local" value="efuns/objects/move_object.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="new">
+			<param name="Local" value="efuns/objects/new.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="next_inventory">
+			<param name="Local" value="efuns/objects/next_inventory.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="objects">
+			<param name="Local" value="efuns/objects/objects.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="present">
+			<param name="Local" value="efuns/objects/present.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="query_heart_beat">
+			<param name="Local" value="efuns/objects/query_heart_beat.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="query_shadowed">
+			<param name="Local" value="efuns/objects/query_shadowed.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="query_shadowing">
+			<param name="Local" value="efuns/objects/query_shadowing.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="reload_object">
+			<param name="Local" value="efuns/objects/reload_object.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="restore_object">
+			<param name="Local" value="efuns/objects/restore_object.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="save_object">
+			<param name="Local" value="efuns/objects/save_object.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="set_heart_beat">
+			<param name="Local" value="efuns/objects/set_heart_beat.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="set_hide">
+			<param name="Local" value="efuns/objects/set_hide.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="shadow">
+			<param name="Local" value="efuns/objects/shadow.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="tell_object">
+			<param name="Local" value="efuns/objects/tell_object.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="tell_room">
+			<param name="Local" value="efuns/objects/tell_room.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="this_object">
+			<param name="Local" value="efuns/objects/this_object.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="virtualp">
+			<param name="Local" value="efuns/objects/virtualp.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="套接口相关函数(sockets)">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="socket_accept">
+			<param name="Local" value="efuns/sockets/socket_accept.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="socket_acquire">
+			<param name="Local" value="efuns/sockets/socket_acquire.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="socket_address">
+			<param name="Local" value="efuns/sockets/socket_address.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="socket_bind">
+			<param name="Local" value="efuns/sockets/socket_bind.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="socket_close">
+			<param name="Local" value="efuns/sockets/socket_close.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="socket_connect">
+			<param name="Local" value="efuns/sockets/socket_connect.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="socket_create">
+			<param name="Local" value="efuns/sockets/socket_create.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="socket_error">
+			<param name="Local" value="efuns/sockets/socket_error.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="socket_listen">
+			<param name="Local" value="efuns/sockets/socket_listen.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="socket_release">
+			<param name="Local" value="efuns/sockets/socket_release.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="socket_status">
+			<param name="Local" value="efuns/sockets/socket_status.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="socket_write">
+			<param name="Local" value="efuns/sockets/socket_write.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="字符串相关函数(strings)">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="break_string">
+			<param name="Local" value="efuns/strings/break_string.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="capitalize">
+			<param name="Local" value="efuns/strings/capitalize.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="clear_bit">
+			<param name="Local" value="efuns/strings/clear_bit.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="crypt">
+			<param name="Local" value="efuns/strings/crypt.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="explode">
+			<param name="Local" value="efuns/strings/explode.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="implode">
+			<param name="Local" value="efuns/strings/implode.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="lower_case">
+			<param name="Local" value="efuns/strings/lower_case.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="process_string">
+			<param name="Local" value="efuns/strings/process_string.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="reg_assoc">
+			<param name="Local" value="efuns/strings/reg_assoc.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="regexp">
+			<param name="Local" value="efuns/strings/regexp.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="repeat_string">
+			<param name="Local" value="efuns/strings/repeat_string.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="replace_string">
+			<param name="Local" value="efuns/strings/replace_string.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="set_bit">
+			<param name="Local" value="efuns/strings/set_bit.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="sprintf">
+			<param name="Local" value="efuns/strings/sprintf.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="sscanf">
+			<param name="Local" value="efuns/strings/sscanf.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="strcmp">
+			<param name="Local" value="efuns/strings/strcmp.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="strlen">
+			<param name="Local" value="efuns/strings/strlen.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="strsrch">
+			<param name="Local" value="efuns/strings/strsrch.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="terminal_colour">
+			<param name="Local" value="efuns/strings/terminal_colour.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="test_bit">
+			<param name="Local" value="efuns/strings/test_bit.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="upper_case">
+			<param name="Local" value="efuns/strings/upper_case.html">
+			</OBJECT>
+	</UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="系统相关函数(system)">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="all_previous_objects">
+			<param name="Local" value="efuns/system/all_previous_objects.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="ctime">
+			<param name="Local" value="efuns/system/ctime.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="deep_inherit_list">
+			<param name="Local" value="efuns/system/deep_inherit_list.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="error">
+			<param name="Local" value="efuns/system/error.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="eval_cost">
+			<param name="Local" value="efuns/system/eval_cost.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="function_exists">
+			<param name="Local" value="efuns/system/function_exists.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="function_profile">
+			<param name="Local" value="efuns/system/function_profile.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="inherit_list">
+			<param name="Local" value="efuns/system/inherit_list.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="inherits">
+			<param name="Local" value="efuns/system/inherits.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="localtime">
+			<param name="Local" value="efuns/system/localtime.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="max_eval_cost">
+			<param name="Local" value="efuns/system/max_eval_cost.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="reclaim_objects">
+			<param name="Local" value="efuns/system/reclaim_objects.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="replace_program">
+			<param name="Local" value="efuns/system/replace_program.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="replaceable">
+			<param name="Local" value="efuns/system/replaceable.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="reset_eval_cost">
+			<param name="Local" value="efuns/system/reset_eval_cost.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="set_eval_limit">
+			<param name="Local" value="efuns/system/set_eval_limit.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="set_reset">
+			<param name="Local" value="efuns/system/set_reset.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="shutdown">
+			<param name="Local" value="efuns/system/shutdown.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="time">
+			<param name="Local" value="efuns/system/time.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="uptime">
+			<param name="Local" value="efuns/system/uptime.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="variables">
+			<param name="Local" value="efuns/system/variables.html">
+			</OBJECT>
+	</UL>
+</UL>
+</BODY></HTML>

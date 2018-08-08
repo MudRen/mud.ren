@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0041)http://micro.go2game.com/gm/build/npc.htm -->
+<HTML><HEAD><TITLE>MUD 内容设计</TITLE>
+<META content="text/html; charset=gb2312" http-equiv=Content-Type><LINK 
+rel=stylesheet type=text/css href="../home.css">
+<META name=GENERATOR content="MSHTML 9.00.8112.16437"></HEAD>
+<BODY class=body_bg>
+<TABLE class=page_bg align=center>
+  <TBODY>
+  <TR>
+    <TD>
+      <TABLE class=table_top align=center>
+        <TBODY>
+        <TR>
+          <TD>如何设计人物</TD></TR></TBODY></TABLE>
+      <TABLE class=table align=center>
+        <TBODY>
+        <TR>
+          <TD>
+            <ADDRESS>&nbsp;[<A 
+            href="../">首页</A>][<A 
+            href="../build">前页</A>]</ADDRESS></TD></TR>
+        <TR>
+          <TD><BR>　　我想大多数 LPmud 巫师第一个学会的大部分是写房间，接下来就是 NPC，NPC 的写作方式不同的 mud 
+            差别很大，不像房间的写法大同小异，因为 NPC 的设定方式往往随著 mud 的故事背景而异，所以我们就废话少说，开始介绍 es2 的 
+            NPC 设定程序吧。<BR><BR>　　简单范例：<BR><PRE>// example NPC
+
+#include <NPC.H>
+
+inherit F_VILLAGER;
+
+void create()
+{
+    set_name("村姑", ({ "woman" }));
+    set_race("human");
+    set_class("commoner");
+    set_level(1);
+
+    set("long", "一个相貌「普通」的村姑。\n");
+
+    setup()
+}
+</PRE>　　上面这段程式就是一个简单的 NPC，虽然简单，不过却包含了不少重要的观念，且让我一一解释：<BR><PRE>#include <NPC.H>
+</PRE>　　这一行是所有 NPC 必须的，也许你会觉得奇怪，为什么 NPC 没有像房间一样继承一个 NPC 的标准物件，去看看 
+            /include/npc.h 就会明白，因为 npc.h 已经帮你继承了，在 es2 mudlib 里，像 
+            NPC、武器、防具、物品等这些「可以复制」的物品将会采用类似的继承结构，你将会发现这些物件的写法都是 #include 一个 xxx.h 
+            并且选择性地继承一些 F_xxx 的物件。<BR><PRE>inherit F_VILLAGER;
+</PRE>　　这一行继承的 F_VILLAGER 我把它称为「行为控制模组」，es2 的 NPC 可以藉由定义一些函数来控制 NPC 
+            对一些事件的反应，像是说话、战斗、交易等等，传统的 mudlib 常常把这些反应定义在 NPC 的标准物件里，然后在 create() 
+            中用各种设定值来使用，这种方法不但弹性不高(你只能设定参数，像 set("killer", 1) 之类..)， 
+            而且容易因为游戏制度的改变而需要修改，并且增加记忆体的负荷。在 es2 
+            中诸如此类的设定都藉由定义函数来代替，而且为了节省因为定义这些函数所需的程式占用的空间，将这些定义 NPC 
+            反应的函数收集成一个个的模组供巫师使用。<BR><BR>　　一个 NPC 「不一定」要继承行为控制模组，如果你不希望这个 NPC 
+            对那些事件有反应的话，或者你可以选择性的自己定义这些函数，通常一个区域会有许多行为模式相近的 
+            NPC，你也可以自己写成一个行为控制模组供不同的 NPC 
+            继承使用。<BR><BR>　　set_name()、set_race()、set_class()、set_level() 
+            这几个函数顾名思义，分别是设定 NPC 的名称、种族、职业及等级，除了 set_name() 之外，其他几个都要看你的 mud 
+            游戏设定哪些种族跟职业而定，原则上只有 set_name() 是必须的，其他的如果不设定，系统应该会在 setup() 
+            里帮你用内定值补齐。<BR><PRE>set("long", "...");
+</PRE>　　这一行是设定 NPC 的叙述，让玩家 look 这个 NPC 时提供一些描述，es2 里像 NPC 
+            及所有从游戏观点而言「看得见摸得著」的物件都会利用 name()、short()、long() 
+            这三个，自定函数来取得一个物件的外观，并且，我们规定 set("name", ...)、set("short",...) 及 
+            set("long", ...) 是设定这些外观的「静态」值，用 NPC 做例子，你所设定的 long 
+            叙述在玩家实际去看的时候，系统可能会帮你加上他的受伤状况、身上的装备等「动态」资讯，而容器、留言版等其他物件也有各自不同的动态资讯。<BR><BR>　　在此建议你将所有的 
+            set() 及 set_temp() 等属性设定放在 set_name()、set_race() 
+            等特殊函数设定之后，并且用一个空行隔开，如上面那段程式，理由是在有些 mud 
+            上，属性设定是可以所有复制物件「共用」的(即记忆体只存一份，供所有复制物件 query使用以节省记忆体)，有些 mud 
+            的管理者会要求你用：<BR><PRE>if( !clonep() ) {
+    set("long", "...");
+    set("xxx", "...");
+        .....
+}
+</PRE>　　的格式来设定属性，关于这种设定的理由跟优劣，请参考有关 set_default_object() 
+            的说明，这里只建议你将这些设定和前面的特殊函数设定分开以示区分。<BR><BR>　　最后一行的 setup() 
+            应该不需要详细解释了，这个函数是让系统帮你检查前面的设定或补足你没有设定的东西，记得一定要加入这一行。<BR><BR></TD></TR>
+        <TR>
+          <TD align=right>
+            <ADDRESS>[<A 
+            href="#top">回到顶部</A>]&nbsp;</ADDRESS></TD></TR></TBODY></TABLE>
+      <TABLE class=table_bottom align=center>
+        <TBODY>
+        <TR>
+          <TD>天下创作室</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></BODY></HTML>

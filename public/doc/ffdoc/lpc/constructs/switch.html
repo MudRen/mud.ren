@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考资料 - lpc - constructs - switch</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER>
+<H1>
+<FONT COLOR="#FF99FF">switch</FONT></H1></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><FONT COLOR="#FFFFCC">* switch 语句</FONT></CENTER>
+
+<HR WIDTH="100%">
+
+<P>LPC 的 switch 语句与 C　 的 switch 语句几乎一样. 唯一不同的地方是 LPC　
+的 switch　 判断依据的运算式可以使用字符串或整数.
+<BR>语法如下:
+<UL><FONT COLOR="#FFCC99">switch (运算式) {</FONT>
+<UL><FONT COLOR="#FFCC99">case 常数一 : 语句一;</FONT>
+<UL><FONT COLOR="#FFCC99">break;</FONT></UL>
+<FONT COLOR="#FFCC99">case 常数二 :　 语句二;</FONT>
+<UL><FONT COLOR="#FFCC99">break;</FONT></UL>
+<FONT COLOR="#FFCC99">default :　 语句三;</FONT>
+<UL><FONT COLOR="#FFCC99">break;</FONT></UL>
+</UL>
+<FONT COLOR="#FFCC99">}</FONT></UL>
+switch 可以代替一堆 if else if else if else 结构. 上面的 switch 等于:
+<UL><FONT COLOR="#99FF99">tmp = 运算式;</FONT>
+
+<P><FONT COLOR="#99FF99">if (tmp == 常数一) {</FONT>
+<UL><FONT COLOR="#99FF99">语句一;</FONT>
+<BR><FONT COLOR="#99FF99">...;</FONT></UL>
+<FONT COLOR="#99FF99">} else if (tmp == 常数二) {</FONT>
+<UL><FONT COLOR="#99FF99">语句二;</FONT>
+<BR><FONT COLOR="#99FF99">...;</FONT></UL>
+<FONT COLOR="#99FF99">} else {</FONT>
+<UL><FONT COLOR="#99FF99">语句三;</FONT>
+<BR><FONT COLOR="#99FF99">...;</FONT></UL>
+<FONT COLOR="#99FF99">}</FONT></UL>
+switch　 与 if 语句之间最大的不同处, 在于某个 case 最后如果没有 break;
+语句, 则会执行下一个 case.
+
+<P>
+<HR WIDTH="100%">
+<CENTER><FONT COLOR="#FFFFCC">翻译: Spock @ FF 97.Aug.10.</FONT></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../constructs.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

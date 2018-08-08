@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - interactive - get_char</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>get_char(3)　 MudOS v21c2　 (5
+Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 get_char - 让之后输入的字符送往一个指定的函数.</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 varargs void get_char( string | function fun, int flag, ... );
+
+<P>　 不定参数 无返回值 get_char( 字符串 或 函数指针 fun, 整数 flag, ... );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 让使用者之后输入的字符送往函数指针 fun, 作为 fun　 的参数. 驱动程序
+(driver) 不会分析 (parse)　 输入的字符.
+
+<P>　 请注意 get_char 是「非阻隔性」 (non-blocking) 的, 意即调用 get_char
+的物件不会暂停下来等待使用者的输入动作. 调用 get_char 的物件会继续执行随后任何的程序语句.
+在收到输入的字符之前, 指定的函数 fun　 不会被调用.
+
+<P>　 如果同一个物件调用 get_char() 超过一次以上, 就只有第一次的调用有效.
+
+<P>　 如果可以选择的参数 flag 指定为非零值 (non-zero),　 则玩家输入的字符就不会回传
+(echo) , 物件被窃听时也不会回传 (用在输入密码时很有用).
+
+<P>　 调用函数指针 fun　 时, 使用者输入的字符会被当作是函数的第一个参数 (变量类型为字符串)
+. 在 flag 之后指定的参数会当作函数 fun　 的其他参数.</UL>
+<FONT COLOR="#FFFFCC">　问题:</FONT>
+<UL>　 get_char 在 MudOS 0.9 及更早的版本有一个非常明显的问题. 在较差之远端终端机协议
+(telnet negotiation) 的许多作业系统上 (按: 所有市场上早期的主流品牌之工作站)
+, get_char　 会使画面输出的结果变得非常奇怪. 除非这些问题得到解决, 在一般的
+mudlib 源代码中, 还是建议别用 get_char　 这个函数.　 (目前只知道 get_char 对使用
+NeXT 工作站连线的使用者不会有此问题. )</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="../calls/call_other.html">call_other(3)</A>, <A HREF="../calls/call_out.html">call_out(3)</A>,
+<A HREF="input_to.html">input_to(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Feb.14.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../interactive.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

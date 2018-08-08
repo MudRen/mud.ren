@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - object - clonep</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>clonep(3)　 MudOS v21c2　 (5
+Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 clonep() - 检查给定的一个变量是否为复制的物件.</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 int clonep( void | mixed arg );
+<BR>　
+
+<P>　 整数 clonep( 无参数 | 混合 arg );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 如果参数 arg 有设定 objectp() 和 O_CLONE 标志 (flag), 此函数就返回「真」
+(true) 的值 (也就是 1). MUD 的驱动程序 (driver) 会对经由 new(3) (clone_object(3))
+创造出来的物件, 设定 O_CLONE　 标志. clonep() 函数对于主物件 (master copy,　
+经由 call_other(3) 载入) 不会返回「真」值. 请注意, 如果 clonep() 返回「真」值,
+则 file_name()　 对此物件返回的文件名称会加上 #n ( n 为整数). clonep()
+不加上参数则预定物件为 this_object().</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="virtualp.html">virtualp(3)</A>, <A HREF="../interactive/userp.html">userp(3)</A>,
+<A HREF="../mudlib/wizardp.html">wizardp(3)</A>, <A HREF="objectp.html">objectp(3)</A>,
+<A HREF="new.html">new(3)</A>, <A HREF="clone_object.html">clone_object(3)</A>,
+<A HREF="../calls/call_other.html">call_other(3)</A>, <A HREF="file_name.html">file_name(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Jan.27.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../objects.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

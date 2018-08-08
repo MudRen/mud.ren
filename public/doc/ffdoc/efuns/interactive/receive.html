@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - interactive - receive</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>receive(3)　 MudOS v21c2　 (5 Sep
+1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 receive() - 对目前的物件显示一段消息.</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 int receive( string message );
+
+<P>　 整数 receive( 字符串 message );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 这个外部函数 (efun) 是作为 mud　 驱动程序 (driver) 的 add_message()
+函数的介面. 这个函数设计的目的是对目前物件显示消息. 如果目前的物件是「可互动的」则返回
+1. 不是则返回 0. receive() 应被 catch_tell(4) 或是 receive_message(4) 调用.</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="../../applies/interactive/catch_tell.html">catch_tell(4)</A>,
+<A HREF="../../applies/interactive/receive_message.html">receive_message(4)</A>,
+<A HREF="message.html">message(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.May.24.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../interactive.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

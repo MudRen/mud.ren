@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - calls - call_other</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>call_other(3)　 MudOS v21c2　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 call_other() - 调用在另一个物件中的函数.</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 unknown call_other( object ob | object *obs, string func | mixed
+*args, ... );
+
+<P>　 未知 call_other( 物件 ob 或 物件 *obs, 字符串 func 或 混合 *args, ...
+);</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 用可以选择的参数 (argument) 调用另一个物件中的函数. 返回值要视被调用的函数而定,
+所以使用此一函数时最好检查返回值. func　 是物件 ob 中被调用的函数名称,
+而第三个、第四个... 等等的参数, 则会传入 func 中, 当成 func 的第一个、第二个参数.
+在 call_other() 中, 如果第一个参数是一个物件数组, call_other()　 就会逐一调用它们,
+而返回值也会变成一个数组. 如果第二个参数是一个数组, 那数组中的第一个元素
+(element)　 必须是一个字符串 (即要调用的函数) , 而其他的元素就会被当成要传入此函数的参数.
+
+<P>　 这里有个使用 call_other() 更好的方法:
+
+<P><FONT COLOR="#99FF99">　　 object ob </FONT>或<FONT COLOR="#99FF99">
+object *obs -> func( ... );</FONT>
+<BR>　</UL>
+<FONT COLOR="#FFFFCC">　 范例:</FONT>
+<UL>　　 <FONT COLOR="#99FF99">call_other( ob, "query", "name" );</FONT>
+<BR>　 可以写成
+<BR>　　 <FONT COLOR="#99FF99">ob->query("name");</FONT>
+
+<P>　 如果 call_other() 的第二的参数是一个数组, 也可以把上例写成:
+<BR>　　 <FONT COLOR="#99FF99">call_other( ob, ({ "query", "name" }));</FONT>
+
+<P>　 这里有一个使用数组的范例:
+<BR>　　 <FONT COLOR="#99FF99">users()->quit();</FONT></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 96.Oct.16.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../calls.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

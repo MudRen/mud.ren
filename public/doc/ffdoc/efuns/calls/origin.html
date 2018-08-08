@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - calls - origin</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>origin(3)　 MudOS v21c2　 (5 Sep
+1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 origin() - 判断目前的函数是如何被调用的.</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 int origin( void );
+
+<P>　 整数 origin( 无参数 );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 返回一个整数值, 指出目前的函数是如何被调用的.
+<BR>　 返回值代表的意义如下:
+<BR>&nbsp;
+<UL>　 1 驱动程序 (driver) (heart_beats, 其他)
+
+<P>　 2 局部函数的调用 (local function call)
+
+<P>　 4 call_other()
+
+<P>　 8 simul_efun 物件, 经由 simul_efun 调用
+
+<P>　 16 call_out()
+
+<P>　 32 被外部函数 (efun) 调用 (sort_array, 其他)</UL>
+</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="previous_object.html">previous_object(3)</A>, /include/origin.h</UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Apr.24.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../calls.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

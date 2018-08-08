@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考资料 - lpc - constructs - function</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER>
+<H1>
+<FONT COLOR="#FF99FF">function</FONT></H1></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><FONT COLOR="#FFFFCC">* LPC 的函数 (function 或称之为 method) :</FONT></CENTER>
+
+<HR WIDTH="100%">
+
+<P>LPC 的函数与 C 提供的相似, 但是有些差异 (与 ANSI C 提供的最为相似).
+<BR>语法如下:
+<UL><FONT COLOR="#FFCC99">返回值的类型 函数名称( 参数一的类型 参数一, 参数二的类型
+参数二, ... )</FONT>
+<BR><FONT COLOR="#FFCC99">{</FONT>
+<UL><FONT COLOR="#FFCC99">声明变量;</FONT>
+<BR><FONT COLOR="#FFCC99">...;</FONT>
+
+<P><FONT COLOR="#FFCC99">程序语句;</FONT>
+<BR><FONT COLOR="#FFCC99">...;</FONT></UL>
+</UL>
+
+<UL>
+<UL><FONT COLOR="#FFCC99">return 返回值变量;</FONT></UL>
+<FONT COLOR="#FFCC99">}</FONT></UL>
+请注意, 「返回值变量」必须符合返回值的类型.
+
+<P>如果函数不必返回一个值, 则声明返回值类型为 void (无返回值). 举例来说:
+<UL>void 函数名称( 参数一的类型 参数一, ... )
+<BR>{
+<UL>语句;
+<BR>...;</UL>
+}</UL>
+下面此行调用上面的函数:
+<UL><FONT COLOR="#FFCC99">函数名称( 参数一, 参数二, 参数三, ... );</FONT></UL>
+您可以调用其他物件中的函数, 方法如下:
+<UL><FONT COLOR="#FFCC99">物件->函数名称( 参数一, 参数二, 参数三, ... );</FONT></UL>
+或是:
+<UL><FONT COLOR="#FFCC99">call_other( 物件, 函数名称, 参数一, 参数二, ...
+);</FONT></UL>
+
+<CENTER>
+<HR WIDTH="100%"><FONT COLOR="#FFFFCC">翻译: Spock @ FF 97.Aug.9.</FONT></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../constructs.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

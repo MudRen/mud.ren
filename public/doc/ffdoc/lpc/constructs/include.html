@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - lpc - constructs - include</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER>
+<H1>
+<FONT COLOR="#FF99FF">include</FONT></H1></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><FONT COLOR="#FFFFCC">LPC 的 #include 命令:</FONT></CENTER>
+
+<HR WIDTH="100%">
+
+<P>语法:
+<UL><FONT COLOR="#FFCC99">#include &lt;file.h></FONT></UL>
+另一种语法:
+<UL><FONT COLOR="#FFCC99">#include "file.h"</FONT></UL>
+说明:
+<UL>#include "file.h" 在目前的目录中寻找 file.h.</UL>
+
+<UL>#include &lt;file.h> 则在标准的系统引用目录 (standard system include
+directories) 中寻找 file.h (TMI mudlib 中, 此种目录是 /include 和 /local/include).</UL>
+熟悉 C 的人应该知道, LPC 的 #include 语句与 C 的相同. 而对于不熟悉的人来说,
+#include 是引用 (include) 其他文件内容的方法. 把 #include "file.h" 放在一个文件中,
+等于把 file.h 的内容全部写在您摆 #include "file.h" 的位置. 每次物件重新编译时,
+物件的引用档也会重新编译一次. 如果引用档里面有变量或函数名称与物件中的一样,
+编译时会产生双重命名 (duplicated-name error) 的错误 (如果您把 file.h 中的内容全部写在物件中,
+结果一样).
+<CENTER>
+<HR WIDTH="100%"><FONT COLOR="#FFFFCC">翻译: Spock @ FF 97.Aug.9.</FONT></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../constructs.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - internals - set_malloc_mask</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>set_malloc_mask(3) MudOS v21c2　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 set_malloc_mask() - 设定控制内存配置的除错数据显示的遮罩 (the mask
+controlling display of malloc debug info).</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 void set_malloc_mask( int mask );
+
+<P>　 无返回值 set_malloc_mask( 整数 mask );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 这个外部函数 (efun) 只有在编译 mud　 驱动程序 (driver) 时, options.h
+中 DEBUGMALLOC　 和 DEBUGMALLOC_EXTENSIONS 皆同时定义时才有效. 此遮罩 (mask)
+控制驱动程序配置内存和释放内存时, 显示多少与内存相关的除错消息. 详细数据请参阅驱动程序原始码中的
+md.c</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="debugmalloc.html">debugmalloc(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Jul.21.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../internals.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

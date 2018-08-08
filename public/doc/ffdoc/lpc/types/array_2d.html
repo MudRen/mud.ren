@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - lpc - types - array.2d</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER>
+<H1>
+<FONT COLOR="#FF99FF">array.2d</FONT></H1></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+LPC 可以做到二元数组, 这很简单. 只要把它们当作一个数组的数组即可.
+<BR>举例来说:
+<UL><FONT COLOR="#99FF99">a = allocate(10);</FONT>
+<BR><FONT COLOR="#99FF99">a[0] = allocate(10);</FONT>
+<BR><FONT COLOR="#99FF99">a[1] = allocate(10);</FONT>
+<BR><FONT COLOR="#99FF99">...以此类推...</FONT></UL>
+然后您可以用以下的方式引用 (reference) 数组 0 , 元素 0 :
+<UL><FONT COLOR="#99FF99">a[0][0]</FONT></UL>
+您不能声明 (declare)　 一个超过一元的数组 (如果您有形态检查 (type checking),
+而使用 *　 形态的符号) , 但是您还是可以有一个一元以上的数组. 如果您有形态检查,
+您可能会把数组声明成混合 (mixed)　 形态.
+<BR>　
+<BR>可以使用以下这种方法:
+<UL><FONT COLOR="#99FF99">mixed a;</FONT></UL>
+
+<UL><FONT COLOR="#99FF99">a = ({ ({ 1, 2, 3 }), ({ 1, 2, 3 }) });</FONT></UL>
+在上面的这个范例中, a[0] 是 ({ 1, 2, 3 }), 而 a[0][2] 是 3.
+
+<P>或这种方法:
+<UL><FONT COLOR="#99FF99">mixed a;</FONT>
+<BR><FONT COLOR="#99FF99">a = ({ 0, 0, 0, 0 });　 /* 设定数组大小为 4 */</FONT>
+<BR><FONT COLOR="#99FF99">a[0] = ({ 1, 2, 3 });</FONT>
+<BR><FONT COLOR="#99FF99">a[1] = ({ 1, 2, 3 });</FONT>
+<BR><FONT COLOR="#99FF99">...以此类推...</FONT></UL>
+
+<HR WIDTH="100%">
+<CENTER><FONT COLOR="#FFCCCC">作者: John Price a.k.a. Raistlin</FONT></CENTER>
+
+<HR WIDTH="100%">
+<CENTER><FONT COLOR="#FFFFCC">翻译: Spock @ FF 97.Aug.10.</FONT></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../types.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

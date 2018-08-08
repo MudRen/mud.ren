@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - sockets - socket_acquire</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>socket_acquire(3)　 MudOS v21c2　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称：</FONT>
+<UL>　 socket_acquire() - 接收一个 socket 的所有权(ownership)</UL>
+<FONT COLOR="#FFFFCC">　语法：</FONT>
+<UL>　 #include &lt;socket_err.h>
+
+<P>　 int socket_acquire( int socket, string read_callback, string write_callback,
+string close_callback );
+
+<P>　 整数 socket_acquire( 整数 socket, 字符串 read_callback, 字符串 write_callback,
+字符串 close_callback );</UL>
+<FONT COLOR="#FFFFCC">　用法：</FONT>
+<UL>　 调用 socket_acquire() 是为了要完成开始自 socket_release() 要转移一个
+socket 所有权（和控制权）到一个新物件上的握手程序(handshake)。socket_release()
+调用那个将拥有所有权新物件的释放回呼(callback)函数以通知那个物件说它想要传送这个
+socket 的控制权过去。那个将拥有所有权的新物件有责任决定它是否接受这个 socket。若它愿意接受的话，则要调用
+socket_acquire() 以完成这个转移。如果不愿的话，则这个回呼函数不需完成握手程序只需返回即可。
+
+<P>　 在前一种情况下，握手程序完成并且新物件变成那个 socket 的拥有者。那些读取、写入和关闭回呼函数参数也将参考这个新物件的函数。这些都需要指定以使
+MudOS 驱动程序可以知道要调用新物件内的哪些函数。不同意接受这个 socket 将会使
+socket_release() 返回 EESOCKNOTRLSD 以至于拥有者能进行适当的清除动作。
+
+<P>　 socket_acquire() 可以只由释放回呼函数的内部调用，并只含有那个指定的
+socket。</UL>
+<FONT COLOR="#FFFFCC">　参照：</FONT>
+<UL>　 <A HREF="socket_release.html">socket_release(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译：</FONT>
+<UL>　 Kenny@Broken.History　 97.Jul.27　　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../sockets.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

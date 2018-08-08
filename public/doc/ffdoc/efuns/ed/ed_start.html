@@ -1,0 +1,42 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - ed - ed_start</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>ed_start(3)　 MudOS v21c2　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 ed_start() - 开始执行一个 ed 工作.</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 string ed_start( string file | void, int restricted | void )
+
+<P>　 字符串 ed_start( 字符串 file 或 无参数, 整数 restricted 或 无参数 )</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 这个函数只有 __OLD_ED__ 不予定义 (define) 时有效.
+
+<P>　 这个函数开始执行内部的文书编辑程序, 可以指定或不指定要予以编辑的文件
+file.　 函数会返回执行完 ed 的编辑结果. 当 ed 程序仍在执行时, 可以使用
+ed_cmd() 执行 ed 的命令.
+
+<P>　 如果 restricted 的值为 1　 , 所有更改文件的命令都会被视为无效.
+
+<P>　 一个物件同一时间内只能执行一个 ed 工作.</UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Feb.12.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../ed.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

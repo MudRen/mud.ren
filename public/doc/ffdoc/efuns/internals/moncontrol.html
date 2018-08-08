@@ -1,0 +1,39 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - internals - moncontrol</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>moncontrol(3)　 MudOS v21c2　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 moncontrol() - 开启或关闭侧写 (profiling).</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 void moncontrol( int on );
+
+<P>　 无返回值 moncontrol( 整数 on );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 如果参数 on 为 1, moncontrol()　 就开启侧写. 如果 on 指定为 0　
+, moncontrol()　 会关闭侧写. 执行驱动程序 (driver) 时可以随时开关侧写,
+典型的用法是只想侧写某些部份执行的情形. 如果驱动程序编译 (compile) 时,
+没有开启侧写功能, moncontrol() 就没有效果.</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="opcprof.html">opcprof(3)</A>, <A HREF="../system/function_profile.html">function_profile(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Apr.15.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../internals.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>
