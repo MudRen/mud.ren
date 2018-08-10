@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -87,5 +89,22 @@ class User extends Authenticatable
         }
 
         $this->attributes['avatar'] = $path;
+    }
+
+    public function dbase(){
+        try {
+            $user = Cache::rememberForever("user:".$this->name, function(){
+                $exitCode = Artisan::call('mud:cache_user');
+                return cache("user:".$this->name);
+            });
+            if (is_null($user)) {
+                return $user;
+            } else {
+                $dbase = $user[$this->name]['dbase'];
+                return json_decode($dbase);
+            }
+        } catch (\Exception $exception) {
+            return null;
+        }
     }
 }

@@ -67,7 +67,10 @@ class RegisterController extends Controller
     {
         //dd($data);
         try {
-            $user = cache("user:".$data['name']);
+            $user = \Cache::rememberForever("user:".$data['name'], function() use ($data) {
+                $exitCode = \Artisan::call('mud:cache_user');
+                return cache("user:".$data['name']);
+            });
             if (is_null($user)) {
                 return abort(416, '用户名必须是游戏ID，请先登录游戏(mud.ren:5555)注册账号');
             } else {
