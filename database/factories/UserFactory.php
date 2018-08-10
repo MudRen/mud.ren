@@ -12,7 +12,7 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('password'),
         'remember_token' => str_random(10),
-        'introduction' => $faker->sentence(),
+        'introduction' => $faker->catchPhrase(),
         'created_at' => $now,
         'updated_at' => $now,
     ];
