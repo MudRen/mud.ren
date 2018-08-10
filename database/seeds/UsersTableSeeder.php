@@ -44,13 +44,15 @@ class UsersTableSeeder extends Seeder
         $user->avatar = 'https://avatars3.githubusercontent.com/u/13300261?s=460&v=4';
         $user->save();
 
-        // 初始化用户角色，将 1 号用户指派为『站长』
+        // 将 1 号用户指派为『站长』
         $user->assignRole('Founder');
 
-        // 将 2 号用户指派为『管理员』
         $user = User::find(2);
         $user->name = 'mud';
         $user->email = 'i@mud.ren';
+        $user->save();
+
+        // 将 2 号用户指派为『管理员』
         $user->assignRole('Maintainer');
 
     }

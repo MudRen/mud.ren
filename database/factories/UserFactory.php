@@ -10,7 +10,7 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('password'),
+        'password' => $password ?: $password = bcrypt('password123'),
         'remember_token' => str_random(10),
         'introduction' => $faker->catchPhrase(),
         'created_at' => $now,
