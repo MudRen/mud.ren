@@ -13,7 +13,7 @@ $factory->define(App\Models\Topic::class, function (Faker $faker) {
 
     return [
         'title' => $sentence,
-        'body' => $faker->text(),
+        'body' => $sentence,
         'excerpt' => $sentence,
         'created_at' => $created_at,
         'updated_at' => $updated_at,
