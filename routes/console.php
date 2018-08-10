@@ -29,7 +29,7 @@ Artisan::command('mud:cache_user', function () {
             $id = str_after($id, '/');
         $id = str_before($id, '.');
         $file = \Storage::disk('mud')->get($file);
-        $file = iconv('GBK', 'UTF-8', $file);
+        $file = iconv('GBK', 'UTF-8//IGNORE', $file);
         $file = explode("\n", $file);
         foreach ($file as $info) {
             $keys = ['alias', 'killer', 'want_kills', 'dbase', 'skills', 'skill_map', 'autoload'];
