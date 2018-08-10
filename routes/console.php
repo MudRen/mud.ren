@@ -38,6 +38,7 @@ Artisan::command('mud:cache_user', function () {
                     $info = str_replace($key, '', $info);
                     $info = str_replace("([", "{", $info);
                     $info = str_replace("])", "}", $info);
+                    $info = str_replace(",}", "}", $info);
                     $info = str_replace("({", "[", $info);
                     $info = str_replace("})", "]", $info);
                     $user[$id][$key] = $info;
