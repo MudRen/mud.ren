@@ -12,4 +12,6 @@ Route::group([
 
     $router->get('/', 'HomeController@index');
 
+    $router->get('auth/login', 'AuthController@getLogin');
+    $router->post('auth/login', 'AuthController@postLogin');
 });
