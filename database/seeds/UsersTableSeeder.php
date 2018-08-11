@@ -40,7 +40,7 @@ class UsersTableSeeder extends Seeder
         // 单独处理第一个用户的数据
         $user = User::find(1);
         $user->name = 'ivy';
-        $user->email = 'i@oiuv.cn';
+        $user->email = 'i@mud.ren';
         $user->avatar = 'https://avatars3.githubusercontent.com/u/13300261?s=460&v=4';
         $user->save();
 
@@ -48,8 +48,8 @@ class UsersTableSeeder extends Seeder
         $user->assignRole('Founder');
 
         $user = User::find(2);
-        $user->name = 'mud';
-        $user->email = 'i@mud.ren';
+        $user->name = 'iuv';
+        $user->email = 'i@oiuv.cn';
         $user->save();
 
         // 将 2 号用户指派为『管理员』

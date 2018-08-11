@@ -5,7 +5,6 @@
 @section('content')
 
     <div class="row">
-
         <div class="col-lg-3 col-md-3 hidden-sm hidden-xs user-info">
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -36,6 +35,7 @@
                         <h1 class="panel-title" style="font-size:30px;">{{ $user->dbase()->name}}
                             <small>{{ $user->dbase()->title }}({{ $user->dbase()->age }}岁)</small>
                         </h1>
+                        @isset($user->dbase()->born)
                         <div>
                             <p>膂力：[{{ $user->dbase()->str }}] 悟性：[{{ $user->dbase()->int }}]
                                 根骨：[{{ $user->dbase()->con }}] 身法：[{{ $user->dbase()->dex }}]</p>
@@ -47,6 +47,7 @@
                             </p>
                             @endisset
                         </div>
+                        @endisset
                     @else
                         <div class="alert alert-success">梦幻泥潭MUD游戏地址：mud.ren:5555</div>
                     @endif
