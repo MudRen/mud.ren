@@ -23,11 +23,11 @@ Artisan::command('mud:cache_user', function () {
     $users = [];
     foreach ($files as $file) {
         $id = $file;
-        if (str_contains($file, '/.'))
+        if (!ends_with($file, '.o'))
             continue;
         while (str_contains($id, '/'))
             $id = str_after($id, '/');
-        $id = str_before($id, '.');
+        $id = str_before($id, '.o');
         $file = \Storage::disk('mud')->get($file);
         $file = iconv('GBK', 'UTF-8//IGNORE', $file);
         $file = explode("\n", $file);
