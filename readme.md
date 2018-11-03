@@ -11,7 +11,7 @@
 
 #### 1. 克隆源代码
 
-克隆 `larabbs` 源代码到本地：
+克隆 `mud.ren` 源代码到本地：
 
     > git clone git@github.com:oiuv/mud.ren.git
 
@@ -46,7 +46,7 @@ $ php artisan migrate --seed
 初始的用户角色权限已使用数据迁移生成。
 
 
-### 前端框架安装
+### 前端框架安装(前端二次开发需要)
 
 1). 安装 node.js
 
