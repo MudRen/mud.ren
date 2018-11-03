@@ -51,10 +51,8 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'captcha' => 'required',
-        ], [
-            'captcha.required' => '验证码不能为空',
-        ]);
+            'captcha' => 'required',], [
+            'captcha.required' => '邀请码不能为空',]);
     }
 
     /**
@@ -65,7 +63,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        //dd($data);
+        /*
         try {
             $user = \Cache::rememberForever("user:".$data['name'], function() use ($data) {
                 $exitCode = \Artisan::call('mud:cache_user');
@@ -86,7 +84,10 @@ class RegisterController extends Controller
         } catch (\Exception $exception) {
             return abort(416, $exception->getMessage());
         }
-
+        */
+        if (env('CAPTCHA') != $data['captcha']) {
+            return abort(416, '邀请码不正确，请联系管理员(QQ：7300637)');
+        };
         //return abort(403,'网站测试中，暂时关闭注册～');
         return User::create([
             'name' => $data['name'],
