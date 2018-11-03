@@ -15,7 +15,7 @@
                             <label for="name" class="col-md-4 control-label">用户名</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus placeholder="必须是MUD游戏玩家ID">
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus placeholder="请使用MUD游戏ID">
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
