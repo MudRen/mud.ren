@@ -36,6 +36,8 @@ class TopicsController extends Controller
             return redirect($topic->link(), 301);
         }
 
+        $topic->visits()->increment();
+
         return view('topics.show', compact('topic'));
     }
 

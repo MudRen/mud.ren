@@ -19,6 +19,7 @@ class UsersTableSeeder extends Seeder
             'https://via.placeholder.com/200x200/933/933',
             'https://via.placeholder.com/200x200/939/939',
             'https://via.placeholder.com/200x200/993/993',
+            'https://via.placeholder.com/200x200/999/999',
             ];
 
         // 生成数据集合
