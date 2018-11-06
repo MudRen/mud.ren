@@ -13,9 +13,13 @@ class UsersTableSeeder extends Seeder
         // 头像假数据
         $avatars = [
             'https://via.placeholder.com/200x200/333',
-            'https://via.placeholder.com/200x200/369',
+            'https://via.placeholder.com/200x200/933',
+            'https://via.placeholder.com/200x200/339',
             'https://via.placeholder.com/200x200/393/000',
-            'https://via.placeholder.com/200x200/693/000',];
+            'https://via.placeholder.com/200x200/993/000',
+            'https://via.placeholder.com/200x200/939/000',
+            'https://via.placeholder.com/200x200/399/000',
+            ];
 
         // 生成数据集合
         $users = factory(User::class)->times(10)->make()->each(function ($user, $index) use ($faker, $avatars) {
