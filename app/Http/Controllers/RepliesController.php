@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reply;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReplyRequest;
@@ -27,8 +28,14 @@ class RepliesController extends Controller
 
     public function destroy(Reply $reply)
     {
-        $this->authorize('destroy', $reply);
-        $reply->delete();
+        try {
+            $this->authorize('destroy', $reply);
+        } catch (AuthorizationException $e) {
+        }
+        try {
+            $reply->delete();
+        } catch (\Exception $e) {
+        }
 
         return redirect()->to($reply->topic->link())->with('success', '成功删除回复！');
     }

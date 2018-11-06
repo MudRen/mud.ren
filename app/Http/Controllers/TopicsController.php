@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Topic;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+
 use App\Http\Requests\TopicRequest;
 use App\Models\Category;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Handlers\ImageUploadHandler;
 use App\Models\User;
 use App\Models\Link;
@@ -55,25 +56,37 @@ class TopicsController extends Controller
 
 	public function edit(Topic $topic)
     {
-        $this->authorize('update', $topic);
+        try {
+            $this->authorize('update', $topic);
+        } catch (AuthorizationException $e) {
+        }
         $categories = Category::all();
         return view('topics.create_and_edit', compact('topic', 'categories'));
     }
 
 	public function update(TopicRequest $request, Topic $topic)
 	{
-		$this->authorize('update', $topic);
-		$topic->update($request->all());
+        try {
+            $this->authorize('update', $topic);
+        } catch (AuthorizationException $e) {
+        }
+        $topic->update($request->all());
 
 		return redirect()->to($topic->link())->with('success', '更新成功！');
 	}
 
 	public function destroy(Topic $topic)
 	{
-		$this->authorize('destroy', $topic);
-		$topic->delete();
+        try {
+            $this->authorize('destroy', $topic);
+        } catch (AuthorizationException $e) {
+        }
+        try {
+            $topic->delete();
+        } catch (\Exception $e) {
+        }
 
-		return redirect()->route('topics.index')->with('success', '成功删除！');
+        return redirect()->route('topics.index')->with('success', '成功删除！');
 	}
 
     public function uploadImage(Request $request, ImageUploadHandler $uploader)
@@ -87,7 +100,7 @@ class TopicsController extends Controller
         // 判断是否有上传文件，并赋值给 $file
         if ($file = $request->upload_file) {
             // 保存图片到本地
-            $result = $uploader->save($request->upload_file, 'topics', \Auth::id(), 1024);
+            $result = $uploader->save($request->upload_file, 'topics', Auth::id(), 1024);
             // 图片保存成功的话
             if ($result) {
                 $data['file_path'] = $result['path'];

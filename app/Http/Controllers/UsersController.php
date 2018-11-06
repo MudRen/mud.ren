@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
@@ -16,13 +17,19 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
-        $this->authorize('update', $user);
+        try {
+            $this->authorize('update', $user);
+        } catch (AuthorizationException $e) {
+        }
         return view('users.edit', compact('user'));
     }
 
     public function update(UserRequest $request, ImageUploadHandler $uploader, User $user)
     {
-        $this->authorize('update', $user);
+        try {
+            $this->authorize('update', $user);
+        } catch (AuthorizationException $e) {
+        }
         $data = $request->all();
 
         if ($request->avatar) {
