@@ -16,9 +16,9 @@
                             {{ $topic->title }}
                         </a>
                         <a class="pull-right" href="{{ $topic->link() }}" >
-                            <span class="fa fa-eye"> {{ $topic->visits()->count() }}</span>
+                            <span class="glyphicon glyphicon-eye-open"> {{ $topic->visits()->count() }}</span>
                             •
-                            <span class="fa fa-commenting"> {{ $topic->reply_count }}</span>
+                            <span class="glyphicon glyphicon-comment"> {{ $topic->reply_count }}</span>
                         </a>
                     </div>
 
