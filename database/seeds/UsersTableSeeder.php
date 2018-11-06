@@ -12,13 +12,13 @@ class UsersTableSeeder extends Seeder
 
         // 头像假数据
         $avatars = [
-            'https://via.placeholder.com/200x200/333',
-            'https://via.placeholder.com/200x200/933',
-            'https://via.placeholder.com/200x200/339',
-            'https://via.placeholder.com/200x200/393/000',
-            'https://via.placeholder.com/200x200/993/000',
-            'https://via.placeholder.com/200x200/939/000',
-            'https://via.placeholder.com/200x200/399/000',
+            'https://via.placeholder.com/200x200/333/333',
+            'https://via.placeholder.com/200x200/339/339',
+            'https://via.placeholder.com/200x200/393/393',
+            'https://via.placeholder.com/200x200/399/399',
+            'https://via.placeholder.com/200x200/933/933',
+            'https://via.placeholder.com/200x200/939/939',
+            'https://via.placeholder.com/200x200/993/993',
             ];
 
         // 生成数据集合

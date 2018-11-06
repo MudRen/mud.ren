@@ -13,7 +13,7 @@ class UserObserver
     {
         // 这样写扩展性更高，只有空的时候才指定默认头像
         if (empty($user->avatar)) {
-            $user->avatar = 'https://via.placeholder.com/200x200/939/000';
+            $user->avatar = 'https://via.placeholder.com/300x300/520/520';
         }
     }
 }
