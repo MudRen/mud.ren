@@ -106,7 +106,7 @@ class User extends Authenticatable
     public function dbase()
     {
         try {
-            $user = Cache::rememberForever("user:".$this->name, function () {
+            $user = Cache::remember("user:".$this->name, 90, function () {
                 $exitCode = Artisan::call('mud:cache_user');
                 return cache("user:".$this->name);
             });

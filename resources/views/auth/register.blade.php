@@ -62,11 +62,11 @@
                         </div>
 
                         <div class="form-group {{ $errors->has('captcha') ? ' has-error' : '' }}">
-                            <label for="captcha" class="col-md-4 control-label">邀请码</label>
+                            <label for="captcha" class="col-md-4 control-label">验证码</label>
 
                             <div class="col-md-6">
-                                <input id="captcha" class="form-control" name="captcha" placeholder="请联系管理员获取邀请码">
-
+                                <input id="captcha" class="form-control" name="captcha" placeholder="请填写你在游戏中设置的验证码">
+                                <div class="alert alert-info" role="alert">请在游戏mud.ren:5555中注册账号并使用以下指令设置你的验证码: set captcha ***</div>
                                 {{--<img class="thumbnail captcha" src="{{ captcha_src('flat') }}" onclick="this.src='/captcha/flat?'+Math.random()" title="点击图片重新获取验证码">--}}
 
                                 @if ($errors->has('captcha'))

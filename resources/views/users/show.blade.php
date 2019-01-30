@@ -49,7 +49,7 @@
                         </div>
                         @endisset
                     @else
-                        <div class="alert alert-success">梦幻泥潭MUD游戏地址：mud.ren:5555</div>
+                        <div class="alert alert-success">梦幻泥潭MUD游戏地址 mud.ren:5555</div>
                     @endif
                 </div>
             </div>

@@ -52,7 +52,7 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'captcha' => 'required',], [
-            'captcha.required' => '邀请码不能为空',]);
+            'captcha.required' => '验证码不能为空',]);
     }
 
     /**
@@ -63,9 +63,9 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        /*
+
         try {
-            $user = \Cache::rememberForever("user:".$data['name'], function() use ($data) {
+            $user = \Cache::remember("user:".$data['name'], 5, function() use ($data) {
                 $exitCode = \Artisan::call('mud:cache_user');
                 return cache("user:".$data['name']);
             });
@@ -73,8 +73,9 @@ class RegisterController extends Controller
                 return abort(416, '用户名必须是游戏ID，请先登录游戏(mud.ren:5555)注册账号');
             } else {
                 $dbase = $user[$data['name']]['dbase'];
-                //$dbase = htmlspecialchars_decode($dbase);
+                // $dbase = htmlspecialchars_decode($dbase);
                 $info = json_decode($dbase, true);
+                // return abort(416, $info['env']['captcha']);
                 if (!isset($info['env']['captcha'])) {
                     return abort(416, '请先登录游戏使用 set captcha XXX 设置验证码（XXX为自定义验证码）');
                 } elseif ($info['env']['captcha'] != $data['captcha']) {
@@ -84,10 +85,10 @@ class RegisterController extends Controller
         } catch (\Exception $exception) {
             return abort(416, $exception->getMessage());
         }
-        */
-        if (env('CAPTCHA') != $data['captcha']) {
-            return abort(416, '邀请码不正确，请联系管理员(QQ：7300637)');
-        };
+
+        // if (env('CAPTCHA') != $data['captcha']) {
+            // return abort(416, '邀请码不正确，请联系管理员(QQ：7300637)');
+        // };
         //return abort(403,'网站测试中，暂时关闭注册～');
         return User::create([
             'name' => $data['name'],
