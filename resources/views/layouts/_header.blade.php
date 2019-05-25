@@ -12,7 +12,7 @@
 
             <!-- Branding Image -->
             <a class="navbar-brand" href="{{ url('/') }}">
-                梦幻泥潭
+                <img src="{{ asset("logo.png") }}" class="img-responsive" style="max-height:25px">
             </a>
         </div>
 
