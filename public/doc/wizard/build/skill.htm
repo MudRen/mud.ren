@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0043)http://micro.go2game.com/gm/build/skill.htm -->
+<HTML><HEAD><TITLE>MUD 内容设计</TITLE>
+<META content="text/html; charset=gb2312" http-equiv=Content-Type><LINK 
+rel=stylesheet type=text/css href="../home.css">
+<META name=GENERATOR content="MSHTML 9.00.8112.16437"></HEAD>
+<BODY class=body_bg>
+<TABLE class=page_bg align=center>
+  <TBODY>
+  <TR>
+    <TD>
+      <TABLE class=table_top align=center>
+        <TBODY>
+        <TR>
+          <TD>如何定义技能</TD></TR></TBODY></TABLE>
+      <TABLE class=table align=center>
+        <TBODY>
+        <TR>
+          <TD>
+            <ADDRESS>&nbsp;[<A 
+            href="../">首页</A>][<A 
+            href="../build">前页</A>]</ADDRESS></TD></TR>
+        <TR>
+          <TD><BR>　　es2 mudlib 的一大特色是将许多游戏中人物的种族、职业、技能、症状等传统 lpmud 中只有少数 arch 
+            或 admin 
+            级的巫师才能写的东西定义出一个介面，让一般的巫师也有机会写，这种特性我称之为「游戏系统的抽象化」，事实上可以说是企图容纳所有创作游戏者创意的企图。<BR><BR>　　在 
+            es2 mudlib 中定义一个技能可能比你想像中的简单了好几倍，你所要做的只是写一个称为技能定义物件(skill 
+            daemon)的程式，然后让它 compile 
+            过就可以了。<BR><BR>　　在我们开始介绍如何写技能之前，必须先让你了解一个观念，就是 daemon 的注册 
+            (registeration)，在 es2 中跟游戏制度有关的 daemon 都需要经由向一个 DAEMON_D 
+            注册的程序，而且所有对这些 daemon 的呼叫也都是透过 DAEMON_D 的管理，因为这些 daemon 很可能是经验不如 mud 
+            管理者丰富的新手巫师写的，当这些 daemon 有错误，或者是需要修改的时候，如果对这个 daemon 
+            的引用是分散在各个用到它的程式里，那么修改起来所需要的时间、人力(跟权限)必定不是一般巫师所能负荷的。<BR><BR>　　好了，我们先从最简单的一个技能开始 
+            ....<BR><BR>　　技能范例：<BR><PRE>// example skill daemon
+
+inherit SKILL;
+
+void create()
+{
+    seteuid(getuid());
+    DAEMON_D-&gt;register_skill_daemon("barking");
+    setup();
+}
+</PRE>　　上面这个程式就是 es2 
+            中一个最简单的技能物件，我想大部份的人可能都会惊讶于它的简单，没错，这个技能物件只是「定义」了这样一个技能的存在，但是它并没有定义任何技能可能会有的「用途」，这样一个技能还没有办法让玩家学习或使用，它只是告诉 
+            DAEMON_D 我们这个物件是提供 barking 这个技能的所有定义，以后当任何程式用到 SKILL_D("barking") 
+            的时候，就是指我们这个物件。<BR><BR>　　在我们开始替这个技能定义物件加上实际的用途之前，先来看看它和 F_SKILL 
+            的介面，现在请在上面的范例加上下面的函数：<BR><PRE>void skill_improved(object me, string skill)
+{
+}
+</PRE><BR></TD></TR>
+        <TR>
+          <TD align=right>
+            <ADDRESS>[<A 
+            href="#top">回到顶部</A>]&nbsp;</ADDRESS></TD></TR></TBODY></TABLE>
+      <TABLE class=table_bottom align=center>
+        <TBODY>
+        <TR>
+          <TD>天下创作室</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></BODY></HTML>

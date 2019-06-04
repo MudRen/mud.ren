@@ -1,0 +1,160 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - lpc - types - mappings</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER>
+<H1>
+<FONT COLOR="#FF99FF">mappings</FONT></H1></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><FONT COLOR="#FFFFCC">使用映射 (mapping)　　　　 1992 September
+28</FONT></CENTER>
+
+<CENTER><FONT COLOR="#FFFFCC">MudOS 映射数据类型文件 -　 撰稿: Truilkan@TMI</FONT></CENTER>
+
+<HR WIDTH="100%">
+
+<P>MudOS 0.9 提供了名为「映射」的数据类型. 映射与其他语言中的联结数组 (associative
+arrays)　 一样 (例如 Perl). 一个联结数组与普通的数组类似, 但是联结数组可以使用任何数据类型
+(字符串、物件、整数、数组等等) 作为索引(index) , 而数组只能使用整数. 另外,
+联结数组是疏松的数组 (sparse arrays), 也就是说, 您可以只指定第 1,000,000　
+项元素的内容, 而不必指定其他元素.
+<BR>映射有两个实际的用途:
+<UL>1)　 数据库
+<BR>2)　 代替 C　 的集合数据类型 struct. 只需要把映射中的关键字 (key) 当作
+struct　 的栏位 (field)　 即可.</UL>
+这样声明一个映射:
+<UL><FONT COLOR="#FFCC99">mapping x;</FONT></UL>
+一个映射可以用两种方法初始化 (initialize):
+<UL><FONT COLOR="#FFCC99">x = ([关键字一 : 内容值一, 关键字二 : 内容值二,
+...]);</FONT></UL>
+　　 (注意: <FONT COLOR="#99FF99">x = ([]);</FONT> 可以造出一个空的映射)
+
+<P>请注意一个映射必须先初始化, 才能指定其中的任何元素. 有此限制是因为游戏驱动程序将所有的变量初始化为
+0 (不管变量是什么类型).　 如果您没有初始化一个映射, 您为此数组指定元素时,
+就会看到 Indexing on illegal type　 (索引指向的数据类型违法) 的错误.
+
+<P>新的 (关键字, 内容值) 可以用以下的方法加进一个映射:
+<UL><FONT COLOR="#FFCC99">x[key] = value;</FONT></UL>
+上面的语句使驱动程序寻找在映射 x　 中的特定关键字 (key). 如果映射 x　 有此关键字,
+则映射中联结的内容值 (value)　 就换成等号右边指定的值. 如果映射并没有包括这个关键字,
+则会自动动态 (dynamically) 配置 (allocate)　 另外的空间, 并将新的 (关键字,
+内容值) 插入映射中.
+
+<P>映射中的一个元素可以下行的方式读取:
+<UL><FONT COLOR="#99FF99">write(x[key] + "\n");</FONT></UL>
+一个数组的元素可以下行的方式删除:
+<UL><FONT COLOR="#FFCC99">map_delete(x, key);</FONT></UL>
+删除之后, 会让下面的运算式为真 (1):
+<UL><FONT COLOR="#99FF99">undefinedp(x[key])</FONT></UL>
+所以您可以撰写像以下的源代码:
+<UL><FONT COLOR="#99FF99">if (undefinedp(value = x["MudOS"])) {</FONT>
+<UL><FONT COLOR="#99FF99">write("「MudOS」为映射 x 的一个元素。\n");</FONT></UL>
+<FONT COLOR="#99FF99">} else {</FONT>
+<UL><FONT COLOR="#99FF99">write("关键值「MudOS」的值是：" + value + "。\n");</FONT></UL>
+<FONT COLOR="#99FF99">}</FONT></UL>
+关键字 (索引) 的列表可以用 keys() 外部函数列出, 举例如下:
+
+<P><FONT COLOR="#99FF99">　　 mixed *idx;</FONT>
+<BR><FONT COLOR="#99FF99">　　 map x;</FONT>
+
+<P><FONT COLOR="#99FF99">　　 x = ([ "x" : 3, "y" : 4]);</FONT>
+<BR><FONT COLOR="#99FF99">　　 idx = keys(x);　　　　　　　 </FONT>/* idx
+== ({"x", "y"}) 或 ({"y", "x"}) */
+
+<P>请注意, 看来很明显的, keys()　 会以一个随机的顺序 (random) 返回索引的列表
+(这种随机的顺序, 是映射储存数据的方式的副作用 ---- 在此, 是因为可扩充式数据搜寻表
+(extensible hash table)　 顺序的关系)
+
+<P>一个映射的内容值 (values) 列表, 可以 values() 外部函数列出:
+<UL><FONT COLOR="#FFCC99">idx = values(x);</FONT></UL>
+使 idx 等于 ({3, 4}) 或 ({4, 3}). 注意, values() 返回的内容值顺序则跟 keys()
+返回的顺序相同.
+
+<P>　(关键字, 内容值) 在一个映射中, 可以利用 each()　 外部函数反覆搜寻.
+each()　 在找到映射的尾端时, 就返回一个空向量 (null vector).　 each() 返回
+(关键字, 内容值) 的顺序, 与 keys() 和 values()　 返回的顺序相同. 举例:
+<UL><FONT COLOR="#99FF99">mixed *pair;</FONT>
+
+<P><FONT COLOR="#99FF99">while ((pair = each(x)) != ({})) {</FONT>
+<UL><FONT COLOR="#99FF99">write("key　　 = " + pair[0] + "\n");</FONT>
+<BR><FONT COLOR="#99FF99">write("value = " + pair[1] + "\n");</FONT></UL>
+<FONT COLOR="#99FF99">}</FONT></UL>
+映射可以为二元 (two-dimensional) (或是更高次元的映射),　 道理与 LPC　 数组相同:
+<BR>　
+<UL><FONT COLOR="#99FF99">mapping x, y;</FONT>
+
+<P><FONT COLOR="#99FF99">x = ([]);</FONT>
+<BR><FONT COLOR="#99FF99">y = ([]);</FONT>
+
+<P><FONT COLOR="#99FF99">y["a"] = "c";</FONT>
+<BR><FONT COLOR="#99FF99">x["b"] = y;</FONT></UL>
+
+<UL>则 <FONT COLOR="#FFCCCC">x["b"]["a"]　 == "c"</FONT></UL>
+
+<UL>映射也可以由 *　 (乘法) 运算符组合得到 (数学上的组合).</UL>
+
+<UL><FONT COLOR="#99FF99">mapping r1, r2, a;</FONT>
+
+<P><FONT COLOR="#99FF99">r1 = ([]);</FONT>
+<BR><FONT COLOR="#99FF99">r2 = ([]);</FONT>
+
+<P><FONT COLOR="#99FF99">r1["driver"] = "mudlib";</FONT>
+<BR><FONT COLOR="#99FF99">r2["mudlib"] = "castle";</FONT></UL>
+所以:
+<UL><FONT COLOR="#99FF99">a = r1 * r2</FONT></UL>
+定义出 <FONT COLOR="#FFCCCC">a["driver"] == "castle";</FONT>
+
+<P>您也可以将两个映射相加. 两个映射的总和定义为两个映射的联集 (union).
+<UL><FONT COLOR="#99FF99">a = r1 + r2</FONT></UL>
+定义出 <FONT COLOR="#FFCCCC">a["driver"] == "mudlib"</FONT> 和 <FONT COLOR="#FFCCCC">a["mudlib"]
+== "castle"</FONT>
+
+<P>「<FONT COLOR="#FFCC99">+=</FONT>」也可使用. 所以您可以用:
+<UL><FONT COLOR="#99FF99">a += ([key : value]);</FONT></UL>
+可以代替:
+<UL><FONT COLOR="#99FF99">a[key] = value;</FONT></UL>
+不过, 后面这种 a[key] = value 的形式要比前面的 a += ([key : value]) 的方法要来得有效率.
+因为前面的方法还要创造一个新的映射［译按: 指 ([key : value]) 这个映射］,
+而后者不用.
+
+<P>映射不能使用 - (减号) 运算符［要使用 map_delete() ］.
+
+<P>sizeof() 外部函数可以判断一个映射中有多少对 (关键字, 内容值)　 的数据.
+<UL><FONT COLOR="#99FF99">write("映射 x 内含 " + sizeof(x) + " 个元素。\n");</FONT></UL>
+内部的做法 (implementation):
+
+<P>MudOS 的映射使用可扩充式的数据搜寻表 (extensible hash table). 数据搜寻表的大小一定是
+2　 的乘幂 (power of 2).　 当数据搜寻表的内容装满一定的程度时, 数据搜寻表的就增为两倍以维持数据搜寻的效率.
+
+<P>
+<HR WIDTH="100%">
+<CENTER><FONT COLOR="#FFFFCC">作者:</FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR>MudOS 的映射原本由 Whiplash@TMI 所写. 其中的一部份后来由 Truilkan@TMI
+重写［使用可扩充式的数据搜寻表以替换原来的二元树 (binary tree)］.
+
+<P>映射数据结构的一部份是基于 Larry Wall 写的 Perl 程序语言的 hash.c 模组.
+Perl　 的整套程序适用于 GNU Copyleft general public license.
+<BR>
+<HR WIDTH="100%">
+<CENTER><FONT COLOR="#FFFFCC">翻译: Spock @ FF 97.Aug.11.</FONT></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../types.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

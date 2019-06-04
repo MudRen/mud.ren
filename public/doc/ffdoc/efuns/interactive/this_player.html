@@ -1,0 +1,37 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - interactive - this_player</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>this_player(3)　 MudOS v21c2　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 object this_player( int flag );
+
+<P>　 物件 this_player( 整数 flag );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 返回调用此函数的玩家 (player) 物件. 请注意, 即使是从玩家物件内部使用
+this_player(), 其返回值也可能与 this_object() 不同. 如果以 this_player(1)
+调用, 则返回调用此函数的可互动 (interactive)　 物件. this_player(1)　 的返回值在某些情形下与
+this_player() 不同. 例如: 系统管理员 (admin)　 使用 command()　 强制一名玩家做出一些动作时.</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="../calls/this_object.html">this_object(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Jul.25.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../interactive.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - mappings - map_delete</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>map_delete(3)　 MudOS v21c2　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 map_delete() -　 以关键字从一个映射变量中删除一对 (关键字, 内容值)
+((key, value)).</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 void map_delete( mapping m, mixed element );
+
+<P>　 无返回值 map_delete( 映射 m, 混合 element );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 map_delete 删除映射变量中关键字符合 element　 的 (关键字, 内容值)
+.
+
+<P>　 范例:
+<BR>　
+<UL><FONT COLOR="#99FF99">　 mapping names;</FONT>
+
+<P><FONT COLOR="#99FF99">　 names = ([]);</FONT>
+<BR><FONT COLOR="#99FF99">　 names["truilkan"] = "john";</FONT>
+<BR><FONT COLOR="#99FF99">　 names["wayfarer"] = "erik";</FONT>
+<BR><FONT COLOR="#99FF99">　 names["jacques"] = "dwayne";</FONT></UL>
+　 则:
+<BR>　
+<UL><FONT COLOR="#99FF99">　 map_delete(names,"truilkan");</FONT></UL>
+　 会使映射变量 names 成为:
+<BR>　
+<UL><FONT COLOR="#FFCCCC">　 (["wayfarer" : "erik", "jacques" : "dwayne"])</FONT></UL>
+　 在 map_delete( names, "truilkan" ) 之后, key(names) 就不会包含 truilkan
+(除非后来又用 ("truilkan", *) 把 truilkan 加回映射变量里)</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="allocate_mapping.html">allocate_mapping(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Feb.18.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../mappings.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

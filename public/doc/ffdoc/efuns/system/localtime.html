@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - system - localtime</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>localtime(3)　 MudOS v21c2　 (5
+Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 localtime() - 转换成本地时间</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 #include &lt;localtime.h>
+
+<P>　 mixed *localtime( int time );
+
+<P>　 混合 *localtime( 整数 time );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 localtime() 转换一个整数的时间值 (像是 time() 返回值) 成为一个数组.
+这个数组就是目前的本地时间. 在以前 time() 是函数用来取得格林威治时间 (GMT
+(UTC)), 而本地时间的定义是与格林威治时间的差值. 现在这种换算的方法已经没有必要了.
+localtime() 返回秒数、分钟、小时、日期、月数、年数、星期几、一年中的第几天、本地的时区名称、本地时区与格林威治时区的差值.
+这些时间的信息直接由作业系统取得, 而且使驱动程序不需要用到 MUD　 本身的设定文件.
+
+<P>　 localtime() 返回一个包含上述时间信息的数组. 每一个时间值的索引关键字
+(index)　 由 localtime.h　 定义. 下表则整理出 localtime()　 返回的数组内容.
+<BR>&nbsp;
+<UL><FONT COLOR="#FFCC99">　 int LT_SEC　 秒数 (0..59)</FONT>
+<BR><FONT COLOR="#FFCC99">　 int LT_MIN　 分钟 (0..59)</FONT>
+<BR><FONT COLOR="#FFCC99">　 int LT_HOUR　 小时 (0..23)</FONT>
+<BR><FONT COLOR="#FFCC99">　 int LT_MDAY　 日数 (1..31)</FONT>
+<BR><FONT COLOR="#FFCC99">　 int LT_MON　 月数 (0..11)</FONT>
+<BR><FONT COLOR="#FFCC99">　 int LT_YEAR　 年份 (必须大于 1900)</FONT>
+<BR><FONT COLOR="#FFCC99">　 int LT_WDAY　 星期几 (0..6)</FONT>
+<BR><FONT COLOR="#FFCC99">　 int LT_YDAY　 一年中的第几天 (0..365)</FONT>
+<BR><FONT COLOR="#FFCC99">　 int LT_GMTOFF　 格林威治时间相差的秒数 (UTC)</FONT>
+<BR><FONT COLOR="#FFCC99">　 string LT_ZONE　 本地时区的名称</FONT></UL>
+</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="ctime.html">ctime(3)</A>, <A HREF="time.html">time(3)</A>,
+<A HREF="../internals/time_expression.html">time_expression(3)</A>, <A HREF="uptime.html">uptime(3)</A>,
+/include/localtime.h</UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Feb.18.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../system.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

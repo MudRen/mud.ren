@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - mudlib - enable_wizard</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>enable_wizard(3) MudOS v21c2　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 enable_wizard() - 将巫师的特权给予一个物件.</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 void enable_wizard( void );
+
+<P>　 无返回值 enable_wizard( 无参数 );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 任何调用 enable_wizard() 的可互动 (interactive) 物件, 会让 wizardp()
+对此物件返回真值 (true). 而 enable_wizard() 可以让这个物件有以下三项特权:
+<BR>　
+<UL>
+<OL>
+<LI>
+1.　 如果编译 MUD 驱动程序当时定义 RESTRICTED_ED 选项, 则可以使用 ed 的受限制模式
+(restricted modes).</LI>
+</OL>
+</UL>
+</UL>
+
+<UL>
+<UL>
+<OL>
+<LI>
+2.　 可以收到详细的执行错误消息.</LI>
+</OL>
+</UL>
+</UL>
+
+<UL>
+<UL>
+<OL>
+<LI>
+3.　 可以使用 trace(3) 和 traceprefix(3) 函数.</LI>
+</OL>
+</UL>
+</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="../interactive/disable_wizard.html">disable_wizard(3)</A>,
+<A HREF="wizardp.html">wizardp(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Feb.12.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../mudlib.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

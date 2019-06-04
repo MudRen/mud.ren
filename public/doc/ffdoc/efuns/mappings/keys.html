@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - mappings - keys</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>keys(3)　　 MudOS v21c2　 (5 Sep
+1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 keys() - 返回在一个映射变量 (mapping) 中所有 (关键字, 内容值) (即
+(key, value) ) 数据关键字的数组 (array).</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 mixed *keys( mapping m );
+
+<P>　 混合 *keys( 映射 m );</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 keys()　 照顺序返回一个在映射变量 m　 中 (关键字, 内容值) 之所有关键字的数组.
+
+<P>　 范例:
+
+<P><FONT COLOR="#99FF99">　 mapping m;</FONT>
+<BR><FONT COLOR="#99FF99">　 m = (["hp" : 35, "sp" : 42, "mass" : 100]);</FONT>
+
+<P>　 则:
+
+<P><FONT COLOR="#99FF99">　 keys(m) == ({"hp", "sp", "mass"})</FONT>
+
+<P>　 请注意: 关键字不会排序. 而与 values() 返回内容值的原来顺序相同.
+<BR>&nbsp;</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 <A HREF="values.html">values(3)</A>, <A HREF="each.html">each(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Feb.18.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../mappings.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

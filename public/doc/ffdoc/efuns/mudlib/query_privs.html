@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - mudlib - query_privs</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>query_privs(3)　 MudOS v21c2　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 query_privs() - 返回一个物件的私有字符串 (privs string).</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 string query_privs( object ob );
+
+<P>　 字符串 query_privs( 物件 ob );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 返回一个物件的私有字符串. 此私有字符串由主控物件 (master object) 于编译程序时,
+privs_file()　 函数决定. 而此字符串可由 set_privs()　 函数更改.
+
+<P>　 query_privs() 只有在驱动程序 (driver) 编译时, 定义 PRIVS 才有效.</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="../../applies/master/privs_file.html">privs_file(4)</A>,
+<A HREF="set_privs.html">set_privs(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Jul.25.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../mudlib.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

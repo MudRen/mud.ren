@@ -1,0 +1,42 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - interactive - say</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>say(3)　　 MudOS v21c2　 (5
+Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 say() - 把消息传递给所有在同一个环境中的使用者.</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 varargs void say( string str, object obj );
+
+<P>　 不定参数 无返回值 say( 字符串 str, 物件 obj );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 把消息传递给位于跟发出消息者同一环境的物体, 以及所有在发出消息者里面的物体.
+发出消息者只能是 this_player(), 或是　 this_player() == 0 的 this_object().
+
+<P>　 第二个参数可有可无. 如果指定了第二个参数 obj, 则消息不会传递给 obj.
+如果 obj 不是一个物件, 而是一个物件数组 (an array of objects) , 则消息就不会传递给数组内的物件.</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="message.html">message(3)</A>, <A HREF="write.html">write(3)</A>,
+<A HREF="shout.html">shout(3)</A>, <A HREF="../objects/tell_object.html">tell_object(3)</A>,
+<A HREF="../objects/tell_room.html">tell_room(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Jul.4.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../interactive.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - sockets - socket_release</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>socket_release(3)　 MudOS v21c2　　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称：</FONT>
+<UL>　 socket_release() - 释放一个 socket 的所有权 (ownership) 给另一物件。</UL>
+<FONT COLOR="#FFFFCC">　语法：</FONT>
+<UL>　 #include &lt;socket_err.h>
+
+<P>　 int socket_release( int socket, object ob, string release_callback
+);
+
+<P>　 整数 socket_release( 整数 socket, 物件 ob, 字符串 release_callback );</UL>
+<FONT COLOR="#FFFFCC">　用法：</FONT>
+<UL>　 socket_release() 是用来改变原先处理连接设定(set-up)之物件的所有权（和控制权）并且转移一个已连接(connected)的
+socket 给另一物件以供未来之用。
+
+<P>　 socket 所有权的转移包括了一个目前拥有所有权物件和这个物件想转移 socket
+的物件间的握手程序(handshake)。这个握手程序是由调用 socket_release() 开始的。socket_release()
+经过安全性、完整性(integrity)检查后，再调用物件 ob 的 release_callback
+函数。这个函数是用来通知 ob socket 所有权将要转移给它。然后 ob 有责任在释放回呼(callback)函数中调用
+socket_acquire()。如果调用了 socket_acquire()，握手程序就完成了，而 socket
+所有权就已经成功地转移给 ob。ob 也可以不调用 socket_acquire() 而婉谢接受这个
+socket 的责任，此时，所有权不会改变，而且原来的 socket 所有者必须决定如何回应这个情况。
+
+<P>　 如果 socket 所有者成功地转移，则 socket_release() 会返回 EESUCCESS。如果
+ob 不接受这个 socket 的所有权的话，则会返回 EESOCKNOTRLSD。其他基于违反安全、错误的
+socket 描述值(descriptor) 等的错误码也可能返回。</UL>
+<FONT COLOR="#FFFFCC">　参照：</FONT>
+<UL>　 <A HREF="socket_acquire.html">socket_acquire(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译：</FONT>
+<UL>　 Kenny@Broken.History　 97.Jul.27　　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../sockets.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

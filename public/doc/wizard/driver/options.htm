@@ -1,0 +1,720 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0046)http://micro.go2game.com/gm/driver/options.htm -->
+<HTML><HEAD><TITLE>MUD 系统架设</TITLE>
+<META content="text/html; charset=gb2312" http-equiv=Content-Type><LINK 
+rel=stylesheet type=text/css href="../home.css">
+<META name=GENERATOR content="MSHTML 9.00.8112.16437"></HEAD>
+<BODY class=body_bg>
+<TABLE class=page_bg align=center>
+  <TBODY>
+  <TR>
+    <TD>
+      <TABLE class=table_top align=center>
+        <TBODY>
+        <TR>
+          <TD>编译配置文件</TD></TR></TBODY></TABLE>
+      <TABLE class=table align=center>
+        <TBODY>
+        <TR>
+          <TD>
+            <ADDRESS>&nbsp;[<A 
+            href="../">首页</A>][<A 
+            href="../driver">前页</A>]</ADDRESS></TD></TR>
+        <TR>
+          <TD><BR><PRE>/*
+ * 文件：options.h
+ * 说明：MudOS 驱动程序编译时配置文件
+ * 编译：Micro@TianXia (1999-02-03)
+ */
+
+#ifndef _OPTIONS_H_
+#define _OPTIONS_H_
+
+/****************************************************************************
+ * 注意：如果你对本文件有任何改动，请重新编译 MudOS 驱动程序。              *
+ * 方法：1. 在 UNIX 系统下执行 make clean 命令。                            *
+ *       2. 然后执行 make 命令。                                            *
+ *       如果编译中出现任何错误，都有可能使驱动程序处于非正常状态。         *
+ ****************************************************************************/
+
+/* 注意：许多可配置的选项目前已被设置成 MudOS 缺省值。如果你在编译时有任何问题，
+ *       请在 port.h 文件中查看 #defines  涉及的兼容性问题。删除某一个超越函数，
+ *       通常会同时删除同系列的超越函数，反之，这些函数将同时被绑定编译。
+ */
+
+/****************************************************************************
+ *                             内存分配管理                                 *
+ *                                                                          *
+ * 由于性能原因，LPmud 驱动程序有几种内存管理方式。如果你不想关心它们，请使 *
+ * 用系统缺省选项：#define SYSMALLOC，#undef 其它选项。                     *
+ ****************************************************************************/
+
+/* 你必须准确地选择以下任何唯一一种内存管理方式：
+ * 
+ * SYSMALLOC:
+ *   * 内置系统分配。
+ *   * 没有统计状态。
+ *   * SYSMALLOC 将导致没有额外的处理器或内存开销。
+ *
+ * SMALLOC:
+ *   * Satoria 的内存分配方式。
+ *   * 允许统计状态。（参见 wrappers 及 DO_MSTATS 选项）
+ *   * 比大多数系统内存管理的速度更快，而且有适度的内存开销。
+ *   * 在 sbrk() 函数失败时，可以返回系统内存管理状态。
+ *
+ * BSDMALLOC:
+ *   * BSD 的内存分配方式。
+ *   * 允许统计状态。（参见 wrappers 及 DO_MSTATS 选项）
+ *   * 比 SMALLOC 的速度更快，而且有更多的内存开销。
+ *   * 需要 sbrk 函数。
+ */
+#define SYSMALLOC
+#undef SMALLOC
+#undef BSDMALLOC
+
+/* 你必须选择以下任意一个或者完全不选择以下内存管理选项。这些选项与以上内存分配
+ * 选项密切相关。
+ *
+ * WRAPPEDMALLOC:
+ *   * 有限统计。
+ *   * 有限额外处理器开销及无额外内存开销。
+ *
+ * DEBUGMALLOC:
+ *   * 统计内存被分配数量（比 WRAPPEDMALLOC 状态好）。
+ *   * 完美的处理器及内存开销。
+ */
+#undef WRAPPEDMALLOC
+#undef DEBUGMALLOC
+
+/* 以下选项将增加某种配件到内存管理之中：*/
+
+/*
+ * SBRK_OK: 如果前面没有选择 SMALLOC 内存管理方式，请不要选择这一项。
+ * 定义这个选项会导致 SMALLOC 使用低层内存分配程序，并体现为一个内存管理替代者。
+ * 相反，不定义这个选项会导致 SMALLOC 体现为一个系统内存管理程序的表象。
+ *
+ * 注意：NeXTStep 3.x 用户将总是使用 #undef SBRK_OK 选项。
+ */
+#undef SBRK_OK
+
+/* DO_MSTATS: 如果前面没有选择 BSDMALLOC 或 SMALLOC 内存管理方式，请不要选择这
+ * 一项。定义这个选项会导致这些内存管理替代者保持统计 malloc_status() 超越函数
+ * 的输出（包括所有内存分配／使用）。
+ */
+#undef DO_MSTATS
+
+/* DEBUGMALLOC_EXTENSIONS: 除 DEBUGMALLOC 外，定义该选项会激活 set_malloc_mask
+ * (int) 以及 debugmalloc(string,int) 超越函数。这两个超越函数主要允许你能引起
+ * 几种内存分配和释放（带有特别掩饰标记）以打印调试信息（如地址、标记、描述、
+ * 大小）到工作环境或者文件之中。不定义该选项将减少 DEBUGMALLOC 的开销（从每份
+ * 16 字节减少到 8 字节）。该定义不会影响 DEBUGMALLOC 是否定义。
+ */
+#undef DEBUGMALLOC_EXTENSIONS
+
+/* CHECK_MEMORY: 除 DEBUGMALLOC 和 DEBUGMALLOC_EXTENSIONS 外，定义该选项会导致驱
+ * 动程序在一个块的开始或者结束之前检查内存。该选项同时也可以增加 check_memory()
+ * 超越函数。使用更多的内存。主要用于调试。
+ */
+#define CHECK_MEMORY
+
+/****************************************************************************
+ *                                 兼容性                                   *
+ *                                                                          *
+ * MudOS 驱动程序已经发展了许多岁月了。这些定义主要保存了旧的设置，以便于人 *
+ * 们不必重写他们代码相关的部分。                                           *
+ *                                                                          *
+ * 在大多数的情况下，与定义相关的代码或许会被重写。兼容情况字域有计划地给出 *
+ * 一些关于在最近的将来那些选项的支持将被取消的更合适的主意。某些选项相当容 *
+ * 易地工作，并且双倍尺寸于相关的代码，正如维护工作量一样，使代码更复杂则更 *
+ * 难以阅读，因此支持它们难以确定是否不切实际的。                           *
+ *                                                                          *
+ * 警告：如果你在可能假定某几种这类设置的 MudOS 驱动程序支持下进行软件设计，*
+ *       请查看详细的使用方法。                                             *
+ ****************************************************************************/
+
+/* HAS_STATUS_TYPE: 旧的 MudOS 驱动程序有一种叫 status 的数据类型，它与 int 数据
+ * 类型相同。如果定义该设置，则可以使用它。
+ *
+ * 兼容情况：非常古老，而且容易支持。
+ */
+#undef HAS_STATUS_TYPE
+
+/* explode():
+ *
+ * 旧的方法（#undef 以下两个设置）将取消前面所有分隔符及最后一个分隔符。由此
+ * explode("..x.y..z..", ".") 的结果是 ({ "x", "y", "", "z", "" })
+ *
+ * SANE_EXPLODE_STRING 最多取消领头的一个分隔符及最后一个分隔符，由此前例结果
+ * 是： ({ "", "x", "y", "", "z", "" }).
+ *
+ * REVERSIBLE_EXPLODE_STRING 将超越 SANE_EXPLODE_STRING，它是一个可逆的行为：
+ * implode(explode(x, y), y) 的结果总是 x，由此前例结果是：
+ * ({ "", "", "x", "y", "", "z", "", "" }).
+ *
+ * 兼容情况：哪一种结果“正确”只是一种个人的看法问题。
+ */
+#undef SANE_EXPLODE_STRING
+#undef REVERSIBLE_EXPLODE_STRING
+
+/* CAST_CALL_OTHERS: 如果你想得到计算 call_others，请定义该项。
+ *
+ * 兼容情况：代码不能中断。该项会增另译码的难度，没有什么好处。
+ */
+#undef CAST_CALL_OTHERS
+
+/* NONINTERACTIVE_STDERR_WRITE: 如果该项被定义，所有 writes/tells/等等 到非玩家
+ * 物体将以 ] 符号前缀被写到错误终端上。这是一种旧的作法。
+ *
+ * 兼容情况：容易支持，是否正确只是一种个人的看法问题。
+ */
+#define NONINTERACTIVE_STDERR_WRITE
+
+/* NO_LIGHT: 定义该项将禁止 set_light() 函数及驱动程序维护物体的光亮度。如果你愿
+ * 意的话，可以通过 LPC 来模拟它。
+ *
+ * 兼容情况：非常古老，容易被模拟。
+ */
+#undef NO_LIGHT
+
+/* NO_ADD_ACTION: 定义该项可以取消 add_action、命令、生物等等。process_input()
+ * 将会成为处理用户输入的唯一方法。
+ *
+ * 兼容情况：几乎不可以模拟，难以替代，非常非常广泛地使用。
+ */
+#undef NO_ADD_ACTION
+
+/* NO_ENVIRONMENT: 定义该项可以取消驱动程序物体包容关系的处理。
+ *
+ * 兼容情况：难以有效模拟，非常广泛地使用。
+ */
+#undef NO_ENVIRONMENT
+
+/* NO_WIZARDS: 由于历史的原因，MudOS 一直保持着谁是巫师，谁不是巫师这一点。定义
+ * 该项将完全清除这种方法，同时 wizardp() 及相关的超越函数将不复存在。 
+ *
+ * 同样注意如果没有定义该项，则非巫师将在使用 ed() 函数时总在受限制的模式。
+ *
+ * 兼容情况：过时，容易模拟。
+ */
+#undef NO_WIZARDS
+
+/* OLD_TYPE_BEHAVIOR: 主要为了向后兼容。
+ *
+ * 兼容情况：处理因而发生的所有编译错误会是一件很痛苦的事情，即使它们本身就是正
+ *           确的。而且对代码的影响很小。
+ */
+#undef OLD_TYPE_BEHAVIOR
+
+/* OLD_RANGE_BEHAVIOR: 如果你在字串及缓冲区范围数值中需要负索引的话，可以定义它
+ *
+ * 兼容情况：取代它并不困难，而且并不琐细。不能被模拟。
+ */
+#undef OLD_RANGE_BEHAVIOR
+
+/* OLD_ED: ed() 函数向后兼容旧的版本。
+ *
+ * 兼容情况：容易模拟。
+ */
+#define OLD_ED
+
+/* COMPRESS_FUNCTION_TABLES: 使函数表占用较少的内存，而函数调用的开销只有轻微的
+ * 增加。
+ * 
+ * 兼容情况：速度开销几乎可以忽略。
+ */
+#define COMPRESS_FUNCTION_TABLES
+
+/****************************************************************************
+ *                                  杂  项                                  *
+ *                                                                          *
+ * 影响驱动程序运行的各样的选项。                                           *
+ *                                                                          *
+ * 警告：如果你在可能假定某几种这类设置的 MudOS 驱动程序支持下进行软件设计，*
+ *       请查看详细的使用方法。                                             *
+ ****************************************************************************/
+
+/*
+ * 定义该项只是为了将系统的 crypt() 函数以 Fermat@Equilibria 的 MD5 取代。这样
+ * 在所有的体系中给出同样的值可以有更大的利益，而且比 UNIX 正常的 crypt() 函数
+ * 更加强壮。
+ */
+#undef CUSTOM_CRYPT
+
+/*
+ * 基于 LPmud 3.2/3.2.1 上更容易地运行代码设计。目前有如下特点：
+ * 
+ * . m_indices() 及 m_values() 分别对 keys() 及 values() 而言是同义函数。
+ * . map_delete() 返回它的首个参数。
+ * . inherit_list() 意味着 deep_inherit_list()，而不是 shallow_inherit_list()。
+ * . heart_beat_info() 是 heart_beats() 的同义函数。
+ */
+#undef COMPAT_32
+
+/*
+ * 保持关于分配字串等的统计表。它能被 mud_status() 超越函数所查看。如果该项被关
+ * 闭，mud_status() 及 memory_info() 将忽略分配字串，但字串操作运行得更快。
+ */
+#define STRING_STATS
+
+/*
+ * 保持关于分配数组等的统计表。它能被 mud_status() 超越函数所查看。如果该项被关
+ * 闭，mud_status() 及 memory_info() 将忽略分配数组，但数组操作运行得更快。
+ */
+#define ARRAY_STATS
+
+/* LOG_CATCHES: 定义该项将导致 catch() 捕获的错误传送到调试日志。
+ *
+ * 建议使用该项。
+ */
+#define LOG_CATCHES
+
+/* ARGUMENTS_IN_TRACEBACK: 在跟踪到错误后列印函数调用的参数，这样对调试程序是有
+ * 帮助的。注意：它将在出现错误同时列印参数的值，而不是当函数被调用时。例如：
+ *
+ * Failed to load file: read_buffer
+ * program: command/update.c, object: command/update line 15
+ * '    commandHook' in '        clone/user.c' ('        clone/user#1')line 72
+ * arguments were ("/read_buffer.c")
+ * '           main' in '    command/update.c' ('      command/update')line 15
+ * arguments were ("/read_buffer.c")
+ *
+ * 唯一的问题是一些用户喜欢它们记录得更少一些。但是实际上对跟踪错误非常有用。
+ */
+#undef ARGUMENTS_IN_TRACEBACK
+
+/* LOCALS_IN_TRACEBACK: 类似于 ARGUMENTS_IN_TRACEBACK，但这只是对本地变量而言。
+ * 输出的内容看起来多多少少象这样：
+ *
+ * locals: 1, "local_value"
+ *
+ * 唯一的问题是一些用户喜欢它们记录得更少一些。但是实际上对跟踪错误非常有用。
+ */
+#undef LOCALS_IN_TRACEBACK
+
+/* MUDLIB_ERROR_HANDLER: 如果你定义该项，驱动程序将在错误发生时不做任何处理。除
+ * 非把物体的心跳关闭。错误信息将会通过一个映射数据结构传送到主对象的 
+ * error_handler()函数之中。无论如何，返回值都被放入 debug.log 之中。
+ *
+ * 一个好的 Mudlib 错误处理程序是错误跟踪的最好工具之一。很不幸，你必须拥有一个
+ * 找一些 Mudlib 看看有没有一个例子吧。
+ */
+#undef MUDLIB_ERROR_HANDLER
+
+/* CONFIG_FILE_DIR 指定驱动程序将缺省搜索配置文件的目录。如果你不想使用这个设置
+ * 在驱动程序启动时，你将总是要指定配置文件的全路径。
+ */
+#ifndef LATTICE
+#define CONFIG_FILE_DIR "/u/tim/COMP/bin"
+#else
+#define CONFIG_FILE_DIR "etc:"
+#endif
+
+/* DEFAULT_PRAGMAS: 缺省的 PRAGMAS。例如：
+ *
+ * #define DEFAULT_PRAGMAS PRAGMA_STRICT_TYPES + PRAGMA_SAVE_TYPES
+ *
+ * 将使每一个 LPC 文件运行起来就象有以下两行一样：
+ * #pragma strict_types
+ * #pragma save_types
+ *
+ * 如果没有缺省值，则使用：
+ * #define DEFAULT_PRAGMAS 0
+ *
+ * 如果你不明白它们的意思，0 是最好的选择。
+ *
+ * 支持的选值：
+ * PRAGMA_STRICT_TYPES: 强制严格的类型检查。
+ * PRAGMA_WARNINGS:     发现危险的代码时，提出警告。
+ * PRAGMA_SAVE_TYPES:   保存函数参数的类型以检查调用函数。
+ * PRAGMA_SAVE_BINARY:  保存本文件的编译二进制版本，以便于在需要时能更快载入
+ * PRAGMA_OPTIMIZE:     进行第二次扫描以进一步优化代码。
+ * PRAGMA_ERROR_CONTEXT:包括一些文本显示行中何处编辑发出错误。
+ */
+#define DEFAULT_PRAGMAS PRAGMA_SAVE_BINARY
+
+/* NO_RESETS: 完全关闭 reset() 函数的周期调用。 */
+#undef NO_RESETS
+
+/* LAZY_RESETS: 如果定义该项，当它仅在接触到 call_other() 或者 move_object() 函
+ * 数时物体 reset() 函数被调用（假定从上次复位之后有足够的时间）。如果没有定义
+ * 该项，reset() 函数将常常被调用（保证 reset() 函数最少被调用一次）。该项的优
+ * 势在于可以节省内存。
+ */
+#undef LAZY_RESETS
+
+/* SAVE_EXTENSION: 定义该项用于 save_object() 及 restore_object() 函数。该项定义
+ * 了物体保存数据文件的扩展名。
+ */
+#define SAVE_EXTENSION ".o"
+
+/* NO_ANSI: 定义该项可以禁止用户输入命令时包含 ANSI 的 ESC 序列。这样将导致所有
+ * ESC 字符（ASCII 27）在字串通过 add_action 被处理时替代为空格。
+ *
+ * STRIP_BEFORE_PROCESS_INPUT 定义该项可以使 process_input() 也不能看到 ANSI 序
+ * 列。反之它可以处理。注意 process_input 的优先级高于 add_actions 。如果定义了
+ * NO_ADD_ACTION，那么定义了 NO_ANSI 而没有定义 STRIP_BEFORE_PROCESS_INPUT 等同
+ * 于 #undef NO_ANSI。
+ *
+ * 如果你不想用户通过输入 ANSI 代码使你的屏幕闪动，请定义以下选项。
+ */
+#define NO_ANSI
+#define STRIP_BEFORE_PROCESS_INPUT
+
+/* OPCPROF: 定义该项可以启用 opcprof() 超越函数。
+ * Allows a dump of the # of times each efun is invoked (via the opcprof() efun)
+ */
+#undef OPCPROF
+
+/* OPCPROF_2D: 定义该项可以启用 2-D OPC profiling。
+ * Allows a dump of the # of times each *pair* of eoperators is invoked.
+ *
+ * 在使用该项时，不能同时使用 OPCPROF。
+ */
+#undef OPCPROF_2D
+
+/* TRAP_CRASHES:  定义该项可以使 MudOS 在 master.c 中调用 crash() 函数，然后在接
+ * 到正常重启驱动程序信号之后重启系统。
+ */
+#define TRAP_CRASHES
+
+/* DROP_CORE: define this if you want the driver to attempt to create
+ *   a core file when it crashes via the crash_MudOS() function.  This
+ *   define only has an affect if -DDEBUG isn't defined in the makefile
+ *   (except for the SIGINT and SIGTERM signals which are always trapped).
+ *
+ * [NOTE: keep this undefined for now since it seems to hang some machines
+ *  upon crashing (some DECstations apparently).  If you want to get a core
+ *  file, undef'ing TRAP_CRASHES should work.]
+ */
+#undef DROP_CORE
+
+/* THIS_PLAYER_IN_CALL_OUT: 定义该项可以使从 call_out 回调时 this_player() 函数
+ * 有作用。
+ */
+#undef THIS_PLAYER_IN_CALL_OUT
+
+/* CALLOUT_HANDLES: If this is defined, call_out() returns an integer, which
+ * can be passed to remove_call_out() or find_call_out().  Removing call_outs
+ * by name is still allowed, but is significantly less efficient, and also
+ * doesn't work for function pointers.  This option adds 4 bytes overhead
+ * per callout to keep track of the handle.
+ */
+#define CALLOUT_HANDLES
+
+/* FLUSH_OUTPUT_IMMEDIATELY: Causes output to be written to sockets
+ * immediately after being generated.  Useful for debugging.  
+ */
+#undef FLUSH_OUTPUT_IMMEDIATELY
+
+/* PRIVS: define this if you want object privledges.  Your mudlib must
+ *   explicitly make use of this functionality to be useful.  Defining this
+ *   this will increase the size of the object structure by 4 bytes (8 bytes
+ *   on the DEC Alpha) and will add a new master apply during object creation
+ *   to "privs_file".  In general, priveleges can be used to increase the
+ *   granularity of security beyond the current root uid mechanism.
+ *
+ * [NOTE: for those who'd rather do such things at the mudlib level, look at
+ *  the inherits() efun and the 'valid_object' apply to master.]
+ */
+#undef PRIVS
+
+/* INTERACTIVE_CATCH_TELL: define this if you want catch_tell called on
+ *   interactives as well as NPCs.  If this is defined, user.c will need a
+ *   catch_tell(msg) method that calls receive(msg);
+*/
+#undef INTERACTIVE_CATCH_TELL
+
+/* RESTRICTED_ED: define this if you want restricted ed mode enabled.
+ */
+#define RESTRICTED_ED
+
+/* NO_SHADOWS: define this if you want to disable shadows in your driver.
+ */
+#undef NO_SHADOWS
+
+/* SNOOP_SHADOWED: define this if you want snoop to report what is
+ *   sent to the player even in the event that the player's catch_tell() is
+ *   shadowed and the player may not be seeing what is being sent.  Messages
+ *   of this sort will be prefixed with $$.
+ */
+#undef SNOOP_SHADOWED
+
+/* RECEIVE_SNOOP: define this if you want snoop text to be sent to
+ *   the receive_snoop() function in the snooper object (instead of being
+ *   sent directly via add_message()).  This is useful if you want to
+ *   build a smart client that does something different with snoop messages.
+ */
+#define RECEIVE_SNOOP
+
+/* PROFILE_FUNCTIONS: define this to be able to measure the CPU time used by
+ *   all of the user-defined functions in each LPC object.  Note: defining
+ *   this adds three long ints (12 bytes on 32-bit machines) to the function
+ *   header structs.  Also note that the resolution of the getrusage() timer
+ *   may not be high enough on some machines to give non-zero execution
+ *   times to very small (fast) functions.  In particular if the clock
+ *   resolution is 1/60 of a second, then any time less than approxmately 15k
+ *   microseconds will resolve to zero (0).
+ */
+#undef PROFILE_FUNCTIONS
+
+/* NO_BUFFER_TYPE: if this is #define'd then LPC code using the 'buffer'
+ *   type won't be allowed to compile (since the 'buffer' type won't be
+ *   recognized by the lexer.
+ */
+#undef NO_BUFFER_TYPE
+
+/* BINARIES: define this to enable the 'save_binary' pragma.
+ *   This pragma, when set in a program, will cause it to save a
+ *   binary image when loaded, so that subsequent loadings will
+ *   be much faster.  The binaries are saved in the directory
+ *   specified in the configuration file.  The binaries will not
+ *   load if the LPC source or any of the inherited or included
+ *   files are out of date, in which case the file is compiled
+ *   normally (and may save a new binary).
+ *
+ *   In order to save the binary, valid_save_binary() is called
+ *   in master.c, and is passed the name of the source file.  If
+ *   this returns a non-zero value, the binary is allowed to be
+ *   saved.  Allowing any file by any wizard to be saved as a
+ *   binary is convenient, but may take up a lot of disk space.
+ */
+#define BINARIES
+
+/* ARRAY_RESERVED_WORD: If this is defined then the word 'array' can
+ *   be used to define arrays, as in:
+ *
+ * int array x = ({ .... });
+ *
+ * A side effect is that array cannot be a variable or function name.
+ */
+#undef ARRAY_RESERVED_WORD
+
+/****************************************************************************
+ *                              PACKAGES                                    *
+ *                              --------                                    *
+ * Defining some/all of the following add certain efuns, and sometimes      *
+ * add/remove code from the driver.                                         *
+ *                                                                          *
+ * if PACKAGE_XYZZY is defined here, then the code in packages/xyzzy.c      *
+ * and the efuns in packages/xyzzy_spec.c will be added to the driver.      *
+ ****************************************************************************/
+
+/* various miscellaneous efuns */
+#define PACKAGE_CONTRIB
+
+/* efuns that are only of use to those that know something about driver
+   internals */
+#define PACKAGE_DEVELOP
+
+/* PACKAGE_MATH: determines whether or not the math efuns (for floats) are
+   included.
+ */
+#define PACKAGE_MATH
+
+/* PACKAGE_MATRIX: determines whether or not the 3d graphics efuns (for floats)
+ *   are included - see packages/matrix.spec for a list.
+ */
+#undef PACKAGE_MATRIX
+
+/* PACKAGE_MUDLIB_STATS: define this to enable domain and author stats
+ *   maintenance by the driver.  These mudlib stats are more domain
+ *   based than user based, and replaces the traditional wiz_list stats.
+ */
+#define PACKAGE_MUDLIB_STATS
+
+/* PACKAGE_SOCKETS: define this to enable the socket efunctions.  This
+ *   causes HAS_SOCKETS to be defined for all LPC objects.
+ */
+#define PACKAGE_SOCKETS
+
+/* PACKAGE_PARSER: Natural language parsing efuns for interactive fiction
+ *   type applications
+ */
+#undef PACKAGE_PARSER
+
+/* PACKAGE_EXTERNAL: Allows the driver to exec() commands specified in the
+ * config file.
+ */
+#undef PACKAGE_EXTERNAL
+
+/* PACKAGE_DB: efuns for external database access */
+#undef PACKAGE_DB
+
+/* If PACKAGE_DB is defined above, you must pick ONE of the following supported
+ * databases
+ */
+#ifdef PACKAGE_DB
+#define MSQL		/* MiniSQL, it's small; it's free */
+#endif
+
+/****************************************************************************
+ *                            UID PACKAGE                                   *
+ *                            -----------                                   *
+ * UIDS are the basis for some mudlib security systems.  Basically, they're *
+ * preserved for backwards compatibility, as several ways of breaking       *
+ * almost any system which relies on them are known.  (No, it's not a flaw  *
+ * of uids; only that b/c of the ease with which LPC objects can call       *
+ * each other, it's far to easy to leave holes)                             *
+ *                                                                          *
+ * If you don't care about security, the first option is probably what you  *
+ * want.                                                                    *
+ ****************************************************************************/
+
+/*
+ * PACKAGE_UIDS: define this if you want a driver that does use uids.
+ *
+ */
+#define PACKAGE_UIDS
+
+/* AUTO_SETEUID: when an object is created it's euid is automatically set to
+ *   the equivalent of seteuid(getuid(this_object())).  undef AUTO_SETEUID
+ *   if you would rather have the euid of the created object be set to 0.
+ */
+#define AUTO_SETEUID
+
+/* AUTO_TRUST_BACKBONE: define this if you want objects with the backbone
+ *   uid to automatically be trusted and to have their euid set to the uid of
+ *   the object that forced the object's creation.
+ */
+#define AUTO_TRUST_BACKBONE
+
+/****************************************************************************
+ *                             对经验丰富的用户                             *
+ *                                                                          *
+ * 以下大部分选项或许对很多用户都不感兴趣。                                 *
+ ****************************************************************************/
+
+/* HEARTBEAT_INTERVAL: 以微秒为单位定义心跳间隔。1,000,000 微秒 = 1 秒。该值将
+ * 为 LPC 物体用调用 set_heart_beat(1) 函数指定心跳方法的频率。
+ *
+ * 注意：如果 ualarm() 函数并非可用，alarm() 函数将被取代它。因为 alarm() 函数
+ * 需要一秒单位的意见，我们定义 1 至 1,000,000 微秒作为一个一秒运行间隔或者用
+ * 1,000,001 至 2,000,000 微秒作为一个两秒运动间隔。等等。
+ */
+#define HEARTBEAT_INTERVAL 2000000
+
+/* 
+ * CALLOUT_CYCLE_SIZE: This is the number of slots in the call_out list.
+ * It should be approximately the average number of active call_outs, or
+ * a few times smaller.  It should also be a power of 2, and also be relatively
+ * prime to any common call_out lengths.  If all this is too confusing, 32
+ * isn't a bad number :-)
+ */
+#define CALLOUT_CYCLE_SIZE 32
+
+/* LARGEST_PRINTABLE_STRING: defines the size of the vsprintf() buffer in
+ *   comm.c's add_message(). Instead of blindly making this value larger,
+ *   mudlib should be coded to not send huge strings to users.
+ */
+#define LARGEST_PRINTABLE_STRING 10240
+
+/* MESSAGE_BUFFER_SIZE: determines the size of the buffer for output that
+ *   is sent to users.
+ */
+#define MESSAGE_BUFFER_SIZE 4096
+
+/* APPLY_CACHE_BITS: defines the number of bits to use in the call_other cache
+ *   (in interpret.c).  Somewhere between six (6) and ten (10) is probably
+ *   sufficient for small muds.
+ */
+#define APPLY_CACHE_BITS 11
+
+/* CACHE_STATS: define this if you want call_other (apply_low) cache 
+ * statistics.  Causes HAS_CACHE_STATS to be defined in all LPC objects.
+ */
+#define CACHE_STATS
+
+/* TRACE: define this to enable the trace() and traceprefix() efuns.
+ *   (keeping this undefined will cause the driver to run faster).
+ */
+#undef TRACE
+
+/* LPC_TO_C: define this to enable LPC-&gt;C compilation.
+ *
+ * [NOTE: BINARIES must also be defined for LPC-&gt;C to work.  Actually
+ *  using binaries is not required, though.]
+ */
+#define LPC_TO_C
+
+/* RUNTIME_LOADING: On systems which support it, it allows LPC-&gt;C compilation
+ * 'on the fly' without having to recompile the driver.
+ *
+ * Note: This currently only works on machines that have the dlopen() system
+ * call.  SunOS and IRIX do, as do a number of others.  AIX and Ultrix don't.
+ * Linux does if you are using ELF.
+ */
+#undef RUNTIME_LOADING
+
+/* TRACE_CODE: define this to enable code tracing (the driver will print
+ *   out the previous lines of code to an error) eval_instruction() runs about
+ *   twice as fast when this is not defined (for the most common eoperators).
+ */
+#undef TRACE_CODE
+
+/* HEART_BEAT_CHUNK: The number of heart_beat chunks allocated at a time.
+ * A large number wastes memory as some will be sitting around unused, while
+ * a small one wastes more CPU reallocating when it needs to grow.  Default
+ * to a middlish value.
+ */
+#define HEART_BEAT_CHUNK      32
+
+/* Some maximum string sizes
+ */
+#define SMALL_STRING_SIZE     100
+#define LARGE_STRING_SIZE     1000
+#define COMMAND_BUF_SIZE      2000
+
+/* Number of levels of nested datastructures allowed -- this limit prevents
+ * crashes from occuring when saving objects containing variables containing
+ * recursive datastructures (with circular references).
+ */
+#define MAX_SAVE_SVALUE_DEPTH 25
+
+/* Miscellaneous config options that should probably be in the runtime
+ * config file.
+ */
+/* MAX_LOCAL: maximum number of local variables allowed per LPC function */
+#define CFG_MAX_LOCAL_VARIABLES		25
+
+#define CFG_EVALUATOR_STACK_SIZE 	1000
+#define CFG_COMPILER_STACK_SIZE		200
+#define CFG_MAX_CALL_DEPTH		50
+/* This must be one of 4, 16, 64, 256, 1024, 4096 */
+#define CFG_LIVING_HASH_SIZE		256
+
+/* NEXT_MALLOC_DEBUG: define this if using a NeXT and you want to enable
+ *   the malloc_check() and/or malloc_debug() efuns.  Run the 'man malloc_debug'
+ *   command on the NeXT to find out what the arguments to malloc_debug(int)
+ *   mean.  The malloc_check() efun calls the NeXT NXMallocCheck() system
+ *   call which does a consistency check on malloc's data structures (this
+ *   consistency check is done at each malloc() and free() for certain
+ *   malloc_debug() levels).  A non-zero return value indicates there was
+ *   a consistency problem.  For those NeXT users wanting a bit more
+ *   performance out of malloc, try defining NEXT_MALLOC_DEBUG and calling the
+ *   malloc_debug(-1) efun (with an arg of -1).  This will turn all
+ *   malloc debugging off and call malloc_singlethreaded() which the NeXT
+ *   malloc man page claims can make NeXT system malloc 10% to 15% faster.
+ *
+ * [NOTE: This #define has no affect on the driver if not using the
+ *  NeXTSTEP OS.]
+ *
+ * Warning: if you use a NeXT and define NEXT_MALLOC_DEBUG, be sure to
+ *          protect the use of the malloc_check() and malloc_debug() efuns
+ *          since setting certain debug levels can cause malloc() and free()
+ *          to become _very_ slow (protect efuns by using simul_efuns and
+ *          valid_override).
+ *
+ * [NOTE: malloc_debug(6) is a good compromise between efficiency and
+ *  completeness of malloc debugging (malloc/free will be about half as fast).]
+ */
+#define NEXT_MALLOC_DEBUG
+#endif
+</PRE><BR></TD></TR>
+        <TR>
+          <TD align=right>
+            <ADDRESS>[<A 
+            href="#top">回到顶部</A>]&nbsp;</ADDRESS></TD></TR></TBODY></TABLE>
+      <TABLE class=table_bottom align=center>
+        <TBODY>
+        <TR>
+          <TD>天下创作室</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></BODY></HTML>

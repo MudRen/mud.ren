@@ -1,0 +1,135 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - lpc - types - general</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER>
+<H1>
+<FONT COLOR="#FF99FF">general</FONT></H1></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+
+<P>类型用于四种地方:
+<UL><FONT COLOR="#FFCC99">声明全局变量的类型.</FONT>
+<BR><FONT COLOR="#FFCC99">声明函数的类型.</FONT>
+<BR><FONT COLOR="#FFCC99">声明函数参数的类型.</FONT>
+<BR><FONT COLOR="#FFCC99">声明函数里面的局部变量类型</FONT></UL>
+普通情况下, 可以完全忽略类型的数据, 把它当作是程序的说明. 例外的情况是驱动程序对程序最佳化
+(optimization) 时, 如果声明 x　 为 int (整数) 变量, 则将 x + 0　 视为与
+x　 相同. 但是 x　 声明为 string (字符串)　 变量时, 结果就不可能与前面一样.
+当一个函数的基本类型已经声明时, 会在函数内部强迫加上一个较严格的类型检查
+(strict type checking) . <FONT COLOR="#99FF99">#pragma strict_types</FONT>　
+强迫函数必须有返回值 (return value),　 所以无法避免函数内部的严格类型检查.
+这样表示, 一定要定义所有参数的类型, 而变量只能储存其声明类型的值. call_other()
+函数定义为返回 unknown (未知) 类型值, 因为驱动程序不可能知道返回值得类型.
+如果定义了 <FONT COLOR="#FFCC99">CAST_CALL_OTHERS</FONT>,　 就必须指定返回值,
+结果就假设其类型为mixed　 (混合) . 指定 (cast) 返回值类型, 可以将类型名称放在
+( ) (小括号) 里面. 这样子指定类型没有什么实际效果, 只是安慰编译器而已.
+
+<P>范例如下, 查询一个物件的简称:
+<UL><FONT COLOR="#99FF99">(string)call_other(ob, "short");</FONT>
+<UL>...或...</UL>
+<FONT COLOR="#99FF99">(string)ob->short();</FONT></UL>
+当一个函数以严格类型检查时, 只能调用其他已经定义的函数. 如果函数尚未定义,
+就必须事先用函数原型 (prototype)　 使目前的函数能调用它们.
+
+<P>函数原型的例子:
+<UL><FONT COLOR="#99FF99">string func(int arg);</FONT></UL>
+注意, ;　 (分号) 代替了函数的内容. 所有的参数可以指定名称, 却不见得要跟实际的函数参数同名.
+也可以不写参数的名字:
+<UL><FONT COLOR="#99FF99">string func(int);</FONT></UL>
+类型有两种分类: 基本类型和特殊类型. 一个变量或函数最多只能指定一种基本类型,
+却可以指定许多特殊类型.
+
+<P>只有编译器用得到严格类型检查, 执行时段 (runtime)　 则不用. 所以实际上,
+就算使用严格类型检查, 也可以在一个字符串变量里, 放上一个数字.
+
+<P>为什么要使用严格类型检查 ?　 我们还是建议您用它, 因为编译器会在编译程序时找出错误而省下许多除错的时间.
+通常在执行时段中追踪一个错误是很困难的.
+
+<P>基本类型分为两组. 分别为存取变量值 (value)　 及存取位址 (address). int,
+string, float 属于存取变量值的类型. 而 mapping, function, object, pointer
+(前面有 * 号的类型) 属于位址. 如果把位址类型的值指定给一个变量, 或当作参数,
+它们会指向真正的数据所在. 也就是说, 如果改变一个数组的元素值, 则所有指向此数组的变量指针也会一起改变.
+但是要改变一个数组的大小, 一定要重新配置 (allocate) 一个新的数组. 比较运算符
+(comparison operator)「<FONT COLOR="#FFCC99">==</FONT>」对于前述的存取变量值一组的类型,
+会比较其真正的值. 但是对于 array, mapping 等等, 只会检查两者是否是相同的数组、映射等等.
+在此有一个很重要的提示是, 运算式: ({ 1 }) == ({ 1 })　 会产生伪值 (false),
+因为使用 <FONT COLOR="#FFCC99">({ ... })</FONT>　 这一对数组构造运算符
+(array construction operator-pair) , 会产生新的数组.
+<CENTER>
+<HR WIDTH="100%"><FONT COLOR="#FFFFCC">基本类型</FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFCC99">int (整数)</FONT>
+<UL>整数 (32 bit).</UL>
+<FONT COLOR="#FFCC99">float (浮点数)</FONT>
+<UL>浮点数 (32 bit).</UL>
+<FONT COLOR="#FFCC99">string (字符串)</FONT>
+<UL>无限 (unlimited)　 的字符字符串 (没有「\0」).</UL>
+<FONT COLOR="#FFCC99">object (物件)</FONT>
+<UL>一个物件指针.</UL>
+<FONT COLOR="#FFCC99">mapping (映射)</FONT>
+<UL>一种联结 (associative)　 数组的形式; 请参考其他文件.</UL>
+<FONT COLOR="#FFCC99">function (函数指针)</FONT>
+<UL>一种特殊的类型, 以某种方式指向一个函数; 请参考其他文件.</UL>
+<FONT COLOR="#FFCC99">Arrays (数组)</FONT>
+<UL>在一个基本类型前面加上 *　 号以声明数组. 譬如说, 声明一个整数数组:
+<UL><FONT COLOR="#99FF99">int *arr;</FONT></UL>
+如果您想声明一个数组的数组 (译按: 即二元数组) , 要使用 mixed　 (混合) 类型,
+或是 mixed　 与其他类型的组合.</UL>
+<FONT COLOR="#FFCC99">void (无返回值)</FONT>
+<UL>这种类型只能用于函数. 它代表函数没有任何返回值. 如果此函数有返回值
+(有类型检查时) , 编译器就会抱怨.</UL>
+<FONT COLOR="#FFCC99">mixed (混合)</FONT>
+<UL>此种类型很特殊, 这种类型可以使用任何类型的内容. 所以任何声明为 mixed
+(混合) 类型的变量、函数、参数, 都不会引起编译器的抱怨. 但是混合类型的目的并不在此.
+只有在一个变量真正包括不同的内容类型时, 才适于使用混合类型. 请尽量避免使用此种类型,
+因为让一个函数返回不同类型的值, 是不好的程序写法.</UL>
+
+<HR WIDTH="100%">
+<CENTER><FONT COLOR="#FFFFCC">特殊类型</FONT></CENTER>
+
+<HR WIDTH="100%">
+
+<P>有一些特殊类型, 可以加在基本类型之前. 这些特殊类型可以互相组合. 在一个继承语句
+(inherit statement)　 之前指定某个特殊类型, 则继承而来的类型也会与这个特殊类型合并.
+唯一的例外是 public　 (公共) 类型, 不可以再以 private 继承语句定义为 private
+类型.
+<BR>　
+<BR><FONT COLOR="#FFCC99">varargs (不定参数)</FONT>
+<UL>这种类型的函数可以传入不定数目的参数. 不是此类型的函数, 则会检查参数的个数,
+如果数目不符会产生错误.</UL>
+<FONT COLOR="#FFCC99">private (私有)</FONT>
+<UL>可以用于函数和变量. 一个物件中的 private　 函数, 无法经由 call_other()
+被其他物件调用之. 而继承此物件的其他物件也无法使用此函数.</UL>
+<FONT COLOR="#FFCC99">static (静态)</FONT>
+<UL>这种特殊类型让变量和函数的行为变得不太一样. 对函数来说, 其效果类似于
+private,　 其他物件也无法利用 call_other() 调用此函数. static　 变量则无法使用
+save_object()　 储存, 或 restore_object() 载入其值.</UL>
+<FONT COLOR="#FFCC99">public (公共)</FONT>
+<UL>定义为 public 类型的函数都能被其他物件调用, 甚至是继承而来的 private
+函数也可以定义为 public.</UL>
+<FONT COLOR="#FFCC99">nomask (不可遮盖)</FONT>
+<UL>任何定义为 nomask 的函数或变量, 都不能经由继承再次重新定义. 但是可以依原来的定义使用之.
+nomask　 也阻止函数被 shadow() 投影.</UL>
+
+<HR WIDTH="100%">
+<CENTER><FONT COLOR="#FFFFCC">翻译: Spock @ FF 97.Aug.11.</FONT></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../types.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

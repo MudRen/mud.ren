@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0043)http://micro.go2game.com/gm/build/equip.htm -->
+<HTML><HEAD><TITLE>MUD 内容设计</TITLE>
+<META content="text/html; charset=gb2312" http-equiv=Content-Type><LINK 
+rel=stylesheet type=text/css href="../home.css">
+<META name=GENERATOR content="MSHTML 9.00.8112.16437"></HEAD>
+<BODY class=body_bg>
+<TABLE class=page_bg align=center>
+  <TBODY>
+  <TR>
+    <TD>
+      <TABLE class=table_top align=center>
+        <TBODY>
+        <TR>
+          <TD>如何设计装备</TD></TR></TBODY></TABLE>
+      <TABLE class=table align=center>
+        <TBODY>
+        <TR>
+          <TD>
+            <ADDRESS>&nbsp;[<A 
+            href="../">首页</A>][<A 
+            href="../build">前页</A>]</ADDRESS></TD></TR>
+        <TR>
+          <TD><BR>　　在 es2 mudlib 中，所有可装备的物件都属于同一种物件，事实上，可装备的物件在我们的定义中相当于 ITEM 
+            这个标准物件加上 F_EQUIP 这个特性，你可以用 ilist 
+            这个巫师指令来检查你手边的武器或护具，就可以得知这些物件继承了哪些物件。<BR><BR>　　也许你已经注意到，我用的是「可装备的物件」这个奇怪的统称，而不是你所熟悉的武器、防具等传统称呼，没错，在 
+            es2 mudlib 中并没有故意去区分武器跟防具，这两种物件其实继承了完全相同的物件，只有在 create() 
+            时设定的属性不同而已，换句话说只要你正确地设定了该有的东西，一个物件可以同时是武器跟防具(你可以 wear 或 wield 
+            它)。<BR><BR>　　当然，如果你还是一个新巫师的话，可以先不必管那么多，以下我先用一些例子来说明如何写一个武器或防具。<BR><PRE>// An example weapon
+
+#include <WEAPON.H>
+
+inherit F_SWORD;
+
+void create()
+{
+    set_name("长剑", ({ "longsword", "sword" }) );
+    set_weight(3000);
+    setup_sword(2, 11, 30, 0);
+
+    if( !clonep() ) {
+        set("unit", "把");
+        set("value", 500);
+        set("long", "一把普通的长剑。\n");
+        set("wield_as", "sword");
+        set("rigidity", 20);
+    }
+    setup();
+}
+</PRE>　　以上就是一个简单的武器写法，看起来似乎比一个房间复杂了一点，不过不必紧张，前面我们说过像武器这种可装备的物件是 ITEM 
+            加上 F_EQUIP 的特性，因此有一半以上的指令是用来设定 ITEM 的基本属性的，如果你忘了的话，请你看看写 ITEM 
+            的那一篇文件。<BR><BR>　　以下这里只说明专门针对装备的几行做说明，首先是 setup_sword(2, 11, 30, 0); 
+            这一个函数设定这个武器的攻击力，四个参数的意义请参考 help weapon。<BR><BR>　　接下来是 set() 
+            设定的属性部份：<BR><BR>　　"wield_as": 
+            这是这样武器可以使用哪些武器技能，这个属性可以是单一个字串或一个字串阵列，如：<BR><PRE>    set("weild_as", ({ "sword", "secondhand sword"}));
+</PRE>可以设定这个武器当 sword 跟 secondhand sword 使用。装备可以使用的技能跟它继承的武器特性有关，如 
+            F_SWORD 提供 sword 跟 secondhand sword 两种技能。<BR><BR>　　"rigidity": 
+            这是这样武器的承受力量的单位强度，其意义是「可能」使这个武器断掉的最小力量除以武器重量的倍数，当 rigidity 是 
+            20，而武器的重量是 3000g 时, 最少要 20 * 3000 = 60000 (60 公斤) 的力量才有「可能」使武器断掉，即 
+            random(力量) &gt;= 600000 的机会。没有设定这个属性的武器将无法用于 parry 
+            (格挡)，也不会断掉。<BR><BR>　　"sharpness": 有锐利边缘的武器有时候可以直接削断对手的武器，而不需要太大的力量，当 
+            sharpness 大于对手武器的 rigidity 时，就会有一定的机会( random(sharpness) &gt; 
+            rigidity ) 的机会斩断对手的武器。任何武器的 sharpness 值不能超过它自己的 rigidity。<BR><BR>By 
+            Annihilator (04/24/96) <BR></TD></TR>
+        <TR>
+          <TD align=right>
+            <ADDRESS>[<A 
+            href="#top">回到顶部</A>]&nbsp;</ADDRESS></TD></TR></TBODY></TABLE>
+      <TABLE class=table_bottom align=center>
+        <TBODY>
+        <TR>
+          <TD>天下创作室</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></BODY></HTML>

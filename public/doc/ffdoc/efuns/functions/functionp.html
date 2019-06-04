@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - functions - functionp</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>functionp(3)　 MudOS v21c2　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 functionp() - 判断指定的变量是否为一个函数指针 (function pointer).
+如果是函数指针, 则再判断为何种类型.</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 int functionp( mixed arg );
+
+<P>　 整数 functionp( 混合 arg );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 如果 arg 是一个函数指针则返回非零值 (nonzero), 如果不是则返回 0.
+<BR>　 函数指针是一种「函数」(function) 类型的指针变量.
+<BR>　 以下是一个范例:
+<BR>　
+<UL><FONT COLOR="#99FF99">　 f = (: obj, func :);</FONT></UL>
+　 返回的值指示出函数指针的类型, 而这些返回值被定义在驱动程序中的 "include/function.h"
+文件中.
+
+<P>　 function pointer type　 value
+<BR>　 ---------------------------------------------
+<BR>　 call_other　　 FP_CALL_OTHER
+<BR>　 lfun　　　 FP_LOCAL
+<BR>　 efun　　　　　FP_EFUN
+<BR>　 simul_efun　　 FP_SIMUL
+<BR>　 functional　　 FP_FUNCTIONAL
+
+<P>　 另外在某些情形下, 会加上以下的值:
+
+<P>　 (有参数)　　 FP_HAS_ARGUMENTS
+<BR>　 (创造函数的物件被摧毁)　 FP_OWNER_DESTED
+<BR>　 (函数无法连结)　　 FP_NOT_BINDABLE
+
+<P>　 最后三个值为位元值 (bit value), 可以用位元测试.
+<BR>　 FP_MASK 可以忽略这些位元值, 测试基本的函数指针类型
+<BR>　</UL>
+<FONT COLOR="#FFFFCC">　 范例:</FONT>
+<UL>　 测试一个函数指针变量是否为外部函数指针:
+<BR>　
+<UL><FONT COLOR="#99FF99">　 if ((functionp(f) &amp; FP_MASK) == FP_EFUN)
+...</FONT></UL>
+　 测试其是否有参数:
+<BR>　
+<UL><FONT COLOR="#99FF99">　 if (functionp(f) &amp; FP_HAS_ARGUMENTS) ...</FONT></UL>
+</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="../mappings/mapp.html">mapp(3)</A>, <A HREF="../strings/stringp.html">stringp(3)</A>,
+<A HREF="../arrays/pointerp.html">pointerp(3)</A>, <A HREF="../objects/objectp.html">objectp(3)</A>,
+<A HREF="../numbers/intp.html">intp(3)</A>, <A HREF="../buffers/bufferp.html">bufferp(3)</A>,
+<A HREF="../floats/floatp.html">floatp(3)</A>, <A HREF="../general/nullp.html">nullp(3)</A>,
+<A HREF="../general/undefinedp.html">undefinedp(3)</A>, <A HREF="../system/errorp.html">errorp(3)</A>,
+<A HREF="bind.html">bind(3)</A>, <A HREF="../../lpc/types/function.html">lpc/types/function</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Jul.26.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../functions.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

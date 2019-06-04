@@ -1,0 +1,38 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - objects - file_name</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>file_name(3)　 MudOS v21c2　 (5
+Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 file_name() - 取得一个物件的文件名称.</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 string file_name( object ob );
+
+<P>　 字符串 file_name( 物件 ob );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 file_name() 返回载入 ob 时所用的文件名称. 如果物件是复制出来的, 则
+file_name()　 返回的名称并不是实际上磁碟中所用的名称, 而是在原来的文件名称之后加上「#」
+号, 再加上物件的复制编号. 当游戏启动时, 物件的复制编号从 0　 开始起算, 每复制一个相同的物件就增加一号.
+所以每一个复制出来的物件都有自己独特的编号. 如果没有指定 ob, 则 ob 预设为
+this_object().</UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Feb.12.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../objects.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

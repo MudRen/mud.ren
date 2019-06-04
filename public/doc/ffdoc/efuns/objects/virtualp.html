@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - objects - virtualp</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>virtualp(3)　 MudOS v21c2　 (5
+Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 virtualp() - 判断指定的变量是否指向一个虚拟 (virtual) 物件.</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 int virtualp( object arg );
+
+<P>　 整数 virtualp( 物件 arg );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 如果对 arg　 来说, objectp() 为 1, 并设定 O_VIRTUAL 标志, virtualp()　
+就返回真值 (即 1) . 经由主控物件 (master.c)　 之 compile_object 函数创造出来的物件,
+驱动程序 (driver) 皆对其设定 O_VIRTUAL　 标志.</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="clonep.html">clonep(3)</A>, <A HREF="../interactive/userp.html">userp(3)</A>,
+<A HREF="../mudlib/wizardp.html">wizardp(3)</A>, <A HREF="objectp.html">objectp(3)</A>,
+<A HREF="new.html">new(3)</A>, <A HREF="clone_object.html">clone_object(3)</A>,
+<A HREF="../calls/call_other.html">call_other(3)</A>, <A HREF="file_name.html">file_name(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.jul.25.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../objects.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

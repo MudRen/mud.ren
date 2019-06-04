@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0044)http://micro.go2game.com/gm/god/commands.htm -->
+<HTML><HEAD><TITLE>巫师管理手册</TITLE>
+<META content="text/html; charset=gb2312" http-equiv=Content-Type><LINK 
+rel=stylesheet type=text/css href="../home.css">
+<META name=GENERATOR content="MSHTML 9.00.8112.16437"></HEAD>
+<BODY class=body_bg>
+<TABLE class=page_bg align=center>
+  <TBODY>
+  <TR>
+    <TD>
+      <TABLE class=table_top align=center>
+        <TBODY>
+        <TR>
+          <TD>常用基本命令</TD></TR></TBODY></TABLE>
+      <TABLE class=table align=center>
+        <TBODY>
+        <TR>
+          <TD>
+            <ADDRESS>&nbsp;[<A 
+            href="../">首页</A>][<A 
+            href="../god">前页</A>]</ADDRESS></TD></TR>
+        <TR>
+          <TD><BR>　　一、巫师的基本指令<BR><BR>　　巫师和玩家最大的不同就是，巫师所能用的指令比玩家的多得多。这些指令是用来管理，设计游戏，或是查看游戏状态用的，一般来说分成以下几类：<BR><BR>　　档案管理：一些档案管理方面的指令跟 
+            Unix 作业系统的很相似，如 ls，cat，more，cp，rm，mv，ed 等等。 有关 ed 
+            的用法请参考相关文件。<BR><BR>　　物件管理：mud 
+            的世界是由许多物件所组成的，所以巫师有一些用来，创造，消除，修改物件的指令，常用的有 clone，update，dest，call 
+            等。<BR><BR>　　clone 是用来复制一个物件，如果该物件没有在记忆体内，系统会先将该物件的程式编译后存入记忆体内。 
+            如果编译失败也会有错误讯息产生。<BR><BR>　　update 将某一个物件的内容更新，编译后存入记忆体内。 
+            如果你修改过一个物件的程式档，该物件要在被 update 过后才会是「新」的版本。 除了 update 使用者的 body 以外， 
+            update 指令只会更新所谓的 master copy，也就是说，之前所 clone 
+            出来的物件并不会自动被更新。<BR><BR>　　dest 将某个物件由系统的记忆体中删除，如果后面的参数是一个档名，则会将 master 
+            copy 由记忆体中删除。注：这个指令跟 rm 不同之处在于， rm 是删除程式档，而 dest 
+            只是将程试所产生的物件由记忆体中移去。<BR><BR>　　call 是用来呼叫某个物件所包含的函数，其语法为：<BR><PRE>call &lt;物件&gt;-&gt;&lt;函数及其参数&gt;
+</PRE>　　一般来说只要该物件有继承某个物件，则该物件所包含的函数也可以被 call 到。要查询有那些可以 call 
+            的函数，最简单的方法就是去看该物件的原始程式。<BR><BR>　　游戏状态：这些指令是用来查询游戏的状态，比方说，某个物件占了多少记忆体，某个玩家目前在那里，系统负担，等等资讯。常用的指令有：mem，where，status，qload，overview，cost 
+            等。<BR><BR>　　一般指令加强版：一些常用的指令，如 score，inventory 
+            等，在你有了巫师的权限之后也可以用来查寻别的使用者的资料。<BR><BR>　　所有的指令都存放在 /cmds 
+            目录底下，因为权限，方便区分的原因又分为以下几个子目录：<BR><PRE>adm/    存放只有大神能用的指令，如 shutdown。
+arch/   大巫师或大神能用的指令，如 purge，promote 等。
+debug/  一些查询有关游戏资料状态的指令。
+wiz/    一般巫师的指令。
+imm/    作客巫师所能用的指令，如 goto，ls，cat 等。
+std/    游戏中可以使用的指令，如 look，give，get 等。
+usr/    有关使用者和游戏状态的指令，如 finger，who，chfn 等。
+ 
+注：见习巫师所能用的指令和一般巫师一样。
+</PRE>　　二、FTP<BR><BR>　　ES2 的 FTP 在同一个位址的 port 4100 上，如果你 ftp 
+            过去时没有看到「东方故事II」档案传输服务等字样，请先确定你是否有 ftp 到正确的位址。<BR><BR>　　login 及 
+            password 跟你在 mud 上一样。<BR><BR>　　三、EDIT<BR><BR>　　虽然 ftp 
+            很方便，但有时只是要修改，或增加一小段东西，这时 edit 指令就派上用场了。其实 edit 
+            的功用满齐的，缺点就是它是行列式的编辑器，有一大堆模式的改变。我们在此不多说 edit 
+            的指令，有兴趣的人可以自己去研究。<BR><BR>　　常用的指令：有 : 
+            时表示你在「指令输入模式」下，可以下指令。否则你就是在「编辑模式」。刚启动 edit 
+            时你一定会在「指令输入模式」要启动「编辑模式」，只要下一个跟 '编辑' 有关的指令，要跳出「编辑模式」在任何一个空白行的起点处输入 
+            '.'，再按 'enter' 键即可。<BR><PRE>$ 这个符号在「指令输入模式」时永远都代表最后一行的行号。
+ 
+:[n,m]p    － 列出档案内容，n 为开始行号，m 为结束行号。如果没有 m,n
+              则列出标记所在行的内容。刚启动 edit 时标记位于第一行。如
+              果 'p' 前只有一个数字，则列出数字所指行号的内容。
+:[n,m]d    － 删除由 n 到 m 行的内容。
+:[n]a      － 在 n 行后加入东西。这个指令会让你进入「编辑模式」
+:[n]i      － 在 n 行前加入东西。这个指令会让你进入「编辑模式」
+:[n]c      － 修改第  n 行的内容。这个指令会让你进入「编辑模式」，之后
+              你所打入的东西都会取代第 n 行原有的内容。注:这个指令的「
+              有效」范围是一行，超过一行并不会让你修改 n+1 行的东西。
+ 
+在下 'a'，'i' 和 'c' 等指令时，如果没有指定行号，则以标记所在行为准。
+ 
+:n         － 显示行号。
+:z         － 由标记所在位置开始显示一页的程式码，通常是 24 行。
+:w [file]  － 将档案内容写回去。如果没有指定档名，则 edit 假定你要写回
+              原来的档案内。
+:q         － 离开 edit。注:此指令只适用于当档案已经储存过后，或是档案
+              没有被更动过。
+:Q         － 如果档案被动过，但你不想写入被更动的内容，你可以用这个指
+              令离开 edit。
+:!<CMD>    － 在 edit 下执行某些 mud 指令。因为 ES2 有讯息缓冲区的设置
+             ，执行指令时你并不会看到有任何讯息。
+ 
+有关 edit 的其他指令请看 help。（在指令输入模式下打 h）。
+</PRE><BR></TD></TR>
+        <TR>
+          <TD align=right>
+            <ADDRESS>[<A 
+            href="#top">回到顶部</A>]&nbsp;</ADDRESS></TD></TR></TBODY></TABLE>
+      <TABLE class=table_bottom align=center>
+        <TBODY>
+        <TR>
+          <TD>天下创作室</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></BODY></HTML>

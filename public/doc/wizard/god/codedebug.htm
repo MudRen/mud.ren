@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0045)http://micro.go2game.com/gm/god/codedebug.htm -->
+<HTML><HEAD><TITLE>巫师管理手册</TITLE>
+<META content="text/html; charset=gb2312" http-equiv=Content-Type><LINK 
+rel=stylesheet type=text/css href="../home.css">
+<META name=GENERATOR content="MSHTML 9.00.8112.16437"></HEAD>
+<BODY class=body_bg>
+<TABLE class=page_bg align=center>
+  <TBODY>
+  <TR>
+    <TD>
+      <TABLE class=table_top align=center>
+        <TBODY>
+        <TR>
+          <TD>如何排除错误</TD></TR></TBODY></TABLE>
+      <TABLE class=table align=center>
+        <TBODY>
+        <TR>
+          <TD>
+            <ADDRESS>&nbsp;[<A 
+            href="../">首页</A>][<A 
+            href="../god">前页</A>]</ADDRESS></TD></TR>
+        <TR>
+          <TD><BR>　　一、编译时产生的语法错误<BR><PRE>Type of returned value doesn't match function return type ( xxx vs xxx )
+
+原因    ：比对或传回值跟所要求的种类不合。
+解决方法：最简单的方法就是想办法让他们的种类变成一样。举例来说，如果你
+          要比对的值是数值 (int) 但是传回值是混合 (mixed) 你可以在传回
+          值前面加上 (int) 「强迫」他以数值的形态传回。（type casting）
+ 
+Undefined variable
+ 
+原因    ：使用的变数没有宣告
+解决方法：宣告该变数
+ 
+Undefined function
+ 
+原因    ：呼叫到的函数没有事先宣告
+解决方法：确定函数的拼法正确，如果该函数不是  efuns 的话，确定你有继承
+          含有该函数的物件，如果该函数是定义在你的程式码中，确定你有事
+          先宣告这个函数。（function prototyping）
+ 
+Illegal LHS before ...
+parse error before ...
+ 
+原因    ：程式码中有没对应到的 {}，()，""，或是缺 ;
+解决方法：检查是否所有的 { 都有一个对应的 }，( 都有一个对应的 )，该有
+          ; 的地方是否都有 ;
+ 
+Warning: Unknown \x char
+ 
+原因    ：中文编码 （BIG5）中包含 \ 这个字元，因为 \ 在 C 语言中用来当
+          escape  character 的，所以当含有这类字元的中文字出现在程式码
+          中（叙述或讯息）就会出现这个警告。常用的字如武功的功，晚餐的
+          餐．．．等等。
+解决方法：在这类字的后面多加一个 \，如 武功\，晚餐\。
+</PRE>　　二、逻辑上的错误，或是编译成功，可是出来的结果不是你想要的<BR><BR>　　首先，顺著程式一行一行找，是那一行开始出现问题的？如果有必要，你可以在各节点间呼叫 
+            printf() 或是 write() 等函数用来报告各个参数的目前值，用以追查出错的地方。<BR><BR>　　检查你是否正确的使用 
+            if() 这个函数。 if(a==b) 跟 if(a=b) 的含义不同，前者会在 a 值等于 b 值时传回真（True），后者则是如果 
+            b 存在，且 a 能成功的被设成 b 
+            值时传回真（True）。确定你要用的是前者还是后者。<BR><BR>　　如果你的程式中有用到比较的指令（if，case．．．等）先确定比较前各参数所存的值是否为你要比较的东西，并且确定你有 
+            type casting 的地方有传回你所期望的值（比方说，如果 str 是一个字串变数，里面存有 "abc"，则 (int)str 
+            代表一个数值 0，确定这是你所要的）。<BR><BR>　　replace_program() 
+            这个函数只能用在简单的房间里，所谓简单的房间就是只包含 create() 这个函数的房间. 如果你发现你在房间里用 
+            add_action() 所增加的指令无法正常运作，请检查你房间的程式码中是否有 replace_program() 这行。注：因为 
+            roommaker 一定会加上这一行，如果你用 roommaker 写好的房间再增加别的东西的话，视情况，请记得把 
+            replace_program() 
+            那行拿掉。<BR><BR>　　三、如果真的找不出原因<BR><BR>　　那．．．只好找别的巫师帮你看了。问人以前请先确定你已经试过所有你能想到的方法去解决，可是都没成功，再去问人。<BR><BR></TD></TR>
+        <TR>
+          <TD align=right>
+            <ADDRESS>[<A 
+            href="#top">回到顶部</A>]&nbsp;</ADDRESS></TD></TR></TBODY></TABLE>
+      <TABLE class=table_bottom align=center>
+        <TBODY>
+        <TR>
+          <TD>天下创作室</TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></BODY></HTML>

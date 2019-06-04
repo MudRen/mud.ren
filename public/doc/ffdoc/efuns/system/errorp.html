@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - system - errorp</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>errorp(3)　 MudOS v21c2　 (5 Sep
+1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称:</FONT>
+<UL>　 errorp() - 判断一个指定的变量是否为错误码 (error code).</UL>
+<FONT COLOR="#FFFFCC">　语法:</FONT>
+<UL>　 int errorp( mixed arg );
+
+<P>　 整数 errorp( 混合 arg );</UL>
+<FONT COLOR="#FFFFCC">　用法:</FONT>
+<UL>　 如果参数 arg　 是一个整数值的错误码, errorp() 返回 1 .
+
+<P>　 您可能会修改外部函数 (emulated functions, efun), 而能返回一个标准的错误码.
+所以程序可以写成像下面的样子:
+<BR>&nbsp;
+<UL><FONT COLOR="#99FF99">　 if (errorp(result = efun_call()))</FONT>
+<UL><FONT COLOR="#99FF99">　　 printf("error = %d\n", result);</FONT></UL>
+</UL>
+
+
+<P>　 在以后的计划中, 我们会加入一个新的函数 perror(result) 用来返回整数值的错误代码与一个错误消息的字符串.</UL>
+<FONT COLOR="#FFFFCC">　参考:</FONT>
+<UL>　 <A HREF="../general/nullp.html">nullp(3)</A>, <A HREF="../general/undefinedp.html">undefinedp(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译:</FONT>
+<UL>　 Spock @ FF 97.Feb.12.　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../system.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

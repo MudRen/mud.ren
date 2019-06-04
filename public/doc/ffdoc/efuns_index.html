@@ -1,0 +1,142 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 -  外部函数</TITLE>
+</HEAD>
+<BODY TEXT="#FFFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER>
+<H1>
+<FONT COLOR="#66FFFF">外部函数［efuns］</FONT></H1></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER>　</CENTER>
+
+<CENTER>
+<H3>
+<FONT COLOR="#FF99FF">以下是依照外部函数的分类索引：</FONT></H3></CENTER>
+
+<CENTER><A HREF="efuns/arrays.html">数组［arrays］</A></CENTER>
+
+<CENTER><A HREF="efuns/buffers.html">缓冲区［buffers］</A></CENTER>
+
+<CENTER><A HREF="efuns/calls.html">调用［calls］</A></CENTER>
+
+<CENTER><A HREF="efuns/compile.html">编译［compile］</A></CENTER>
+
+<CENTER><A HREF="efuns/ed.html">ed 编辑程序［ed］</A></CENTER>
+
+<CENTER><A HREF="efuns/filesystem.html">文件系统［file system］</A></CENTER>
+
+<CENTER><A HREF="efuns/floats.html">浮点数［floats］</A></CENTER>
+
+<CENTER><A HREF="efuns/functions.html">函数［functions］</A></CENTER>
+
+<CENTER><A HREF="efuns/general.html">一般［general］</A></CENTER>
+
+<CENTER><A HREF="efuns/interactive.html">互动物件［interactive］</A></CENTER>
+
+<CENTER><A HREF="efuns/internals.html">内部［internals］</A></CENTER>
+
+<CENTER><A HREF="efuns/mappings.html">映射［mappings］</A></CENTER>
+
+<CENTER><A HREF="efuns/mudlib.html">mud 函数库［mudlib］</A></CENTER>
+
+<CENTER><A HREF="efuns/numbers.html">数字［numbers］</A></CENTER>
+
+<CENTER><A HREF="efuns/objects.html">物件［objects］</A></CENTER>
+
+<CENTER><A HREF="efuns/parsing.html">语法分析［parsing］</A></CENTER>
+
+<CENTER><A HREF="efuns/sockets.html">套接字［sockets］</A></CENTER>
+
+<CENTER><A HREF="efuns/strings.html">字符串［strings］</A></CENTER>
+
+<CENTER><A HREF="efuns/system.html">系统［system］</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><FONT COLOR="#FFFFCC">　------ MudOS v21c2 外部函数 (external function,
+efun)</FONT></CENTER>
+
+<CENTER><FONT COLOR="#FFFFCC">　 中文翻译手册说明　 97.Jul.25.　 ------</FONT></CENTER>
+
+<HR WIDTH="100%">
+
+<P>此一版本的外部函数原件采用附于 ES2 mudlib 1.1e 中, doc/efuns 下纯文字格式的外部函数文件.
+
+<P>此文件并非 LPC 之教学文件, 其作用在于简介各外部函数之用途, 提供快速的查询资料.
+如果您想学习 LPC , 方法请向该 mud 之巫师群洽询.
+
+<P>受限于译者本身所学有限, 原文中部分关于 UNIX 系统文件处理、程序内存管理与除错、套接字处理的部分无法翻译其众多的专门技术名词,
+因此无法提供中文翻译文件. 承 Kenny@broken.history 热情赞助, 此一部份之文件业已补足.
+
+<P>碍于译者之翻译经验有限, 英文程度亦非上选. 此版本虽经译者校对一次, 文中谬误、错漏及语句不通顺之处仍多,
+请您不吝来函指正. 如果您发现文件中有必须补充说明之处, 也烦请来函指导.
+
+<P>有些说明文件中, 参考一栏所提之相关的文件, 于原始 v21c2 的已无附件, 对于这些无说明附件的外部函数,
+译者往后如果行有余力, 会试着于其他版本的 MudOS 附件中找寻. 如果您愿意来函告知一二,
+在此先行谢过.
+
+<P>中文翻译文件中有许多专门的技术名词, 译者都想尽办法赋予其适合的中文名词.
+有许多名词直接看英文名词较传神, 也较易理解. 但是这也许是译者本身的固执所致,
+译者自己希望让 LPC 的初学者不要因为看到英文名词而备感吃力. 当然, 重要的翻译名词之后会附上原文以求精确.
+
+<P>请注意, 文件中有些外部函数属于模拟外部函数 (simulate external functions,
+simul_efun 其源代码位于 adm/simul_efun 目录里. 这些外部函数属于 mudlib
+可以更动的范围, 其中有些函数的用法不见得与说明文件相符, 请先查阅您所工作的
+mud 中, adm/simul_efun 目录里相关的源代码, 或查询该 mud 的系统管理员.
+
+<P>「让科学说德文 !」这是本世纪初, 德国科学家在面对大学里清一色的英文课本所发的感叹.
+数十年之后, 这句话实现了. 翻译的重要, 看看日本人的出版品即可略知一二. 面对国内
+mud 程序苦无中文翻译文件之时, 让译者吃了不少苦头. 藉此机会, 译者愿将此　份文件于网路上,
+在不修改内文的原则下, 自由传播及流通.
+
+<P>任何公开架设之 MudOS 系统的 LP mud 上, 如欲采用此份中文翻译文件, 不需译者同意即可.
+但是请来函知会笔者, 谢谢.
+<BR>　
+<UL>
+<UL>
+<UL><FONT COLOR="#FFFFCC">Spock @ FF 97.Jul.26.</FONT>
+<CENTER>　</CENTER>
+</UL>
+</UL>
+</UL>
+
+<HR WIDTH="100%">
+<CENTER><FONT COLOR="#99FF99">附注:</FONT></CENTER>
+
+<HR WIDTH="100%">由 Kenny@broken.history 所翻译之文件:
+<UL><FONT COLOR="#CCFFFF">dump_file_descriptors</FONT>
+<BR><FONT COLOR="#CCFFFF">dump_prog</FONT>
+<BR><FONT COLOR="#CCFFFF">dump_socket_status</FONT>
+<BR><FONT COLOR="#CCFFFF">parse_command</FONT>
+<BR><FONT COLOR="#CCFFFF">reg_assoc</FONT>
+<BR><FONT COLOR="#CCFFFF">regexp</FONT>
+<BR><FONT COLOR="#CCFFFF">socket_accept</FONT>
+<BR><FONT COLOR="#CCFFFF">socket_acquire</FONT>
+<BR><FONT COLOR="#CCFFFF">socket_address</FONT>
+<BR><FONT COLOR="#CCFFFF">socket_bind</FONT>
+<BR><FONT COLOR="#CCFFFF">socket_close</FONT>
+<BR><FONT COLOR="#CCFFFF">socket_connect</FONT>
+<BR><FONT COLOR="#CCFFFF">socket_create</FONT>
+<BR><FONT COLOR="#CCFFFF">socket_error</FONT>
+<BR><FONT COLOR="#CCFFFF">socket_listen</FONT>
+<BR><FONT COLOR="#CCFFFF">socket_release</FONT>
+<BR><FONT COLOR="#CCFFFF">socket_write</FONT></UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="index.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>

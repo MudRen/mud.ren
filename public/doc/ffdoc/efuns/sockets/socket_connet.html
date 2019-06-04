@@ -1,0 +1,88 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=bg2312">
+   <META NAME="Author" CONTENT="Spock">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.01 [en] (Win95; I) [Netscape]">
+   <TITLE>MudOS v21c2 参考文件 - efuns - sockets - socket_connect</TITLE>
+</HEAD>
+<BODY TEXT="#CCFFFF" BGCOLOR="#000000" LINK="#33FF33" VLINK="#FF0000" ALINK="#33CCFF" NOSAVE>
+
+<CENTER><FONT COLOR="#FF99FF"><FONT SIZE=+3>socket_connect(3)　 MudOS v21c2　
+(5 Sep 1994)</FONT></FONT></CENTER>
+
+<HR WIDTH="100%">
+<BR><FONT COLOR="#FFFFCC">　名称：</FONT>
+<UL>　 socket_connect() - 初始化一个 socket 上的连接(connection)</UL>
+<FONT COLOR="#FFFFCC">　语法：</FONT>
+<UL>　 #include &lt;socket_err.h>
+
+<P>　 int socket_connect( int s, string address, string read_callback, string
+write_callback );
+
+<P>　 整数 socket_connect( 整数 s, 字符串 address, 字符串 read_callback, 字符串
+write_callback );</UL>
+<FONT COLOR="#FFFFCC">　用法：</FONT>
+<UL>　 参数 s 是一个 socket。s 必须是一个 STREAM 类型或是一个 MUD 类型的
+socket。address 是这个 socket 将要尝试连接的位址。位址是 "127.0.0.1 23"
+这种格式。
+
+<P>　 read_callback 参数是给驱动程序在由它的另一端得到数据时调用的函数名称。这个读取回呼(callback)函数应该是如下格式：
+<BR>&nbsp;
+<UL><FONT COLOR="#FFCC99">　　 void read_callback(int fd, mixed message)</FONT></UL>
+
+
+<P>　 这里的 fd 是要接收数据的 socket，而 message 是接收到的数据。
+
+<P>　 write_callback 参数是给驱动程序在 socket 已准备好写入时调用的函数名称。这个写入回呼函数应该是如下格式：
+<BR>&nbsp;
+<UL><FONT COLOR="#FFCC99">　　 void write_callback(int fd)</FONT></UL>
+
+
+<P>　 这里的 fd 是已准备好写入的 socket。</UL>
+<FONT COLOR="#FFFFCC">　返回值：</FONT>
+<UL>　 socket_connect() 返回：
+<BR>&nbsp;
+<UL>　　 成功时是 EESUCCESS。
+
+<P>　　 失败时是一个含有如下意义的负值。</UL>
+</UL>
+<FONT COLOR="#FFFFCC">　错误值：</FONT>
+<UL>　 EEFDRANGE　　　　　 描述值(descriptor)超出范围。
+
+<P>　 EEBADF　　　　　　　　 无效的描述值。
+
+<P>　 EESECURITY　　　　 企图违反安全。
+
+<P>　 EEMODENOTSUPP　 不支援此 socket 类型。
+
+<P>　 EEISLISTEN　　　　 socket 正在倾听(listening)。
+
+<P>　 EEISCONN　　　　　　 socket 已连接。
+
+<P>　 EEBADADDR　　　　　 位址格式问题。
+
+<P>　 EEINTR　　　　　　　　 中断的系统调用。
+
+<P>　 EEADDRINUSE　　　 位址已被使用。
+
+<P>　 EEALREADY　　　　　 操作已在进行中。
+
+<P>　 EECONNREFUSED　 连接被拒绝。
+
+<P>　 EECONNECT　　　　　 连接问题。</UL>
+<FONT COLOR="#FFFFCC">　参照：</FONT>
+<UL>　 <A HREF="socket_accept.html">socket_accept(3)</A>, <A HREF="socket_close.html">socket_close(3)</A>,
+<A HREF="socket_create.html">socket_create(3)</A></UL>
+<FONT COLOR="#FFFFCC">　翻译：</FONT>
+<UL>　 Kenny@Broken.History　 97.Jul.27　 (printed 3/16/95)</UL>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+<CENTER><A HREF="../sockets.html">回到上一页</A></CENTER>
+
+<CENTER>
+<HR WIDTH="100%"></CENTER>
+
+</BODY>
+</HTML>
