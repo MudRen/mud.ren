@@ -59,10 +59,10 @@
             }
 
             .m-b-md {
-                margin-bottom: 30px;
+                margin-bottom: 5vh;
             }
             .m-t-footer {
-                margin-top: 70px
+                margin-top: 30vh;
             }
         </style>
     </head>
@@ -92,7 +92,9 @@
                     <a href="https://wiki.mud.ren">百科</a>
                     <a href="http://www.mud.ren:8080/">游戏</a>
                 </div>
-                <div class="m-t-footer"></div>
+                <div class="m-t-footer links">
+                    <a href="http://beian.miit.gov.cn" style="color:#222222;font-size:12px;" target="_blank">京ICP备13031296号-4</a>
+                </div>
             </div>
         </div>
     </body>
