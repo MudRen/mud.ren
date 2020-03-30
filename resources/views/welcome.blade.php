@@ -91,7 +91,7 @@
                 <div class="links">
                     <a href="https://bbs.mud.ren">社区</a>
                     <a href="https://wiki.mud.ren">百科</a>
-                    <a href="http://www.mud.ren:8080/">游戏</a>
+                    <a href="http://www.mud.ren:8000/">游戏</a>
                 </div>
                 <div class="m-t-footer links">
                     <a href="http://beian.miit.gov.cn" style="color:#222222;font-size:12px;" target="_blank">京ICP备13031296号-4</a>
