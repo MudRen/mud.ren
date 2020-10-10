@@ -11,6 +11,7 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
         <!-- Styles -->
+        <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
         <style>
             html, body {
                 background-color: #fff;
@@ -88,10 +89,29 @@
                     MUD.REN
                 </div>
                 <div class="m-b-md">MUD游戏玩家部落</div>
-                <div class="links">
-                    <a href="https://bbs.mud.ren">社区</a>
-                    <a href="https://wiki.mud.ren">百科</a>
-                    <a href="http://www.mud.ren:8000/">游戏</a>
+                <div class="pure-menu pure-menu-horizontal">
+                    <ul class="pure-menu-list">
+                        <li class="pure-menu-item">
+                            <a href="https://bbs.mud.ren" class="pure-menu-link">社区</a>
+                        </li>
+                        <li class="pure-menu-item">
+                            <a href="https://mud.wiki" class="pure-menu-link">百科</a>
+                        </li>
+                        <li class="pure-menu-item">
+                            <a href="https://im-mortal.cn/mudlist" class="pure-menu-link">MUD</a>
+                        </li>
+                        <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                            <a href="#" id="menuLink1" class="pure-menu-link">游戏</a>
+                            <ul class="pure-menu-children">
+                                <li class="pure-menu-item">
+                                    <a href="http://mud.ren:8000" class="pure-menu-link">炎黄群侠传</a>
+                                </li>
+                                <li class="pure-menu-item">
+                                    <a href="http://mud.ren:8080" class="pure-menu-link">勇者斗恶龙</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
                 <div class="m-t-footer links">
                     <a href="http://beian.miit.gov.cn" style="color:#222222;font-size:12px;" target="_blank">京ICP备13031296号-4</a>
