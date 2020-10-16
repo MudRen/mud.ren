@@ -52,6 +52,16 @@ class UserController extends AdminController
 
         $grid->model()->orderBy('id', 'desc');
 
+        $grid->filter(function($filter){
+
+            // 去掉默认的id过滤器
+            // $filter->disableIdFilter();
+
+            // 在这里添加字段过滤器
+            $filter->like('name', 'name');
+
+        });
+
         return $grid;
     }
 
@@ -99,6 +109,18 @@ class UserController extends AdminController
 
             $threads->filter(function ($filter) {
                 $filter->like('title');
+            });
+        });
+
+        $show->comments('评论列表', function ($comments) {
+            $comments->resource('/admin/comments');
+            $comments->id();
+            // $comments->author()->name();
+            $comments->content()->body();
+            $comments->created_at();
+
+            $comments->filter(function ($filter) {
+                $filter->like('content.body');
             });
         });
 

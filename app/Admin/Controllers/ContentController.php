@@ -26,7 +26,7 @@ class ContentController extends AdminController
     {
         $grid = new Grid(new Content());
 
-        $grid->column('id', __('Id'));
+        $grid->column('id', __('Id'))->sortable();
         $grid->column('contentable_type', __('Contentable type'));
         $grid->column('contentable_id', __('Contentable id'));
         $grid->column('body', __('Body'));
@@ -36,13 +36,10 @@ class ContentController extends AdminController
         $grid->column('deleted_at', __('Deleted at'))->hide();
 
         $grid->filter(function($filter){
-
             // 去掉默认的id过滤器
             $filter->disableIdFilter();
-
             // 在这里添加字段过滤器
             $filter->like('body', '内容');
-
         });
 
         return $grid;

@@ -26,20 +26,30 @@ class ThreadController extends AdminController
     {
         $grid = new Grid(new Thread());
 
-        $grid->column('id', __('Id'));
-        $grid->column('user_id', __('User id'));
-        $grid->column('node_id', __('Node id'));
+        $grid->column('id', __('Id'))->sortable();
+        $grid->column('user_id', __('User id'))->hide();
+        $grid->column('author.name', __('Author'));
+        $grid->column('node_id', __('Node id'))->hide();
+        $grid->column('node.title', __('Node'));
         $grid->column('title', __('Title'));
-        $grid->column('excellent_at', __('Excellent at'))->hide();
+        // $grid->column('excellent_at', __('Excellent at'))->hide();
         $grid->column('pinned_at', __('Pinned at'))->hide();
         $grid->column('frozen_at', __('Frozen at'))->hide();
         $grid->column('banned_at', __('Banned at'))->hide();
         $grid->column('published_at', __('Published at'));
         $grid->column('cache', __('Cache'));
+        // $grid->column('content.body', __('Body'));
         $grid->column('created_at', __('Created at'))->hide();
         $grid->column('updated_at', __('Updated at'))->hide();
-        $grid->column('deleted_at', __('Deleted at'))->hide();
+        // $grid->column('deleted_at', __('Deleted at'))->hide();
         $grid->column('popular_at', __('Popular at'))->hide();
+
+        $grid->filter(function($filter){
+            // 去掉默认的id过滤器
+            $filter->disableIdFilter();
+            // 在这里添加字段过滤器
+            $filter->like('title', '标题');
+        });
 
         return $grid;
     }
@@ -80,6 +90,24 @@ class ThreadController extends AdminController
         $show->field('updated_at', __('Updated at'));
         $show->field('deleted_at', __('Deleted at'));
         $show->field('popular_at', __('Popular at'));
+
+        $show->content('帖子内容', function ($content) {
+            $content->setResource('/admin/contents');
+            $content->id();
+            $content->body();
+            $content->created_at();
+        });
+        $show->comments('评论列表', function ($comments) {
+            $comments->resource('/admin/comments');
+            $comments->id();
+            $comments->author()->name();
+            $comments->content()->body();
+            $comments->created_at();
+
+            $comments->filter(function ($filter) {
+                $filter->like('content.body');
+            });
+        });
 
         return $show;
     }
