@@ -30,16 +30,16 @@ class ThreadController extends AdminController
         $grid->column('user_id', __('User id'));
         $grid->column('node_id', __('Node id'));
         $grid->column('title', __('Title'));
-        // $grid->column('excellent_at', __('Excellent at'));
-        // $grid->column('pinned_at', __('Pinned at'));
-        // $grid->column('frozen_at', __('Frozen at'));
-        // $grid->column('banned_at', __('Banned at'));
+        $grid->column('excellent_at', __('Excellent at'))->hide();
+        $grid->column('pinned_at', __('Pinned at'))->hide();
+        $grid->column('frozen_at', __('Frozen at'))->hide();
+        $grid->column('banned_at', __('Banned at'))->hide();
         $grid->column('published_at', __('Published at'));
         $grid->column('cache', __('Cache'));
-        // $grid->column('created_at', __('Created at'));
-        // $grid->column('updated_at', __('Updated at'));
-        // $grid->column('deleted_at', __('Deleted at'));
-        // $grid->column('popular_at', __('Popular at'));
+        $grid->column('created_at', __('Created at'))->hide();
+        $grid->column('updated_at', __('Updated at'))->hide();
+        $grid->column('deleted_at', __('Deleted at'))->hide();
+        $grid->column('popular_at', __('Popular at'))->hide();
 
         return $grid;
     }
@@ -56,14 +56,26 @@ class ThreadController extends AdminController
 
         $show->field('id', __('Id'));
         $show->field('user_id', __('User id'));
+        $show->author('作者信息', function ($author) {
+            $author->setResource('/admin/users');
+            $author->id();
+            $author->name();
+            $author->email();
+        });
         $show->field('node_id', __('Node id'));
+        $show->node('话题分类', function ($node) {
+            $node->setResource('/admin/nodes');
+            $node->id();
+            $node->title();
+            $node->description();
+        });
         $show->field('title', __('Title'));
         $show->field('excellent_at', __('Excellent at'));
         $show->field('pinned_at', __('Pinned at'));
         $show->field('frozen_at', __('Frozen at'));
         $show->field('banned_at', __('Banned at'));
         $show->field('published_at', __('Published at'));
-        $show->field('cache', __('Cache'));
+        $show->field('cache', __('Cache'))->json();
         $show->field('created_at', __('Created at'));
         $show->field('updated_at', __('Updated at'));
         $show->field('deleted_at', __('Deleted at'));

@@ -31,9 +31,19 @@ class ContentController extends AdminController
         $grid->column('contentable_id', __('Contentable id'));
         $grid->column('body', __('Body'));
         $grid->column('markdown', __('Markdown'));
-        // $grid->column('created_at', __('Created at'));
-        // $grid->column('updated_at', __('Updated at'));
-        // $grid->column('deleted_at', __('Deleted at'));
+        $grid->column('created_at', __('Created at'))->hide();
+        $grid->column('updated_at', __('Updated at'))->hide();
+        $grid->column('deleted_at', __('Deleted at'))->hide();
+
+        $grid->filter(function($filter){
+
+            // 去掉默认的id过滤器
+            $filter->disableIdFilter();
+
+            // 在这里添加字段过滤器
+            $filter->like('body', '内容');
+
+        });
 
         return $grid;
     }

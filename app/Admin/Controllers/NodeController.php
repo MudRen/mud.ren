@@ -7,6 +7,8 @@ use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Show;
+use Encore\Admin\Tree;
+use Encore\Admin\Layout\Content;
 
 class NodeController extends AdminController
 {
@@ -16,6 +18,15 @@ class NodeController extends AdminController
      * @var string
      */
     protected $title = 'Node';
+
+    public function index(Content $content)
+    {
+        $tree = new Tree(new Node);
+
+        return $content
+            ->header('树状模型')
+            ->body($tree);
+    }
 
     /**
      * Make a grid builder.

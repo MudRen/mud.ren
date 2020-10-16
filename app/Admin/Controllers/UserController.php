@@ -30,25 +30,27 @@ class UserController extends AdminController
         $grid->column('name', __('Name'));
         $grid->column('username', __('Username'));
         $grid->column('email', __('Email'));
-        // $grid->column('phone', __('Phone'));
+        $grid->column('phone', __('Phone'))->hide();
         // $grid->column('password', __('Password'));
-        $grid->column('avatar', __('Avatar'));
+        $grid->column('avatar', __('Avatar'))->image("", 40);
         // $grid->column('realname', __('Realname'));
-        // $grid->column('gender', __('Gender'));
+        $grid->column('gender', __('Gender'))->hide();
         // $grid->column('bio', __('Bio'));
         // $grid->column('extends', __('Extends'));
         // $grid->column('settings', __('Settings'));
-        $grid->column('level', __('Level'));
-        $grid->column('is_admin', __('Is admin'));
+        $grid->column('level', __('Level'))->hide();
+        $grid->column('is_admin', __('Is admin'))->hide();
         $grid->column('cache', __('Cache'));
         // $grid->column('last_active_at', __('Last active at'));
-        $grid->column('banned_at', __('Banned at'));
+        $grid->column('banned_at', __('Banned at'))->hide();
         $grid->column('activated_at', __('Activated at'));
         // $grid->column('remember_token', __('Remember token'));
         // $grid->column('created_at', __('Created at'));
         // $grid->column('updated_at', __('Updated at'));
         // $grid->column('deleted_at', __('Deleted at'));
         $grid->column('energy', __('Energy'));
+
+        $grid->model()->orderBy('id', 'desc');
 
         return $grid;
     }
@@ -69,15 +71,15 @@ class UserController extends AdminController
         $show->field('email', __('Email'));
         $show->field('phone', __('Phone'));
         $show->field('password', __('Password'));
-        $show->field('avatar', __('Avatar'));
+        $show->field('avatar', __('Avatar'))->image();
         $show->field('realname', __('Realname'));
-        $show->field('gender', __('Gender'));
+        $show->field('gender', __('Gender'))->using(['female' => '女', 'male' => '男']);
         $show->field('bio', __('Bio'));
-        $show->field('extends', __('Extends'));
+        $show->field('extends', __('Extends'))->json();
         $show->field('settings', __('Settings'));
         $show->field('level', __('Level'));
-        $show->field('is_admin', __('Is admin'));
-        $show->field('cache', __('Cache'));
+        $show->field('is_admin', __('Is admin'))->using(['0' => '否', '1' => '是']);
+        $show->field('cache', __('Cache'))->json();
         $show->field('last_active_at', __('Last active at'));
         $show->field('banned_at', __('Banned at'));
         $show->field('activated_at', __('Activated at'));
@@ -86,6 +88,19 @@ class UserController extends AdminController
         $show->field('updated_at', __('Updated at'));
         $show->field('deleted_at', __('Deleted at'));
         $show->field('energy', __('Energy'));
+
+        $show->threads('发贴列表', function ($threads) {
+
+            $threads->resource('/admin/threads');
+
+            $threads->id();
+            $threads->title();
+            $threads->published_at();
+
+            $threads->filter(function ($filter) {
+                $filter->like('title');
+            });
+        });
 
         return $show;
     }
@@ -113,8 +128,8 @@ class UserController extends AdminController
         $form->number('level', __('Level'));
         $form->switch('is_admin', __('Is admin'));
         $form->text('cache', __('Cache'));
-        $form->datetime('last_active_at', __('Last active at'))->default(date('Y-m-d H:i:s'));
-        $form->datetime('banned_at', __('Banned at'))->default(date('Y-m-d H:i:s'));
+        $form->datetime('last_active_at', __('Last active at'));
+        $form->datetime('banned_at', __('Banned at'));
         $form->datetime('activated_at', __('Activated at'))->default(date('Y-m-d H:i:s'));
         $form->text('remember_token', __('Remember token'));
         $form->number('energy', __('Energy'));

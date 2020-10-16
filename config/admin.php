@@ -250,7 +250,7 @@ return [
     | Set a default avatar for newly created users.
     |
     */
-    'default_avatar' => '/vendor/laravel-admin/AdminLTE/dist/img/user2-160x160.jpg',
+    'default_avatar' => 'https://api.mud.ren/storage/uploads/2019/10/01/f0f17285c4047e7bb6ee19b65370ff51.jpeg',
 
     /*
     |--------------------------------------------------------------------------
