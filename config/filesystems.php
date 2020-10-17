@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Str;
+
 return [
 
     /*
@@ -64,6 +66,10 @@ return [
             'endpoint' => env('AWS_URL'),
         ],
 
+        'mud' => [
+            'driver' => 'local',
+            'root' => Str::finish(env('MUD_DATA', '/'), '/'),
+        ],
     ],
 
     /*
