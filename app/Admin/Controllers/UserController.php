@@ -26,7 +26,7 @@ class UserController extends AdminController
     {
         $grid = new Grid(new User());
 
-        $grid->column('id', __('Id'));
+        $grid->column('id', __('Id'))->sortable();
         $grid->column('name', __('Name'));
         $grid->column('username', __('Username'));
         $grid->column('email', __('Email'));
@@ -48,7 +48,7 @@ class UserController extends AdminController
         // $grid->column('created_at', __('Created at'));
         // $grid->column('updated_at', __('Updated at'));
         // $grid->column('deleted_at', __('Deleted at'));
-        $grid->column('energy', __('Energy'));
+        $grid->column('energy', __('Energy'))->sortable();
 
         $grid->model()->orderBy('id', 'desc');
 
@@ -137,13 +137,13 @@ class UserController extends AdminController
         $form = new Form(new User());
 
         $form->text('name', __('Name'));
-        $form->text('username', __('Username'));
+        $form->text('username', __('Username'))->readonly();
         $form->email('email', __('Email'));
         $form->mobile('phone', __('Phone'));
         $form->password('password', __('Password'));
         $form->image('avatar', __('Avatar'));
         $form->text('realname', __('Realname'));
-        $form->text('gender', __('Gender'))->default('male');
+        $form->radio('gender', __('Gender'))->options(['male' => '男', 'female'=> '女'])->default('male');
         $form->text('bio', __('Bio'));
         $form->text('extends', __('Extends'));
         $form->text('settings', __('Settings'));
@@ -155,6 +155,12 @@ class UserController extends AdminController
         $form->datetime('activated_at', __('Activated at'))->default(date('Y-m-d H:i:s'));
         $form->text('remember_token', __('Remember token'));
         $form->number('energy', __('Energy'));
+
+        $form->saving(function (Form $form) {
+            if ($form->password && $form->model()->password != $form->password) {
+                $form->password = bcrypt($form->password);
+            }
+        });
 
         return $form;
     }
