@@ -46,11 +46,11 @@ Artisan::command('mud:cache_user', function () {
                 }
             }
         }
-        // dd($user);
-        \Cache::forever('user:'.$id, $user);
+        // dd($user[$id]);
+        \Cache::forever('user:'.$id, $user[$id]);
         $users += $user;
     }
     // dd($users);
-    \Cache::forever('users', $users);
+    \Cache::forever('users', array_keys($users));
     $this->comment("玩家数据缓存成功，共".count($users)."位角色^_^");
 })->describe('缓存MUD玩家数据');
