@@ -27,5 +27,5 @@ Route::get('user/{id}', function ($id) {
 });
 
 Route::get('user/{id}/skills', function ($id) {
-    return cache("user:$id")['skills'];
+    return data_get(cache("user:$id"), 'skills');
 });

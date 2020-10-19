@@ -7,7 +7,7 @@ use Illuminate\Support\Arr;
 
 class Users extends Component
 {
-    public $message = "炎黄群侠传玩家列表";
+    public $message = "炎黄玩家列表";
     // public $users;
 
     public function render()
