@@ -13,18 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'welcome');
 
-Route::get('users', function () {
-    return view('users');
-});
-
-Route::get('user/{id}', function ($id) {
-    return cache("user:$id")['dbase'];
-});
-
-Route::get('user/{id}/skills', function ($id) {
-    return cache("user:$id")['skills'];
-});
+Route::view('users', 'users');

@@ -2,6 +2,8 @@
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /*
@@ -20,7 +22,7 @@ Artisan::command('inspire', function () {
 })->describe('Display an inspiring quote');
 
 Artisan::command('mud:cache_user', function () {
-    $files = \Storage::disk('mud')->allFiles('user');
+    $files = Storage::disk('mud')->allFiles('user');
     $users = [];
     foreach ($files as $file) {
         $id = $file;
@@ -30,7 +32,7 @@ Artisan::command('mud:cache_user', function () {
             $id = Str::after($id, '/');
         $id = Str::before($id, '.o');
         // dump($id);
-        $file = \Storage::disk('mud')->get($file);
+        $file = Storage::disk('mud')->get($file);
         $file = explode("\n", $file);
         foreach ($file as $info) {
             $keys = ['dbase', 'skills', 'skill_map'];
@@ -47,10 +49,10 @@ Artisan::command('mud:cache_user', function () {
             }
         }
         // dd($user[$id]);
-        \Cache::forever('user:'.$id, $user[$id]);
+        Cache::forever('user:'.$id, $user[$id]);
         $users += $user;
     }
     // dd($users);
-    \Cache::forever('users', array_keys($users));
+    Cache::forever('users', $users);
     $this->comment("玩家数据缓存成功，共".count($users)."位角色^_^");
 })->describe('缓存MUD玩家数据');
