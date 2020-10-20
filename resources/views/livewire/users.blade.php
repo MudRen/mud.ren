@@ -25,6 +25,7 @@
 
     <tbody>
 @foreach ($users as $user)
+    @continue(!data_get(json_decode($user, true), 'id'))
     <tr>
         <td>{{ data_get(json_decode($user, true), 'name') }}（{{ data_get(json_decode($user, true), 'id') }}）</td>
         <!-- <td>{{ data_get(json_decode($user, true), 'gender') }}</td> -->
