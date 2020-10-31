@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'welcome');
 
 Route::view('users', 'users');
+Route::view('threads', 'threads');
+Route::get('threads/{id}', Content::class);

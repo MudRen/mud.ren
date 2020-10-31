@@ -88,7 +88,7 @@
                 <div class="title">
                     MUD.REN
                 </div>
-                <div class="m-b-md">MUD游戏玩家部落</div>
+                <div class="m-b-md">MUD游戏玩家社区</div>
                 <div class="pure-menu pure-menu-horizontal">
                     <ul class="pure-menu-list">
                         <li class="pure-menu-item">
@@ -98,13 +98,13 @@
                             <a href="https://mud.wiki" class="pure-menu-link">百科</a>
                         </li>
                         <li class="pure-menu-item">
-                            <a href="https://im-mortal.cn/mudlist" class="pure-menu-link">MUD</a>
+                            <a href="{{asset('threads')}}" class="pure-menu-link">索引</a>
                         </li>
                         <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
                             <a href="#" id="menuLink1" class="pure-menu-link">游戏</a>
                             <ul class="pure-menu-children">
                                 <li class="pure-menu-item">
-                                    <a href="http://mud.ren:8000" class="pure-menu-link">炎黄群侠传</a>
+                                    <a href="http://mud.ren:8888" class="pure-menu-link">炎黄群侠传</a>
                                 </li>
                                 <li class="pure-menu-item">
                                     <a href="http://mud.ren:8080" class="pure-menu-link">勇者斗恶龙</a>
