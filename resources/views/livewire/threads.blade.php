@@ -14,7 +14,7 @@
         <span class="badge badge-primary badge-pill">{{$thread->node->title}}</span>
         <small class="text-muted"> 作者：{{$thread->author->name}} </small>
         <small> 阅读：{{$cache->views_count}} </small>
-        <small class="text-muted"> 最后回复：{{$cache->last_reply_user_name?:'无'}}</small>
+        <small class="text-muted"> 最后回复：{{optional($cache)->last_reply_user_name?:'无'}}</small>
 
     </a>
     @endforeach

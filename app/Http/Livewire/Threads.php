@@ -17,7 +17,7 @@ class Threads extends Component
     public function render()
     {
         return view('livewire.threads',[
-            'threads' => Thread::where('title', 'like', '%'.$this->search.'%')->orderBy('id', 'desc')->with(['author', 'node'])->paginate(3),
+            'threads' => Thread::where('title', 'like', '%'.$this->search.'%')->orderBy('id', 'desc')->with(['author', 'node'])->paginate(20),
         ]);
     }
 }

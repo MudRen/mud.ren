@@ -17,11 +17,42 @@
 <span>作者：<a href="https://bbs.mud.ren/{{$content->author->username}}/">{{$content->author->name}}</a></span>
 <span>发布时间：{{$content->published_at}}</span>
 </div>
+<div class="content">
 {!! $content->content->body !!}
+</div>
 </div>
 @endsection
 
 @push('scripts')
+    <style>
+    .content img {
+        max-width: 1000px;
+    }
+    .content table {
+        display: block;
+        width: 100%;
+        overflow: auto;
+    }
+    .content table th{
+        background-color: #333;
+        color: #eee;
+        padding: 5px;
+    }
+    .content table tr,td {
+        padding: 5px;
+        border: 1px solid #ccc;
+    }
+    .content pre {
+        padding: 10px;
+        background-color: #333;
+        color: #eee;
+        border-radius:5px;
+    }
+    .content blockquote{
+        background-color: #eee;
+        padding: 10px 8px 1px;
+    }
+    </style>
     <link href="https://cdn.bootcdn.net/ajax/libs/prism/1.22.0/themes/prism.min.css" rel="stylesheet">
     <script src="https://cdn.bootcdn.net/ajax/libs/prism/1.22.0/components/prism-core.min.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/prism/1.22.0/plugins/autoloader/prism-autoloader.min.js"></script>
