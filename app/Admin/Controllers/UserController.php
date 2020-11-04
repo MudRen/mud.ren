@@ -58,7 +58,9 @@ class UserController extends AdminController
             // $filter->disableIdFilter();
 
             // 在这里添加字段过滤器
-            $filter->like('name', 'name');
+            $filter->contains('username');
+            $filter->contains('name');
+            $filter->contains('email');
 
         });
 
