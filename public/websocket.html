@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Mud WebSocket Test</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="websocket,WebSocket测试,Mud WebSocket,WebSocket在线测试,WebSocket测试工具,Websocket接口测试">
+<meta name="description" content="WebSocket在线测试工具，本工具主要是针对FluffOS v2019驱动的MUD游戏的WebSocket测试，也支持常规WebSocket测试，如果测试wss请使用https协议访问本站。">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+<script type="text/javascript">
+    var ws = null;
+    document.addEventListener("DOMContentLoaded", function () {
+        const cmd = document.getElementById("cmd");
+        const bmc = document.getElementById("bmc");
+        const bsc = document.getElementById("bsc");
+        const log = document.getElementById("log");
+        cmd.addEventListener("keydown", function (e) {
+            if (e.key === "Enter") {
+                sendCmd();
+            }
+        });
+    });
+
+    function mudConnect() {
+        if ("WebSocket" in window) {
+            let url = document.getElementById("url").value;
+            // 打开一个 web socket
+            ws = new WebSocket(url, "ascii");
+            ws.onopen = function (evt) {
+                console.log("服务器连接成功！");
+                log.value = "服务器连接成功！";
+                bmc.setAttribute("disabled", "disabled");
+                bsc.removeAttribute("disabled");
+                cmd.removeAttribute("disabled");
+                cmd.focus();
+            };
+            ws.onmessage = function (event) {
+                let data = event.data;
+                let textarea = document.getElementById("mud");
+                if (typeof data === "string") {
+                    textarea.innerHTML += data;
+                    textarea.scrollTop = textarea.scrollHeight;
+                }
+                else if (data instanceof ArrayBuffer) {
+                    // console.log("Received arraybuffer!");
+                }
+                else if (data instanceof Blob) {
+                    let reader = new FileReader();
+                    reader.readAsText(data, 'utf-8');
+                    reader.onload = function (e) {
+                        textarea.innerHTML += reader.result;
+                        textarea.scrollTop = textarea.scrollHeight;
+                    }
+                }
+            };
+            ws.onclose = function (event) {
+                console.log("服务器连接断开！");
+                log.value = "服务器连接断开！";
+                bmc.removeAttribute("disabled");
+                bsc.setAttribute("disabled", "disabled");
+                cmd.setAttribute("disabled", "disabled");
+            };
+            ws.onerror = function (event) {
+                console.log("服务器连接失败！");
+                log.value = "服务器连接失败！";
+            };
+        } else {
+            // 浏览器不支持 WebSocket
+            alert("您的浏览器不支持 WebSocket!");
+        }
+    }
+
+    function sendCmd() {
+        if (ws) {
+            ws.send(cmd.value + "\n");
+            cmd.value = "";
+        }
+        else {
+            console.log("服务器未连接！");
+            log.value = "服务器未连接！";
+        }
+    }
+</script>
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <h2 class="title has-text-centered">Mud WebSocket Test</h2>
+        <div class="field has-addons">
+            <input type="text" class="input" name="url" id="url" value="ws://mud.ren:8888"
+                placeholder="请输入 websocket 服务器地址，如：ws://mud.ren:8888">
+            <input type="text" class="input is-warning" name="log" id="log" placeholder="服务器未连接！"
+                readonly="readonly">
+            <input type="button" class="button is-link" onclick="mudConnect()" id="bmc" value="连接">
+        </div>
+        <div>
+            <textarea name="mud" id="mud" class="textarea is-info" rows="15" readonly="readonly" placeholder="服务器返回信息显示区...等待连接！"></textarea>
+        </div>
+        <div class="field has-addons">
+            <input type="text" class="input" name="cmd" id="cmd" disabled="disabled" placeholder="请输入游戏指令">
+            <input type="submit" class="button is-success" onclick="sendCmd()" id="bsc" disabled="disabled">
+        </div>
+    </div>
+</section>
+<footer>
+    <div class="container has-text-centered">
+        <a href="https://mud.ren">mud.ren</a>
+    </div>
+</footer>
+<script>
+    var _mtac = {};
+    (function() {
+        var mta = document.createElement("script");
+        mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.4";
+        mta.setAttribute("name", "MTAH5");
+        mta.setAttribute("sid", "500724040");
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(mta, s);
+    })();
+</script>
+</body>
+</html>

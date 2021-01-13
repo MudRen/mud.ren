@@ -13,6 +13,9 @@
       <li class="nav-item">
         <a class="nav-link" href="https://mud.wiki/" target="_blank">百科</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{asset('threads')}}">索引</a>
+      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           游戏
@@ -26,6 +29,9 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{asset('users')}}">炎黄英雄榜</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://mud.ren/websocket.html" target="_blank">WebSocket</a>
       </li>
     </ul>
   </div>
