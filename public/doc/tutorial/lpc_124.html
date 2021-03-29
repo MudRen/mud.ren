@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Efficient loops</TITLE>
+
+<META NAME="description" CONTENT="LPC: Efficient loops">
+<META NAME="keywords" CONTENT="LPC: Efficient loops">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC124"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_123.html#SEC123"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_125.html#SEC125"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_122.html#SEC122"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_123.html#SEC123"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_126.html#SEC126"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 3.4.1 Efficient loops </H3>
+<!--docid::SEC124::-->
+<P>
+
+This might seem rather trivial, in how many ways can you mess up a loop
+anyway? Well... actually, quite a few. Let's start with the most common
+mistake. Assume you have a large array, let's call it 'big_arr', and
+let's assume you want to loop over all elements in that array, what do
+you do? "Simple!", you exclaim, "A 'for' loop, of course!". Sure... but
+how do you write it? Well, the most common implementation usually looks
+something like this:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>    int i;
+    
+    for (i = 0; i &#60; sizeof(big_arr); i++)
+    {
+        // Here we do something with the array
+    }
+</pre></td></tr></table></P><P>
+
+Ok... now why is this bad? Well, if you review the chapter on how the
+<CODE>for</CODE> statement works, you'll find that the three parts inside
+the round brackets actually gets executed. The first one once at the
+start, the second (or middle) part <EM>every</EM> time the loop is run
+and the third part also every time the current loop is finished.
+</P><P>
+
+This obviously means that the <CODE>sizeof()</CODE> function gets executed
+every time the loop is run. rather a waste of time given the fact that
+the array hardly is intended to change size. If it was, that would have
+been another matter, but as it isn't... No. Write like this instead:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>    int i, sz;
+    
+    for (i = 0, sz = sizeof(big_arr); i &#60; sz ; i++)
+    {
+        // Here we do something with the array
+    }
+</pre></td></tr></table></P><P>
+
+See? The variables 'i' and 'sz' gets assigned their respective values
+at the start of the loop, and only then. The counter 'i' gets set to 0
+and the size variable 'sz' gets set to the size of the array. During the
+entire loop after that, 'i' is compared with 'sz' instead of repeatedly
+recompute the size of the array.
+</P><P>
+
+Believe it or not, this is a very common mistake, all people do it. While
+the savings in doing as I suggest might not seem that great, well...
+multiply this small gain in one loop by all the loops in the mud and all
+the number of times that those loops are run and you'll end up with quite
+a big number. The added cost in doing this is one local variable, which
+is a small enough price to pay.
+</P><P>
+
+Keep this general problem in mind since a lot of cases don't use arrays
+perhaps, but mappings or other general containers of items you want to
+loop through. The solution apart from specifics in identifying the size
+of that container is always the same.
+</P><P>
+
+<A NAME="Abusing defines"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_123.html#SEC123"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_125.html#SEC125"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_122.html#SEC122"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_123.html#SEC123"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_126.html#SEC126"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

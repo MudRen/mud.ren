@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: ?colon</TITLE>
+
+<META NAME="description" CONTENT="LPC: ?colon">
+<META NAME="keywords" CONTENT="LPC: ?colon">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC37"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_36.html#SEC36"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_38.html#SEC38"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_33.html#SEC33"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_34.html#SEC34"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_38.html#SEC38"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H4> 1.2.9.3 The ?: expression </H4>
+<!--docid::SEC37::-->
+<P>
+
+This is a very condensed way of writing an <CODE>if/else</CODE> statement and
+return a value depending on how the test turned out. This isn't a
+statement naturally, it's an expression since it returns a value, but it
+was hard to explain earlier before explaining the if/else statement.
+</P><P>
+
+Suppose you want to write the following:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>if (test_expression)
+    var = if_expression;
+else
+    var = else_expression;
+</pre></td></tr></table></P><P>
+
+You can write that much more condensed in this way:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>var = test_expression ? if_expression : else_expression;
+e.g.
+    name = day == 2 ? "tuesday" : "another day";
+</pre></td></tr></table></P><P>
+
+It can be debated if writing code this way makes you code easier or harder
+to read. As a rule it can be argued rather successfully that one expression
+of that kind does make it clearer, but that a combination of several only
+makes it worse. Something like this <EM>definitely</EM> isn't an improvement:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>name = day == 2 ? time == 18 ? "miller time" : "tuesday" : "another day";
+</pre></td></tr></table></P><P>
+
+<A NAME="Precedence"></A>
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

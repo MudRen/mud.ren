@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: for</TITLE>
+
+<META NAME="description" CONTENT="LPC: for">
+<META NAME="keywords" CONTENT="LPC: for">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC40"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_39.html#SEC39"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_41.html#SEC41"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_38.html#SEC38"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_39.html#SEC39"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_42.html#SEC42"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H4> 1.2.11.1 The for statement </H4>
+<!--docid::SEC40::-->
+<P>
+
+If you want a simple counter you should use the <EM>for</EM> statement. The
+syntax is as follows:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>for (initialize_statement; test_expression; end_of_loop_statement)
+    body_statement;
+</pre></td></tr></table></P><P>
+
+When first entered, the <CODE>for</CODE> statement executes the
+<EM>initialize_statement</EM> part. This part usually is used to initialize
+counters or values used during the actual loop. Then the actual loop
+starts. Every loop starts by executing the <EM>test_expression</EM> and
+examining the result. This is a truth conditional, so any answer not
+equal to 0 will cause the loop to be run. If the answer is true the
+<EM>body_statement</EM> is executed, immediately followed by the
+<EM>end_of_loop_statement</EM>. In the <EM>body_statement</EM> you usually do
+what you want to have done during the loop, in the
+<EM>end_of_loop_statement</EM> you usually increment or decrement counters
+as needed.
+</P><P>
+
+Throughout the previous section I used the word <EM>usually</EM> a
+lot. This is because you don't <EM>have</EM> to do it that way, there's no
+rule forcing you to make use of the statements in the way I
+said. However, for now let's stick to the regular way of using the
+<EM>for-statement</EM>. Later on I'll describe more refined techniques.
+</P><P>
+
+Assume you want to compute the sum of all integers from 7 to 123 and don't
+know the formula ((x2^2 + x1^2) / 2). The easiest (if not most efficient)
+way of doing that is a loop.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>result = 0;
+for (count = 7; count &#60; 124; count++)
+    result += count;
+</pre></td></tr></table></P><P>
+
+What happens is that first of all result is set to 0, then the actual
+<CODE>for</CODE>-statement is entered. It begins by setting the variable
+count to 7. Then the loop is entered, beginning by testing if
+count (= 7) is less than 124, it is so the value is added to count. Then
+count is incremented one step and the loop entered again. This goes on
+until the count value reaches 124. Since that isn't less than 124 the
+loop is ended. 
+</P><P>
+
+<STRONG>NB!</STRONG> The value of count after the <CODE>for</CODE>-statement
+will be 124 and <EM>not</EM> 123 that some people tend to believe. The
+<EM>test_expression</EM> must evaluate to <CODE>false</CODE> in order for the
+loop to end, and in this case the value for count then must be
+124.
+</P><P>
+
+<A NAME="while"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_39.html#SEC39"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_41.html#SEC41"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_38.html#SEC38"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_39.html#SEC39"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_42.html#SEC42"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

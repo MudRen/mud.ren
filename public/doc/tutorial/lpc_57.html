@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Inheritance</TITLE>
+
+<META NAME="description" CONTENT="LPC: Inheritance">
+<META NAME="keywords" CONTENT="LPC: Inheritance">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC57"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_56.html#SEC56"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_58.html#SEC58"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_53.html#SEC53"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 2.2.2 Inheriting object classes </H3>
+<!--docid::SEC57::-->
+<P>
+
+Assume that you want to code an item like a door, for example. Doing
+that means that you have to create functionality that allows the opening
+and closing of a passage between two rooms. Perhaps you want to be able
+to lock and unlock the door, and perhaps you want the door to be
+transparent. All of this must be taken care of in your
+code. Furthermore, you have to copy the same code and make small
+variations in description and use <EM>every time</EM> you want to make a
+new door.
+</P><P>
+
+After a while you'll get rather tired of this, particularly as you'll find
+that other wizards has created doors of their own that work almost - but
+not quite - the same way your does, rendering nifty objects and features
+useless anywhere but in your domain. 
+</P><P>
+
+The object oriented way of thinking is that instead of doing things over
+and over you create a basic door object that can do all the things you want
+any door to be able to do. Then you just inherit this generic door into a 
+specialized door object where you configure exactly what <EM>it</EM> should
+be able to do from the list of available options in the <EM>parent</EM> door.
+</P><P>
+
+It is even possible to inherit several different objects where you can
+combine the functionality of several objects into one. However, be aware
+that if the objects you inherit define functions with the same names, they
+will indeed clash. Just be aware of what you are doing and why, and you
+won't have any problems.
+</P><P>
+
+The syntax for inheriting objects is very simple. In the top of the file
+you write this:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>inherit "&#60;file path&#62;";
+e.g.
+	inherit "/std/door";
+	inherit "/std/room.c";
+</pre></td></tr></table>	
+<STRONG>NB!</STRONG> This is <STRONG>NOT</STRONG> a preprocessor command, it is a statement,
+so it does <STRONG>NOT</STRONG> have a <CODE>#</CODE> in front of it, and it is ended
+with a <CODE>;</CODE>. As you see you may specify that it's a c-file if you
+wish, but that's not necessary.
+</P><P>
+
+<A NAME="IDX36"></A>
+The <EM>child</EM> will inherit all functions and all variables that are declared
+in such a way as to permit inheriting. If you have a function with the same
+name as a function in the parent, your function will <EM>mask</EM> the parent
+one. When the function is called by an external call, your function will be
+executed. Internal calls in the parent will still go to the parent function.
+Often you need to call the parent function anyway from the child, you do 
+that by adding <CODE>::</CODE> to the internal function call.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void
+my_func()
+{
+    /* 
+     * This function exists in the parent, and I need to
+     * call it from here.
+     */
+    ::my_func();        // Call my_func() in the parent.
+}
+</pre></td></tr></table></P><P>
+
+It is not possible to call a masked function in the parent by an
+external call, it is only available from within the object itself.
+</P><P>
+
+You can even add up more than one <CODE>::</CODE> instruction on top of
+another to reach higher levels. Each <CODE>::</CODE> only means 'back up one
+inheritance step, and look for the function there. If it's not there,
+look further up'. So, <CODE>::::::func()</CODE> simply means 'back up three
+inheritance steps and look for <CODE>func()</CODE> there, if not found, look
+even further up until you find it'.
+</P><P>
+
+<A NAME="IDX37"></A>
+If you have managed to confuse matters by having a function with the
+same name as an efun, the compiler needs a bit of help in knowing which
+function you actually mean. Now, it isn't exactly the brightest thing
+you can do to put yourself in this situation, but you will even find
+examples of it in the mudlib (in <CODE>/std/player/savevars_sec.c</CODE> to be
+specific, and I even *cough* seem to remember that it was I who wrote
+that part once upon a time), so I guess even the sun has spots... 
+Anyway, to solve the problem, simply precede any such efun call with the
+instruction <CODE>efun::</CODE>, and the compiler will know what you mean.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void
+deep_inventory(object ob)
+{
+    write("Dumping inventory of object '" + file_name(ob) + "'");
+    dump_array(efun::deep_inventory(ob)); /* Call to real efun */
+}
+
+int
+my_fun(string arg)
+{
+    object ob;
+
+    if (objectp((ob = find_object(arg))))
+        deep_inventory(ob);    /* Call to local version above */
+}
+</pre></td></tr></table></P><P>
+
+<A NAME="Shadows (part 1)"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_56.html#SEC56"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_58.html#SEC58"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_53.html#SEC53"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

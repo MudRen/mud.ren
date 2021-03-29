@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Library objects</TITLE>
+
+<META NAME="description" CONTENT="LPC: Library objects">
+<META NAME="keywords" CONTENT="LPC: Library objects">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC75"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_74.html#SEC74"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_76.html#SEC76"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_72.html#SEC72"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_76.html#SEC76"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H4> 2.3.1.3 Standard library objects </H4>
+<!--docid::SEC75::-->
+<P>
+
+These objects are more of the type of 'helper' classes. They don't qualify
+as objects in their own right, but they provide neat functionality for
+what they do.
+</P><P>
+
+<DL COMPACT>
+<DT>`<TT>/lib/area_handler.c</TT>'
+<DD>Manage big areas with simple layout. The object generates an area
+based on simple map along with a file containing descriptions for
+a reduced set of room types.
+<P>
+
+<DT>`<TT>/lib/bank.c</TT>'
+<DD>Provides money changing support. Inherits /lib/trade for the basic
+money moving functionality.
+<P>
+
+<DT>`<TT>/lib/cache.c</TT>'
+<DD>Cache for frequent file access. If you create an object that
+re-reads information from file frequently, this object will
+cut down on the file-access calls substantially.
+<P>
+
+<DT>`<TT>/lib/guild_support.c</TT>'
+<DD>Support functions for guilds
+<P>
+
+<DT>`<TT>/lib/herb_support.c</TT>'
+<DD>Support functions for herbs
+<P>
+
+<DT>`<TT>/lib/more.c</TT>'
+<DD>More (file browsing) functionality
+<P>
+
+<DT>`<TT>/lib/pub.c</TT>'
+<DD>Bar/pub functionality
+<P>
+
+<DT>`<TT>/lib/shop.c</TT>'
+<DD>Shops of all kinds
+<P>
+
+<DT>`<TT>/lib/skill_raise.c</TT>'
+<DD>Training of skills
+<P>
+
+<DT>`<TT>/lib/store_support.c</TT>'
+<DD>Support functions for stores
+<P>
+
+<DT>`<TT>/lib/time.c</TT>'
+<DD>Time handling routines
+<P>
+
+<DT>`<TT>/lib/trade.c</TT>'
+<DD>Trade related support functionality
+</DL>
+<P>
+
+<A NAME="Object references"></A>
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

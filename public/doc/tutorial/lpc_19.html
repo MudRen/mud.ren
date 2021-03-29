@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Variable declarations</TITLE>
+
+<META NAME="description" CONTENT="LPC: Variable declarations">
+<META NAME="keywords" CONTENT="LPC: Variable declarations">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC19"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_18.html#SEC18"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_20.html#SEC20"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_10.html#SEC10"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_16.html#SEC16"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_46.html#SEC46"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 1.2.3 Variable declarations </H3>
+<!--docid::SEC19::-->
+<P>
+
+A variable is a string of letters identifying an information 'box', a
+place to store data. The box is given a name consisting of a maximum of
+32 characters, starting with an alphabetic letter. Custom and common
+sense dictate that all variables used inside a function consist of
+lowercase letters only. Global variables have the first letter in
+uppercase, the rest lowercase. No special character other than the '_'
+used to separate words is ever used. Variables should <EM>always</EM> be
+given names that reflect on their use. You declare variables like this:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>&#60;data type&#62; &#60;variable name&#62;, &#60;another variable&#62;, ..., &#60;last variable&#62;;
+e.g.
+    int        counter;
+    float      height, weight;
+    mapping    age_map;
+</pre></td></tr></table></P><P>
+
+Variables must be declared at the beginning of a block (right after the
+first '{') and before any code statements. Global variables, variables that
+are available in all functions throughout the program, should be declared at
+the top of the file.
+</P><P>
+
+When the declarations are executed as the program runs, they are initially
+set to 0, <STRONG>NOT</STRONG> to their 'null-state' values. In other words for
+example mappings, arrays and strings will all be set to 0 and not to
+<CODE>([])</CODE>, <CODE>({})</CODE> and <CODE>""</CODE> as you might believe. It is possible
+to initialize variables in the declaration statement, and it's even a very
+good habit always to initialize arrays and mappings there:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>&#60;data type&#62; &#60;variable name&#62; = &#60;value&#62;, etc.
+e.g.
+    int        counter = 8;
+    float      height = 3.0, weight = 1.2;
+    mapping    age_map = ([]);
+    object     *monsters = ({});
+</pre></td></tr></table></P><P>
+
+The reason why arrays and mappings should be initialized in the
+declaration statement to their 'NULL' values (<CODE>({})</CODE> and
+<CODE>([])</CODE> respectively) is that otherwise they are initialized to 0,
+which is incompatible with the proper type of the variable and might
+cause problems later on in the function they are part of.
+</P><P>
+
+<A NAME="Function declarations"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_18.html#SEC18"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_20.html#SEC20"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_10.html#SEC10"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_16.html#SEC16"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_46.html#SEC46"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

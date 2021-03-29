@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: String functions</TITLE>
+
+<META NAME="description" CONTENT="LPC: String functions">
+<META NAME="keywords" CONTENT="LPC: String functions">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC85"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_84.html#SEC84"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_86.html#SEC86"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 2.3.6 String functions </H3>
+<!--docid::SEC85::-->
+<P>
+
+In a gaming environment based on text, it's natural to expect that we've
+gone into a bit of trouble in making string handling functions both easy
+to use and versatile. As you already know, strings can be added together
+using the <CODE>+</CODE> operator, even mixing in integers without any special
+considerations. Floats and object pointers have to be converted however,
+floats with the special <CODE>ftoa()</CODE> efun (described later) and object
+pointers with the <CODE>file_name()</CODE> efun that I described earlier.
+</P><P>
+
+<A NAME="IDX93"></A>
+One of the most interesting properties of strings, apart from what they
+contain, is the length. You find that with the efun <CODE>strlen()</CODE>.
+Since it accepts ints as well (returning 0 for them) you can use it
+to test uninitialized string variables as well.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int strlen(string str)
+e.g.
+    string str = "Fatty is a bloated blimp";
+    write("The length of the string '" + str + 
+                "' is " + strlen(str) + " characters.\n");
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX94"></A>
+<A NAME="IDX95"></A>
+Often you will want to capitalize names and sentences for output to the
+screen. You do that with the efun <CODE>capitalize()</CODE>, it will only turn
+the first character in the string to upper case. The converse of this
+function is the efun <CODE>lower_case()</CODE>, however, it turns the
+<EM>entire</EM> string into lowercase and not only the first character.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>string capitalize(string str)
+string lower_case(string str)
+e.g.
+void
+// Present a given name on the output, formatted properly
+present_nice_name(string name)
+{
+    string new_name;
+
+    // Assume name = "fAttY"
+    new_name = lower_case(name);
+    // Name is now = "fatty"
+    new_name = capitalize(name);
+
+    write("The name is: " + name + "\n");
+
+    /* The result is:
+
+       The name is: Fatty
+     */
+}
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX96"></A>
+Sometimes it's desirable to break up a string in smaller pieces, just to
+present a nicer output. The efun <CODE>break_string()</CODE> will do that for
+you. It can even pad spaces in front of the broken strings if you want that.
+What it does is simply to insert newlines after whole words where you have
+indicated you want to break it up. The third argument specifying either
+space pad length or a string to pad with, is optional.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>string break_string(string str, int brlen, int indlen|string indstr|void)
+e.g.
+    string str = "This is the string I want to present in different ways.";
+
+    write(break_string(str, 20) + "\n");
+    write(break_string(str, 20, 5) + "\n");
+    write(break_string(str, 20, "Fatty says: ") + "\n");
+
+    /* The result is:
+
+       This is the string I
+       want to present in
+       different ways.
+
+            This is the string I
+            want to present in
+            different ways.
+
+       Fatty says: This is the string I
+       Fatty says: want to present in
+       Fatty says: different ways.
+     */
+</pre></td></tr></table></P><P>
+
+You will very often want to present information stored in variables. As 
+shown you can do that by converting the contents to strings and then just
+print the strings. Integers don't even have to be converted, you just add
+them on with the <CODE>+</CODE>-operator. However, what you get then is something
+that's not very well formatted, you'll have to do that yourself. Particularly
+if you try to produce tables this is a nuisance, having to determine the
+length of strings and add on a certain amount of spaces depending on this
+length and so on. Instead of doing this you can use the efun <CODE>sprintf()</CODE>.
+</P><P>
+
+<A NAME="IDX97"></A>
+What <CODE>sprintf()</CODE> does is simply to take a <EM>format</EM>-string that
+describes how you want the resulting string to look and put in the contents
+of the given variables according to your specifications. The result is
+a string that you then can present on the screen with <CODE>write()</CODE> for
+example.
+</P><P>
+
+All characters in the format string will be copied to the resulting string
+with exceptions of the special pattern <EM>%&#60;width spec&#62;&#60;type spec&#62;</EM>.
+The width specifier can contain a field width parameter, simply an
+integer that specifies the width of the <EM>box</EM> you want to put it
+in and if you want it left- or right-aligned. A positive number denotes
+right-alined insertion and negative number left-aligned. If you omit the
+width specifier the variable will be inserted in a box exactly the width
+of its contents. The type specifier is one or more characters defining
+what kind of variable you want to have inserted.
+</P><P>
+
+<DL COMPACT>
+<DT>`<SAMP>d</SAMP>'
+<DD><DT>`<SAMP>i</SAMP>'
+<DD>The integer argument is printed in decimal.
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>string str;
+int a;
+
+a = 7;
+str = sprintf("test: >%-3d%i&#60;", 1, a);
+
+write(str + "\n");
+
+// The result is: 
+// test: &#62;1  7&#60;
+</pre></td></tr></table></P><P>
+
+<DT>`<SAMP>s</SAMP>'
+<DD>The argument is a string.
+<P>
+
+<DT>`<SAMP>c</SAMP>'
+<DD>The integer arg is to be printed as a character.
+<P>
+
+<DT>`<SAMP>o</SAMP>'
+<DD>The integer arg is printed in octal.
+<P>
+
+<DT>`<SAMP>x</SAMP>'
+<DD>The integer arg is printed in hex.
+<P>
+
+<DT>`<SAMP>X</SAMP>'
+<DD>The integer arg is printed in hex (in capitals).
+<P>
+
+<DT>`<SAMP>O</SAMP>'
+<DD>The argument is an LPC datatype. This is an excellent function for
+debug purposes since you can print ANY kind of variable using this
+specifier.
+<P>
+
+e.g.
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>write(sprintf("1:%d 2:%s 3:%c 4:%o\n5:%x 6:%X 7:%O\n", 5, 
+              "hupp happ", 85, 584, 32434, 85852, strlen));
+
+// The result is: 
+// 1:5 2:hupp happ 3:U 4:1110
+// 5:7eb2 6:14F5C 7:&#60;&#60;FUNCTION &#38;strlen()&#62;&#62;
+</pre></td></tr></table></P><P>
+
+This specifier is also the only one you can use for denoting floats right
+now.
+</DL>
+<P>
+
+Now, these were all the available type specifiers with a few width
+specifiers given as examples. However, there's a lot more of them.
+</P><P>
+
+<DL COMPACT>
+<DT>`<SAMP>' '</SAMP>'
+<DD>The integer argument is padded with a space if it is positive. This way
+you can write neat tables with both positive and negative numbers without
+having to take special measure to handle the minus-sign.
+<P>
+
+<DT>`<SAMP>+</SAMP>'
+<DD>Positive integer arguments are padded with a plus sign.
+<P>
+
+<DT>`<SAMP>'X'</SAMP>'
+<DD>The character(s) within the quotes is used to pad the argument to the field
+size.
+<P>
+
+<DT>`<SAMP>|</SAMP>'
+<DD>The argument will here be centered within the field size.
+<P>
+
+<DT>`<SAMP>#</SAMP>'
+<DD>This is table mode. The result will be a list of <CODE>\n</CODE>-separated words
+in a table within the field size. This naturally only is meaningful with
+strings.
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>write((sprintf("&#62;%19|s&#60;\n", "Fatty the blimp")));
+
+// The result is:
+// &#62;  Fatty the blimp  &#60;
+
+</pre></td></tr></table></P><P>
+
+<DT>`<SAMP>=</SAMP>'
+<DD>This specifier is only valid for strings. It outputs the result in columns
+if the arguments are wider than their field size.
+<P>
+
+<DT>`<SAMP>*</SAMP>'
+<DD>Specifies to sprintf to use the corresponding argument as field size. If you
+combine this with table mode you will get neat tables formatted after the
+biggest argument.
+<P>
+
+<DT>`<SAMP>@</SAMP>'
+<DD>The argument is an array. You must naturally combine with with a type
+specifier denoting the specific type in the array.
+<P>
+
+</DL>
+<P>
+
+<A NAME="IDX98"></A>
+Very often you want to find out if a certain substring is part of a
+greater string. You're not interested in exactly where the string
+is, just that it is there. For that purpose you want something
+that closely resembles the UNIX shell approach to string matching.
+The efun <CODE>wildmatch()</CODE> will do this for you. It simply
+return 1 if a specified substring is part of a specified main
+string, and 0 otherwise. The substring can contain the simple
+UNIX pattern matching symbols.
+</P><P>
+
+<DL COMPACT>
+<DT>@bullet{*}
+<DD>matches any number of any characters
+<DT>@bullet{?}
+<DD>Matches any single character
+<DT>@bullet{[xyz]}
+<DD>Matches any characters in xyz
+<DT>@bullet{[^xyz]}
+<DD>Matches any characters not in xyz
+<DT>@bullet{\c}
+<DD>Matches c even if it is special
+</DL>
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int wildmatch(string pattern, string str);
+e.g.
+    // Anything ending with .foo
+    wildmatch("*.foo", "bar.foo") == 1
+    // Anything starting with a, b or c, containing at least
+    // one more character
+    wildmatch("[abc]?*", "axy") == 1
+    wildmatch("[abc]?*", "dxy") == 0
+    wildmatch("[abc]?*", "a") == 0
+</pre></td></tr></table></P><P>
+
+<A NAME="Bit functions"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_84.html#SEC84"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_86.html#SEC86"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

@@ -1,0 +1,379 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Writing Code</TITLE>
+
+<META NAME="description" CONTENT="LPC: Writing Code">
+<META NAME="keywords" CONTENT="LPC: Writing Code">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC8"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_7.html#SEC7"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_9.html#SEC9"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_9.html#SEC9"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H2> vi - Writing code </H2>
+<!--docid::SEC8::-->
+<P>
+
+It might seem premature to tell you what your code should look like before
+you have learnt how to write it. However, it is a fundamental
+subject of great importance. Someone jokingly said that writing code
+correctly will make your teeth whiter, your hair darker and improve your
+sex life. Well... it might not do that, but it'll certainly improve the
+overall quality of what you produce, at a very low cost. Mainly it's a
+matter of self-discipline.
+</P><P>
+
+Here are some good arguments for making the effort:
+</P><P>
+
+<UL>
+<LI>
+It makes the code much more readable, not only for others, but also
+for yourself, particularly if you have to read or alter the code six months 
+after you produced it.
+<P>
+
+<LI>
+Since it is easier for others to read, and hence easier to understand
+what you have done, it will be easier to help you in case of problems.
+<P>
+
+<LI>
+Writing code properly actually makes it <EM>better</EM>, believe it or not.
+The reason for this is simply that writing code badly makes it easy
+to miss simple errors that get hidden in the crummy code.
+<P>
+
+<LI>
+It can be real hard to find people willing to help you debug badly
+formatted code. I personally will <STRONG>not</STRONG> help people to debug code
+that looks too awful. The reason is that it's simply not worth the
+effort. With bad looking code there'll be lots of stupid errors (see
+previous point) that'll turn up as soon as you start to indent the code
+properly.
+<P>
+
+</UL>
+<P>
+
+What follows here is a rather lengthy instruction of how to put down
+your code in writing. Read it now even though you might not fully understand
+what is being discussed, then go back and re-read it later after having
+learnt the skills necessary. Doing that will make sure you'll remember the
+correct way of formatting your code.
+</P><P>
+
+<OL>
+<LI>
+One indent level is 4 spaces long, no more, no less. A new indent level is
+started at the beginning of each block.
+<P>
+
+<LI>
+Reserved words have a space after them, before the opening <CODE>(</CODE>, if any.
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>while (test)
+    statement;
+</pre></td></tr></table></P><P>
+
+<LI>
+Block brackets start and end in the same column; the column of the first
+letter in a statement opening a block.
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>if (this)
+{
+    statement;
+}
+else if (that)
+{
+    another_statement;
+}
+else
+{
+    default_statement;
+}
+</pre></td></tr></table></P><P>
+
+Now, this is almost a religious matter for some coders. Representatives
+for another sect preaches that the block opening brace should be on the end
+of the line of the block statement and how you do this really isn't that
+important. Not as long as you do it exactly the way I say, or you'll
+burn in COBOL hell forever :) No, seriously, pick one of the two ways of
+doing it and stick to it. What is <EM>really</EM> important is that you
+keep the indention-level straight throughout the code. If we all agree
+on something, it's that wavy indention-levels is something not to be
+tolerated.
+</P><P>
+
+As it happens, using almost any of the freely available editors for
+writing C-code (I recommend emacs) will take care of this problem for
+you, and at the same time provide some rudimentary syntax-checking
+functionality.
+</P><P>
+
+<LI>
+Several arguments on a line separated by a comma or a semicolon have a
+space following the comma or semicolon. Binary operators have a space
+both in front of, and after the operator.
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int a, b, c;
+
+for (a = 0; a &#60; 10; a++)
+{
+    b = function_call(a, b * 2);
+    c = b * 3 / 4;
+}
+</pre></td></tr></table></P><P>
+
+<LI>
+If a loop statement has no body, put the ending <CODE>;</CODE> on a separate line.
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>while (!(var = func(var)))
+    ;
+</pre></td></tr></table></P><P>
+
+The reason for this is that if you should put it on the same line, it's
+<EM>very</EM> easy to miss real mistakes like this one just out of 
+pure laziness:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>for (i = 0; i &#60; 100; i++);
+{
+    &#60;code that gets executed only once, but always&#62;
+}
+</pre></td></tr></table></P><P>
+
+<LI>
+All <CODE>#define</CODE> and <CODE>#include</CODE> statements should be placed at
+the top of the file. It's possible to spread them out, but that will
+just be confusing.
+<P>
+
+<LI>
+The same goes for prototypes and global/static variables used in the file.
+Clump them all together, with a proper comment header, in the top of the
+file. It's possible to spread them out, but oh how easy it is to miss
+them when reading the code later...
+<P>
+
+<LI>
+Declarations of functions have the return type on a separate line from
+the function name.
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>public void
+my_function(int a, int b)
+{
+    &#60; code &#62;
+}
+</pre></td></tr></table></P><P>
+
+<LI>
+Break long lines of code in proper places so that they don't wrap on their
+own beyond the end of a 80-width screen. It looks ugly and becomes hard
+to read, not to mention print.
+<P>
+
+<LI>
+The file should begin with a proper header following this outline:
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>/*
+ * &#60;filename&#62;
+ *
+ * &#60;Short description of what the file does, no more than 5-7 lines.
+ * ...
+ * ... &#62;
+ * 
+ * Copyright (C): &#60;your name and year&#62;
+ *
+ */
+</pre></td></tr></table></P><P>
+
+Read the game Copyright statement <STRONG>NOW</STRONG> in order to know what rules
+apply to code you produce for the game, in the game. It ought to reside
+in the file `<TT>/doc/COPYRIGHT</TT>'. If not, simply ask one of the game
+administrators.
+</P><P>
+
+<LI>
+Start <STRONG>every</STRONG> function with a header looking like this:
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>/* 
+ * <A description of what the function does.>
+ *
+ * Arguments:     &#60;A list of all arguments, one per line
+ *                 arg1 - description no longer than the line.
+ *                 arg2 - next argument, etc. &#62;
+ * Returns:       &#60;What the function returns&#62;
+ */
+</pre></td></tr></table></P><P>
+
+If the function doesn't take any arguments, or doesn't return anything,
+keep the fields anyway and put in the text <CODE>None</CODE>. That way it is
+clear that you haven't forgotten anything, but in fact intended for the
+function to look the way it does.
+</P><P>
+
+<LI>
+Put suitable comments in the code here and there when doing something that
+might look a bit obscure. Remember also that on your (assumed) level of
+competence, a lot of things are obscure :) Use your own judgement.
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>/*
+ * Comment for code following this comment,
+ * telling what it does
+ */
+&#60; code &#62;
+</pre></td></tr></table></P><P>
+
+<LI>
+Make sure all function names and local variables are written in
+lowercase alphabetical characters, possibly spacing words with an
+underscore (e.g.  <CODE>function_name()</CODE>). Global variables should be
+written using the first letter of the word capitalized (e.g. <CODE>int
+GlobalTime;</CODE>). <CODE>#define</CODE>s should be written in capitals
+(e.g. <CODE>#define AMOEBA "one celled creature"</CODE>). Doing this makes it
+easy to see what kind of symbol  is being handled at all times.
+<P>
+
+</OL>
+<P>
+
+Now, the easiest way of getting the basic stuff done properly is to use
+the emacs editor, set up to use a modified c++ mode. The c++ mode understands
+about <CODE>::</CODE>-operators but needs a few hints on tab stops etc. Put 
+these lines of code into your .emacs file and all will work just as it 
+should:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>;; emacs lisp script start
+
+(setq auto-mode-alist (append '(
+  ("\\.l" . my-c++-mode)
+  ("\\.y" . my-c++-mode)
+  ("\\.c" . my-c++-mode)
+  ("\\.h" . my-c++-mode))
+    auto-mode-alist))
+
+(defun my-c++-mode () (interactive)
+  (c++-mode)
+  (setq c-basic-offset 4)
+  (setq c-offsets-alist
+	'((string                . -1000)
+	  (c                     . c-lineup-C-comments)
+	  (defun-open            . 0)
+	  (defun-close           . 0)
+	  (defun-block-intro     . +)
+	  (class-open            . -)
+	  (class-close           . 0)
+	  (inline-open           . +)
+	  (inline-close          . 0)
+	  (ansi-funcdecl-cont    . +)
+	  (knr-argdecl-intro     . +)
+	  (knr-argdecl           . 0)
+	  (topmost-intro         . 0)
+	  (topmost-intro-cont    . 0)
+	  (member-init-intro     . +)
+	  (member-init-cont      . 0)
+	  (inher-intro           . +)
+	  (inher-cont            . c-lineup-multi-inher)
+	  (block-open            . 0)
+	  (block-close           . 0)
+	  (brace-list-open       . 0)
+	  (brace-list-close      . 0)
+	  (brace-list-intro      . +)
+	  (brace-list-entry      . 0)
+	  (statement             . 0)
+	  ;; some people might prefer
+	  ;;(statement             . c-lineup-runin-statements)
+	  (statement-cont        . +)
+	  ;; some people might prefer
+	  ;;(statement-cont        . c-lineup-math)
+	  (statement-block-intro . +)
+	  (statement-case-intro  . +)
+	  (statement-case-open   . 0)
+	  (substatement          . +)
+	  (substatement-open     . 0)
+	  (case-label            . 0)
+	  (access-label          . -)
+	  (label                 . 2)
+	  (do-while-closure      . 0)
+	  (else-clause           . 0)
+	  (comment-intro         . c-lineup-comment)
+	  (arglist-intro         . +)
+	  (arglist-cont          . 0)
+	  (arglist-cont-nonempty . c-lineup-arglist)
+	  (arglist-close         . +)
+	  (stream-op             . c-lineup-streamop)
+	  (inclass               . +)
+	  (cpp-macro             . -1000)
+	  (friend                . 0)
+	  (objc-method-intro     . -1000)
+	  (objc-method-args-cont . c-lineup-ObjC-method-args)
+	  (objc-method-call-cont . c-lineup-ObjC-method-call)
+	  )))
+
+  ;; emacs end
+</pre></td></tr></table></P><P>
+
+An added advantage of using emacs is that later, when debugging other coder's
+attempts at writing code, correcting their horrible indention is as easy
+as typing 'M-&#60;', 'M-&#62;', 'M-C-\'.
+</P><P>
+
+<A NAME="LPC basics"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_7.html#SEC7"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_9.html#SEC9"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_9.html#SEC9"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: break/continue</TITLE>
+
+<META NAME="description" CONTENT="LPC: break/continue">
+<META NAME="keywords" CONTENT="LPC: break/continue">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC42"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_41.html#SEC41"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_43.html#SEC43"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_39.html#SEC39"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_16.html#SEC16"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_46.html#SEC46"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 1.2.12 The break and continue statement </H3>
+<!--docid::SEC42::-->
+<P>
+
+Sometimes during the execution of <CODE>switch</CODE>, <CODE>for</CODE> or <CODE>while</CODE>
+statements it becomes necessary to abort execution of the block code, and
+continue execution outside. To do that you use the <CODE>break</CODE> statement.
+It simply aborts execution of that block and continues outside it.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>while (end_condition &#60; 9999)
+{
+    // If the time() function returns 29449494, abort execution
+    if (time() == 29449494)
+        break;
+
+    &#60; code &#62;
+}
+
+// Continue here both after a break or when the full loop is done.
+&#60; code &#62;
+</pre></td></tr></table></P><P>
+
+Sometimes you merely want to start over from the top of the loop you
+are running, in a <CODE>for</CODE> or <CODE>while</CODE> statement, that's when you
+use the <CODE>continue</CODE> statement.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>// Add all even numbers
+sum = 0;
+for (i = 0; i &#60; 10000; i++)
+{
+    // Start from the top of the loop if 'i' is an odd number
+    if (i % 2)
+         continue;
+
+    sum += i;
+}
+</pre></td></tr></table></P><P>
+
+<A NAME="Arrays and Mappings"></A>
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

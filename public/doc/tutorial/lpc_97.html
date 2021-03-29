@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: load</TITLE>
+
+<META NAME="description" CONTENT="LPC: load">
+<META NAME="keywords" CONTENT="LPC: load">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC97"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_98.html#SEC98"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_101.html#SEC101"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 2.4.1 Compile and load an object into gamedriver memory </H3>
+<!--docid::SEC97::-->
+<P>
+
+With this command you instruct the gamedriver to try to compile
+and load a file into memory. This command is mostly used to make
+sure that a file <EM>will</EM> load, but for some objects that never
+are intended to be cloned (e.g. rooms), it's a good way of making
+them available by other objects. As described earlier, this object is
+called the <EM>master object</EM>.
+</P><P>
+
+If the file won't load, the actual error message ends up in two
+logs; the central <CODE>/lplog</CODE> file and the error log belonging
+to the domain or wizard who made the object. For domains the path
+to the log is <CODE>/d/&#60;Domain&#62;/log/errors</CODE>, and for wizards it
+is <CODE>/w/&#60;Wizard&#62;/log/errors</CODE>.
+</P><P>
+
+Unfortunately, the error messages are sometimes hard to
+understand. Again unfortunately, I cannot help you much with that
+particular problem; there's simply too many errors possible (and you'll
+be exploring them all, believe me :). Most are pretty self-explanatory,
+and with time you will learn to recognize and understand the trickier
+ones.
+</P><P>
+
+The command <EM>load</EM> works on several files as well, which then will
+be loaded one by one with a short delay. However, loading is a rather
+heavy operation on top of which a master object takes resources
+in the gamedriver, so don't load files you don't intend to use right
+away.
+</P><P>
+
+<A NAME="clone"></A>
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

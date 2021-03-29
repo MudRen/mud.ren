@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: External single calls</TITLE>
+
+<META NAME="description" CONTENT="LPC: External single calls">
+<META NAME="keywords" CONTENT="LPC: External single calls">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC55"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_54.html#SEC54"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_56.html#SEC56"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_53.html#SEC53"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_57.html#SEC57"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H4> 2.2.1.2 Making single object-external function calls </H4>
+<!--docid::SEC55::-->
+<P>
+
+An external call is a call from one object to another. In order to do
+that you need an object reference to the object you want to call. We
+haven't discussed exactly how you acquire an object reference yet, but
+assume for the moment that it already is done for you.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>mixed &#60;object reference/object path&#62;-&#62;&#60;function&#62;(&#60;argument list&#62;);
+mixed call_other(&#60;ob ref/ob path&#62;, "&#60;function&#62;", &#60;arg list&#62;);
+e.g.
+    /*
+     * Assume that I want to call the function 'compute_pie' in the
+     * object "/d/Mydom/thewiz/math_ob", and that I also have the
+     * proper object pointer to it stored in the variable 'math_ob'
+     */
+    pie = math_ob-&#62;compute_pie(1.0);
+    pie = "/d/Mydom/thewiz/math_ob"-&#62;compute_pie(1.0);
+    pie = call_other(math_ob, "compute_pie", 1.0);
+    pie = call_other("/d/Mydom/thewiz/math_ob", "compute_pie", 1.0);
+</pre></td></tr></table></P><P>
+
+If you make an external call using the object path, the so called 
+<EM>master object</EM> will be called. If the object you call hasn't been
+loaded into memory yet, it will be. If an external call is made to a
+function that doesn't exist in the object you call, 0 will be returned
+without any error messages. Calls to objects that have bugs in the code 
+<EM>will</EM> result in an error message and the execution of the object 
+that made the call is aborted. The call will also fail if the calling
+object lacks the proper priviliges to load the target object.
+</P><P>
+
+<A NAME="External multiple calls"></A>
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

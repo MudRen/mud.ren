@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Standard object classes</TITLE>
+
+<META NAME="description" CONTENT="LPC: Standard object classes">
+<META NAME="keywords" CONTENT="LPC: Standard object classes">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC74"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_73.html#SEC73"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_75.html#SEC75"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_72.html#SEC72"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_76.html#SEC76"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H4> 2.3.1.2 Standard object classes </H4>
+<!--docid::SEC74::-->
+<P>
+
+There exists a number of standard object classes for use in various
+situations. You will need to read the separate documentation on each
+and every one of them in order to fully learn to use them. However, this
+summary of the available classes will at least point you in the correct
+direction as you go.
+</P><P>
+
+As stated earlier you have to inherit most of these objects in order for
+your derived objects to work at all. However, it is possible to create
+new versions of some of them on your own. Again, I must emphasize that
+this is <STRONG>not</STRONG> a good idea since you then deviate from the common
+base of object functionality that is in use in the game. Problems that
+occur because of this actually are tricky to catch and track down since
+it isn't the first thing you suspect that someone has done.
+</P><P>
+
+<DL COMPACT>
+<DT>`<TT>/std/armour.c</TT>'
+<DD>Armour of any kind
+<P>
+
+<DT>`<TT>/std/board.c</TT>'
+<DD>Bulletin boards
+<P>
+
+<DT>`<TT>/std/book.c</TT>'
+<DD>A book with pages you can open, turn and read
+<P>
+
+<DT>`<TT>/std/coins.c</TT>'
+<DD>The base of all kinds of money
+<P>
+
+<DT>`<TT>/std/container.c</TT>'
+<DD>Any object that can contain another
+<P>
+
+<DT>`<TT>/std/corpse.c</TT>'
+<DD>Corpse of dead monsters/players/npcs
+<P>
+
+<DT>`<TT>/std/creature.c</TT>'
+<DD>Simple living creatures, basically a mobile that can fight
+<P>
+
+<DT>`<TT>/std/domain_link.c</TT>'
+<DD>Use this as a base to preload things in domains
+<P>
+
+<DT>`<TT>/std/door.c</TT>'
+<DD>A door that connects two rooms
+<P>
+
+<DT>`<TT>/std/drink.c</TT>'
+<DD>Any type of drink
+<P>
+
+<DT>`<TT>/std/food.c</TT>'
+<DD>Any type of food
+<P>
+
+<DT>`<TT>/std/guild (directory)</TT>'
+<DD>Guild related objects (the guild and the shadows)
+<P>
+
+<DT>`<TT>/std/heap.c</TT>'
+<DD>Any kind of object that can be put in heaps
+<P>
+
+<DT>`<TT>/std/herb.c</TT>'
+<DD>Herbs
+<P>
+
+<DT>`<TT>/std/key.c</TT>'
+<DD>Keys for doors
+<P>
+
+<DT>`<TT>/std/leftover.c</TT>'
+<DD>Remains from decayed corpses
+<P>
+
+<DT>`<TT>/std/living.c</TT>'
+<DD>Living objects
+<P>
+
+<DT>`<TT>/std/mobile.c</TT>'
+<DD>Mobile living objects
+<P>
+
+<DT>`<TT>/std/monster.c</TT>'
+<DD>Monsters of any kind
+<P>
+
+<DT>`<TT>/std/npc.c</TT>'
+<DD>A creature which can use 'tools', i.e. weapons.
+<P>
+
+<DT>`<TT>/std/object.c</TT>'
+<DD>The base object class
+<P>
+
+<DT>`<TT>/std/poison_effect.c</TT>'
+<DD>Handle effects in poison of any kind
+<P>
+
+<DT>`<TT>/std/potion.c</TT>'
+<DD>Potions
+<P>
+
+<DT>`<TT>/std/receptacle.c</TT>'
+<DD>Any kind of closable/lockable container
+<P>
+
+<DT>`<TT>/std/resistance.c</TT>'
+<DD>Handle resistance against various kinds of things
+<P>
+
+<DT>`<TT>/std/room.c</TT>'
+<DD>Any kind of room
+<P>
+
+<DT>`<TT>/std/rope.c</TT>'
+<DD>Rope objects
+<P>
+
+<DT>`<TT>/std/scroll.c</TT>'
+<DD>Scrolls
+<P>
+
+<DT>`<TT>/std/shadow.c</TT>'
+<DD>Used as base when creating shadows
+<P>
+
+<DT>`<TT>/std/spells.c</TT>'
+<DD>Spell objects, tomes etc
+<P>
+
+<DT>`<TT>/std/torch.c</TT>'
+<DD>Torches/lamps etc
+<P>
+
+<DT>`<TT>/std/weapon.c</TT>'
+<DD>Any kind of weapons
+</DL>
+<P>
+
+<A NAME="Library objects"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_73.html#SEC73"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_75.html#SEC75"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_72.html#SEC72"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_76.html#SEC76"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

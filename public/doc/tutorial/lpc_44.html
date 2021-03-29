@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Arrays</TITLE>
+
+<META NAME="description" CONTENT="LPC: Arrays">
+<META NAME="keywords" CONTENT="LPC: Arrays">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC44"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_43.html#SEC43"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_45.html#SEC45"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_42.html#SEC42"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_43.html#SEC43"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_46.html#SEC46"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H4> 1.2.13.1 How to declare and use arrays </H4>
+<!--docid::SEC44::-->
+<P>
+
+Arrays really aren't arrays in the proper sense of the word. They can
+better be seen as lists with fixed order. The difference might seem slight,
+but it makes sense to the computer-science buffs :)
+</P><P>
+
+Arrays are type-specific. This means that an array of a certain type only
+can contain variables of that single type. Another restrictions is that all
+arrays are one-dimensional. You can't have an array of arrays. However,
+the <CODE>mixed</CODE> type takes care of these limitations. A mixed variable
+can act as an array containing any data type, even other arrays. As a
+rule you should try to use properly typed arrays to minimize the
+probabilities of programming mistakes however.
+</P><P>
+
+You declare an array like this:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>&#60;type&#62; *&#60;array name&#62;;
+e.g.
+    int *my_arr, *your_arr;
+    float *another_arr;
+    object *ob_arr;
+</pre></td></tr></table></P><P>
+
+The initial values of these declared arrays is '0', <EM>not</EM> an empty
+array. I repeat: they are initialized to 0 and <EM>not</EM> to an empty
+array. Keep this in mind!
+</P><P>
+
+You can allocate and initialize an array like this:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>&#60;array&#62; = ({ elem1, elem2, elem3, ..., elemN });
+e.g.
+    my_arr = ({ 1, 383, 5, 391, -4, 6 });
+</pre></td></tr></table></P><P>
+
+You access members of the array using brackets on the variable name.
+(Assume <VAR>val</VAR> here is declared to be an integer).
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>&#60;data variable&#62; = &#60;array&#62;[&#60;index&#62;];
+e.g.
+    val = my_arr[3];
+</pre></td></tr></table></P><P>
+
+LPC, like C, starts counting from 0, making the index to
+the fourth value = 3.
+</P><P>
+
+To set the value of an existing position to a new value, simply set it
+using the <CODE>=</CODE> operator.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>    my_arr[3] = 22;	// =&#62; ({ 1, 383, 5, 22, -4, 6 })
+    my_arr[3] = 391;	// =&#62; ({ 1, 383, 5, 391, -4, 6 })
+</pre></td></tr></table></P><P>
+
+If you want to make a subset of an array you can specify a range of indices
+within the brackets.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>&#60;array variable&#62; = &#60;array&#62;[&#60;start_range&#62;..&#60;end_range&#62;];
+e.g.
+    your_arr = my_arr[1..3];
+</pre></td></tr></table></P><P>
+
+... will result in <CODE>your_arr</CODE> becoming the new array <CODE>({ 383, 5,
+391 });</CODE> If you give a new value to an old array, the previous array is
+lost.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>e.g.
+    my_arr = ({ });
+</pre></td></tr></table></P><P>
+
+... will result in <CODE>my_arr</CODE> holding an empty array. The old array is
+de-allocated and the memory previously used is reclaimed by the gamedriver.
+</P><P>
+
+If you index outside an array, an error occurs and execution of the object
+is aborted. However, range indexing outside the array does not result in an
+error, the range is then only constrained to fall within the array.
+</P><P>
+
+If you want to create an empty array, initialized to 0 (no matter the type
+of the array, all positions will be set to 0 anyway) of a given length, you
+use the efun <CODE>allocate()</CODE>.
+</P><P>
+
+<A NAME="IDX34"></A>
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>&#60;array&#62; = allocate(&#60;length&#62;);
+e.g.
+    your_arr = allocate(3);	// =&#62; your_arr = ({ 0, 0, 0 }); 
+</pre></td></tr></table></P><P>
+
+Concatenating (adding) arrays to each other is most easily done with the
+<CODE>+</CODE> operator. Simply add them as you would numbers. The <CODE>+=</CODE>
+operator works fine as well.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>my_arr = ({ 9, 3 }) + ({ 5, 10, 3 }); // =&#62; ({ 9, 3, 5, 10, 3 })
+</pre></td></tr></table></P><P>
+
+Removing elements from an array is easiest done with the <CODE>-/-=</CODE>
+operator, however, be aware that it is a general operator that will
+remove <EM>all</EM> items found that match the item you want to remove.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>my_arr -= ({ 3, 10 }); // =&#62; ({ 9, 5 })
+</pre></td></tr></table></P><P>
+
+If you want to remove a single item in the middle somewhere that might have
+been repeated, you have to use the range operator of course.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>my_arr = ({ 9, 3, 5, 10, 3 });
+my_arr = my_arr[0..0] + my_arr[2..4]; // =&#62; ({ 9, 5, 10, 3 })
+</pre></td></tr></table></P><P>
+
+<STRONG>NB!</STRONG> Beware this difference!!!! One is a list, the other an integer!
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>    &#60;array&#62; my_arr[0..0]   // = ({ 9 })
+    &#60;int&#62;   my_arr[0]      // = 9
+</pre></td></tr></table></P><P>
+
+<A NAME="Mappings"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_43.html#SEC43"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_45.html#SEC45"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_42.html#SEC42"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_43.html#SEC43"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_46.html#SEC46"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

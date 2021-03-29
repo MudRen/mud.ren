@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Basic LPC</TITLE>
+
+<META NAME="description" CONTENT="LPC: Basic LPC">
+<META NAME="keywords" CONTENT="LPC: Basic LPC">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC16"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_15.html#SEC15"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_17.html#SEC17"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_10.html#SEC10"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_9.html#SEC9"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_46.html#SEC46"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H2> 1.2 Basic LPC </H2>
+<!--docid::SEC16::-->
+<P>
+
+LPC if fairly similar to the language C, although some differences exist.
+As the experienced coder will find, it basically is a bit simplified with
+some new convenient types added and a set of functions to handle those
+types. Some inconsistencies exist but they are not serious enough to cause
+any problems as long as you are aware of them.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_17.html#SEC17">1.2.1 Comments</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to put comments in code</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_18.html#SEC18">1.2.2 Data types</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The LPC data types</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_19.html#SEC19">1.2.3 Variable declarations</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to declare variables</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_20.html#SEC20">1.2.4 Function declarations</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to declare functions</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_21.html#SEC21">1.2.5 Statements and Expressions</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The statement and expression concept</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_26.html#SEC26">1.2.6 Scope and prototypes</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The scope and function prototype concept</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_27.html#SEC27">1.2.7 Operator expressions</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Operator expressions explained</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_33.html#SEC33">1.2.8 Prefix allocation</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The special prefix allocation statement</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_34.html#SEC34">1.2.9 Conditionals</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The conditional statement type</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_38.html#SEC38">1.2.10 Precedence and Order of evalutaion</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Precedence and order of evaluation</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_39.html#SEC39">1.2.11 Loop statements</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to write loops in LPC</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_42.html#SEC42">1.2.12 The break and continue statement</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The break and continue statements</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_43.html#SEC43">1.2.13 Arrays and Mappings</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The special LPC types explained in more detail</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Comments"></A>
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

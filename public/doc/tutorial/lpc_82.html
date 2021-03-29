@@ -1,0 +1,312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Command handling (objects)</TITLE>
+
+<META NAME="description" CONTENT="LPC: Command handling (objects)">
+<META NAME="keywords" CONTENT="LPC: Command handling (objects)">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC82"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_81.html#SEC81"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_83.html#SEC83"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_76.html#SEC76"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 2.3.3 Object-inherent command handling </H3>
+<!--docid::SEC82::-->
+<P>
+
+By now you know that nothing ever is really simple in this game. To confuse
+the issue when dealing with commands we actually have two different types
+of commands. One kind is the one that we will talk about here, commands
+that are defined by objects that you can touch or examine. The other kind
+is so called 'soul' commands. The soul commands is a pure mudlib
+convenience though. They are described later in chapter three.
+</P><P>
+
+<A NAME="IDX64"></A>
+Object-added commands work like this: Upon entering an object, such as a
+room, a special lfun called <CODE>init()</CODE> is called in the room and in
+all other objects in the inventory of the room. The <CODE>init()</CODE>
+function is actually an ordinary function that you could use for any
+purpose, but the <EM>intended</EM> purpose is to have the command-adding
+efun <CODE>add_action()</CODE> there. In other words, when you enter an object
+of any kind, the commands of that object as well as those of the other
+object in the same inventory are added to your set of commands.
+</P><P>
+
+<A NAME="IDX65"></A>
+The <CODE>add_action</CODE> command ties an action word to a function in the
+object. Upon typing the special word as the first word on the line, the
+function gets called with any other words you might have typed as
+arguments. The third argument can be given as '1' if you want the
+gamedriver to trigger on just a part of the word. For example if you
+have the action word 'examine' and want to allow 'exa' or 'ex' as well.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>add_action(function func, string action, void|int 1)
+e.g.
+    init()
+    {
+        /*
+         * The functions 'do_bow()' and 'leave_game()' are defined
+         * somewhere in this object. However, if it's done later than
+         * this function, they must exist as prototypes in the header.
+         */
+        add_action(do_bow, "bow");          // Better get used to seeing
+        add_action(&#38;leave_game(), "quit");  // different kinds of function
+                                            // reference declarations.
+    }
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX66"></A>
+<A NAME="IDX67"></A>
+Is this true for any kind of object then? Will any object receive this
+set of commands? No. Just <EM>living</EM> objects. An object is made living
+by the efun <CODE>enable_commands()</CODE> and dead, or inert, with the efun
+<CODE>disable_commands()</CODE> Note carefully that <EM>living</EM> in the
+gamedriver only means <EM>being able to receive and execute commands</EM>,
+in the mudlib it means a bit more.
+</P><P>
+
+Use these efuns whenever you want to switch on or off the command handling
+capabilities. However, remember that if the object already is moved into
+a room when you turn on living status, it will have no command lists. You
+will have to move it out/in to the room again in order for it to pick up
+all actions.
+</P><P>
+
+<A NAME="IDX68"></A>
+You can check if an object is living or not with the efun <CODE>living()</CODE>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>enable_commands()
+disable_commands()
+int living(object ob)
+e.g.
+    public void
+    toggle_living_status()
+    {
+        if (living(this_object()))
+            disable_commands();
+        else
+            enable_commands();
+    }
+</pre></td></tr></table></P><P>
+
+Actions can only be added and maintained by objects that exist in the
+inventory or environment of an object. If the object is moved from the
+action-defining object's presence, the action is removed as well.
+</P><P>
+
+As you now understand, the gamedriver expects the function <CODE>init()</CODE>
+to be defined in any object that wishes to add actions to living
+objects. Please be careful how you use the function though. If you for
+example use the <CODE>init()</CODE> function to test if an object belongs
+there or not, and then move it out if it doesn't, you'll likely get
+into trouble. The reason is that if you add actions after having moved
+it, you will in fact be adding actions to a non-present object. The
+gamedriver will notice this and you will have an error. I would like to
+advice you <STRONG>not</STRONG> to use the <CODE>init()</CODE> function for any other
+purpose than adding actions. It's allowed to test the object that calls
+the <CODE>init()</CODE> function to determine if you should add actions to it
+or not (if you limit access to some actions), but avoid any other kind
+of code.
+</P><P>
+
+I'm sorry to say that the mudlib itself doesn't always conform to this
+rule, there's objects here and there that cheat. However, there's
+no reason why you should code things badly just because we did. :)
+</P><P>
+
+In most objects that inherit standard base objects it's necessary to
+call the parent <CODE>init()</CODE> as well, since otherwise you'll
+override it and thereby miss lots of important actions. Just put the
+statement <CODE>::init();</CODE> first in your init, before your
+<CODE>add_action()</CODE> statements, and all will be well.
+</P><P>
+
+<A NAME="IDX69"></A>
+To execute a command in a living object you use the efun <CODE>command()</CODE>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int command(string cmd)
+e.g.
+    command("sneeze");
+    command("wield sword in left hand");
+</pre></td></tr></table></P><P>
+
+If you're doing this for mortals (which most often is the case) you're
+wise to use this construction instead. The reason is that the dollar
+sign will evade the internal alias mechanism so that it isn't fooled
+by an unfortunate macro.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int command(string cmd)
+e.g.
+    command("$sneeze");
+    command("$wield sword in left hand");
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX70"></A>
+<A NAME="IDX71"></A>
+The commands naturally only work if they have been added to the living
+object by other objects in the environment or inventory. To get a list
+of the available commands you can use the efuns <CODE>commands()</CODE> or
+<CODE>get_localcmd()</CODE> depending on what kind of information you
+want. <CODE>commands()</CODE> return an array of arrays with all the commands
+of a specified object, containing not only the command word, but also
+what object defines it and which function is
+called. <CODE>get_localcmd()</CODE> is simpler, returning only an array with
+the command words. If no object is specified, <CODE>this_object()</CODE> is
+used by default. See the manual entry for <CODE>commands()</CODE> to get the
+specification of what the command array contains.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>mixed commands(void|object ob)
+string *get_localcmd(void|object ob)
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX72"></A>
+If you use one function for several command words it becomes necessary
+to find out exactly what command word was used. You use the efun
+<CODE>query_verb()</CODE> for that.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>string query_verb()
+e.g.
+    init()
+    {
+        ::init();
+        add_action(&#38;my_func(), "apa");
+        add_action(my_func, "bepa");
+        add_action(&#38;my_func(), "cepa");
+    }
+
+    public int
+    my_func()
+    {
+        switch (query_verb())
+        {
+        case "apa":
+            &#60; code &#62;
+            break;
+
+        case "bepa":
+            &#60; code &#62;
+            break;
+
+        case "cepa":
+            &#60; code &#62;
+            break;
+        }
+        return 1;
+    }
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX73"></A>
+Action functions should return 1 if they were properly
+evaluated, i.e. if the function called was the right one with the right
+arguments. If you return 0, the gamedriver will look for other actions
+with the same command word and try those, until one of them finally
+returns 1, or there's no more to test. There's a special efun called
+<CODE>notify_fail()</CODE> that you can use for storing error messages in case
+no function 'takes' the command. Instead of giving the very useless text
+'What ?' when the player types the command you can give him some better
+info. If there are several action commands using the same command word
+who all fail, the one who <EM>last</EM> called <CODE>notify_fail()</CODE> will
+define the message actually used.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>notify_fail(string message)
+e.g.
+    public void
+    init()
+    {
+        ::init();
+        add_action(&#38;do_bow(), "bow");
+    } 
+
+    public int
+    do_bow(string who)
+    {
+        if (!present(find_player(who)), environment(this_player()))
+        {
+            notify_fail("There's no " + who + " here to bow to!\n");
+            return 0;
+        }
+
+        &#60; bow code &#62;
+
+        return 1;
+    }
+</pre></td></tr></table></P><P>
+
+If you are absolutely certain that the command given was directed only
+to your object and you want to stop execution there, even if your object
+finds an error with the command (arguments or context or whatever), you
+can return 1. However, then you must use another method to display error
+messages. The text stored with <CODE>notify_fail()</CODE> is <EM>only</EM> used
+if you return 0.
+</P><P>
+
+<A NAME="IDX74"></A>
+If your object changes the available set of actions during execution and
+you want the surrounding living objects to update their command set, you
+call the efun <CODE>update_actions()</CODE> for the object in question. If you
+don't specify any object <CODE>this_object()</CODE> is used by default. What
+happens is that all surrounding objects discard their command sets from
+the specified object and call <CODE>init()</CODE> in it again to get the new
+set.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>update_actions(object ob)
+</pre></td></tr></table></P><P>
+
+<A NAME="Alarms"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_81.html#SEC81"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_83.html#SEC83"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_76.html#SEC76"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

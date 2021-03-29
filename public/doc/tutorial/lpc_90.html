@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Mapping functions</TITLE>
+
+<META NAME="description" CONTENT="LPC: Mapping functions">
+<META NAME="keywords" CONTENT="LPC: Mapping functions">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC90"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_89.html#SEC89"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_91.html#SEC91"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 2.3.11 Mapping functions </H3>
+<!--docid::SEC90::-->
+<P>
+
+Mappings, as stated earlier, are lists of associated indices and values.
+A value is associated with another, so that by indexing with the first
+value you retrieve the second. Internally they are set up as hashed
+lists, which makes for very quick lookups. However, they are memory
+hogs, using up lots of memory as compared with arrays.
+</P><P>
+
+<A NAME="IDX115"></A>
+How to allocate mappings then? Well, that's very easy. Just declare
+it and assign a value to an index value. If it exists, the old value
+is removed and the new put in its place. If it doesn't exist it is
+allocated and stored in the mapping automatically. You can also use
+two arrays, one with the indices and one with the values and combine
+those into a mapping with the efun <CODE>mkmapping()</CODE>. Just remember
+that the two arrays <EM>must</EM> be of the same size.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>mapping mkmapping(mixed indarr, mixed valarr)
+e.g.
+    string *ind_arr, *val_arr;
+    mapping mp;
+
+    mp["fatty"] = "blimp";
+    mp["mrpr"] = "unique";
+    mp["olorin"] = "bloodshot";
+
+    // Is the same as...
+
+    ind_arr = ({ "fatty", "mrpr", "olorin" });
+    val_arr = ({ "blimp", "unique", "bloodshot" });
+    mp = mkmapping(ind_arr, val_arr);
+
+    // You can give the arrays directly, instead of through
+    // variables, of course.
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX116"></A>
+As with arrays, there's a function available to determine if a given
+variable contains a mapping or not, <CODE>mappingp()</CODE>, that works in
+the exact same way. Use it in the same circumstances, i.e. typically
+when a function might or might not return a mapping and you need to
+know for certain that it contains a valid value before you try to
+index it.
+</P><P>
+
+<A NAME="IDX117"></A>
+To find the size of mapping you have to use the special efun
+<CODE>m_sizeof()</CODE>. However, it works exactly like the corresponding
+array function, returning the amount of elements in the mapping.
+</P><P>
+
+<A NAME="IDX118"></A>
+Removing elements from a mapping is slightly more complicated than
+with arrays however, you have to use the special function <CODE>m_delete()</CODE>
+to do that. <CODE>m_delete()</CODE> doesn't exactly remove an element, what it
+does is that it creates a new mapping that is a copy of the indicated
+mapping, apart from a particular value pair. As you can see, it takes
+the mapping to delete from and the index to the value pair you want
+removed as arguments:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>mapping m_delete(mapping delmap, mixed elem)
+e.g.
+    mapping mp, mdel;
+
+    mp["fatty"] = "blimp";
+    mp["mrpr"] = "unique";
+    mp["olorin"] = "bloodshot";
+
+    mdel = m_delete(mp, "olorin");
+    dump_array(mdel);
+
+    /* Output:
+     *
+     *  (Mapping) ([
+     *    "mrpr":"unique"
+     *    "fatty":"blimp"
+     *  ])
+     */
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX119"></A>
+<A NAME="IDX120"></A>
+Well... how to access all elements of a mapping then? Particularly one
+would want some kind of reverse function to <CODE>mkmapping()</CODE>
+earlier. Actually, there's two: <CODE>m_indices()</CODE> and <CODE>m_values()</CODE>
+which returns an array containing the index and value part of the given
+mapping respectively. Due to a linguistic confusion, the efun
+<CODE>m_indices()</CODE> has a double called <CODE>m_indexes()</CODE>. They both
+do the same thing however (actually just two names for the same function)
+so you can use either, as your linguistic preferences dictate. :)
+</P><P>
+
+However, now we come to a sensitive subject - order in mappings. As
+explained earlier a mapping has no defined internal order. Well... it
+has, but no order that you need or should worry about. This order also
+changes when you remove or add value pairs to a mapping. All in all
+this means that if you extract the indices and the values from a
+mapping, those two arrays <EM>will</EM> correspond to each other, the
+first index value corresponding to the first array value, <EM>only</EM>
+as long as the mapping hasn't been changed in between those two
+operations.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>mixed m_indices(mapping mapp);
+mixed m_values(mapping mapp);
+e.g.
+    // This function displays a mapping and its contents
+    void
+    dump_mapping(mapping mp)
+    {
+        int i, sz;
+        mixed ind, val;
+
+        ind = m_indices(mp);
+        val = m_values(mp);
+
+        for (i = 0, sz = sizeof(ind); i &#60; sz; i++)
+            write(sprintf("%O", ind[i]) + " corresponds to " + 
+                  sprintf("%O", val[i]) + "\n");
+    }
+
+    /* Example run: dump_mapping(([ "fatty" : "blimp", 
+     *                              "mrpr" : "unique",
+     *                              "olorin" : "bloodshot" ]));
+     *
+     * "olorin" corresponds to "bloodshot"
+     * "fatty" corresponds to "blimp"
+     * "mrpr" corresponds to "unique"
+     *
+     */
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX121"></A>
+<A NAME="IDX122"></A>
+There are two functions that facilitates the saving and restoration of
+object data, <CODE>m_save_object()</CODE> will create a mapping that contains
+all global non-static variables, with the variable names as string
+indices corresponding to the actual values. You can then either save
+this mapping to file directly, or pass it to another function as you
+please. The converse of this efun; <CODE>m_restore_object()</CODE> takes a
+mapping as argument and reads the contents into the corresponding
+non-static global variables. 
+</P><P>
+
+<A NAME="Type conversion"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_89.html#SEC89"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_91.html#SEC91"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

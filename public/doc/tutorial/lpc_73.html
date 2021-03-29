@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: /std/object.c</TITLE>
+
+<META NAME="description" CONTENT="LPC: /std/object.c">
+<META NAME="keywords" CONTENT="LPC: /std/object.c">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC73"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_72.html#SEC72"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_74.html#SEC74"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_72.html#SEC72"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_76.html#SEC76"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H4> 2.3.1.1 The base object class, /std/object.c </H4>
+<!--docid::SEC73::-->
+<P>
+
+This is the all purpose object class. ALL objects in the game must inherit
+this object somewhere along the line if they are to be 'physically' present
+somewhere. Using any kind of standard object usually insures that this one
+is inherited as well, since they already make use of it.
+</P><P>
+
+The standard object defines the following conventions:
+</P><P>
+
+<DL COMPACT>
+<DT>@bullet{inventory}
+<DD>An object can <EM>contain</EM> other objects. In reality that is nothing but a
+list of objects that are said to be held inside the object owning the
+list. However, it is very easy to visualize this as the inside of a bag,
+inside a room, inside a box etc.
+<P>
+
+<DT>@bullet{environment}
+<DD>The object that <EM>surrounds</EM> the object that is being used as
+reference. In other words the reference object exists in the inventory
+of the environment object. An object can have a multitude of objects in
+its own inventory, but it can only have one environment object. All
+objects start out with no environment.
+<P>
+
+<DT>@bullet{command set}
+<DD>A list of catch-phrases linked to functions that the object makes
+available to other so called <EM>living</EM> objects in the game either in
+the environment or inventory of itself. These living objects can issue
+such a catch-phrase and the command-giving object will execute the
+linked function.
+<P>
+
+<DT>@bullet{properties}
+<DD>Properties are a pure mudlib convenience. They really is nothing but a
+mapping with certain reserved names indexed to object variables that
+affect certain generally accessible states. Typical properties are
+weight, value and light-level, but also more abstract concepts like
+the ability to be dropped, taken or sold. The applicable set of properties
+vary from object type to object type.
+<P>
+
+Wizards may add their own properties if they wish, but they must then be
+careful to define names that won't mistakenly be used by other wizards
+for other purposes, or advertise the names so that people won't use them
+by mistake.
+</P><P>
+
+<DT>@bullet{light}
+<DD>An object has a certain light level. Usually it's just as any kind of
+object - not affecting the environment at all, but it's possible to have
+both light- and darkness-sources.
+<P>
+
+<DT>@bullet{weight/volume}
+<DD>These values determine how much an object weight and how much room they
+take. For 'hollow' objects like bags it also determines how much they
+can hold.
+<P>
+
+<DT>@bullet{visibility}
+<DD>Some objects may be easier to find than others.
+<P>
+
+<DT>@bullet{names and	descriptions}
+<DD>What the object is called and how a player will see it in the game.
+</DL>
+<P>
+
+<A NAME="Standard object classes"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_72.html#SEC72"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_74.html#SEC74"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_72.html#SEC72"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_76.html#SEC76"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

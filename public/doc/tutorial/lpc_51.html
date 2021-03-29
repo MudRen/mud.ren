@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Peeking at things to come</TITLE>
+
+<META NAME="description" CONTENT="LPC: Peeking at things to come">
+<META NAME="keywords" CONTENT="LPC: Peeking at things to come">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC51"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_50.html#SEC50"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_50.html#SEC50"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_50.html#SEC50"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_116.html#SEC116"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H2> 2.1 Peeking at things to come </H2>
+<!--docid::SEC51::-->
+<P>
+
+In order to provide you with examples of what I'm trying to teach you, I
+need to explain a few functions in advance. They will be repeated in
+their correct context later, but here's a preview so that you'll know
+what I'm doing.
+</P><P>
+
+To present things on the screen for the player to read, you use the efun
+<CODE>write()</CODE>. There's two special characters that's often used to
+format the text, `<SAMP>tab</SAMP>' and `<SAMP>newline</SAMP>'. They are written as
+<CODE>\t</CODE> and <CODE>\n</CODE> respectively. The `<SAMP>tab</SAMP>' character inserts
+8 space characters and `<SAMP>newline</SAMP>' breaks the line.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void write(string text)
+e.g.
+    write("Hello there!\n");
+    write("\tThis is an indented string.\n");
+    write("This is a string\non several lines\n\tpartly\nindented.\n");
+
+    /* The result is:
+
+       Hello there!
+
+               This is an indented string.
+
+       This is a string
+       on several lines
+               partly
+       indented.
+     */
+</pre></td></tr></table></P><P>
+
+If you have an array, mapping, or simply a variable of any kind that
+you want displayed on the screen for debugging purposes the sfun
+<CODE>dump_array()</CODE> is very handy. You simply give the variable you
+want displayed as an argument and the contents (any kind) will be
+displayed for you.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void dump_array(mixed data)
+e.g.
+    string *name = ({ "fatty", "fido", "relic" });
+    dump_array(name);
+
+    /* The result is
+
+       (Array)
+       [0] = (string) "fatty"
+       [1] = (string) "fido"
+       [2] = (string) "relic"
+     */
+</pre></td></tr></table></P><P>
+
+<A NAME="LPC revisited"></A>
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

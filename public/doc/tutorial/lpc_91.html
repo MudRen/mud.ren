@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Type conversion</TITLE>
+
+<META NAME="description" CONTENT="LPC: Type conversion">
+<META NAME="keywords" CONTENT="LPC: Type conversion">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC91"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_90.html#SEC90"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_92.html#SEC92"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 2.3.12 Type conversion </H3>
+<!--docid::SEC91::-->
+<P>
+
+Most user input is in the form of strings; you type something and then
+the game is supposed to act upon your answer. This calls for functions
+that can analyze your input and translate it to values you can use in
+your program. The syntactical analysis is <EM>very</EM> complicated, to
+say the least, and I'm going to leave that part for chapter three.
+However, let's look a bit at the value transformation bit.
+As stated input is in the form of strings, this makes it very
+interesting to convert strings to integers and floats, and vice versa.
+</P><P>
+
+<A NAME="IDX123"></A>
+Let's start with integers. Suppose you have received a string holding
+a numerical value and you want to use it computations. In order to
+convert it to the proper integer value you use the efun <CODE>atoi()</CODE>,
+very simply. It takes a string as argument and converts it to the
+corresponding integer. However, if the string contained non-numerical
+characters apart from leading or trailing spaces, 0 will be returned.
+</P><P>
+
+The name <CODE>atoi()</CODE> is derived from 'a(scii) to i(nteger)', for those
+of you who are interested to know.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int atoi(string str)
+e.g.
+    int val;
+
+    val = atoi("23");
+
+    write("23 + 3 = " + (val + 3) + "\n");
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX124"></A>
+<A NAME="IDX125"></A>
+Floats have a corresponding efun, <CODE>atof()</CODE>, which converts a string
+to float. As you know by now, floats can't be converted to strings the
+same way integers can by simply adding them to another string, but
+require some other kind of treatment. The efun <CODE>ftoa()</CODE> will
+convert a float to a string, and the reverse functoin <CODE>atof()</CODE> will
+turn a string to a float, provided it contains a floating point
+number. Again, if the string contains any non-numerical characters the
+result will be 0.
+</P><P>
+
+<A NAME="IDX126"></A>
+<A NAME="IDX127"></A>
+For conversion between integer and float you have the efuns <CODE>itof()</CODE>
+and <CODE>ftoi()</CODE>. Just keep in mind that when you convert a float to
+integer, the decimal part will be cut off, not rounded.
+</P><P>
+
+<A NAME="IDX128"></A>
+<A NAME="IDX129"></A>
+There are many occasions when you would want to store a value as a string
+and later convert it back to a value. For this purpose you have the two
+efuns <CODE>val2str()</CODE> and <CODE>str2val()</CODE>. The output from
+<CODE>val2str()</CODE> can be printed, but is not intended to. You can store
+any kind of variable contents as a string using these efuns.
+</P><P>
+
+<A NAME="IDX130"></A>
+The most used data converter, however, is the efun <CODE>sscanf()</CODE>. With
+<CODE>sscanf()</CODE> you can specify a pattern that should be scanned for
+a certain value, extract that and put it into a variable. This makes
+<CODE>sscanf()</CODE> a bit special since it handles variables given as
+arguments, so it's impossible to get the function address of
+<CODE>sscanf()</CODE>. I know this sounds pretty much like garbled Greek
+to you at this moment, but trust me. I'll explain more in detail in
+chapter 3. Anyway, otherwise <CODE>sscanf()</CODE> is fairly simple; you
+provide a string to to search through, a pattern and the variables it
+should store data in, and it returns the number of matches it actually
+managed to make.
+</P><P>
+
+The string you give for pattern matching is interpreted literally
+apart from these control strings:
+</P><P>
+
+<DL COMPACT>
+<DT>`<SAMP>%d</SAMP>'
+<DD>matches an integer number.
+<P>
+
+<DT>`<SAMP>%s</SAMP>'
+<DD>matches a character string.
+<P>
+
+<DT>`<SAMP>%f</SAMP>'
+<DD>matches a float.
+<P>
+
+<DT>`<SAMP>%%</SAMP>'
+<DD>matches a %-character.
+</DL>
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int sscanf(string str, string pattern, ...);
+e.g.
+    int wide;
+    float weight;
+    string orgstr;
+    string wide_type, weight_type;
+
+    /*
+     * Assume the question "How wide and heavy do you think Fatty is?"
+     * has been posed and answered to. Furthermore, assume that the
+     * answer is given on the form '&#60;amount&#62; &#60;sort&#62; and &#60;amount&#62; &#60;sort&#62;',
+     * as for example '4 yards and 3.2 tons'. Assume the first value
+     * always is an integer and that the second is a float.
+     *
+     * Assume that this answer is given in the variable 'orgstr'
+     *
+     * The above is naturally only convenient assumptions to make the
+     * example easy to write. In reality you'd better be prepared for
+     * any kind of format being given as answer.
+     */
+
+    if (sscanf(orgstr, "%d %s and %f %s", wide, wide_type, 
+               weight, weight_type) != 4)
+    {
+        write("Please give a full answer!\n");
+        return;
+    }
+    
+    write("Aha, you think Fatty is " + wide + " " + wide_type +
+          " wide and " + ftoa(weight) + " " + weight_type + " heavy.\n");
+</pre></td></tr></table></P><P>
+
+<A NAME="Math functions"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_90.html#SEC90"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_92.html#SEC92"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Data types</TITLE>
+
+<META NAME="description" CONTENT="LPC: Data types">
+<META NAME="keywords" CONTENT="LPC: Data types">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC18"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_17.html#SEC17"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_19.html#SEC19"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_10.html#SEC10"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_16.html#SEC16"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_46.html#SEC46"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 1.2.2 Data types </H3>
+<!--docid::SEC18::-->
+<P>
+
+The object holds information in <EM>variables</EM>. As the name hints these
+are labeled containers that may hold information that varies from time
+to time. It processes information in <EM>functions</EM> that both use and
+return data of various kinds.
+</P><P>
+
+In principle only one kind of data type is needed, a sort of general
+container that would cover anything you wanted to do. In reality it's
+much preferred if you can distinguish between different types of information.
+This might seem only to add to your programming problems, but in fact it
+reduces the risk of faulty code and improves legibility. It <EM>much</EM>
+improves on the time it takes to code and debug an object.
+</P><P>
+
+In LPC it is possible to use only that 'general purpose' data type I was
+talking about before. In the first versions of the language it was the only
+kind available. However, with the LPC we have today it is much preferable
+if you avoid that as much as you can. In fact, start all your programs with
+the following instruction on a single line:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#pragma strict_types
+</pre></td></tr></table></P><P>
+
+This is an instruction to the gamedriver to check all functions so that
+they conform to the situation they are used in, and cause compile errors
+otherwise. This is a very great help in detecting programming errors early
+so that you don't wonder what's going on later when things don't turn out
+quite the way you wanted.
+</P><P>
+
+Now, the following types of data types are defined:
+</P><P>
+
+<DL COMPACT>
+<DT>`<SAMP>void</SAMP>'
+<DD><A NAME="IDX1"></A>
+`<SAMP>Nothing</SAMP>' 
+<P>
+
+This data type is used exclusively for functions that
+don't return any data at all.
+</P><P>
+
+<DT>`<SAMP>int</SAMP>'
+<DD><A NAME="IDX2"></A>
+`<SAMP>Integers</SAMP>' 
+<P>
+
+Whole numbers in the range -2147483648 to 2147483647.  e.g. <CODE>3, 17,
+-32, 999</CODE>.
+</P><P>
+
+<DT>`<SAMP>float</SAMP>'
+<DD><A NAME="IDX3"></A>
+`<SAMP>Floating point numbers</SAMP>' 
+<P>
+
+Decimal numbers of any kind in the approximate range 1.17549435e-38 to
+3.40282347e+38. e.g. <CODE>1.3, -348.4, 4.53e+4</CODE>. The range values are
+approximate since this might vary from mud to mud as it's platform
+dependant.
+</P><P>
+
+If there are any FORTRAN fossils around there, beware that numbers like
+<CODE>1.</CODE> or <CODE>.4711</CODE> are <EM>not</EM> recognized as floats, you have
+to specify both an integer and a decimal part, even if they only are 0.
+</P><P>
+
+<DT>`<SAMP>string</SAMP>'
+<DD><A NAME="IDX4"></A>
+`<SAMP>Character strings</SAMP>' 
+<P>
+
+Strings are simply a series of printable characters within quotes,
+e.g. <CODE>"x", "the string", "Another long string with the number 5 in
+it"</CODE>. Strings can contain special characters like newline (<CODE>"\n"</CODE>)
+to end a line. A lot of LPC expressions can handle strings directly,
+unlike usual C. This makes strings very handy and easy to use.
+</P><P>
+
+<DT>`<SAMP>mapping</SAMP>'
+<DD><A NAME="IDX5"></A>
+`<SAMP>Associated value pair list</SAMP>'
+<P>
+
+Mappings are another handy LPC invention (memory expensive, use with
+care!). A mapping is simply a list of associated values. Assume you want
+to remember the ages of people, like Olle is 23, Peter is 54 and Anna is
+15. In LPC you can write this as <CODE>([ "Olle":23, "Peter":54,
+"Anna":15 ])</CODE>. As you can see the value to the right has been associated
+to the value to the left. You can then extract the associated value
+through a simple indexing operation using the left hand value as index.
+</P><P>
+
+<DT>`<SAMP>object</SAMP>'
+<DD><A NAME="IDX6"></A>
+`<SAMP>Object pointer</SAMP>'
+<P>
+
+They are references to LPC programs that has been loaded into memory.
+</P><P>
+
+<DT>`<SAMP>function</SAMP>'
+<DD><A NAME="IDX7"></A>
+`<SAMP>Function pointer</SAMP>'
+<P>
+
+They are references to LPC functions.
+</P><P>
+
+<DT>`<SAMP>Array</SAMP>'
+<DD><A NAME="IDX8"></A>
+All of the above can appear in arrays, indicated by a <CODE>*</CODE> in front of
+the variable name in the declaration.
+<P>
+
+Arrays in LPC are more like lists than proper arrays. A number of functions
+and operator facilities exist to make them easy and quick to use.
+</P><P>
+
+<DT>`<SAMP>mixed</SAMP>'
+<DD><A NAME="IDX9"></A>
+This, finally, is a general descriptor covering all the other, a sort of
+jack-of-all-trades type. Again, let me stress the fact that using it
+except when <EM>absolutely</EM> necessary only provokes mistakes.
+<P>
+
+Hmm, as pointed out to me this might sound a bit too strict. The mixed
+type is used for good reasons fairly often. What I mean is that when
+a specific type can be used, you should use it. Don't substitute it for
+<CODE>mixed</CODE> just because you feel lazy.
+</P><P>
+
+</DL>
+<P>
+
+<A NAME="Variable declarations"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_17.html#SEC17"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_19.html#SEC19"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_10.html#SEC10"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_16.html#SEC16"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_46.html#SEC46"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

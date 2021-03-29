@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Mappings</TITLE>
+
+<META NAME="description" CONTENT="LPC: Mappings">
+<META NAME="keywords" CONTENT="LPC: Mappings">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC45"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_44.html#SEC44"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_46.html#SEC46"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_42.html#SEC42"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_43.html#SEC43"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_46.html#SEC46"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H4> 1.2.13.2 How to declare and use Mappings </H4>
+<!--docid::SEC45::-->
+<P>
+
+Mappings are lists of associated values. They are <CODE>mixed</CODE> by
+default, meaning that the index part of the associated values doesn't
+have to be of the same type all the time, even though this is encouraged
+for the same reason as before in regard to the mixed data type.
+</P><P>
+
+Mappings can use any kind of data type both as index and value. The index
+part of the mapping in a single mapping must consist of unique
+values. There can <EM>not</EM> be two indices of the same value.
+</P><P>
+
+This all sounds pretty complicated, but in reality it's pretty simple to
+use. However, it will be a lot easier to understand once we get down to
+actually seeing it used.
+</P><P>
+
+You declare a mapping just like any other variable, so let's just start up
+with a few declarations for later use:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>mapping my_map;
+int     value;
+</pre></td></tr></table></P><P>
+
+Allocating and initializing can be done in three different ways:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>1:	&#60;mapping_var&#62; = ([ &#60;index1&#62;:&#60;value1&#62;, &#60;index2&#62;:&#60;value2&#62;, ... ]);
+
+2:	&#60;mapping_var&#62;[&#60;index&#62;] = value;
+
+3:	&#60;mapping_var&#62; = mkmapping(&#60;list of indices&#62;, &#60;list of values&#62;);
+</pre></td></tr></table></P><P>
+
+The first is straight-forward and easy.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>1: my_map = ([ "adam":5, "bertil":8, "cecar":-4 ]);
+</pre></td></tr></table></P><P>
+
+The second works so that in case a given mapping pair doesn't exist, it is
+created when referenced. If it does exist the value part is replaced.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>2: my_map["adam"] = 1;    // Creates the pair "adam":1
+   my_map["bertil"] = 8;  // Creates the pair "bertil":8
+   my_map["adam"] = 5;    // Replaces the old value in "adam" with 5.
+	...
+</pre></td></tr></table></P><P>
+
+The third requires two arrays, one containing the indices and one
+containing the values. How to create arrays was described in the previous
+chapter.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>3: my_map = mkmapping(({ "adam", "bertil", "cecar" }), ({ 5, 8, -4 }));
+</pre></td></tr></table></P><P>
+
+Unlike arrays there's no order in a mapping. The values are stashed in a
+way that makes finding the values as quick as possible. There are functions
+that will allow you to get the component lists (the indices or values) from
+a mapping but keep in mind that they can be in <EM>any</EM> order and are not
+guaranteed to remain the same from call to call. In practice though, they
+only change order when you add or remove an element.
+</P><P>
+
+Merging mappings can be done with the <CODE>+/+=</CODE> operator just as with
+mappings.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>my_map += ([ "david":5, "erik":33 ]);
+</pre></td></tr></table><A NAME="IDX35"></A>
+</P><P>
+
+Removing items in a mapping, however, is a bit trickier. That has to be
+done by using the special efun <CODE>m_delete()</CODE> (also described later).
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>my_map = m_delete(my_map, "bertil");
+my_map = m_delete(my_map, "david");
+</pre></td></tr></table></P><P>
+
+As you see the mapping pairs has to be removed one by one using the index
+as an identifier of which pair you want to remove. Another thing you now
+realize quite clearly is that the indices in a mapping has to be unique,
+you can't have two identical 'handles' to different values. The values
+however can naturally be identical.
+</P><P>
+
+Individual values can be obtained through simple indexing.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>value = my_map["cecar"]; // =&#62; -4
+</pre></td></tr></table></P><P>
+
+Indexing a value that doesn't exist will <EM>not</EM> generate an error,
+only the value 0. Be <EM>very</EM> careful of this since you might indeed
+have legal values of 0 in the mapping as well. i.e. a value of 0 might
+mean that the index has no value part but also that the value indeed
+<EM>is</EM> 0.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>value = my_map["urk"]; // =&#62; 0
+</pre></td></tr></table></P><P>
+
+<A NAME="The preprocessor"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_44.html#SEC44"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_46.html#SEC46"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_42.html#SEC42"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_43.html#SEC43"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_46.html#SEC46"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

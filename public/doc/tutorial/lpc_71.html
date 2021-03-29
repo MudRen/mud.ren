@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: LPC/Mudlib interface</TITLE>
+
+<META NAME="description" CONTENT="LPC: LPC/Mudlib interface">
+<META NAME="keywords" CONTENT="LPC: LPC/Mudlib interface">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC71"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_70.html#SEC70"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_72.html#SEC72"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_50.html#SEC50"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H2> 2.3 LPC/Mudlib interafce </H2>
+<!--docid::SEC71::-->
+<P>
+
+There's a lot of stuff you want to do, like handling strings and saving
+data to files, that's not exactly LPC. It's part of the 'standard function
+package' that most programming languages sport. This chapter will teach
+you the basics of how to do all the things you need in order to create
+LPC objects.
+</P><P>
+
+Objects in the game share a certain set of common properties, the ones
+you always can rely on to be there for any kind of object are these:
+</P><P>
+
+<DL COMPACT>
+<DT>@bullet{creator}
+<DD>The object is created by someone. The identity of this creator is set
+depending on the file-system location of the source code. If the object
+resides in the directory of a domain-active wizard, the creator is said
+to be the name of that wizard. Otherwise the domain name is used. For
+mudlib objects the creator usually is <CODE>root</CODE> for admin objects and
+<CODE>backbone</CODE> for the rest.
+<P>
+
+<DT>@bullet{uid/euid}
+<DD>The <EM>uid</EM> (User ID) of an object defines the highest possible
+privilege level of an object. The uid itself is is only used to affect
+the <EM>euid</EM> (Effective User ID) of the same or another object. The
+euid is later checked in situations where the privilege of the object
+needs to be examined i.e. file access (reading/writing/removing) and
+object creation.
+<P>
+
+<DT>@bullet{living}
+<DD>In order for an object to be able to receive command-lists or issue
+commands it has to be <EM>living</EM>.
+</DL>
+<P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_72.html#SEC72">2.3.1 Definition of standard and library objects</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Definition of...</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_76.html#SEC76">2.3.2 How to obtain object references</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_82.html#SEC82">2.3.3 Object-inherent command handling</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_83.html#SEC83">2.3.4 Alarms: Asynchronous function execution</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Asynchronic object execution</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_84.html#SEC84">2.3.5 The inventory and the environment</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">A look at what's inside and outside</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_85.html#SEC85">2.3.6 String functions</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">String handling</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_86.html#SEC86">2.3.7 Bit functions</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Bit handling</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_87.html#SEC87">2.3.8 Time functions</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Time handling</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_88.html#SEC88">2.3.9 Array/string conversion</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Array &#60;-&#62; strings</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_89.html#SEC89">2.3.10 Array functions</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Array handling</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_90.html#SEC90">2.3.11 Mapping functions</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Mapping handling</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_91.html#SEC91">2.3.12 Type conversion</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Converting one type to another</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_92.html#SEC92">2.3.13 Math functions</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Mathematical functions</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_93.html#SEC93">2.3.14 File handling</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Using files</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_94.html#SEC94">2.3.15 Directory handling</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Using directories</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_95.html#SEC95">2.3.16 Screen input/output</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Getting and presenting data on screen</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Standard &#38; Library objects"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_70.html#SEC70"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_72.html#SEC72"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_50.html#SEC50"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

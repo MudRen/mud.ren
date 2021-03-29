@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: catch/throw</TITLE>
+
+<META NAME="description" CONTENT="LPC: catch/throw">
+<META NAME="keywords" CONTENT="LPC: catch/throw">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC69"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_68.html#SEC68"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_70.html#SEC70"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_51.html#SEC51"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 2.2.8 catch/throw: Error handling in runtime </H3>
+<!--docid::SEC69::-->
+<P>
+
+It happens now and then that you need to make function calls you know 
+<EM>might</EM> result in a runtime error. For example you might try to
+clone an object (described later) or read a file. If the files aren't
+there or your privileges are wrong you will get a runtime error and
+execution will stop. In these circumstances it is desirable to be able
+to intercept the error and either display some kind of message or
+perform other actions instead. The special LPC function operator
+<CODE>catch()</CODE> will do this for you. It returns 1 (true) if an error
+occurs during evaluation of the given function and 0 (false) otherwise.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int catch(function)
+e.g.
+    if (catch(tail("/d/Relic/fatty/hidden_donut_map")))
+    {
+        write("Sorry, not possible to read that file.\n");
+        return;
+    }
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX38"></A>
+It's also possible to cause error interrupts. This is particularly useful
+when you want to notify the user of an unplanned for event that occurred
+during execution. Typically you want to do this in the 'default' case of a
+switch statement, unless (naturally) you use default as a sort of catch-it-all
+position. In any case <CODE>throw()</CODE> will generate a runtime error
+with the message you specify. A <CODE>catch()</CODE> statement issued prior to
+calling the function that uses <CODE>throw()</CODE> will naturally intercept the
+error as usual.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>throw(mixed info)
+e.g.
+    if (test &#60; 5)
+        throw("The variable 'test' is less than 5\n");
+</pre></td></tr></table></P><P>
+
+<A NAME="Array &#38; Mapping references"></A>
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

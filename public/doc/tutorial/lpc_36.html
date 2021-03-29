@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: switch</TITLE>
+
+<META NAME="description" CONTENT="LPC: switch">
+<META NAME="keywords" CONTENT="LPC: switch">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC36"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_35.html#SEC35"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_37.html#SEC37"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_33.html#SEC33"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_34.html#SEC34"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_38.html#SEC38"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H4> 1.2.9.2 The switch statement </H4>
+<!--docid::SEC36::-->
+<P>
+
+If one variable has to be tested for a lot of different values, the
+resulting list of `<SAMP>if-else-if-else</SAMP>' statements soon gets very long
+and not very easy to read. However, if the type of the value you are
+testing is an integer, a float or a string you can use a much denser and
+neater way of coding. Assume you have the following code you want to
+write:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>if (name == "fatty")
+{
+    nat = "se";
+    desc = "blimp";
+}
+else if (name == "plugh")
+{
+    nat = "no";
+    desc = "warlock";
+}
+else if (name == "olorin")
+{
+    nat = "de";
+    desc = "bloodshot";
+}
+else
+{
+    nat = "x";
+    desc = "unknown";
+}
+</pre></td></tr></table></P><P>
+
+The better way of writing this is as follows:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>switch (name)
+{
+case "fatty":
+    nat = "se";
+    desc = "blimp";
+    break;
+
+case "plugh":
+    nat = "no";
+    desc = "warlock";
+    break;
+
+case "olorin":
+    nat = "de";
+    desc = "bloodshot";
+    break;
+
+default:
+    nat = "x";
+    desc = "unknown";
+}
+</pre></td></tr></table></P><P>
+
+The workings of this statement is very simple really: <CODE>switch</CODE> sets
+up the expression value within the parenthesis for matching. Then every
+expression following a <CODE>case</CODE> is examined to find a
+match. 
+</P><P>
+
+<STRONG>NB!</STRONG> The <CODE>case</CODE> expression <STRONG>must</STRONG> be a
+constant value, it can't be a variable, function call or other type of
+expression. 
+</P><P>
+
+After a match has been found the following statements are executed until
+a <CODE>break</CODE> statement is found. If no matching value can be found,
+the <CODE>default</CODE> statements are executed instead. 
+</P><P>
+
+<STRONG>NB!</STRONG> While it's not mandatory to have a <CODE>default</CODE> section,
+it's highly recommended since that usually means that something has
+happened that wasn't predicted when writing the program. If you have
+written it that way on purpose that's one thing, but if you expect only
+a certain range of values and another one turns up it's usually very
+good to have an error message there to notify the user that something
+unexpected happened.
+</P><P>
+
+If you forget to put in a 'break' statement the following 'case'
+expression will be executed. This might sound like something you don't
+want, but if in the example above the names `<SAMP>fatty</SAMP>' and `<SAMP>plugh</SAMP>'
+both should generate the same result you could write:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>case "fatty":
+    /* FALLTHROUGH */
+case "plugh":
+    &#60; code &#62;
+    break;
+</pre></td></tr></table></P><P>
+
+... and save a bit of space. Writing code with switch doesn't make it any
+quicker to execute, but a lot easier to read thereby reducing the chance of
+making mistakes while coding. Remember to put the <CODE>/* FALLTHROUGH */</CODE>
+comment there though, or it might be hard to remember later if it was
+intentional or an omission of a <CODE>break</CODE> statement, particularly if
+you have some code that's executed previously to the fall through. A good
+idea is usually to add an extra linefeed after a <CODE>break</CODE> statement
+just to give some extra 'breathing space' to improve on legibility.
+</P><P>
+
+<A NAME="?colon"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_35.html#SEC35"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_37.html#SEC37"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_33.html#SEC33"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_34.html#SEC34"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_38.html#SEC38"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Arithmetic operators</TITLE>
+
+<META NAME="description" CONTENT="LPC: Arithmetic operators">
+<META NAME="keywords" CONTENT="LPC: Arithmetic operators">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC29"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_28.html#SEC28"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_30.html#SEC30"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_26.html#SEC26"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_27.html#SEC27"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_33.html#SEC33"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H4> 1.2.7.2 Arithmetic operators </H4>
+<!--docid::SEC29::-->
+<P>
+
+<OL>
+
+<LI>E1 + E2
+<A NAME="IDX12"></A>
+The expressions are evaluated and the results added to each other.
+<P>
+
+You can add integers, floats, strings, arrays and mappings.  Strings,
+arrays and mappings are simply concatenated - pasted together to the end
+of the first argument.
+</P><P>
+
+It's also possible to add integers to strings, they will then
+be converted to strings and pasted to the end of the string.
+</P><P>
+
+<LI>E1 - E2
+<A NAME="IDX13"></A>
+E2 is subtracted from E1.
+<P>
+
+You can subtract integers, floats and any type from arrays of the same
+type. For arrays the item, if it exists in the array it is subtracted
+from, is removed from the array. If it doesn't exist in the array, the
+array is returned intact.
+</P><P>
+
+<LI>E1 * E2
+<A NAME="IDX14"></A>
+E1 is multiplied by E2.
+<P>
+
+This only works on integers and floats.
+</P><P>
+
+<LI>E1 / E2
+<A NAME="IDX15"></A>
+E1 is divided by E2.
+<P>
+
+This only works on integers and floats.
+</P><P>
+
+<LI>E1 % E2
+<A NAME="IDX16"></A>
+The remainder of the expression 'E1 / E2' is returned.
+<P>
+
+This only works with integers.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>'14 % 3' will yield 2 as the remainder. '14 / 3' will be 4, and 
+4 * 3 + 2 = 14 as a small check.
+</pre></td></tr></table></P><P>
+
+<LI>-E
+Return E with reversed sign.
+<P>
+
+This only works on integers and floats.
+</P><P>
+
+<LI>E++, ++E
+<A NAME="IDX17"></A>
+The expression 'E' is incremented by one. If the operator is in front of
+the expression, the incrememntation is done before the expression is used,
+otherwise afterwards.
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>'a = 3; b = ++a;' will yield the result 'a = 4, b = 4', while
+'a = 3; b = a++;' will yield the result 'a = 4, b = 3'.
+</pre></td></tr></table></P><P>
+
+This only works on integers.
+</P><P>
+
+<LI>E--, --E
+<A NAME="IDX18"></A>
+The expression 'E' is decremented by one. If the operator is in front of
+the expression, the decrementation is done before the expression is used,
+otherwise afterwards.
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>'a = 3; b = --a;' will yield the result 'a = 2, b = 2', while
+'a = 3; b = a--;' will yield the result 'a = 2, b = 3'.
+</pre></td></tr></table></P><P>
+
+This only works on integers.
+</P><P>
+
+</OL>
+<P>
+
+<A NAME="Boolean operators"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_28.html#SEC28"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_30.html#SEC30"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_26.html#SEC26"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_27.html#SEC27"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_33.html#SEC33"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

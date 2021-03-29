@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Array functions</TITLE>
+
+<META NAME="description" CONTENT="LPC: Array functions">
+<META NAME="keywords" CONTENT="LPC: Array functions">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC89"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_88.html#SEC88"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_90.html#SEC90"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 2.3.10 Array functions </H3>
+<!--docid::SEC89::-->
+<P>
+
+Arrays are actually not arrays, but rather ordered lists of LPC
+data types. They can be made to contain any type of data, including
+other arrays. Keep in mind that arrays unlike other data types are
+copied by <EM>reference</EM> rather than by <EM>value</EM>. This means
+that when you assign an array to variable you do <STRONG>not</STRONG> copy
+the array, you merely store a reference, a pointer to the array, in
+the variable.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>e.g.
+    string *arr1, *arr2;
+
+    arr1 = ({ 1, 2, 3 });
+    arr2 = arr1;
+
+    arr2[1] = 5;
+
+    dump_array(arr1);
+    /* 
+     * The output is:
+     *
+     * (Array)
+     * [0] = (int) 1
+     * [1] = (int) 5
+     * [2] = (int) 3
+     */
+</pre></td></tr></table></P><P>
+
+So, as you can see, changing the array `<SAMP>arr2</SAMP>' effectively changes
+the contents of `<SAMP>arr1</SAMP>' as well. You need to make a copy of `<SAMP>arr1</SAMP>'
+first, to make it unique. For example by simply adding an empty array
+`<SAMP>({})</SAMP>' to it. 
+</P><P>
+
+<A NAME="IDX110"></A>
+As you have learnt arrays can be automatically allocated simply by
+writing them in the code, by adding elements to them or adding arrays
+to each other. However, if you need to allocate an array immediately
+to a specified size, you can use the <CODE>allocate()</CODE> efun. It takes
+as an argument the size of the array you want and initializes all
+elements, regardless of array type, to 0.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>mixed *allocate(int num)
+e.g.
+    string *str_arr;
+
+    str_arr = allocate(3);
+    str_arr[1] = "Fatty is a flabby blimp";
+    dump_array(str_arr);
+
+    /* The result is:
+        (Array)
+        [0] = (int) 0
+        [1] = (string) "Fatty is a flabby blimp"
+        [2] = (int) 0
+     */
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX111"></A>
+<A NAME="IDX112"></A>
+If you need to find out if a particular item is a member of an array or
+the index of that item, you use the efun <CODE>member_array()</CODE>. It takes
+as arguments an array and an item of any type, returning the index if
+it is part of the array and -1 if it isn't. If several instances of the
+searched for item exists in the array, the first index is returned.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int member_array(mixed arr, mixed elem)
+e.g.
+    int *arr = ({ 1, 55443, 123, -3, 5, 828, 120398, 5, 12 });
+    int index;
+    
+    // Replace all instances of the value '5' with '33'
+    while ((index = member_array(arr, 5)) &#62;= 0)
+        arr[index] = 33;
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX113"></A>
+A very important efun to use with arrays is <CODE>sizeof()</CODE>. It simply
+returns the size, the number of elements, in an array. It's very common
+that you need to loop through all elements of an array to do something,
+or perhaps just find the last element, and then you need to know the
+size.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int sizeof(mixed arr)
+e.g.
+    string *arr = ({ "Fatty", "the", "blurp" });
+
+    write(implode(arr, " ") + " is wrong.\n");
+
+    // Replace the _last_ argument, but remember that
+    // in LPC we start counting at 0 so subtract 1.
+    arr[sizeof(arr) - 1] = "blimp";
+
+    write(implode(arr, " ") + " is correct.\n");
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX114"></A>
+The efun <CODE>pointerp()</CODE> can be used to determine if a variable
+contains an array (of any type) or not. This is useful when you have
+a function that might return 0 (NULL value) if something goes wrong.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int pointerp(mixed arr)
+e.g.
+
+    string *arr;
+
+    if (pointerp((arr = find_player("fatty")-&#62;get_blimps())))
+        write("Fatty's blimps right now are: " + implode(arr, ", ") + ".\n");
+    else
+        write("Fatty doesn't have any blimps, stupid. He <EM>is</EM> one.\n");
+</pre></td></tr></table></P><P>
+
+<A NAME="Mapping functions"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_88.html#SEC88"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_90.html#SEC90"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

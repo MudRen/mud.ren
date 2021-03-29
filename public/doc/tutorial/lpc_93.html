@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: File handling</TITLE>
+
+<META NAME="description" CONTENT="LPC: File handling">
+<META NAME="keywords" CONTENT="LPC: File handling">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC93"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_92.html#SEC92"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_94.html#SEC94"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 2.3.14 File handling </H3>
+<!--docid::SEC93::-->
+<P>
+
+Using files for storage of data is very important. Followingly there are
+a number of functions available to aid you with this. However, let me
+start with a little sermon on the subject of CPU usage:
+</P><P>
+
+Reading and writing to files is very CPU intensive, perhaps
+not in the respect that the CPU actually has a lot to do while it
+happens but that it is unable to do anything else at the same time. In
+other words, reading and writing large portions of data often will slow
+the game down significantly. To impose a small limit on excessive usage
+of memory, disk and CPU, it's impossible to handle more than ca 50 kb of
+data at one time. Files may be bigger, but you can't write or read
+bigger chunks than that. This means you have to split up work on big
+files into portions to be executed sequentially, preferrably with a
+pause between each execution to give the rest of the game time to do
+something. So, please keep in mind that this limit isn't there to annoy
+you, to be sidestepped by nifty code, but as a reminder that you are
+hogging the resources and should let others do something as well. Amen.
+</P><P>
+
+<A NAME="IDX151"></A>
+<A NAME="IDX152"></A>
+Let's start with the very basic conept of storing and restoring objects.
+What you want to do usually is to store the global variables to file,
+pending later restoration. For this purpose you use the efuns 
+<CODE>save_object()</CODE> and <CODE>restore_object()</CODE>. They both take a 
+filepath as argument and naturally have to specify a file which the
+object in question is privileged to write or read, respectively. The
+resulting savefile will have a name ending in '.o', and you must
+remember to specify this extension to <CODE>restore_object()</CODE>. This is
+optional with <CODE>save_object()</CODE> since it's added automatically if
+you forget it. <CODE>restore_object()</CODE> returns the integer 1 on 
+successful reading of a file, and 0 otherwise. The contents of the saved
+file are a list of all global variables with their contents on the same
+line separaterd by a space. The storage format of the string is the
+same as with <CODE>val2str()</CODE> mentioned earlier for the content of a
+single variable. naturally <CODE>save_object()</CODE> will store the names
+of the variables as well in front of the data it contains. 
+</P><P>
+
+An important concept to remember is that data files stored with
+<CODE>save_object()</CODE> are text files, and hence editable with the
+internal <CODE>ed()</CODE> editor. However, the lines might become very long
+if you store large arrays for exampe. <CODE>ed()</CODE> will then truncate the
+lines at the maximum length, and if you then store the contents back to
+file you will in fact destroy part of the data, making it impossible to
+read back. This unfortunately is a very common mistakes with new
+archwizards who want to hack the <CODE>KEEPERSAVE.o</CODE> file manually,
+instead of going through the commands supplied for that purpose.
+</P><P>
+
+<A NAME="IDX153"></A>
+<A NAME="IDX154"></A>
+Mappings are the most convenient data type to be used with saving
+variables. Just store the data you want in a mapping with a string
+describing it as index, then store the mapping with the efun 
+<CODE>save_map()</CODE> for later restoration with <CODE>restore_map()</CODE>.
+The advantage with this method over <CODE>save/restore_object()</CODE> is
+that you aren't limited to global non-static variables but can store
+whatever you like. The drawback is that retrieving data is a bit more
+complicated.
+</P><P>
+
+<STRONG>NB!</STRONG> Due to an inconsistency in the driver, indices can contain
+space characters, but it's impossible to save any mapping containing
+such an index with <CODE>save_map()</CODE>. The obvious solution (until we
+can release a patch for the driver) is to avoid using space in indices
+alltogether.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void save_object(string savepath);
+int restore_object(string readpath);
+void save_map(mapping mapp, string savepath);
+mapping restore_map(string readpath);
+e.g.
+    /* 
+     * Assume these global variable definitions:
+     *
+     * string name, *desc;
+     * int flip;
+     * mapping data_map, smap;
+     *
+     * Assume we are interested in storing name, desc, flip and data_map
+     */
+
+    // Set object inherent privileges by giving it the euid of the
+    // creator of the file
+    setuid();
+    seteuid(getuid());
+
+    // Method 1 save 
+    save_object("myfile");
+
+    // Method 1 restore
+    if (restore_object("myfile"))
+        write("Yes!\n");
+    else
+        write("Naaaah..\n");
+
+    // Method 2 save
+    smap = ([ "name" : name,
+              "desc" : desc,
+              "flip" : flip,
+              "dmap" : data_map ]);
+    save_map(smap, "myfile");
+     
+    // Method 2 restore
+    smap = restore_map("myfile");
+    if (m_sizeof(smap))
+    {
+        name = smap["name"];        // Restore name
+        desc = smap["desc"];        // Restore desc
+        flip = smap["flip"];        // Restore flip
+        data_map = smap["dmap"];    // Restore data_map
+        write("Yes!\n");
+    }
+    else
+        write("Naaaah..\n");
+</pre></td></tr></table></P><P>
+
+A fact to be remembered is that the save format used internally by
+<CODE>save_object()</CODE> and <CODE>save_map()</CODE> is the same, which makes
+it both possible and sometimes very useful to restore data from objects
+that have saved their contents with <CODE>save_object()</CODE> by using
+<CODE>restore_map()</CODE> and then just picking out the pieces you want from
+the resulting mapping. Assume that you only would have been interested
+in restoring the variable 'desc' in the example above, then you never
+would have bothered with the other statements in the Method 2 restore.
+Beware that using <CODE>restore_object()</CODE> on a savefile stored with
+<CODE>save_map()</CODE> requires the indices used in the original mapping
+to have the same name as the global variables intended to receive the
+data, something that doesn't have to be true, as exemplified above.
+Restoring the Method 2 savefile with Method 1 restore will not result
+in an error, but it will fail to restore the variable 'data_map'.
+</P><P>
+
+<A NAME="IDX155"></A>
+<A NAME="IDX156"></A>
+<A NAME="IDX157"></A>
+<A NAME="IDX158"></A>
+Well, these are all methods for storing data in variables. Very often
+you want to store free-form data however, and not just data in variables.
+For this purpose you can use the efuns <CODE>write_bytes()</CODE> and 
+<CODE>read_bytes()</CODE>, or <CODE>write_file()</CODE> and <CODE>read_file()</CODE>.
+Basically both pairs of functions do the same thing, i.e. save or read a
+string of certain length from file. The only difference is that 
+<CODE>write_bytes()</CODE> can be used to overwrite a portion of a file, while
+<CODE>write_file()</CODE> only can append to a file. Also, <CODE>read_bytes()</CODE>
+acts on exact bytes, while <CODE>read_file()</CODE> acts on lines separated
+by newlines. Both write functions return 1 on success and 0 on failure.
+Both read functions return a string with the result of the read
+operation on success, on failure they return 0, so check the result with
+<CODE>stringp()</CODE> to make sure it has succeeded.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int write_bytes(string path, int pos, string text);
+string read_bytes(string path, void|int pos, void|int num);
+int write_file(string path, string text);
+string read_file(string path, void|int pos, void|int num);
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX159"></A>
+<A NAME="IDX160"></A>
+You can get information about a file as well. You get the size of the
+contents with the efun <CODE>file_size()</CODE>, but it can also be used to
+check the type and existence of a file. If the returned number is positive,
+it is a file and the number represents the size in bytes of the contents,
+if the file doesn't exist, it returns -1 and if the file actually is a
+directory it returns -2. To get the time of last modification you use
+the efun <CODE>file_time()</CODE>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int file_size(string path);
+int file_time(string path);
+e.g.
+    void file_info(string path)
+    {
+        int type, tm;
+
+        type = file_size(path);
+        tm = file_time(path);
+
+        write("The file '" + path + "' ");
+        switch (type)
+        {
+        case -1:
+            write("doesn't exist.\n");
+            break;
+
+        case -2:
+            write("is a directory, last modified " + ctime(tm) + ".\n");
+            break;
+
+        default:
+            write("is " + type + " bytes in size, last modified " + 
+                  ctime(tm) + ".\n");
+            break;
+        }
+    }
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX161"></A>
+<A NAME="IDX162"></A>
+If you want to rename or move a file you can use the efun
+<CODE>rename()</CODE>. Beware that this operation actually first copies the
+file and then removes the old one. It can also be used to move
+directories. If you wish to remove a file entirely, you use the efun
+<CODE>rm()</CODE>. The efun <CODE>rm()</CODE> returns 1 on success and 0 on failure,
+however beware that <CODE>rename()</CODE> works just the opposit way around,
+it return 1 on <EM>failure</EM> and 0 if all is well.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int rename(string oldpath, string newpath);
+int rm(string path);
+e.g.
+    if (rm("myfile"))
+        write("Ok, removed.\n");
+    else
+        write("Sorry, no go.\n");
+
+    if (rename("myfile", "yourfile"))
+        write("Nope, still the same...\n");
+    else
+       write("Ok!\n");
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX163"></A>
+The internal editor 'ed' is actually an efun that operates on a file.
+You can use it for whatever purpose you like, but keep in mind that most
+people don't really know how to use it. Also remember that the efun
+<CODE>ed()</CODE> can be used to create new files and edit old as per the 
+privileges defined by the object. You can provide a function pointer
+to a function that will be called on termination of the efun. If you
+don't provide a filepath, the user will be expected to give the path
+and name of the file from within the editor.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void ed(void|string path, void|function exit_func);
+</pre></td></tr></table></P><P>
+
+<A NAME="Directory handling"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_92.html#SEC92"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_94.html#SEC94"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

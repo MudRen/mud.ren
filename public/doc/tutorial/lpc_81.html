@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Destroying objects</TITLE>
+
+<META NAME="description" CONTENT="LPC: Destroying objects">
+<META NAME="keywords" CONTENT="LPC: Destroying objects">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC81"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_80.html#SEC80"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_82.html#SEC82"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_72.html#SEC72"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_76.html#SEC76"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_82.html#SEC82"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H4> 2.3.2.5 Destroying objects </H4>
+<!--docid::SEC81::-->
+<P>
+
+<A NAME="IDX62"></A>
+Sooner or later you will want to get rid of an object. The efun you use
+is <CODE>destruct()</CODE>. However, the gamedriver <EM>only</EM> allows the
+object that issued the <CODE>destruct()</CODE> efun to actually be
+removed. This means that every object need to have a function that you
+can call from another object in order to be able to destroy it from
+without. If the object doesn't contain the <CODE>destruct()</CODE> efun, it
+will remain for the duration of the game.
+</P><P>
+
+Well, actually there exists a backdoor that allows you to destroy any
+object, but it's a command you have to issue manually. You can't use it in
+a program.
+</P><P>
+
+<A NAME="IDX63"></A>
+However, the standard object base - which is being discussed in more
+detail later - does define a function called <CODE>remove_object()</CODE> that
+you can call to destroy the object. Since all objects actually in the
+game <STRONG>MUST</STRONG> inherit the standard object you can rely on having
+that function there. It's possible to mask it, thereby blocking that
+function. However, masking <CODE>remove_object()</CODE> is tantamount to
+sabotage so please don't even think about it. The reason the function is
+maskable is so that you should be able to add last-second cleanup code,
+not so that you should be able to render the object indestructible.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void remove_object()
+e.g.
+    void
+    remove_balrog(string bal_name)
+    {
+        object bal;
+
+        bal = find_living(bal_name);
+        if (objectp(bal))
+            bal-&#62;remove_object();
+    }
+</pre></td></tr></table></P><P>
+
+If you use the <CODE>destruct()</CODE> efun directly or call
+<CODE>remove_object()</CODE> in the object itself, make <STRONG>DOUBLE</STRONG> sure
+that no code is being executed afterwards. You see, execution isn't
+aborted on completion of the destruction, the object is just ear-marked
+as <EM>destructed</EM>, actual removal is done when execution of it is
+finished. This means that function calls or commands issued after
+destruction might give rise to runtime errors in other objects.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void destruct()
+e.g.
+    void
+    destruct_me()
+    {
+        write("Goodbye, cruel world!\n");
+        destruct();
+    }
+</pre></td></tr></table></P><P>
+
+When an object is destructed, <EM>ALL</EM> object pointers (not string
+references) in the game pointing at the destructed object are set to
+0. Due to this fact it's usually sensible to make sure that an old
+object reference still is valid before doing anything with it. You never
+know, it just might have been removed since you obtained it.
+</P><P>
+
+if an object contains other objects in its inventory when it is
+destructed, those objects will be destructed with it. The exception is
+interactive objects, players. If you update a room you are effectively
+destructing it, if it has players in it they will be moved to their
+respective starting locations. If the room <EM>is</EM> the start location
+or if there is a problem with moving them (buggy start location or
+impossible to move them) those players will be destructed as well. In any
+circumstances you should always be able to rely on an object being
+destructed when ordered to. 
+</P><P>
+
+The one time there's problems with this is when the function
+<CODE>remove_object()</CODE> has been overridden and has a bug in it. That
+might just abort the process and cause problems.
+</P><P>
+
+<A NAME="Command handling (objects)"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_80.html#SEC80"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_82.html#SEC82"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_72.html#SEC72"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_76.html#SEC76"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_82.html#SEC82"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

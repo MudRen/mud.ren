@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Object makeup</TITLE>
+
+<META NAME="description" CONTENT="LPC: Object makeup">
+<META NAME="keywords" CONTENT="LPC: Object makeup">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC15"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_14.html#SEC14"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_16.html#SEC16"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_9.html#SEC9"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_10.html#SEC10"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_16.html#SEC16"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 1.1.5 Object makeup </H3>
+<!--docid::SEC15::-->
+<P>
+
+An object is comprised of something called <EM>functions</EM> and
+<EM>variables</EM>. A function is a set of instructions you can reference
+by a name. A variable is a kind of container you can store data in for
+use by the functions. Some functions are already defined by the
+gamedriver, they are called <EM>external functions</EM>, or
+<EM>efuns</EM>. Functions defined in LPC code are called <EM>local functions</EM>,
+or <EM>lfuns</EM>. To confuse matters further there is a set of functions that
+count as efuns, but are written in LPC. These functions are called
+<EM>simulated efuns</EM> or <EM>sfuns</EM>.
+</P><P>
+
+An efun basically is a function that is impossible to create in LPC.
+Take for example the function <CODE>write()</CODE> that allows you to present
+text on the screen of a player. It's impossible to make that up from
+other functions in LPC, so it has to be in the gamedriver. This efun is
+available in <EM>all</EM> LPC programs. Efuns also have no idea about what
+environment they are used in. They don't care one bit if they are used
+to simulate strawberry tasting, or as part of a game.
+</P><P>
+
+A function like <CODE>add_exit()</CODE> on the other hand, that adds an exit
+in a room is only available in room type objects. It is written in LPC.
+The lfuns as a rule are part of the makeup of the environment in which
+the objects are used. The example <CODE>add_exit()</CODE> for instance is well
+aware of such ideas as directions and travel costs, a very limited and
+specific concept.
+</P><P>
+
+The function <CODE>creator()</CODE> is a good example of the third case. It's
+a function that is available in every object, it returns information
+about who created a certain object. This information is <EM>very</EM>
+specific to the environment since it deals with such notions as code
+localization. This kind of function is easy to write in LPC but on the
+other hand it must be available in all objects, as if it was an
+efun. Due to this fact the special object `<TT>/secure/simul_efun.c</TT>' is
+made to be automatically available from all other objects in the game,
+you'll find all sfuns in there. This functionality is perfectly
+transparent to you; you just use them as you use any other efun and you
+don't have to be aware of that it really is an sfun.
+</P><P>
+
+<A NAME="Basic LPC"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_14.html#SEC14"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_16.html#SEC16"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_9.html#SEC9"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_10.html#SEC10"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_16.html#SEC16"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

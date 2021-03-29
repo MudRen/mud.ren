@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Set</TITLE>
+
+<META NAME="description" CONTENT="LPC: Set">
+<META NAME="keywords" CONTENT="LPC: Set">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC113"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_112.html#SEC112"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_114.html#SEC114"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_101.html#SEC101"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_116.html#SEC116"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 2.5.12 Set a tracer variable </H3>
+<!--docid::SEC113::-->
+<P>
+
+As explained earlier, one of the greatest dangers in using the tracer
+tool is that the inventory position of an object you want to perform
+an action on changes.
+</P><P>
+
+Syntax: <CODE>Set $&#60;variable&#62; &#60;object spec&#62;</CODE>
+Syntax: <CODE>Set</CODE>
+</P><P>
+
+Assume for example that you want to <EM>Reload</EM> a sword of your
+making in the inventory of the player Adam. The sword is buggy and you
+need to remove it invisibly to Adam. To find the correct object
+position in the inventory you have typed <CODE>Dump *adam inv</CODE> and
+found out that it is object number five. Then you perform the command
+<CODE>Destruct *adam:#5</CODE>. Unfortunately, between the <EM>Dump</EM> and
+the <EM>Destruct</EM> command, Adam dropped something out of his
+inventory and you find that you have destroyed his heap of 1249
+platinum coins. Adam will hardly be pleased.
+</P><P>
+
+Instead, obtain the object reference and store that in a variable.
+On having found out that the object is the fifth in Adam's inventory,
+do <CODE>Set $sword *adam:#5</CODE>. The tracer then reports that the
+variable is set to a heap of platinum coins, which means you have
+to take a look in his inventory again. This time you find out that
+the object moved to position four. You do <CODE>Set $sword *adam:#4</CODE>
+and the tracer reports that the variable now points to the sword
+you want to destroy. Now you type <CODE>Destruct $sword</CODE> and the
+sword and <EM>nothing but</EM> the sword is destroyed.
+</P><P>
+
+You can have any number of variables set, but please notice that they
+are forgotten if you log out. Also please notice that if an object
+is destroyed, the variable is removed.
+</P><P>
+
+To list all variables you have stored, just perform the commmand
+<CODE>Set</CODE> with no arguments.
+</P><P>
+
+A neat feature is that the last specified object automatically gets
+stored as <EM>$</EM>, which means that having once specified an object
+in any tracer command, you then only need to type <CODE>&#60;Command&#62; $
+&#60;options&#62;</CODE> to specify the same object again.
+</P><P>
+
+<A NAME="Reload"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_112.html#SEC112"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_114.html#SEC114"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_101.html#SEC101"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_116.html#SEC116"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

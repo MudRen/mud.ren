@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Math functions</TITLE>
+
+<META NAME="description" CONTENT="LPC: Math functions">
+<META NAME="keywords" CONTENT="LPC: Math functions">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC92"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_91.html#SEC91"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_93.html#SEC93"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 2.3.13 Math functions </H3>
+<!--docid::SEC92::-->
+<P>
+
+<A NAME="IDX131"></A>
+The efun <CODE>random()</CODE> will return an integer random number from 0 to
+one less the number you give as an argument. For example
+<CODE>random(8)</CODE> will return an integer from 0 to 7.
+</P><P>
+
+The rest of the mathematical functions all return floats and take floats
+as arguments. The trigonometric functions use radians, not degrees. Keep
+this in mind.
+</P><P>
+
+<DL COMPACT>
+<A NAME="IDX132"></A>
+<DT>`<SAMP>float rnd()</SAMP>'
+<DD>Returns a random number in the range 0 (inclusive) to 1 (exclusive),
+i.e. it might be 0, but never 1.
+<P>
+
+<A NAME="IDX133"></A>
+<DT>`<SAMP>float sin(float)</SAMP>'
+<DD>Compute the sinus value of an angle.
+<P>
+
+<A NAME="IDX134"></A>
+<DT>`<SAMP>float cos(float)</SAMP>'
+<DD>Compute the cosinus value of an angle.
+<P>
+
+<A NAME="IDX135"></A>
+<DT>`<SAMP>float tan(float)</SAMP>'
+<DD>Compute the tangens value of an angle.
+<P>
+
+<A NAME="IDX136"></A>
+<DT>`<SAMP>float asin(float)</SAMP>'
+<DD>Compute the arcus sinus value in the range -pi/2 to pi/2.
+<P>
+
+<A NAME="IDX137"></A>
+<DT>`<SAMP>float acos(float)</SAMP>'
+<DD>Compute the arcus cosinus value in the range 0 to pi.
+<P>
+
+<A NAME="IDX138"></A>
+<DT>`<SAMP>float atan(float)</SAMP>'
+<DD>Compute the arcus tangens value in the range -pi/2 to pi/2.
+<P>
+
+<A NAME="IDX139"></A>
+<DT>`<SAMP>float atan2(float x, float y)</SAMP>'
+<DD>Compute the argument (phase) of a rectangular coordinate in
+the range -pi to pi.
+<P>
+
+<A NAME="IDX140"></A>
+<DT>`<SAMP>float exp(float)</SAMP>'
+<DD>Compute the exponential function using the natural logarithm e as base.
+<P>
+
+<A NAME="IDX141"></A>
+<DT>`<SAMP>float log(float)</SAMP>'
+<DD>Compute the natural logaritm.
+<P>
+
+<A NAME="IDX142"></A>
+<DT>`<SAMP>float sinh(float)</SAMP>'
+<DD>Compute the sinus hyperbolicus value.
+<P>
+
+<A NAME="IDX143"></A>
+<DT>`<SAMP>float cosh(float)</SAMP>'
+<DD>Compute the cosinus hyperbolicus value.
+<P>
+
+<A NAME="IDX144"></A>
+<DT>`<SAMP>float tanh(float)</SAMP>'
+<DD>Compute the tangens hyperbolicus value.
+<P>
+
+<A NAME="IDX145"></A>
+<DT>`<SAMP>float asinh(float)</SAMP>'
+<DD>Compute the arcus sinus hyperbolicus value.
+<P>
+
+<A NAME="IDX146"></A>
+<DT>`<SAMP>float acosh(float)</SAMP>'
+<DD>Compute the arcus cosinus hyperbolicus value.
+<P>
+
+<A NAME="IDX147"></A>
+<DT>`<SAMP>float atanh(float)</SAMP>'
+<DD>Compute the arcus tangens hyperbolicus value.
+<P>
+
+<A NAME="IDX148"></A>
+<DT>`<SAMP>float abs(float)</SAMP>'
+<DD>Compute the absolute value of the given argument.
+<P>
+
+<A NAME="IDX149"></A>
+<DT>`<SAMP>float fact(float)</SAMP>'
+<DD>Compute the factorial (gamma function) of the given argument.
+<P>
+
+<A NAME="IDX150"></A>
+<DT>`<SAMP>float sqrt(float)</SAMP>'
+<DD>Compute the square root of the given argument.
+</DL>
+<P>
+
+<A NAME="File handling"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_91.html#SEC91"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_93.html#SEC93"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Statements</TITLE>
+
+<META NAME="description" CONTENT="LPC: Statements">
+<META NAME="keywords" CONTENT="LPC: Statements">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC22"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_21.html#SEC21"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_23.html#SEC23"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_20.html#SEC20"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_21.html#SEC21"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_26.html#SEC26"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H4> 1.2.5.1 Statements </H4>
+<!--docid::SEC22::-->
+<P>
+
+A statement is sort of a full sentence of instructions, made up from one
+or more expressions. Statements usually cover no more than a single line
+of code. Sometimes it's necessary to break it up though if it becomes too
+long, simply to improve on legibility. For most statements you simply 
+break the line between two words, but if you are in the middle of a 
+string you need to add a backslash (<CODE>\</CODE>) at the end of the line 
+in order for the gamedriver to understand what's going on.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>write("This is an example of \
+      a broken string.\n");
+</pre></td></tr></table></P><P>
+
+However, breaking a statement with backslash is extremely ugly and makes
+the code hard to read. In fact, it's usually possible to break the line
+naturally at the end of a string, between two operators of some kind, or
+even just split the string in half and add the two parts together with the
+<CODE>+</CODE> operator. The only time the backslash really is necessary is in
+<CODE>#define</CODE>-statements, handled later.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>write("This is a better way of " +
+      "breaking a string.\n");
+</pre></td></tr></table></P><P>
+
+Statements in LPC are usually ended with a <CODE>;</CODE>, which also is a
+good place to end the line. There's nothing stopping you from entering
+another statement right after, other than that it will look awful.
+</P><P>
+
+<A NAME="Expressions"></A>
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

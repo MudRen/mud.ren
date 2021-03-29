@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Scope and prototypes</TITLE>
+
+<META NAME="description" CONTENT="LPC: Scope and prototypes">
+<META NAME="keywords" CONTENT="LPC: Scope and prototypes">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC26"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_25.html#SEC25"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_27.html#SEC27"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_21.html#SEC21"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_16.html#SEC16"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_46.html#SEC46"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 1.2.6 Scope and prototypes </H3>
+<!--docid::SEC26::-->
+<P>
+
+<EM>Scope</EM> is a term defining where a function or variable declaration is
+valid. Since programs are read top down, left right (just like you read
+this page), declarations of functions and variables are available to the
+right and below of the actual declaration. However, the scope might be
+limited.
+</P><P>
+
+A variable that is declared inside a function is only valid until the block
+terminator (the terminating <CODE>}</CODE>) for that variable is reached.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>&#60; top of file &#62;
+int GlobCount;
+
+// Only GlobCount is available here
+
+void
+var_func(int arg)
+{
+    int var_1;
+
+    // GlobCount, arg and var_1 is available here
+    &#60; code &#62;
+
+    {
+        string var_2;
+
+        // GlobCount, arg, var_1 and var_2 is available in this block
+        &#60; code &#62;
+    }
+
+    // GlobCount, arg and var_1 is available here
+    &#60; code &#62;
+
+    {
+        int var_2;
+        mapping var_3;
+
+        // GlobCount, arg, var_1, var_2 and var_3 is available here
+        // <STRONG>NB</STRONG> this var_2 is a NEW var_2, declared here
+        &#60; code &#62;
+    }
+
+    // GlobCount, arg and var_1 is available here
+    &#60; code &#62;
+}
+
+// Here only GlobCount (and the function var_func) is available
+</pre></td></tr></table></P><P>
+
+Function declarations follow the same rule, though you can't declare a
+function inside another function. However, suppose you have these two
+functions where the first uses the second:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int
+func_1()
+{
+    &#60; code &#62;
+    func_2("test");
+}
+
+void
+func_2(string data)
+{
+    &#60; code &#62;
+}
+</pre></td></tr></table></P><P>
+
+Then you have a problem, because the first function tries to use the
+second before it is declared. This will result in an error message 
+if you have instructed the gamedriver to require types to match by
+specifying <CODE>pragma strict_types</CODE> as suggested earlier. To take care
+of this you can either re-arrange the functions so that <CODE>func_2</CODE>
+comes before <CODE>func_1</CODE> in the listing, but this might not always be
+possible and the layout might suffer. Better then is to write a
+<EM>function prototype</EM>.  The function prototype should be placed in
+the top of the file after the <CODE>inherit</CODE> and <CODE>#include</CODE>
+statements (described later) but <EM>before</EM> any code and look
+<EM>exactly</EM> as the function declaration itself. In this case:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>&#60; top of file, <CODE>inherit</CODE> and <CODE>#include</CODE> statements &#62;
+
+void func_2(string data);
+
+&#60; the actual code &#62;
+</pre></td></tr></table></P><P>
+
+<A NAME="Operator expressions"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_25.html#SEC25"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_27.html#SEC27"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_21.html#SEC21"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_16.html#SEC16"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_46.html#SEC46"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

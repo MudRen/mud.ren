@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Screen input/output</TITLE>
+
+<META NAME="description" CONTENT="LPC: Screen input/output">
+<META NAME="keywords" CONTENT="LPC: Screen input/output">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC95"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_94.html#SEC94"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 2.3.16 Screen input/output </H3>
+<!--docid::SEC95::-->
+<P>
+
+<A NAME="IDX168"></A>
+<A NAME="IDX169"></A>
+By now you're fairly familiar with the efun <CODE>write()</CODE>, it simply
+outputs data to whoever is registered as listening, it might be a player
+or it might be an object. Usually this function suffices, you have full
+control of what you want to write and who you want to write it
+to. However, there exists one function that sometimes is necessary,
+namely <CODE>write_sockect()</CODE> that <EM>only</EM> writes to the interactive
+user. If none exists, it writes to the central error log instead. It works
+analogous to <CODE>write()</CODE> in all other aspects. Coding ordinary objects
+you will never need to use this one, it's mostly or perhaps I should say
+only, used for certain mudlib objects, particularly to do with logging in
+players.
+</P><P>
+
+<A NAME="IDX170"></A>
+<A NAME="IDX171"></A>
+Writing is nice, but sometimes you want to relate whole parts of files
+quickly. Then you should use the efun <CODE>cat()</CODE>. It will print
+a specified portion of a file directly on the screen quickly and easily.
+There even exists a special efun called <CODE>tail()</CODE> for listing only
+about the last 1080 bytes of a file in the same manner. <CODE>cat()</CODE>
+makes sure that it starts reading from a new line and returns the number
+of lines actually read. <CODE>tail()</CODE> returns 1 on success and 0 on
+failure.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int cat(string path, int start, int len);
+int tail(string path);
+e.g.
+    // List 80 lines in the file TESTFILE, 20 lines down
+    cat("TESTFILE", 20, 80)
+
+    // List the ending of the same file
+    tail("TESTFILE);
+</pre></td></tr></table></P><P>
+
+A small warning, if you use <CODE>cat()</CODE> on long files you might get an
+eval-cost error. This is fairly common when you have logs or instructions
+you want to display, and forget to cut them up into smaller parts.
+</P><P>
+
+<A NAME="IDX172"></A>
+Most input to LPC programs comes as arguments to commands. However, at
+times you need to actually ask the player for input and he needs to
+answer. This poses a special problem since object execution in the
+gamedriver is sequential; if you stop to wait for an answer, all of
+the game will stop along with you while the player makes up his mind
+(if ever) and types. This obviously won't do. Instead you can use
+the special efun <CODE>input_to()</CODE> which allows you to specify a
+function which then will be called with whatever the player types
+as argument, after the completion of the current function. This sounds
+complicated but is not, just look at this example:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void input_to(function func, void|int noecho);
+e.g.
+    interrogate_fun()
+    {
+        write("Please state your name: ");
+        input_to(func_2);
+    }
+
+    func_2(string n_inp)
+    {
+        string name;
+
+        if (!strlen(n_inp))
+        {
+            interrogate_fun();
+            return;
+        }
+
+        name = n_inp;
+        write("\nState your sex (male or female): ");
+        input_to(&#38;func_3(, name));
+    }
+
+    func_3(string s_inp, string name)
+    {
+        string sex;
+
+        if (s_inp != "male" &&#38; s_inp != "female")
+        {
+            write("\nState your sex (male or female): ");
+            input_to(&#38;func_3(,name));
+            return;
+        }
+ 
+        sex = s_inp;
+        write("\nState your occupation: ");
+        input_to(&#38;func_4(, name, sex));
+    }
+
+    func_4(string o_inp, string name, string sex)
+    {
+        string occupation;
+
+        if (!strlen(o_inp))
+        {
+            interrogate_fun();
+            return;
+	}
+        occupation = o_inp;
+        write("\nYour name is " + name + ",\n"
+              + "you are a " + sex + " " + occupation + ".\n"
+              + "\nThank you for your cooperation!\n");
+    }
+</pre></td></tr></table></P><P>
+
+If you specify the second argument to <CODE>input_to()</CODE> as 1, whatever
+the player types will not be echoed on his screen. This is what you want
+to do for passwords and other sensitive information.
+</P><P>
+
+<A NAME="Some mud commands"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_94.html#SEC94"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

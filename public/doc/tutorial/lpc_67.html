@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Function definition (part 2)</TITLE>
+
+<META NAME="description" CONTENT="LPC: Function definition (part 2)">
+<META NAME="keywords" CONTENT="LPC: Function definition (part 2)">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC67"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_66.html#SEC66"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_68.html#SEC68"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_60.html#SEC60"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 2.2.6 The function data type, part 2 </H3>
+<!--docid::SEC67::-->
+<P>
+
+There's one data type that I more or less ignored earlier, and that's the
+<CODE>function</CODE> type. Just as there's a type for objects, functions have a
+type as well. You can have function variables and call assigned functions
+through those variables. Mostly the function type is used in conjunction
+with other functions that use them as parameters.
+</P><P>
+
+You declare a function type just as any variable:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>&#60;data type&#62; &#60;variable name&#62;, &#60;another variable&#62;, ..., &#60;last variable&#62;;
+e.g.
+    function my_func, *func_array;
+</pre></td></tr></table></P><P>
+
+Assigning actual function references to them, however, is a bit tricker.
+You can assign any kind of function to a function variable; efun, sfun or
+lfun is just the same. You can even assign external function references.
+</P><P>
+
+Assigning a function reference requires that the function already is
+defined, either itself or by a function prototype in the header. Let's
+assume for now that you're only interested in the simple reference to
+the function.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>&#60;function variable&#62; = &#60;function name&#62;;
+&#60;function variable&#62; = &#38;&#60;function name&#62;();
+e.g.
+    my_func = allocate;
+    my_func = &#38;allocate();
+</pre></td></tr></table></P><P>
+
+Usage of the new function reference is done <EM>just</EM> as with the ordinary
+function call.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int *i_arr;
+
+i_arr = allocate(5);  // Is the same as...
+i_arr = my_func(5);   // ... using the function assignment above.
+</pre></td></tr></table></P><P>
+
+This will be enough for now. Later I'll explain how to create partial
+function applications, internal and external function declarations and
+how to use them in complex function combinations.
+</P><P>
+
+<A NAME="switch (part 2)"></A>
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

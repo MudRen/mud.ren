@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Objects</TITLE>
+
+<META NAME="description" CONTENT="LPC: Objects">
+<META NAME="keywords" CONTENT="LPC: Objects">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC14"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_13.html#SEC13"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_15.html#SEC15"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_9.html#SEC9"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_10.html#SEC10"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_16.html#SEC16"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 1.1.4 Objects </H3>
+<!--docid::SEC14::-->
+<P>
+
+An <EM>object</EM> in LPC is simply a copy of an existing and loaded
+program in computer memory. When a program is loaded into memory to
+produce a <EM>master object</EM>, the code is compiled to produce the
+instruction list described earlier and a chunk of memory is associated
+to it as specified by the program code for use for internal <EM>global
+variables</EM> (described later). When a copy, a <EM>clone</EM> of this program
+is made, a special reference called an <EM>object pointer</EM> is
+created. That pointer is given a reference to the master code
+instruction list and a unique chunk of memory. If you clone the object
+another time, a new pointer is created and a new chunk of memory
+allocated. When an object is destroyed its associated memory is freed
+for use by other objects, but the instruction list is kept untouched. An
+object is <STRONG>always</STRONG> cloned from the master object. If you want to
+change the program you must <EM>update</EM> the master object to instruct
+the gamedriver that a new list of instructions is to be compiled from
+the source code.
+</P><P>
+
+However, any already existing clones will not change just because the
+master does. They will keep their reference to the old instruction
+list. It's important that you remember this so that you don't believe that
+the behaviour of an old cloned object changes just because you have updated
+the master object. As you see it's possible to have clones of objects in
+the game that behave differently, simply because they are made out of
+different source codes, just cloned between updates and changes in
+code. This could be a great source of confusion, so keep it in mind.
+</P><P>
+
+<A NAME="Object makeup"></A>
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

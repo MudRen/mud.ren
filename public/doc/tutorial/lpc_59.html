@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Type identification</TITLE>
+
+<META NAME="description" CONTENT="LPC: Type identification">
+<META NAME="keywords" CONTENT="LPC: Type identification">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC59"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_58.html#SEC58"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_60.html#SEC60"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_51.html#SEC51"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 2.2.4 Type identification </H3>
+<!--docid::SEC59::-->
+<P>
+
+Due to the fact that all variables are initialized to 0, and that
+many functions return 0 when failing, it's desirable to be able
+to determine what kind of value type you actually have received.
+Also, if you use the <CODE>mixed</CODE> type it's virtually essential to be
+able to test what the variable contains at times. For this purpose
+there's a special test function for each type that will return
+1 (true) if the tested value is of the asked for type, and 0 if not.
+</P><P>
+
+<DL COMPACT>
+<DT>@bullet{int intp(mixed)}
+<DD>Test if given value is an integer
+<P>
+
+<DT>@bullet{int floatp(mixed)}
+<DD>Test if given value is a float
+<P>
+
+<DT>@bullet{functionp(mixed)}
+<DD>Test if given value is a function pointer
+<P>
+
+<DT>@bullet{int stringp(mixed)}
+<DD>Test if given value is a string
+<P>
+
+<DT>@bullet{int objectp(mixed)}
+<DD>Test if given value is an object pointer
+<P>
+
+<DT>@bullet{int mappingp(mixed)}
+<DD>Test if given value is a mapping
+<P>
+
+<DT>@bullet{int pointerp(mixed)}
+<DD>Test if given value is an array
+<P>
+
+</DL>
+<P>
+
+<STRONG>NB!</STRONG> These functions test the type of the value, <STRONG>NOT</STRONG>
+the value itself in the sense of truth functionality. In other words
+<CODE>intp(0)</CODE> will always evaluate as true, as will
+<CODE>mappingp(([]))</CODE>.
+</P><P>
+
+<A NAME="Type qualifiers"></A>
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

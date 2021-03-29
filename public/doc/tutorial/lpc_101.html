@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: The Tracer tool</TITLE>
+
+<META NAME="description" CONTENT="LPC: The Tracer tool">
+<META NAME="keywords" CONTENT="LPC: The Tracer tool">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC101"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_100.html#SEC100"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_102.html#SEC102"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_50.html#SEC50"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_116.html#SEC116"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H2> 2.5 The Tracer tool </H2>
+<!--docid::SEC101::-->
+<P>
+
+The built-in wiztool called the <EM>Tracer tool</EM> is perhaps your
+absolutly best friend in trying to figure out what's going on inside an
+object that already is loaded into the game. It allows you to call
+specific function in any object, regardless of location, list
+inventories and even move objects around. In fact, it's so useful that
+on Genesis any other wiztool is forbidden. The reason being that you
+should learn how to use <EM>this</EM> one and not waste time on making
+anything inferior.
+</P><P>
+
+Some people complain that it's a bit difficult to use, but that's just
+because they didn't bother to read the manual. In any case, I'm going to
+give a more thorough lesson here and just maybe you won't have to bother
+with the in-game manual, which admittedly isn't the easiest of reads.
+</P><P>
+
+Please notice that all tracer tool commands are upper-case. This is to
+distinguish them from the ordinary commands, some of which have the same
+name. Also notice that since the tracer tool is intended for use by
+working people, it's only available to full wizards.
+</P><P>
+
+To begin with, let's look at how the tracer identifies an object:
+</P><P>
+
+<DL COMPACT>
+
+<DT>`<SAMP>name</SAMP>'
+<DD>This specifies the name of an object in your inventory or your
+environment, simply the object name. Beware that many objects share
+names (e.g. 'human', 'sword' etc).
+<P>
+
+<DT>`<SAMP>"desc"</SAMP>'
+<DD>This specifies the short description of an object in your inventory or
+your environment. Usually more exact than just the name.
+<P>
+
+<DT>`<SAMP>path</SAMP>'
+<DD>This specifies a file path to an object. If you want a specific
+indiviual item, you add the clone number. For instance not just
+<CODE>~Ansalon/guild/society/obj/nametag</CODE> but specifically exactly
+<CODE>~Ansalon/guild/society/obj/nametag#22144</CODE> and no other.
+<P>
+
+The non-specific path identifies the master object, of course.
+</P><P>
+
+<DT>`<SAMP>@name</SAMP>'
+<DD>This specifies the name of a player <EM>or</EM> a <EM>living</EM> (a monster)
+anywhere in the game. Please notice that the tracer will find the name
+as registerd by a call of the efun <CODE>set_living_name()</CODE> (described
+earlier) and not the name set by <CODE>set_name()</CODE> in the object
+itself. A player is automatically added to the list of <EM>living</EM>
+objects.
+<P>
+
+<DT>`<SAMP>*name</SAMP>'
+<DD>This specifies the name of a player, and nothing else.
+<P>
+
+<DT>`<SAMP>here</SAMP>'
+<DD>This specifies the environment of yourself, usually you are standing
+in a room of some kind.
+<P>
+
+<DT>`<SAMP>me</SAMP>'
+<DD>This specifies yourself, your player object.
+<P>
+
+<DT>`<SAMP>#num</SAMP>'
+<DD>This specifies the object number 'num' in the scope you indicate. If for
+example you <EM>know</EM> that the sword you are carrying is the third
+object, the reference would be '#3', simply. Please beware that object
+order may change without warning. If for example someone gives you
+something just before you type the command, object '#3' will no longer
+be the one you thought it was. Instead make extensive use of tracer
+variables (explained in the command <EM>Set</EM>) to void this problem.
+<P>
+
+<DT>`<SAMP>$var</SAMP>'
+<DD>This specifies the contents of a tracer variable (explained later in
+the command <EM>Set</EM>).
+<P>
+
+</DL>
+<P>
+
+Objects often exist in some sort of environment. Sometimes in the same
+place as another object, sometimes inside an object, sometimes the
+object is enveloping another. In order to give a relation of the type
+"the second object inside the teddybear in the same room as I am
+standing in", you give a list of object specifications separated by a
+<EM>:</EM>. The environment of an object is specified with a caret
+(<EM>:^</EM>).
+</P><P>
+
+For example, the previous description would come out as
+<CODE>me:^:teddybear:#2</CODE>. This really isn't very complicated,
+you just build the path based on an object that you are certain
+you know which it is.
+</P><P>
+
+Another example: "the sword stored in a bag held by the player Adam":
+<CODE>*adam:bag:sword</CODE>.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_102.html#SEC102">2.5.1 Perform a command in the environment of a player</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_103.html#SEC103">2.5.2 Call a function in an object</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_104.html#SEC104">2.5.3 Cat the file associated with an object</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_105.html#SEC105">2.5.4 Destroy all non-interactive objects in an object</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Destruct all non-interactive objects in an object</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_106.html#SEC106">2.5.5 Destruct a specific object</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_107.html#SEC107">2.5.6 Print information about an object</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Print various information about an object</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_108.html#SEC108">2.5.7 Ed the file associated with an object</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_109.html#SEC109">2.5.8 Enter the inventory of an object</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_110.html#SEC110">2.5.9 Perform a command in another object</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_111.html#SEC111">2.5.10 More the file associated with an object</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_112.html#SEC112">2.5.11 Move an object to a destination</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_113.html#SEC113">2.5.12 Set a tracer variable</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_114.html#SEC114">2.5.13 Update, load, clone and replace an object</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_115.html#SEC115">2.5.14 Tail the file associated with an object</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP"></TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="At"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_100.html#SEC100"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_102.html#SEC102"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_50.html#SEC50"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_116.html#SEC116"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

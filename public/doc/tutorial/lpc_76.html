@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Object references</TITLE>
+
+<META NAME="description" CONTENT="LPC: Object references">
+<META NAME="keywords" CONTENT="LPC: Object references">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC76"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_75.html#SEC75"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_77.html#SEC77"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_72.html#SEC72"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_82.html#SEC82"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 2.3.2 How to obtain object references </H3>
+<!--docid::SEC76::-->
+<P>
+
+<A NAME="IDX39"></A>
+<A NAME="IDX40"></A>
+Objects, as previously described, comes in two kinds - <EM>master
+objects</EM> and <EM>clones</EM>. In general you tend to use cloned objects. At
+least for objects that are being 'handled' in the game, objects that you
+can move about, touch, examine etc, or any object that exist in more
+than one copy. Making exclusive use of only the master object is usually
+only done for rooms, <EM>souls</EM> or <EM>daemon</EM> objects of various
+kinds.
+</P><P>
+
+The master object should not be moved inside an inventory. It is
+technically possible to do so, but it'll generate a number of errors in
+various situations, so please just don't try it, ok?  Master objects can
+have inventories of their own though, and that feature is used in
+rooms. Rooms, generally speaking, should <EM>never</EM> be cloned. The
+same goes for <EM>command souls</EM> and certain central <EM>daemon</EM>
+objects. For example, if you implement a bank with several offices, you
+will need some kind of central service which keeps track of customers
+and accounts for you. That central object should probably never be
+cloned, but instead exist as a non-clonable loaded object.
+</P><P>
+
+Naturally <EM>any</EM> object in the game must have a master object. An
+object is loaded into memory and the master object created when a
+function (any function call, even to a non-existing function) is called
+in it. Cloning it just makes identical copies of it. If you destroy the
+master object, the gamedriver will have to load it again later before
+making any new clones. Naturally this is what you do every time you
+have made changes to the object that you want to become
+active. Destroying the master object won't change the already existing
+clones, of course. You'll have to replace them separately.
+</P><P>
+
+<STRONG>NB!</STRONG> Remember that <EM>any</EM> object you have cloned and
+distributed in the game will continue to exist unchanged even though
+you destroy the master object. New objects that you clone from the
+updated master object will have the new functionality, but the old
+ones will remain the way they were previously. This means that if
+you have discovered a real bummer of a bug in some kind of object
+that you have distributed to a lot of players, you'd need to create
+another specialized object to find them and replace them with the new
+version to actually get the bug removed from the game.
+</P><P>
+
+The mudlib in fact works so that <EM>loading</EM> an object is made by
+calling a non-existing function in the object and <EM>updating</EM> it
+simply destroys the master object.
+</P><P>
+
+How to get the object references then? Well, that depends on the
+situation. An object reference is either an object pointer or a string
+path, referring to the object source in the mud filesystem. Obtaining
+them is different depending on the situation however. Let's go through
+them all.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_77.html#SEC77">2.3.2.1 Object references relative to the current object</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">References relative to the current object</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_78.html#SEC78">2.3.2.2 Creating objects</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to create an object</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_79.html#SEC79">2.3.2.3 Finding references relative to another object</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Find a reference relative to another object</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_80.html#SEC80">2.3.2.4 Object references to interactive objects</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">References to interactive objects</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="lpc_81.html#SEC81">2.3.2.5 Destroying objects</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to get rid of objects</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Relative references"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_75.html#SEC75"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_77.html#SEC77"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_72.html#SEC72"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_82.html#SEC82"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

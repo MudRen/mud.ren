@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Creating objects</TITLE>
+
+<META NAME="description" CONTENT="LPC: Creating objects">
+<META NAME="keywords" CONTENT="LPC: Creating objects">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC78"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_77.html#SEC77"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_79.html#SEC79"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_72.html#SEC72"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_76.html#SEC76"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_82.html#SEC82"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H4> 2.3.2.2 Creating objects </H4>
+<!--docid::SEC78::-->
+<P>
+
+<A NAME="IDX44"></A>
+First of all you must make sure that the object that tries to create a new
+object has the privileges required to do so. The rules are pretty simple
+actually: An object with a valid euid can clone any other object. A valid
+euid is anything except 0. The euid 0 is the default uid and euid on
+creation of an object, and it's used as meaning 'no privileges at all'.
+</P><P>
+
+However, usually the choice of euids you can set is pretty limited. If
+you're a wiz it's usually limited to your own name. A Lord can set the
+euid in an object to be his, or any of the wizard's in the domain (unless
+one of the wizards is an Archwiz, then that one is excempt as well). And
+naturally objects with 'root' uid can set any euid they like.
+</P><P>
+
+So... the uid of the object determines what choice of euids you have. You
+set the uid to the default value by adding this sfun call:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void setuid()
+e.g.
+    setuid();
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX45"></A>
+Simple eh? Doing that sets the uid to the value determined by the location
+of the object source-file in the mud filesystem. The rules for this is the
+same as for the <EM>creator</EM> value described earlier. You can get the creator
+value of an object with the sfun <CODE>creator()</CODE>, it simply returns the
+string <CODE>setuid()</CODE> would use for that object.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>string creator(mixed reference)
+e.g.
+    string my_creator;
+
+    my_creator = creator(this_object());
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX46"></A>
+To get the actual uid value that is currently used, you the sfun
+<CODE>getuid()</CODE>
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>string getuid()
+e.g.
+    string curr_uid;
+
+    curr_uid = getuid();
+</pre></td></tr></table></P><P>
+
+So.. the uid is now set to the highest privilege giver. The euid however,
+is still 0. Since the euid determines the actual privileges used in an
+object this means that the object still has <EM>no</EM> privileges at all.
+</P><P>
+
+<A NAME="IDX47"></A>
+To set the euid you use the sfun <CODE>seteuid()</CODE>, the argument given will be
+set as euid if allowed (it's tested). The function returns 0 on failure
+and 1 on success. If you don't send any argument, the euid is set to 0,
+'turning it off' so to speak.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int seteuid(void|string priv_giver)
+e.g.
+    if (seteuid("mrpr"))
+        write("Yes! I'm the ruler of the UNIVERSE!\n");
+    else
+        write("Awwwww....\n");
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX48"></A>
+Naturally there's a corresponding sfun to return the current euid:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>string geteuid()
+e.g.
+    write("The current euid = " + geteuid() + "\n");
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX49"></A>
+<A NAME="IDX50"></A>
+The sfuns <CODE>setuid()</CODE>, <CODE>getuid()</CODE>, <CODE>seteuid()</CODE> and
+<CODE>geteuid()</CODE> are all using the efuns <CODE>set_auth()</CODE> and
+<CODE>get_auth()</CODE>. They are used to manipulate a special authority
+variable inside the object in the gamedriver. The gamedriver will call a
+validating function in the master object (security) if you try to use
+<CODE>set_auth()</CODE> to make sure that you are privileged to do so. The
+reason is that it's possible to store any kind of string in the
+authority variable, and the way we use it is merely a convention,
+something that we have decided is the best way of solving security.
+</P><P>
+
+When you try to perform a privileged operation, like writing to a file
+or cloning an object the gamedriver calls other special functions in the
+master object to make sure you have the right privileges. They all
+depend on that the information stored in the authority variable is
+formatted in the special way we want for it to work properly. Due to
+this fact you are not allowed to use <CODE>set_auth()</CODE> in any other way
+than already is allowed by <CODE>setuid()</CODE> and <CODE>seteuid()</CODE>, so
+there's really no use in doing that at all. <CODE>query_auth()</CODE> is not
+protected but you won't find much use for that information anyway.
+</P><P>
+
+The information stored in the authority variable is simply the uid and
+euid separated by a colon.
+</P><P>
+
+<A NAME="IDX51"></A>
+Now that we know how to give privileges to an object, let's find out how
+to make it <EM>clone</EM> others! The efun used is called
+<CODE>clone_object()</CODE>, it loads and creates an object from a source
+file. If the cloning should fail, due to programming mistakes for
+example, an error message will be given and execution of the current
+object aborted.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>object clone_object(string obref)
+e.g.
+    object magic_ring;
+
+    // Set the object privileges so that it's possible to clone
+    setuid();
+    seteuid(getuid());
+
+    // Actually clone the object
+    magic_ring = clone_object("/w/Wizard/magic_ring");
+</pre></td></tr></table></P><P>
+
+Naturally you only have to set the uid/euid of an object <EM>ONCE</EM> in
+an object and not every time you want to perform a privileged
+operation. The most common procedure is to put these uid/euid setting
+calls in a function that is called when the object is first created, but
+more about that later.
+</P><P>
+
+Now... when arrays or mappings were created they existed as long as any
+variable used them. If the variable was set to 0, the data they contained
+was scrapped as well. Is this true for objects as well? <STRONG>NO!</STRONG>
+It's not. The object will remain in the game as long as the gamedriver
+is running, unless you explicitly destroy it.
+</P><P>
+
+<A NAME="Finding relative refs"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_77.html#SEC77"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_79.html#SEC79"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_72.html#SEC72"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_76.html#SEC76"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_82.html#SEC82"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

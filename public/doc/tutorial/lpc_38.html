@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Precedence</TITLE>
+
+<META NAME="description" CONTENT="LPC: Precedence">
+<META NAME="keywords" CONTENT="LPC: Precedence">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC38"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_37.html#SEC37"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_39.html#SEC39"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_34.html#SEC34"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_16.html#SEC16"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_46.html#SEC46"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 1.2.10 Precedence and Order of evalutaion </H3>
+<!--docid::SEC38::-->
+<P>
+
+The table below summarizes the rules for precedence and associativity
+of all operators, including those which we have not yet discussed. 
+Operators on the same line have the same precedence, rows are in order
+of decreasing precedence, so, for example, <CODE>*</CODE>, <CODE>/</CODE> and <CODE>%</CODE>
+all have the same precedence, which is higher than that of <CODE>+</CODE> and
+<CODE>-</CODE>.
+</P><P>
+
+Note that the precedence of the bitwise logical operators <CODE>&#38;</CODE>,
+<CODE>^</CODE> and <CODE>|</CODE> falls below <CODE>==</CODE> and <CODE>!=</CODE>. This implies
+that bit-testing expressions like
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>if ((x &#38; MASK) == 0) ...
+</pre></td></tr></table></P><P>
+
+must be fully parenthesized to give proper results.
+</P><P>
+
+<OL>
+<LI>() []
+Left to right
+<P>
+
+<LI>! ~ ++ -- - (type) * &#38;
+Right to left
+<P>
+
+<LI>* / %
+Left to right
+<P>
+
+<LI>+ -
+Left to right
+<P>
+
+<LI>&#60;&#60; &#62;&#62;
+Left to right
+<P>
+
+<LI>&#60; &#60;= &#62; &#62;=
+Left to right
+<P>
+
+<LI>== !=
+Left to right
+<P>
+
+<LI>&#38;
+Left to right
+<P>
+
+<LI>^
+Left to right
+<P>
+
+<LI>|
+Left to right
+<P>
+
+<LI>&#38;&#38;
+Left to right
+<P>
+
+<LI>||
+Left to right
+<P>
+
+<LI>?:
+Right to left
+<P>
+
+<LI>= += == etc.
+Right to left
+<P>
+
+<LI>,
+Left to right
+</OL>
+<P>
+
+<A NAME="Loop statements"></A>
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

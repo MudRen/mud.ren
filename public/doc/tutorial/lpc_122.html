@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Shadows (part 2)</TITLE>
+
+<META NAME="description" CONTENT="LPC: Shadows (part 2)">
+<META NAME="keywords" CONTENT="LPC: Shadows (part 2)">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC122"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_121.html#SEC121"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_123.html#SEC123"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_116.html#SEC116"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_116.html#SEC116"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H2> 3.3 Masking functions in runtime, part 2 </H2>
+<!--docid::SEC122::-->
+<P>
+
+The idea with the <EM>shadow</EM> functionality is to mask one or more
+functions in a target object with others having the same name in a
+shadow object The purpose of this procedure is usually to modify the
+behaviour of the target object in some way.
+</P><P>
+
+Shadows are tricky in the respect that they are managed in runtime and
+not during compile time. This means that not only may shadows fail for
+various reasons which I'll go in to later, but they also unintentionally
+may cause the target object to stop working.
+</P><P>
+
+The basic rule is not to use shadows unless you really have to; they
+often are more trouble than they are worth. With that dire warning
+in mind, let us go on to the subject of creating and using them.
+</P><P>
+
+This in turn means that all functions in the shadowing object either
+has to be unique to the object itself, or be shadowable in the target
+object. Now, shadowing isn't completely without conditions: 
+</P><P>
+
+<UL>
+
+<LI>
+A shadow (an object shadowing another object) cannot be shadowed
+<P>
+
+<LI>
+An object defining the function <CODE>query_prevent_shadow()</CODE> returning
+the integer value <CODE>1</CODE> cannot be shadowed. <STRONG>NB!</STRONG> This is
+determined by a call to the function <CODE>query_allow_shadow()</CODE> in
+<CODE>/secure/master.c</CODE>, so this actually may work differently on
+different muds.
+<P>
+
+<LI>
+A function cannot be shadowed if it is declared <CODE>nomask</CODE>.
+<P>
+
+<LI>
+Variables cannot be shadowed, which means that any the shadowing
+function of a function that makes use of internal variables has to
+somehow access those variables in the target object to make things
+work.
+<P>
+
+Please notice that it's perfectly possible to declare the same
+variable globally in the shadow as is used in the target object,
+but that we then are talking about two <EM>different</EM> variables.
+This means that calls which are intercepted by the shadow will
+use the shadow-declared variable, and calls intercepted by the
+target object (to non-shadowed functions) will use its own
+local variable, perhaps producing conflicting results.
+</P><P>
+
+<LI>
+Only calls made with <CODE>call_other()</CODE> are processed by the shadowing
+mechanism. This means that any direct calls to a function in an object
+will work just as usual and never notice the shadow function. This often
+means that unless the creator of an object intended for a function to be
+shadowed, it might both be using global variables directly (instead of
+through public-declared wrapper functions) and be calling that function
+directly instead of through <CODE>call_other()</CODE>. Oh, I hope you remember
+that constructions on the form <CODE>obref-&#62;function(args)</CODE> is just
+another way of writing <CODE>call_other(obref, "function", args)</CODE>.
+<P>
+
+</UL>
+<P>
+
+There's a few consequences of the above that are worth remembering.
+As you already know, any object you want to bring into the game proper
+has to be a derivate of the <CODE>/std/object.c</CODE> object. If you create
+an object without inheriting <CODE>/std/object.c</CODE> or one of its
+derivates, that object can never be inserted in to the inventory of any
+other object, which in turn means that it never can appear in the
+game. Since the <CODE>/std/object.c</CODE> object contains a number of
+unmaskable functions, this means that a shadow as such never can be
+inserted into the game. Well, unless it inherits <CODE>/std/object.c</CODE>
+itself, and only shadows some kind of non-insertable object, of
+course. I suppose that this isn't impossible as such, just rather
+unlikely.
+</P><P>
+
+Assume that an object has been shadowed by several objects, and that
+the same function is shadowed in all objects, which shadow finally
+gets the call? This is not an impossible situation if you're thinking
+that I'm posing a trick question; since you're not shadowing a shadow,
+but the original object, and since the function is shadowable there's
+no preventing this from happening. The answer is that it's the last
+function to shadow the object that 'wins'. Obviously this is not a
+very good situation, so often the best way of making sure that your
+object is the only final object to shadow another is to define the
+function <CODE>query_prevent_shadow()</CODE> to return 1. However, this
+obviously makes it impossible for all other objects to shadow any
+other function as well, so one has to be careful lest one interrupts
+some other object from working.
+</P><P>
+
+By far the easiest way of creating a working shadow object is to
+inherit the standard shadow object <CODE>/std/shadow.c</CODE> and use
+the functionality provided there. With that module you're not only
+getting a standardized way of dealing with shadows that most other
+object-managing objects recognize and can use, you're also getting a
+number of handy functions that make sure that the shadow doesn't shadow
+the same object twice by mistake, that autoloading shadows on players
+automatically latch on to the player on login again as well as provide a
+mechanism for removing the shadow.
+</P><P>
+
+Assume for example that you want to redefine the gender of a player
+who's been affected by an evil spell of some kind. The function you
+want to shadow is called <CODE>query_gender_string()</CODE> and can be
+found in <CODE>/std/living/gender.c</CODE>. This is how you do it:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>inherit "/std/shadow";
+
+int
+start(string pl_name)
+{
+    return(objectp(shadow_me(pl_name)));
+}
+
+int
+stop()
+{
+    remove_shadow();
+}
+
+string
+query_gender_string()
+{
+    return "xxx";
+}
+</pre></td></tr></table></P><P>
+
+Please notice that I've added both a start and a stop function for
+easy testing; these really aren't necessary as long as the shadow
+somehow calls <CODE>shadow_me()</CODE> with the target (either as a name
+or an object reference) as argument.
+</P><P>
+
+The standard shadow module also provides easy access to the original
+object. The variable <CODE>shadow_who</CODE> is set to the original object, so
+in the shadow object any call on the form <CODE>shadow_who-&#62;function()</CODE>
+goes to the original object function, even if it is shadowed in the
+shadow object.
+</P><P>
+
+<A NAME="Efficient code"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_121.html#SEC121"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_123.html#SEC123"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_116.html#SEC116"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_116.html#SEC116"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

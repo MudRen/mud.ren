@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Internal documentation</TITLE>
+
+<META NAME="description" CONTENT="LPC: Internal documentation">
+<META NAME="keywords" CONTENT="LPC: Internal documentation">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC129"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_128.html#SEC128"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_126.html#SEC126"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_116.html#SEC116"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H2> 3.8 Internal documentation </H2>
+<!--docid::SEC129::-->
+<P>
+
+For you to read this tutorial and memorize it would be very flattering
+to me, but not really practical. Instead, learn to make use of the
+internal documentation available on the MUD itself, there's usually
+quite a bit available.
+</P><P>
+
+<A NAME="IDX175"></A>
+For Efuns, Sfuns and Lfuns you have the <EM>man</EM> command. As with all
+man commands it accepts partial names syntax, so it's usually easy to
+find a function even if you aren't completely certain of its name.
+</P><P>
+
+For example, you want to find the user id of an object, but you can't
+remember exactly what the function was called. You have a pretty good
+notion it ended with the letters 'id' though:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>&#62; man -k *id
+
+--- simul_efun:
+export_uid  geteuid     getuid      seteuid     setuid
+</pre></td></tr></table></P><P>
+
+The output tells you that the matches can be found in the chapter
+<EM>simul_efun</EM> of the manual. Had their been matches in other
+chapters, they would have been displayed as well.
+</P><P>
+
+Now you also know that the function was 'getuid', so you just type
+<CODE>man getuid</CODE> (or even <CODE>man simul_efun getuid</CODE> if you want to
+be very specific) to get the full text.
+</P><P>
+
+<A NAME="IDX176"></A>
+</P><P>
+
+The really experienced LPC coder has a good grasp of which of the
+objects provided in the mudlib does what, so that he'll know which
+object to inherit for a specific job. He is also rather at home with
+what the function-sets each object defines, but naturally he
+doesn't know all of them. What follows from this is that any coder,
+experienced or not, simply <EM>has</EM> to spend quite a bit of time
+reading the objects to find out exactly how to use them when he needs
+them.
+</P><P>
+
+A great help in this respect is the <EM>sman</EM> command. The source code
+manual simply is a collection of all headers of all functions in
+<EM>/cmd</EM>, <EM>/lib</EM>, <EM>/obj</EM>, <EM>/secure</EM>, <EM>/std</EM> and
+<EM>/sys</EM>.
+</P><P>
+
+The command allows you to search for partial names as well, so finding
+the exact function you need usually is a matter how having just an
+inkling of what you're after, then spending some time with <EM>sman</EM>
+to find the exact command.
+</P><P>
+
+For example, you need to find the function in a player that returns
+his occupational guild name, but you don't know which object defines
+it, nor what the function was called.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>&#62; sman -k *guild*
+--- /lib/guild_support:
+create_guild_support     init_guild_support
+
+--- /secure/master:
+add_guild_master                      query_guild_type
+guild_command                         query_guild_type_int
+guild_filter_type                     query_guild_type_long_string
+guild_sort_styles                     query_guild_type_string
+load_guild_defaults                   query_guilds
+query_guild_domain                    remove_guild_master
+query_guild_is_master                 set_guild_domain
+query_guild_long_name                 set_guild_long_name
+query_guild_masters                   set_guild_phase
+query_guild_phase                     set_guild_style
+query_guild_short_name                set_guild_type
+query_guild_style                     
+
+--- /std/guild/guild_base:
+list_major_guilds                     query_guild_not_allow_join_guild
+query_guild_keep_player               query_guild_skill_name
+query_guild_leader                    query_guild_style
+query_guild_member                    
+
+--- /std/guild/guild_lay_sh:
+query_guild_incognito_lay             query_guild_tax_lay
+query_guild_leader_lay                query_guild_title_lay
+query_guild_member_lay                query_guild_trainer_lay
+query_guild_name_lay                  query_guild_type
+query_guild_not_allow_join_lay        remove_guild_lay
+query_guild_style_lay                 
+
+--- /std/guild/guild_occ_sh:
+query_guild_incognito_occ             query_guild_tax_occ
+query_guild_leader_occ                query_guild_title_occ
+query_guild_member_occ                query_guild_trainer_occ
+query_guild_name_occ                  query_guild_type
+query_guild_not_allow_join_occ        remove_guild_occ
+query_guild_style_occ                 
+
+--- /std/guild/guild_race_sh:
+query_guild_family_name               query_guild_style_race
+query_guild_incognito_race            query_guild_tax_race
+query_guild_leader_race               query_guild_title_race
+query_guild_member_race               query_guild_trainer_race
+query_guild_name_race                 query_guild_type
+query_guild_not_allow_join_race       remove_guild_race
+
+--- /std/living:
+clear_guild_stat         set_guild_pref
+query_guild_pref_total   set_guild_stat
+</pre></td></tr></table></P><P>
+
+Well, that was a lot of output, but with just a little bit of thinking
+applied to the results you now know that the name of the function is
+<CODE>query_guild_name_occ</CODE> and that it can be found in the file
+<EM>/std/guild/guild_occ_sh</EM>. So, to get the header you now type
+<CODE>sman /std/guild/guild_occ_sh query_guild_name_occ</CODE>.
+</P><P>
+
+The better your knowledge of the mudlib is, the better you can make your
+<EM>sman</EM> query and thus produce a narrower result the first time. Not
+that there's anything wrong with typing the command several times, of
+course!
+</P><P>
+
+<STRONG>NB!</STRONG> The index files and manual entries for <EM>sman</EM> need to
+be regenerated when something changes in the mudlib. For some reason it
+seems that the temptation to meddle in the mudlib is too big a
+temptation for most mud administrations to resist for very long; so if
+you suspect that the manual entries doesn't reflect well on the actual
+code in the mudlib, remind them to regenerate the manual. All this
+assuming, of course, that the people who change the mudlib have the
+common sense of changing the headers of the functions they modify at the
+same time.
+</P><P>
+
+<A NAME="LPC Index"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_128.html#SEC128"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_126.html#SEC126"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_116.html#SEC116"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

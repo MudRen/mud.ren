@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Tutorial Setup</TITLE>
+
+<META NAME="description" CONTENT="LPC: Tutorial Setup">
+<META NAME="keywords" CONTENT="LPC: Tutorial Setup">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC4"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_3.html#SEC3"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_5.html#SEC5"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_9.html#SEC9"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H2> ii - Tutorial Setup </H2>
+<!--docid::SEC4::-->
+<P>
+
+The manual is divided into three progressively more advanced chapters.
+The first chapter will be explain basics about coding and LPC without
+delving too deep into specifics.
+</P><P>
+
+The second chapter will be for a more intermediate level of coding,
+explaining in full all the aspects of functions and operators that might
+have been treated a bit too easy in the first chapter.
+</P><P>
+
+The third and final chapter handles whatever might be left when chapter
+two is done. Well, not <EM>everything</EM>; the tutorial will not explain
+all the intricacies of the gamedriver and the mudlib. If you are looking
+for info about creating your own mudlib or doing very advanced stuff
+you'll have to learn that from reading the actual code.
+</P><P>
+
+If you are a newbie wizard you might feel a bit taken back at first,
+looking at this rather thick tutorial. However, it's quite necessary
+that you read <EM>all</EM> of it and leave nothing for the future. You will
+undoubtedly have to at least recognize subjects from all three chapters,
+even though mostly you will actually only use the information in
+the first two. Heck, there's a lot of old wizards out there who hardly
+even master the first one, a scary thought! Among other things that's
+one of the fundamental reasons why I'm writing this manual...
+</P><P>
+
+The manual is fairly extensive, but it's for learning LPC for domain
+coding <EM>only</EM>. This means that it's not a complete LPC reference
+manual. Some of the more esoteric and unusual efuns and functionalities
+are not covered since they only would be used by mudlib coders or
+gamedriver hackers. This manual is not intended for them. Sorry, if that's
+what you were looking for you'll have to keep on searching for another
+source.
+</P><P>
+
+A small note about gender. Throughout the text I've used male pronouns.
+This is not because I scoff the thought of female coders, it's because the
+English language is male-oriented. Fact of life, like it or not. I guess I 
+<EM>could</EM> have added a `<SAMP>(or she)</SAMP>' comment after all occurrences of 
+the male `<SAMP>he</SAMP>', but that strikes me as more than just a bit silly. 
+Until the English language comes up with a strictly neutral pronoun I'll 
+stick to using the all-inclusive male one.
+</P><P>
+
+<A NAME="History"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_3.html#SEC3"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_5.html#SEC5"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_2.html#SEC2"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_2.html#SEC2"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_9.html#SEC9"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

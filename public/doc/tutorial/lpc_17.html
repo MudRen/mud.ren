@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Comments</TITLE>
+
+<META NAME="description" CONTENT="LPC: Comments">
+<META NAME="keywords" CONTENT="LPC: Comments">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC17"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_16.html#SEC16"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_18.html#SEC18"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_10.html#SEC10"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_16.html#SEC16"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_46.html#SEC46"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 1.2.1 Comments </H3>
+<!--docid::SEC17::-->
+<P>
+
+It might sound strange that I start off with this, but there'll be comments
+everywhere, so you need to be able to recognize them from the very start.
+</P><P>
+
+There are two kinds of comments:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>&#60;code&#62; // This is a comment stretching to the end of the line.
+
+&#60;code&#62; /* This is an enclosed comment */ &#60;code&#62;
+</pre></td></tr></table></P><P>
+
+As you can see, the first type of comment starts off with the <CODE>//</CODE>
+characters and then stretches all the way to the end of the line.  If you
+want more lines of comments, you'll have to start off those as well with
+new <CODE>//</CODE> characters.
+</P><P>
+
+The second type is a type that has a definite length. They start with
+<CODE>/*</CODE> and end with <CODE>*/</CODE>. This kind of comment is useful when you
+have to write something that will stretch over several lines, as you
+only have to write the comment symbol in the start and the beginning.
+</P><P>
+
+<STRONG>NB!</STRONG> The <CODE>/* */</CODE> comment can <EM>not</EM> be nested. I.e. you can
+<EM>not</EM> write something like this for example:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>/* A comment /* A nested comment */ the first continues */
+</pre></td></tr></table></P><P>
+
+What will happen is that the comment will end with the first found
+<CODE>*/</CODE>, leaving the text <CODE>the first continues */</CODE> to be
+interpreted as if it was LPC code. Naturally this won't work and instead
+you'll get an error message.
+</P><P>
+
+<A NAME="Data types"></A>
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

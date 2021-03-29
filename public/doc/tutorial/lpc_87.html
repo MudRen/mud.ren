@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Time functions</TITLE>
+
+<META NAME="description" CONTENT="LPC: Time functions">
+<META NAME="keywords" CONTENT="LPC: Time functions">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC87"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_86.html#SEC86"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_88.html#SEC88"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 2.3.8 Time functions </H3>
+<!--docid::SEC87::-->
+<P>
+
+All time measurements in UNIX, and hence in the mud, are measured starting
+at Jan 1, 1970 for some obscure reason. Perhaps the creators of this system
+figured that, from a computer point of view, there's no reason ever to need
+to store a time stamp of an earlier date. In any case that's how it is.
+Time stamps are integers and measure the time in seconds from that previously
+mentioned date.
+</P><P>
+
+<A NAME="IDX102"></A>
+<A NAME="IDX103"></A>
+<A NAME="IDX104"></A>
+<A NAME="IDX105"></A>
+The simple efun <CODE>time()</CODE> will return the current time. You can either
+use it as it is or convert it to a printable string with the <CODE>ctime()</CODE>
+efun. To find the creation time of a file, you use the efun 
+<CODE>file_time()</CODE>, of an object the efun <CODE>object_time()</CODE>.
+</P><P>
+
+<A NAME="IDX106"></A>
+Sometimes it's desirable to know when the object last was referenced, i.e.
+when it last had a function called in it. If you then, as the first
+instruction in the function call <CODE>last_reference_time()</CODE> you will
+get that time. However, remember that it naturally is set to the current
+time as soon as that is done.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int time()
+string ctime(int tm)
+int file_time(string obref)
+int object_time(object ob)
+e.g.
+    write("This object was last referenced at " + 
+        ctime(last_reference_time()) + "\n");
+    write("The time right now is: " + ctime(time()) + ".\n");
+    write("This object is " + 
+        (time() - object_time(this_object())) + 
+        " seconds old.\n");
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX107"></A>
+There exists a convenient lfun <CODE>convtime</CODE> in the module <CODE>/lib/time</CODE>
+that will convert the timestamp to days, hours, minutes and seconds,
+excluding those entries which doesn't contain anything. Nice for more
+condensed listings.
+</P><P>
+
+<A NAME="Array/string conversion"></A>
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

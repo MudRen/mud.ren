@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Directory handling</TITLE>
+
+<META NAME="description" CONTENT="LPC: Directory handling">
+<META NAME="keywords" CONTENT="LPC: Directory handling">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC94"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_93.html#SEC93"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_95.html#SEC95"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 2.3.15 Directory handling </H3>
+<!--docid::SEC94::-->
+<P>
+
+<A NAME="IDX164"></A>
+<A NAME="IDX165"></A>
+<A NAME="IDX166"></A>
+Creating, renaming and removing directories are handled by the
+efuns <CODE>mkdir()</CODE>, <CODE>rename()</CODE> and <CODE>rmdir()</CODE>. You need
+write permissions in the directory you are doing this, of course.
+<CODE>mkdir()</CODE> and <CODE>rmdir()</CODE> return 1 on success and 0 on
+failure. <CODE>rename()</CODE>, as already pointed out, works the other
+way around and returns 1 on failure, 0 on success. <CODE>rmdir()</CODE>
+only works if the directory you want to remove is empty, i.e. contains
+no other files or directories.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int mkdir(string path);
+int rename(string oldpath, string newpath);
+int rmdir(string path);
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX167"></A>
+For listing the contents of a directory, you can use the efun
+<CODE>get_dir()</CODE>. It simply returns an array with the names of all
+files in the specified directory, or an empty array on failure.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>string *get_dir(string path);
+e.g.
+    string *dir_contents;
+    int i, sz;
+
+    dir_contents = get_dir("/d/Domain/fatty");
+
+    for (i = 0, sz = sizeof(dir_contents); i &#60; sz; i++)
+    {
+        // See the code for file_info in a previous example
+        file_info(dir_contents[i]);
+    }
+</pre></td></tr></table></P><P>
+
+<A NAME="Screen input/output"></A>
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Function declarations</TITLE>
+
+<META NAME="description" CONTENT="LPC: Function declarations">
+<META NAME="keywords" CONTENT="LPC: Function declarations">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC20"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_19.html#SEC19"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_21.html#SEC21"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_10.html#SEC10"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_16.html#SEC16"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_46.html#SEC46"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 1.2.4 Function declarations </H3>
+<!--docid::SEC20::-->
+<P>
+
+A function must give proper notification of what kind of data type it
+returns, if any. A function is a label much like a variable name,
+consisting of &#60; 32 characters, starting with a letter. Custom
+and common sense dictate that all function names should be lowercase and
+only contain the special character '_' to separate words. Use function
+names that clearly reflect on what they do. A function declaration looks
+like this:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>/*
+ * <A description of what the function does.>
+ *
+ * Arguments:     <A list of the arguments and what they contain>
+ * Returns:       &#60;What the function returns&#62;
+ */
+&#60;return type&#62;
+&#60;function name&#62;(&#60;argument list&#62;)
+{
+   &#60;code expressions&#62;
+}
+</pre></td></tr></table></P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>/*
+ * Compute the diameter of a circle given the circumference.
+ *
+ * Variables:     surf_area - the surface area
+ *                name - the name given the circle
+ * Returns:       The circumference.
+ */
+float
+compute_diam(float surf_area, string name)
+{
+    float rval;
+	    
+    // Circumference = pie * diameter
+    rval = surf_area / 3.141592643;
+    write("The diameter of " + name + " is " + ftoa(rval) + "\n");
+
+    return rval;
+}
+</pre></td></tr></table></P><P>
+
+The argument list is a comma-separated list of data types, much like a
+variable declaration where you specify what kind of data will be sent to
+the function and assign names to this data for later use in the function.
+The data received will <STRONG>only</STRONG> be usable inside the function, unless you
+explicitly send it out through a function call.
+</P><P>
+
+(In order to save space and improve on legibility in the manual I won't
+put a header to all my short example functions).
+</P><P>
+
+A function that doesn't return anything should be declared as <CODE>void</CODE>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void
+write_all(string mess)
+{
+    users()-&#62;catch_msg(mess);
+}
+</pre></td></tr></table></P><P>
+
+<A NAME="Statements/Expressions"></A>
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

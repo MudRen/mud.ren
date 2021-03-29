@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Inventory/Environment</TITLE>
+
+<META NAME="description" CONTENT="LPC: Inventory/Environment">
+<META NAME="keywords" CONTENT="LPC: Inventory/Environment">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC84"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_83.html#SEC83"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_85.html#SEC85"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 2.3.5 The inventory and the environment </H3>
+<!--docid::SEC84::-->
+<P>
+
+<A NAME="IDX80"></A>
+<A NAME="IDX81"></A>
+As described earlier, an object defines an <EM>inside</EM> as well as an
+<EM>outside</EM>. The outside, or <EM>environment</EM> can only be one object, while
+the inside, or <EM>inventory</EM>, can contain many objects.
+</P><P>
+
+A newly cloned object ends up in a sort of limbo, without an
+environment. In order for an object to actually enter the simulated
+physical world of the game it has to be moved there. However, not all
+objects can be moved around. In order for the game to work <STRONG>ANY</STRONG>
+object that wants to be inserted somewhere or have objects inserted into
+it <STRONG>MUST</STRONG> inherit `<TT>/std/object.c</TT>' somewhere along the way in
+the inheritance chain. Why this limitation?  Well, the reason is that
+the standard object defines a number of handy functions we rely on all
+objects in the game to define.
+</P><P>
+
+The most important of these lfuns are:
+</P><P>
+
+<A NAME="IDX82"></A>
+<A NAME="IDX83"></A>
+<A NAME="IDX84"></A>
+<A NAME="IDX85"></A>
+<A NAME="IDX86"></A>
+<DL COMPACT>
+<DT>`<SAMP>move()</SAMP>'
+<DD>Move an object to another object and handle weight/volume
+accounting. Returns success code. This function is responsible for
+calling the following:
+<P>
+
+<DT>`<SAMP>enter_inv()</SAMP>'
+<DD>This function is called in an object when another object moves inside
+it.
+<P>
+
+<DT>`<SAMP>leave_inv()</SAMP>'
+<DD>This function is called in an object when another object moves out from
+it.
+<P>
+
+<DT>`<SAMP>enter_env()</SAMP>'
+<DD>This function is called in an object upon entering the environment of
+another object.
+<P>
+
+<DT>`<SAMP>leave_env()</SAMP>'
+<DD>This function is called in an object upon leaving the environment of
+another object.
+</DL>
+<P>
+
+<STRONG>NB!</STRONG> The above <STRONG>ONLY</STRONG> works if you use the lfun
+<CODE>move()</CODE> in the object to move them around. That's why it's so
+important that you do it this way and not by the efun that actually
+performs the move.
+</P><P>
+
+<A NAME="IDX87"></A>
+The efun used in the <CODE>move()</CODE> lfun is
+<CODE>move_object()</CODE>. <STRONG>BUT</STRONG>, remember when doing that none of the
+object internals like light, weight or volume is updated. As previously
+stated the efun fails if the object you want to move, or move to,
+doesn't inherit `<TT>/std/object.c</TT>'. Furthermore the efun can only be used
+from within the object that wants to move, it can't be used to move
+another object. The same goes for the <CODE>move()</CODE> lfun, naturally.
+</P><P>
+
+<A NAME="IDX88"></A>
+In order to get the enclosing object reference you use the efun
+<CODE>environment()</CODE>. As I have said before all objects have no environment
+on creation, it's only after they have been moved somewhere that it gets
+a proper environment. Once an object has been moved into another object
+it can't be moved out into limbo again, i.e. you can't move it to '0'.
+The objects in the game you can expect not to have an environment are
+either rooms, souls, shadows or daemon objects of one kind or another.
+</P><P>
+
+<A NAME="IDX89"></A>
+<A NAME="IDX90"></A>
+You have two efuns to chose between when it comes to finding what's in
+the inventory of an object. The efun <CODE>all_inventory()</CODE> returns an
+array with all the objects in the inventory of a specified object, while
+the efun <CODE>deep_inventory()</CODE> return an array with all objects
+recursively found in the inventory, i.e. not only the objects you'll find
+immediately but also the objects <EM>in</EM> the objects in the inventory,
+and so on.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>object *all_inventory(object ob)
+object *deep_inventory(object ob)
+e.g.
+/*
+ * This function dumps the inventory of Fatty on the screen,
+ * either just what's immediately visible or all depending
+ * on a given flag.
+ */
+void
+fatty_say_aaah(int all)
+{
+    object fatty_ob, *oblist;
+
+    if (!objectp((fatty_ob = find_player("fatty"))))
+    {
+        write("Sorry, Fatty isn't in the game today.\n");
+        return 0;
+    }
+
+    oblist = all ? deep_inventory(fatty_ob) : all_inventory(fatty_ob);
+
+    write("The " + (all ? "entire " : "") + 
+                " content of Fatty's bloated tummy:\n");
+    dump_array(oblist);
+}
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX91"></A>
+<A NAME="IDX92"></A>
+So... how do you go about to determine if a specific object actually is
+present in the inventory of another object? Well, the base object 
+<CODE>/std/object.c</CODE> define both names and descriptions in objects, as
+described before. It also defines a special function called <CODE>id()</CODE>
+that, given a name, checks all given names to an object for a match and
+returns 1 if the object has that name. The efun <CODE>present()</CODE> takes
+a name or object reference and searches one or more object's inventories
+for the presence of the named or specified object. If you specify the
+object to search for as a name string it will use the previously mentioned
+<CODE>id()</CODE> function to determine if the object is the right one or not
+for all objects it examines. The execution of the function is aborted as
+soon as it finds one that fits the description. That means that if there
+are several objects fitting the search pattern you will only get one of
+them.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>object present(object ob|string obref, object *oblist|object ob|void)
+e.g.
+/*
+ * Look for donuts in Fatty
+ */
+void
+find_donut()
+{
+    object fatty_ob;
+
+    fatty_ob = find_player("fatty");
+
+    // Can't find Fatty!
+    if (!objectp(fatty_ob))
+    {
+        write("Fatty isn't in at the moment, please try later.\n");
+        return;
+    }
+       
+    if (present("donut", fatty_ob))
+        write("Yes, Fatty looks happy with life at present");
+    else
+        write("If I were you, I'd keep out of Fatty's " +
+                  "reach until he's fed.\n");
+}
+</pre></td></tr></table></P><P>
+
+If you don't give any second argument to <CODE>present</CODE>, it will look
+for the specified object in the inventory of <CODE>this_object()</CODE>, i.e.
+the object itself. If the second argument is given as an array, the
+function will look for the specified object in all of the objects in the
+array. If no fitting object is found, 0 is returned.
+</P><P>
+
+<A NAME="String functions"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_83.html#SEC83"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_85.html#SEC85"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Interactive object refs</TITLE>
+
+<META NAME="description" CONTENT="LPC: Interactive object refs">
+<META NAME="keywords" CONTENT="LPC: Interactive object refs">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC80"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_79.html#SEC79"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_81.html#SEC81"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_72.html#SEC72"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_76.html#SEC76"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_82.html#SEC82"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H4> 2.3.2.4 Object references to interactive objects </H4>
+<!--docid::SEC80::-->
+<P>
+
+<A NAME="IDX59"></A>
+If you are looking for a particular player, you could look for him with
+<CODE>find_living()</CODE> and then just make sure it's an interactive
+object. However, it's a lot quicker to use the efun <CODE>find_player()</CODE>
+that works just the same with the exception that there can only be one
+player with a given name; if he's in the game you will get the object
+reference to him and no other.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>object *find_player(string name)
+e.g.	
+    object fat_one;
+
+    fat_one = find_player("fatty");
+
+    if (objectp(fat_one))
+        fat_one-&#62;catch_msg("Hail thee, bloated one!\n");
+    else
+        write("Nope, no such luck.\n");
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX60"></A>
+Very often you want to know which player issued the command that led to the
+execution of a specific function. The efun <CODE>this_interactive()</CODE>
+will return the object reference to that player. If the execution chain
+was started by an independent non-player object, 0 is returned.
+</P><P>
+
+<A NAME="IDX61"></A>
+However, more often you're not interested in who actually started the
+chain, but rather who the object is supposed to direct its attention at.
+That object is returned by the efun <CODE>this_player()</CODE>. In other
+words, while the object might be expected to turn its attentions
+(command lists, output messages, object effects etc) to the object given
+by <CODE>this_player()</CODE>, it might be another player given by
+<CODE>this_interactive()</CODE> that actually started the execution chain in
+the object. The value of <CODE>this_interactive()</CODE> can never be
+manipulated by objects in the game, <CODE>this_player()</CODE> on the other
+hand can be set at will. More about that later.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>object this_player();
+object this_interactive();
+e.g.
+    object tp, ti;
+
+    tp = this_player();
+    ti = this_interactive();
+
+    if (objectp(ti))
+    {
+        if (ti != tp)
+        {
+            tp-&#62;catch_msg("Zapppp!\n");
+            ti-&#62;catch_msg("Zapped him!\n");
+        }
+        else
+            ti-&#62;catch_msg("Fzzzzz...\n");
+    }
+</pre></td></tr></table></P><P>
+
+<A NAME="Destroying objects"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_79.html#SEC79"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_81.html#SEC81"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_72.html#SEC72"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_76.html#SEC76"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_82.html#SEC82"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

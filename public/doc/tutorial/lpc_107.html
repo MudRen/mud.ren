@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Dump</TITLE>
+
+<META NAME="description" CONTENT="LPC: Dump">
+<META NAME="keywords" CONTENT="LPC: Dump">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC107"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_106.html#SEC106"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_108.html#SEC108"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_101.html#SEC101"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_116.html#SEC116"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 2.5.6 Print information about an object </H3>
+<!--docid::SEC107::-->
+<P>
+
+This is the command you use to list information about an object, and
+there's plenty to choose from:
+</P><P>
+
+Syntax: <CODE>Dump &#60;object spec&#62; &#60;what&#62;</CODE>
+</P><P>
+
+<DL COMPACT>
+
+<DT>`<SAMP>&#60;nothing&#62;</SAMP>'
+<DD>The command <CODE>Dump &#60;object spec&#62;</CODE> lists the name, path, <EM>creator</EM>
+<EM>uid</EM> and <EM>euid</EM> of an object.
+<P>
+
+<DT>`<SAMP>&#60;variable&#62;</SAMP>'
+<DD>This given parameter, unless matched by any of the other below, is
+interpreted to mean a variable in the specified object. The command
+then displays the value of that variable.
+<P>
+
+<STRONG>NB!</STRONG> This is a most amazingly useful parameter. It means that to
+see a specific variable in an object, you do <EM>not</EM> have to change
+its code to print it, you can extract it at any time. Of course, if you
+need to see transcient behaviour you will still need to put in debug
+print messages, but most of the time it's sufficient to see the results
+as reflected by the contents of the variable in the object at the time
+you can access it.
+</P><P>
+
+<DT>`<SAMP>alarms</SAMP>'
+<DD>This parameter lists information about all pending alarms running in an
+object.
+<P>
+
+<DT>`<SAMP>cpu</SAMP>'
+<DD>This parameter lists the cpu time consumed by the specified object. This
+information actually is only interesting to mudlib developers and only
+works if the driver is compiled with the PROFILE_OBJS flag.
+<P>
+
+<DT>`<SAMP>flags</SAMP>'
+<DD>This parameter lists all gamedriver-relevant object flags associated
+with the specified object together with some object status
+information. This information actually is only interesting to gamedriver
+developers.
+<P>
+
+<DT>`<SAMP>functions</SAMP>'
+<DD>This parameter lists all function names defined by the specified object.
+In case the list looks short to you, remember that most objects consist
+of a long inheritance chain, and the inherited object's functions are
+not listed; you will have to ask for them separately.
+<P>
+
+<DT>`<SAMP>info</SAMP>'
+<DD>This parameter lists some basic gamedriver-relevant information
+associated with the specified object. This information actually is only
+interesting to gamedriver developers.
+<P>
+
+<DT>`<SAMP>inherits</SAMP>'
+<DD>This parameter lists the entire inheritance chain of the specified object.
+<P>
+
+<DT>`<SAMP>inv | inventory</SAMP>'
+<DD>This parameter lists the inventory of an object and numbers them for
+easy further referencing.
+<P>
+
+<DT>`<SAMP>items</SAMP>'
+<DD>This parameter lists all pseudo-items, i.e. items that only have a
+descriptive existence or command functionality existence, that has been
+added to an object. The list of command items is split in a section
+with commands and a section with items. Each pair of commands and items
+is terminated with their index number.
+<P>
+
+<DT>`<SAMP>light</SAMP>'
+<DD>This parameter lists the light status for the specified object and
+reports on the effects of all contained objects as well. It will tell
+you the current light status and whether the object generates or
+absorbs light.
+<P>
+
+<DT>`<SAMP>profile</SAMP>'
+<DD>This parameter lists any stored profiling information associated with the
+specified object. This information is only interesting to gamedriver
+developers and only works if the driver is compiled with the
+PROFILE_FUNS flag.
+<P>
+
+<DT>`<SAMP>props | properties</SAMP>'
+<DD>This parameter lists all properties stored in the specified object.
+<P>
+
+<DT>`<SAMP>shadows</SAMP>'
+<DD>This parameter lists all shadow active on the referenced object.
+<P>
+
+<DT>`<SAMP>vars | variables</SAMP>'
+<DD>This parameter lists all variables of an object. 
+<P>
+
+<DT>`<SAMP>wizinfo</SAMP>'
+<DD>This parameter prints the special wizard information that can be stored
+in the OBJ_S_WIZINFO property in any object. This information is
+directed only at wizards and should give directions on handling or the
+purpose of the object.
+<P>
+
+Please notice that it's the responsability of the creator of the object
+to make sure that this information is added to the object.
+</P><P>
+
+</DL>
+<P>
+
+<A NAME="Ed"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_106.html#SEC106"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_108.html#SEC108"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_101.html#SEC101"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_116.html#SEC116"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

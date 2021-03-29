@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Relative references</TITLE>
+
+<META NAME="description" CONTENT="LPC: Relative references">
+<META NAME="keywords" CONTENT="LPC: Relative references">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC77"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_76.html#SEC76"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_78.html#SEC78"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_72.html#SEC72"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_76.html#SEC76"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_82.html#SEC82"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H4> 2.3.2.1 Object references relative to the current object </H4>
+<!--docid::SEC77::-->
+<P>
+
+<A NAME="IDX41"></A>
+An object can always get the object reference to itself. Use the efun
+<CODE>this_object()</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>object this_object()
+e.g.
+    object ob;
+
+    ob = this_object();
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX42"></A>
+In order to find out which object called the currently running function
+in an object using an external call, you can use the efun 'previous_object()':
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>object previous_object(void|int step)
+e.g.
+    object p_ob, pp_ob;
+
+    p_ob = previous_object();     // The object calling this function.
+    pp_ob = previous_object(-2);  // The object calling the object
+                                  // calling this function.
+</pre></td></tr></table></P><P>
+
+If you supply no argument or -1, the function will return the immediately
+previous object that called. Decrementing the argument further will return
+even more previous callers, i.e <CODE>previous_object(-4)</CODE> returns the
+object that called the object that called the object that called your
+object. If indeed the chain of calling objects was that long. When you
+exceed the length of the calling chain beyond the first object that made
+a call, the function will return 0.
+</P><P>
+
+<A NAME="IDX43"></A>
+As I hope you noticed, this call only checks for external calls, not
+internal. There is a corresponding efun that works just the same but for
+any type of call (internal or external) that has been made:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>object calling_object(void|int step)
+</pre></td></tr></table></P><P>
+
+The usage is the same however.
+</P><P>
+
+So... how do you know if the object reference you just received is a
+valid object or not (i.e. 0 or something else)? Well, use the nice
+efun <CODE>objectp()</CODE> as described earlier. It returns 1 if the argument is
+a valid object pointer and 0 otherwise.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int objectp(mixed ob)
+e.g.
+    if (objectp(calling_object(-2)))
+        write("Yes, an ob calling an ob calling this object exists!\n");
+    else
+        write("No such luck.\n");
+</pre></td></tr></table></P><P>
+
+<A NAME="Creating objects"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_76.html#SEC76"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_78.html#SEC78"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_72.html#SEC72"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_76.html#SEC76"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_82.html#SEC82"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

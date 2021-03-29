@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Array &#38; Mapping references</TITLE>
+
+<META NAME="description" CONTENT="LPC: Array &#38; Mapping references">
+<META NAME="keywords" CONTENT="LPC: Array &#38; Mapping references">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC70"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_69.html#SEC69"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_51.html#SEC51"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 2.2.9 Array &#38; Mapping references </H3>
+<!--docid::SEC70::-->
+<P>
+
+In comp sci terms, arrays and mappings are used as <EM>reference by pointer</EM>
+and the other types as <EM>reference by value</EM>. This means that arrays and
+mappings, unlike other variables, aren't copied every time they are moved
+around. Instead, what is moved is a reference to the original array or
+mapping. What does this mean then?
+</P><P>
+
+Well... simply this:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>object *arr, *copy_arr;
+
+arr = ({ 1, 2, 3, 4 });    // An array
+
+copy_arr = arr;              // Assume (wrongly) that a copy_arr becomes
+                             // a copy of arr.
+
+// Change the first value (1) into 5.
+copy_arr[0] = 5;
+</pre></td></tr></table></P><P>
+
+... Now... this far down the code it's logical to assume that the first
+value of <CODE>copy_arr</CODE> is 5 while the first value or <CODE>arr</CODE> is 1.
+That's not so however, because what got copied into <CODE>copy_arr</CODE> was
+not the array itself, but a reference to the same array as <CODE>arr</CODE>.
+This means that your operation later where you changed an element,
+changed that element in the original array which both variables refer
+to. <CODE>copy_arr</CODE> and <CODE>arr</CODE> will both seem to have changed,
+while in fact it was only the original array that both referred to that
+changed.
+</P><P>
+
+Exactly the same thing will happen if you use mappings since they work
+the same way in this respect.
+</P><P>
+
+So... how do you get around this then? I mean... most times you really want
+to work on a copy and not the original array or mapping. The solution is
+very simple actually. You just make sure that the copy is created from
+another array or mapping instead.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>              _ This is just an empty array
+             /
+copy_arr = ({ }) + arr;
+                    \_ This is the one we want to make unique
+</pre></td></tr></table></P><P>
+
+In this example <CODE>copy_arr</CODE> becomes the sum of the empty array and
+the <CODE>arr</CODE> array created as an entirely new array. This leaves
+the original unchanged, just as we wanted. You can do exactly the same
+thing with mappings. It doesn't matter if you add the empty array or
+mapping first or last, just as long as you do it.
+</P><P>
+
+<A NAME="LPC/Mudlib interface"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_69.html#SEC69"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_51.html#SEC51"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

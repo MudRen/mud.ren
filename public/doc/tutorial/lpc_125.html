@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Abusing defines</TITLE>
+
+<META NAME="description" CONTENT="LPC: Abusing defines">
+<META NAME="keywords" CONTENT="LPC: Abusing defines">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC125"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_124.html#SEC124"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_126.html#SEC126"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_122.html#SEC122"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_123.html#SEC123"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_126.html#SEC126"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 3.4.2 Abusing defines </H3>
+<!--docid::SEC125::-->
+<P>
+
+A common mistake is to put <STRONG>HUGE</STRONG> arrays and mappings in a define.
+It's very tempting really, assume for example that you have a mapping
+that contains the definitions of guild ranks, descriptions, various
+skill limits, benefit adjustors etc in one big mapping with the rank
+as index. Very often you'd then need to index that mapping to look up
+things. Probably it'll be done dozens of times in the central guild
+object. You'd have something like this:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>// Top of file
+
+#define GUILD_MAP ([ "new": ({ "beginner", "Utter newbie", 3, 2343, ... }), \
+                     "older": ({ ....                                        \
+                     ... /* Perhaps another 10-20 lines or more */        \
+                   ])
+
+// code, example of use
+        write("Your rank is: " + GUILD_MAP[rank][1] + "\n");
+// more code...
+</pre></td></tr></table></P><P>
+
+However... just pause for a second and consider what the <CODE>#define</CODE>
+statement really does... well, it <EM>substitutes</EM> whatever you had
+as a pattern for the <CODE>#define</CODE> body. So, in every instance where
+you had written <CODE>GUILD_MAP</CODE> the entire mapping would be copied in.
+And every time it was put in, the gamedriver would have to interpret,
+store and index the mapping again. It doesn't take a genius level of
+intelligence to realize that this is a horrible waste of both memory
+and time.
+</P><P>
+
+So... instead of doing it this way you store the mapping in a global
+variable. Then you use that variable as you use the define. I.e.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>// Top of file
+
+mapping GuildMap;
+
+create_object()
+{
+    // code
+
+    GuildMap =  ([ "new": ({ "beginner", "Utter newbie", 3, 2343, ... }), \
+                   "older": ({ ....                                        \
+                   ... /* Perhaps another 10-20 lines or more */        \
+                 ]);
+}
+
+// code, example of use
+        write("Your rank is: " + GuildMap[rank][1] + "\n");
+// more code...
+</pre></td></tr></table></P><P>
+
+<A NAME="Traps and pitfalls"></A>
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

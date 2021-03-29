@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Alarm loops</TITLE>
+
+<META NAME="description" CONTENT="LPC: Alarm loops">
+<META NAME="keywords" CONTENT="LPC: Alarm loops">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC128"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_127.html#SEC127"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_129.html#SEC129"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_123.html#SEC123"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_126.html#SEC126"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_129.html#SEC129"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H2> 3.7 Alarm loops </H2>
+<!--docid::SEC128::-->
+<P>
+
+Look at this function:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>public void
+my_alarm_func(int generation)
+{
+    set_alarm(1.0, 1.0, my_alarm_func(generation + 1));
+    tell_object(find_player("&#60;your name&#62;"), "Yohooo! " + generation + "\n");
+}
+</pre></td></tr></table></P><P>
+
+What's happening here? Well, every second an alarm is generated, calling
+itself in one second. What does this mean? Let's look at the development
+of alarm calls after the first call:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>1 second:
+    Yohoo! 0 (original call)
+2 seconds:
+    Yohoo! 1 (repeat of 1 sec 0)
+    Yohoo! 1 (new from 1 sec 0)
+3 seconds:
+    Yohoo! 1 (repeat of 1 sec 0)
+    Yohoo! 2 (repeat of 2 sec 1)
+    Yohoo! 2 (repeat of 2 sec 1)
+    Yohoo! 2 (new from 2 sec 1)
+    Yohoo! 2 (new from 2 sec 1)
+4 seconds:
+    Yohoo! 1 (repeat of 1 sec 0)
+    Yohoo! 2 (new from 3 sec 1)
+    Yohoo! 2 (repeat of 2 sec 1)
+    Yohoo! 2 (repeat of 2 sec 1)
+    Yohoo! 3 (repeat of 3 sec 2)
+    Yohoo! 3 (repeat of 3 sec 2)
+    Yohoo! 3 (repeat of 3 sec 2)
+    Yohoo! 3 (repeat of 3 sec 2)
+    Yohoo! 3 (new from 3 sec 2)
+    Yohoo! 3 (new from 3 sec 2)
+    Yohoo! 3 (new from 3 sec 2)
+    Yohoo! 3 (new from 3 sec 2)
+
+   ... etc.
+</pre></td></tr></table></P><P>
+
+As you can see we have exponential growth here... VERY funny... the game
+will grind to a halt practically at once! This, if you didn't know it,
+is so stupid as to be a demoting offense. Is this easy to do by mistake?
+Well... I've seen it a few times. Often enough to warrant this warning
+anyway. Oh, try this on Genesis and you're dead meat! Consider yourself
+warned!
+</P><P>
+
+<A NAME="Internal documentation"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_127.html#SEC127"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_129.html#SEC129"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_123.html#SEC123"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_126.html#SEC126"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_129.html#SEC129"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

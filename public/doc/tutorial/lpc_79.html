@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Finding relative refs</TITLE>
+
+<META NAME="description" CONTENT="LPC: Finding relative refs">
+<META NAME="keywords" CONTENT="LPC: Finding relative refs">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC79"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_78.html#SEC78"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_80.html#SEC80"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_72.html#SEC72"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_76.html#SEC76"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_82.html#SEC82"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H4> 2.3.2.3 Finding references relative to another object </H4>
+<!--docid::SEC79::-->
+<P>
+
+<A NAME="IDX52"></A>
+As stated object references either are strings or object pointers. Turning
+an object reference to a string is done with the efun <CODE>file_name()</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>string file_name(object ob)
+e.g.
+    write("This object is: " + file_name(this_object()) + "\n");
+</pre></td></tr></table></P><P>
+
+The string that pops out of <CODE>file_name</CODE> is the string
+representation of the object reference pointer. It's given as
+<CODE>&#60;file path&#62;#&#60;object number&#62;</CODE>, for example
+<CODE>"/w/Wizard/magic_potion#2321"</CODE>. This string is a valid object
+reference to that specific object as well.
+</P><P>
+
+<A NAME="IDX53"></A>
+To turn a string object reference into an object pointer reference you
+use the efun <CODE>find_object()</CODE>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>object find_object(string obref)
+e.g.
+    object the_ob;
+
+    // The master object
+    the_ob = find_object("/w/Wizard/magic_potion");
+
+    // The specific clone
+    the_ob = find_object("/w/Wizard/magic_potion#2321");
+</pre></td></tr></table></P><P>
+
+If the function doesn't find the object (the path might be wrong, the
+specified clone might not exist or the object might not be loaded), it
+returns 0.
+</P><P>
+
+<A NAME="IDX54"></A>
+Sometimes it's useful to find all the clones of a specific object. The
+efun for that is <CODE>object_clones()</CODE>. It will return an array holding
+all clones of the master object the object reference indicates. This means
+that you can give either a master object or an object clone pointer as
+argument. However, be a bit careful here. If the object was updated and
+your provide the master object as argument, you will get a list of all
+the 'new' clones. If you give an old object as argument you will get a
+list of all contemporary objects, the objects of that 'generation'. If
+no clones can be found, an empty array is returned.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>object *object_clones(object obref)
+e.g.
+    object *ob_list;
+
+    ob_list = object_clones(find_object("/w/Wizard/magic_potion"));
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX55"></A>
+Some objects are <EM>living</EM>. In the game this denotes the fact that the
+objects can be attacked and (perhaps) killed and that they want to receive
+command updates from objects that turn up either in the environment or the
+inventory of the object itself. Living objects have the option of registering
+themselves in a special list in the gamedriver. This is done in order to
+make them easier to find. The special efun <CODE>find_living()</CODE> looks for a
+named living object in the internal list of names.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>object *find_living(string name, void|int 1)
+e.g.
+    object balrog_ob, *bals;
+
+    // Search for the 'balrog' monster in the game.
+    balrog_ob = find_living("balrog");
+</pre></td></tr></table></P><P>
+
+If you give '1' as second argument, the efun will return a list of all
+objects with that name found instead.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>bals = find_living("balrog", 1);
+</pre></td></tr></table></P><P>
+
+If no living object with the given name can be found, 0 is returned.
+</P><P>
+
+<A NAME="IDX56"></A>
+In order for the name to become part of the list of names, the object itself
+must add the name to the central list with the efun <CODE>set_living_name()</CODE>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>void set_living_name(string name)
+e.g.
+    // This is part of the 'create()' function of the balrog above.
+    set_living_name("balrog");
+</pre></td></tr></table></P><P>
+
+Remember that if you have several objects with the same name,
+<CODE>find_living()</CODE> in the single object mode will randomly return one
+of them.
+</P><P>
+
+For your own sake you ought to reserve the use of npc names with the
+special 'banish' command in the game, so that no players turn up with
+the same name as you npc. If that happens things are very likely to
+get confused...
+</P><P>
+
+<A NAME="IDX57"></A>
+In order to get the master object reference of an object you have a
+pointer to, you can convert it to a string, then strip off the object
+specifying bits. However, there's already a macro doing that in the
+standard package `<TT>/sys/macros.h</TT>'. Simply add the line
+<CODE>#include &#60;macros.h&#62;</CODE> to the top of your file and use the macro
+<CODE>MASTER_OB</CODE>.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>string MASTER_OB(object ob)
+e.g.
+    string master;
+
+    // Assume that /sys/macros.h is included in this file.
+    master = MASTER_OB(find_living("balrog"));
+</pre></td></tr></table></P><P>
+
+As stated, this returns the string reference to the master object, if you
+particularly need the object reference just get it with <CODE>find_object()</CODE>
+given the just established object path as argument.
+</P><P>
+
+<A NAME="IDX58"></A>
+A clone is easiest distinguished from the master object by comparing the
+object reference strings. The macro <CODE>IS_CLONE</CODE> does that for you,
+also available in `<TT>/sys/macros.h</TT>'. The macro works on
+<CODE>this_object()</CODE> and takes no argument
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int IS_CLONE
+e.g.
+    if (IS_CLONE)
+        write("I am a clone!\n");
+</pre></td></tr></table></P><P>
+
+<A NAME="Interactive object refs"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_78.html#SEC78"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_80.html#SEC80"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_72.html#SEC72"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_76.html#SEC76"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_82.html#SEC82"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

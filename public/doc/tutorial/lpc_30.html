@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Boolean operators</TITLE>
+
+<META NAME="description" CONTENT="LPC: Boolean operators">
+<META NAME="keywords" CONTENT="LPC: Boolean operators">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC30"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_29.html#SEC29"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_31.html#SEC31"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_26.html#SEC26"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_27.html#SEC27"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_33.html#SEC33"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H4> 1.2.7.3 Boolean operators </H4>
+<!--docid::SEC30::-->
+<P>
+
+Boolean (binary) operators are applicable only to integers with the
+exception of the <CODE>&#38;</CODE> operator which also works on
+arrays. Internally an integer is 32 bits long. However, in the following
+examples I will only show the ten last bits as the others are 0 and can
+be ignored with the one exception of the <CODE>~</CODE>-operator.
+</P><P>
+
+<OL>
+
+<LI>E1 &#38; E2
+<A NAME="IDX19"></A>
+E1 and E2.
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>1011101001   (= 745)
+1000100010 &#38; (= 546)
+------------
+1000100000   (= 544) =&#62; 745 &#38; 546 = 544
+</pre></td></tr></table></P><P>
+
+Used on two arrays, this function will return a new array that holds all
+elements that are members of both of the argument arrays.
+		
+<LI>E1 | E2
+<A NAME="IDX20"></A>
+E1 or E2.
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>1011101001   (= 745)
+1000100010 | (= 546)
+------------
+1011101011   (= 747) =&#62; 745 | 546 = 747
+</pre></td></tr></table></P><P>
+
+<LI>E1 ^ E2
+<A NAME="IDX21"></A>
+E1 xor (exclusive or) E2.
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>1011101001   (= 745)
+1000100010 ^ (= 546)
+------------
+0011001011   (= 203) =&#62; 745 ^ 546 = 203
+</pre></td></tr></table></P><P>
+
+<LI>~E
+<A NAME="IDX22"></A>
+1-complement of E (invert E).
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>00000000000000000000001011101001 ~ (= 745)
+----------------------------------
+11111111111111111111110100010110   (= -746) =&#62; ~745 = -746
+</pre></td></tr></table></P><P>
+
+<STRONG>NB!</STRONG> The above example might be hard to understand unless you
+really know your binary arithmetic. However, trust me when I say that
+this is <EM>not</EM> a typo, it's the way it should look. Read a book
+on boolean algebra (the section on two-complement binary arithmetic)
+and all will be clear.
+</P><P>
+
+<LI>E1 &#60;&#60; E2
+<A NAME="IDX23"></A>
+E1 is shifted left E2 steps.
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>5 &#60;&#60; 4 =&#62; 101(b) &#60;&#60; 4 = 1010000(b) = 80
+</pre></td></tr></table></P><P>
+
+<LI>E1 &#62;&#62; E2
+<A NAME="IDX24"></A>
+E1 is shifted right E2 steps.
+<P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>1054 &#62;&#62; 5 =&#62; 10000011110(b) &#62;&#62; 5 = 100000(b) = 32
+</pre></td></tr></table></P><P>
+
+</OL>
+<P>
+
+<A NAME="Conditional operators"></A>
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

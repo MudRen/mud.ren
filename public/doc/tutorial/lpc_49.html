@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: #if etc</TITLE>
+
+<META NAME="description" CONTENT="LPC: #if etc">
+<META NAME="keywords" CONTENT="LPC: #if etc">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC49"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_48.html#SEC48"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_50.html#SEC50"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_16.html#SEC16"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_46.html#SEC46"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_50.html#SEC50"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 1.3.3 The #if, #ifdef, #ifndef, #else and #elseif statements </H3>
+<!--docid::SEC49::-->
+<P>
+
+These are all preprocessor directives aimed at selecting certain parts of
+code and removing other depending on the state of a preprocessor variable.
+</P><P>
+
+The <CODE>#if</CODE> statement looks very much like a normal if statement,
+just written a bit differently.
+</P><P>
+
+Assume you <EM>may</EM> have the following define somewhere:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#define CODE_VAR  2
+
+or
+	
+#define CODE_VAR  3
+</pre></td></tr></table></P><P>
+
+Then you can write
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#if CODE_VAR == 2
+    &#60;code that will be kept only if CODE_VAR == 2&#62;
+#else
+    &#60;code that will be kept only if CODE_VAR != 2&#62;
+#endif
+</pre></td></tr></table></P><P>
+
+You don't have to have the <CODE>#else</CODE> statement there at all if you
+don't want to.
+</P><P>
+
+It's sufficient to have the following statement to 'define' a preprocessor
+pattern as existing:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#define CODE_VAR    /* This defines the existence of CODE_VAR */
+</pre></td></tr></table></P><P>
+
+Then you can write like this:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#ifdef CODE_VAR
+    &#60;code that will be kept only if CODE_VAR is defined&#62;
+#else
+    &#60;code that will be kept only if CODE_VAR isn't defined&#62;
+#endif
+</pre></td></tr></table></P><P>
+
+or
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#ifndef CODE_VAR
+    &#60;code that will be kept only if CODE_VAR isn't defined&#62;
+#else
+    &#60;code that will be kept only if CODE_VAR is defined&#62;
+#endif
+</pre></td></tr></table></P><P>
+
+Again, the <CODE>#else</CODE> part is optional.
+</P><P>
+
+The <CODE>#if/#ifdef/#ifndef</CODE> preprocessor commands are almost only used
+to add debug code that you don't want to have activated all of the time,
+or code that will work differently depending on other very rarely
+changing parameters. Since the conditions have to be hard-coded in the
+file and can't change during the course of the use of the object this is
+something you very rarely do.
+</P><P>
+
+<A NAME="Essential LPC"></A>
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

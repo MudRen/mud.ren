@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Complex function applications</TITLE>
+
+<META NAME="description" CONTENT="LPC: Complex function applications">
+<META NAME="keywords" CONTENT="LPC: Complex function applications">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC120"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_119.html#SEC119"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_121.html#SEC121"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_116.html#SEC116"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_117.html#SEC117"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_121.html#SEC121"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 3.1.3 Complex function applications </H3>
+<!--docid::SEC120::-->
+<P>
+
+With the previous chapters in memory, the interesting question becomes
+'What can you put into one of these function calls?'. The answer is
+'Practically anything!', it's just a matter of knowing how to write
+the code in the right way (as usual).
+</P><P>
+
+<A NAME="IDX173"></A>
+<A NAME="IDX174"></A>
+The tricky bit usually is operators. For most of them you use the
+special keyword <EM>operator</EM> to encapsulate the actual operator.
+The operators that can be encapsulated are 
+<EM>+, -, *, /, %, &#38;, |, ^, &#62;&#62;, &#60;&#60;, &#60;, &#62;, &#60;=, &#62;=, ==, !=, []</EM>.
+For the <EM>[]</EM>-operator you then have to index it in order
+to make use of it, but more about that later.
+</P><P>
+
+Often enough you want to perform one operation and then send the result
+to another one. You do that with the <EM>@</EM>-keyword, but beware that
+execution is right-to-left on that line, and that you'll have to figure
+relational operators that way too!
+</P><P>
+
+This all sounds a bit difficult to understand, but let me give you
+an example to make everything clear:
+</P><P>
+
+Assume you have an array like this representing some player names:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>string *arr = ({ "Bocephus", "Thurol", "Elessar", "Budwise",
+                  "Akhan", "Logg" });
+</pre></td></tr></table></P><P>
+
+Now assume you want to filter out the names that are more than five
+characters long. Usually this involves running a loop over the
+contents of the array, examining each entry in turn to determine its
+invidual length, and finally building an array containing the result.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>string *
+func(string *arr)
+{
+    int i, sz;
+    string *result = ({});
+
+    for (i = 0, sz = len(arr); i &#60; sz; i++)
+    {
+        if (strlen(arr[i]) &#62; 5)
+            result += ({ arr[i] })
+    }
+
+    return result;
+}
+</pre></td></tr></table></P><P>
+
+Naturally, this could be sorted with the efun <CODE>filter</CODE>:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>
+int
+filterfunc(string item)
+{
+    return strlen(item);
+}
+
+string *
+func(string *arr)
+{
+    return filter(arr, filter_func);
+}
+</pre></td></tr></table></P><P>
+
+But that requires me to write a separate function for the filter. No,
+a much more pratical solution is one that goes into a single line, like
+this:
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>// ... in actual code defining arr
+
+result = filter(arr, &#38;operator(&#60;)(5) @ strlen);
+</pre></td></tr></table></P><P>
+
+<STRONG>NB!</STRONG> Pay special attention to the operator here, notice that
+since the parsing is done right-to-left, the operator used is <EM>&#60;</EM>
+as the expression becomes <CODE>5 &#60; strlen(name)</CODE>.
+</P><P>
+
+Now assume you want to complicate matters; you want to find out whom
+of the filtered people are mortals. Well, simple.. let's just add
+to the expression:
+</P><P>
+
+this:
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>// ... in actual code defining arr
+
+result = filter(filter(arr, &#38;operator(&#60;)(5) @ strlen), 
+                &#38;operator(==)(0) @ SECURITY-&#62;query_wiz_rank);
+</pre></td></tr></table></P><P>
+
+As you can see, I just expanded the entry with a <EM>filter</EM>-call to
+process the results of the first.
+</P><P>
+
+Ok, let's try something slightly more difficult. What will this line do
+when you put it on the screen?
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>exec return implode(sort_array(map(filter(users(), sizeof @ 
+                    &#38;filter(, &#38;call_other(, "id", "shield")) @ 
+                    deep_inventory)-&#62;query_real_name(), capitalize)), ", ");
+</pre></td></tr></table></P><P>
+
+Well now, that wasn't too difficult, now was it?
+</P><P>
+
+First, I loop through all users and look through their entire
+inventories. I filter out those users who are carrying a shield, and
+obtain their names. The resulting array I then sort, capitalize and
+paste together into a string with a <CODE>,</CODE> in between each name.
+Finally I return the resulting string.
+</P><P>
+
+In other words, I obtain a list of all users who are carrying a
+shield.
+</P><P>
+
+<STRONG>NB!</STRONG> Now it is time for a warning. As you can see from the
+previous example, I had no trouble at all generating a list of objects
+that probably reached into the thousands before starting to narrow
+things down. Let me check... Yes, in this case more than 1500 objects,
+all being called to see if they match the name "shield" and then other
+on top of that further operations applied to the resulting
+lists. Obviously it's very easy to generate massive calls which tax the
+computer quite a lot.
+</P><P>
+
+What this warning amounts to really is to think <EM>before</EM> you
+code, so that you won't bog down the computer with lots of calls that
+perhaps aren't strictly necessary.
+</P><P>
+
+<A NAME="Command parsing"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_119.html#SEC119"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_121.html#SEC121"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_116.html#SEC116"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_117.html#SEC117"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_121.html#SEC121"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

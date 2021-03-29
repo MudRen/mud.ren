@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: #define</TITLE>
+
+<META NAME="description" CONTENT="LPC: #define">
+<META NAME="keywords" CONTENT="LPC: #define">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC48"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_47.html#SEC47"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_49.html#SEC49"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_16.html#SEC16"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_46.html#SEC46"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_50.html#SEC50"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 1.3.2 The #define statement </H3>
+<!--docid::SEC48::-->
+<P>
+
+This is a very powerful <EM>macro</EM> or substitute preprocessor command
+that can be abused endlessly. You are wise if you use it with caution
+and only for simple tasks.
+</P><P>
+
+The syntax is as follows:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#define &#60;pattern&#62; &#60;substitute pattern&#62;
+#undef &#60;pattern&#62;
+</pre></td></tr></table></P><P>
+
+Any text in the file that matches <CODE>&#60;pattern&#62;</CODE> will be substituted for
+<CODE>&#60;substitute pattern&#62;</CODE> before compilation occurs. A <CODE>#define</CODE>
+is valid from the line it is found on until the end of the file or an
+<CODE>#undef</CODE> command that removes it.
+</P><P>
+
+Although defines can be written just as any kind of text, it is the custom
+(do this!) to use only capitals when writing them. This is so that they
+will be easily distinguishable for what they are since no one (not you
+either!) ever writes function or variable names with capitals.
+</P><P>
+
+Place all defines in the beginning of the file, or the poor chum who next
+tries to look at your code will have the devil's own time of locating
+them. If it's someone you asked for help (since your badly written code
+most likely won't work) he probably will tell you to stick the file
+someplace very unhygienic and come back later when you've learned to write
+properly.
+</P><P>
+
+Simple defines are for example paths, names and above all constants of any
+kind that you don't want to write over and over.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#define MAX_LOGIN  100          /* Max logged on players */
+#define LOGIN_OB   "/std/login" /* The login object      */
+#define GREET_TEXT "Welcome!"   /* The login message     */
+</pre></td></tr></table></P><P>
+
+Wherever the pattern strings above occur, they will be replaced by whatever
+is followed by the pattern until the end of the line. That includes the
+comments above, but they are removed anyway later.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>tell_object(player, GREET_TEXT + "\n");
+</pre></td></tr></table></P><P>
+
+A comment on the <CODE>//</CODE> form is <EM>not</EM> a good thing since it doesn't
+end until the end of the line.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#define GREET_TEXT    "Welcome!"    // The login message
+</pre></td></tr></table></P><P>
+
+...will be translated into the previous example as:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>tell_object(player,    "Welcome!"    // The login message + "\n");
+</pre></td></tr></table></P><P>
+
+...which will have the effect of commenting away everything after the
+<CODE>//</CODE>, all the way until the end of the line.
+</P><P>
+
+If a macro extends beyond the end of the line you can terminate the
+lines with a <CODE>\</CODE> which signifies that it continues on the next
+line. However, you <EM>must</EM> break the string right after the <CODE>\</CODE>,
+there must <STRONG>NOT</STRONG> be any spaces or other characters there, just
+the line break.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>#define LONG_DEFINE  "beginning of string \
+                      and end of the same"	
+</pre></td></tr></table></P><P>
+
+Function-like defines are fairly common and often abused. The only really
+important rule is that any argument to the macro <EM>must</EM> be written
+so that they are used enclosed in parenthesis. If you don't do that you
+can end up with some very strange results.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>1: #define MUL_IT(a, b) a * b        /* Wrong */
+2: #define MUL_IT(a, b) (a * b)      /* Not enough */
+3: #define MUL_IT(a, b) ((a) * (b))  /* Correct */
+</pre></td></tr></table></P><P>
+
+What's the big difference you may ask? Well, look at this example:
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>result = MUL_IT(2 + 3, 4 * 5) / 5;
+
+   Expanded this becomes:
+
+1: result = 2 + 3 * 4 * 5 / 5;       // = 14, Wrong
+2: result = (2 + 3 * 4 * 5) / 5      // = 12, Just as wrong
+3: result = ((2 + 3) * (4 * 5)) / 5  // = 20, Correct!
+</pre></td></tr></table></P><P>
+
+Abuse of defines usually involves badly formulated macros, complicated
+macros used inside other macros (making the code almost impossible to
+understand) or humungous arrays or mappings in defines that are used
+often. The basic rule is to keep macros short and fairly simple. Do that
+and you'll never have any problems.
+</P><P>
+
+<A NAME="#if etc"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_47.html#SEC47"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_49.html#SEC49"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_16.html#SEC16"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_46.html#SEC46"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_50.html#SEC50"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

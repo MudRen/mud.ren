@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on July, 8  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>LPC: Alarms</TITLE>
+
+<META NAME="description" CONTENT="LPC: Alarms">
+<META NAME="keywords" CONTENT="LPC: Alarms">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC83"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_82.html#SEC82"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_84.html#SEC84"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<HR SIZE=1>
+<H3> 2.3.4 Alarms: Asynchronous function execution </H3>
+<!--docid::SEC83::-->
+<P>
+
+<A NAME="IDX75"></A>
+Sometimes it's desirable to postpone execution of code a while and
+sometimes you want things to happen regularly. The gamedriver counts
+something called <EM>evaluation cost</EM>, or <EM>eval cost</EM>. It's simply
+a way of measuring the amount of CPU cost an object uses. Any given
+object is only allowed a certain amount of eval cost per execution
+chain. When that amount is used up, the object aborts. How the eval cost
+is computed isn't very important, it's set so that the game shouldn't be
+held up too long. However, the existence of eval cost makes a bit of
+special programming necessary. When you have very heavy computations you
+need to do, they simply won't fit within the maximum allowed eval cost,
+so you need to cut the job up in chunks and do it bit by bit.
+</P><P>
+
+<A NAME="IDX76"></A>
+All of this adds up to a need for a function that allows you to do
+things regularly, or with delays. The alarm functionality will do this
+for you. The efun <CODE>set_alarm()</CODE> will allow you to create a delayed
+alarm, possibly repeating, that will call a given function as you
+decide.
+</P><P>
+
+<TABLE><tr><td>&nbsp;</td><td class=example><pre>int set_alarm(float delay, float repeat, function alarm_func)
+remove_alarm(int alarm_id)
+mixed get_alarm(int alarm_id)
+mixed get_all_alarms()
+</pre></td></tr></table></P><P>
+
+<A NAME="IDX77"></A>
+<A NAME="IDX78"></A>
+<A NAME="IDX79"></A>
+The function returns a unique alarm number for that alarm and that
+object that you can use later to manipulate the specific alarm. You can
+retrieve info for the alarm with the efun <CODE>get_alarm()</CODE>, remove it
+with <CODE>remove_alarm()</CODE> or even get info about all alarms in an
+object with the efun <CODE>get_all_alarms()</CODE>. The latter function is
+mostly used when you either haven't bothered to save the alarm ids, or
+when you want to display info about the object. The efun
+<CODE>set_alarm()</CODE> allows you both to define a delay until the function
+is called the first time, and a delay between repetitive calls. Every
+alarm call will start with an eval cost at 0. 
+</P><P>
+
+<STRONG>NB!</STRONG> A word of caution here... Since the function gets called
+asynchronously in respect to a user of the object, both
+<CODE>this_player()</CODE> and <CODE>this_interactive()</CODE> might return
+undefined values. Sometimes 0, sometimes the object you expect,
+sometimes another value. So, don't rely on what they return, instead
+stick the object you want to use in a variable <EM>before</EM> starting
+the sequence and use that. Remember this since some efuns rely on a
+defined <CODE>this_player()</CODE> value. A lot of tricky bugs has been
+traced back to this particular problem in the past, so beware!
+</P><P>
+
+<STRONG>IMPORTANT! READ THIS CAREFULLY!</STRONG>
+</P><P>
+
+It's very easy to fall to the temptation to split a heavy job into
+several alarm calls with fast repetition rates. However, this is
+<STRONG>NOT</STRONG> the intended use for this efun. A deadly sin is to have an
+alarm function that generates repeating alarms within a repeating
+alarm. The amount of alarms will then grow exponentially and the
+<STRONG>ENTIRE GAME</STRONG> will stop almost immediately. This is so incredibly
+stupid as to be a demoting offense, so make sure you do things
+<STRONG>RIGHT</STRONG> the first time. In general, delays between repeating
+alarms should be greater than one second, preferably two, as well as
+delays to single alarms.
+</P><P>
+
+The alarm functions will be demonstrated more extensively in chapter three.
+</P><P>
+
+<A NAME="Inventory/Environment"></A>
+<HR SIZE=1>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_82.html#SEC82"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_84.html#SEC84"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_52.html#SEC52"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_71.html#SEC71"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_96.html#SEC96"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_130.html#SEC130">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="lpc_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Ronny Wikh</I> on <I>July, 8  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>
