@@ -18,7 +18,7 @@ class Node extends Model
         parent::__construct($attributes);
 
         $this->setParentColumn('node_id');
-        $this->setOrderColumn('settings');
+        $this->setOrderColumn('order');
         // $this->setTitleColumn('title');
     }
 }
