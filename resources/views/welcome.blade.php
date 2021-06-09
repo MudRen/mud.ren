@@ -67,6 +67,15 @@
                 margin-top: 30vh;
             }
         </style>
+        <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?5b97c97363890ad3134047bd30955ec5";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
@@ -104,10 +113,13 @@
                             <a href="#" id="menuLink1" class="pure-menu-link">游戏</a>
                             <ul class="pure-menu-children">
                                 <li class="pure-menu-item">
-                                    <a href="http://mud.ren:8888" class="pure-menu-link">炎黄群侠传</a>
+                                    <a href="https://mud.ren:8888" class="pure-menu-link">炎黄群侠传</a>
                                 </li>
+                                <!--li class="pure-menu-item">
+                                    <a href="https://mud.ren:8080" class="pure-menu-link">勇者斗恶龙</a>
+                                </li-->
                                 <li class="pure-menu-item">
-                                    <a href="http://mud.ren:8080" class="pure-menu-link">勇者斗恶龙</a>
+                                    <a href="https://mud.ren:8008" class="pure-menu-link">诡秘之主</a>
                                 </li>
                             </ul>
                         </li>

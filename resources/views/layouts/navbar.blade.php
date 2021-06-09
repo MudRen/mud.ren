@@ -21,8 +21,9 @@
           游戏
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="http://mud.ren:8888" target="_blank">炎黄群侠传</a>
-          <a class="dropdown-item" href="http://mud.ren:8080" target="_blank">勇者斗恶龙</a>
+          <a class="dropdown-item" href="https://mud.ren:8888" target="_blank">炎黄群侠传</a>
+          <a class="dropdown-item" href="https://mud.ren:8080" target="_blank">勇者斗恶龙</a>
+          <a class="dropdown-item" href="https://mud.ren:8008" target="_blank">诡秘之主</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="https://im-mortal.cn/mudlist" target="_blank">更多……</a>
         </div>
