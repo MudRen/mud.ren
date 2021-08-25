@@ -8,14 +8,21 @@
     <meta name="keywords" content="websocket,WebSocket测试,Mud WebSocket,WebSocket在线测试,WebSocket测试工具,Websocket接口测试">
     <meta name="description"
         content="WebSocket在线测试工具，本工具主要是针对FluffOS v2019驱动的MUD游戏的WebSocket测试，也支持常规WebSocket测试，如果测试wss请使用https协议访问本站。">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@4.13.0/css/xterm.css">
+    <script src="https://cdn.jsdelivr.net/npm/xterm@4.13.0/lib/xterm.min.js"></script>
     <script type="text/javascript">
         var ws = null;
         document.addEventListener("DOMContentLoaded", () => {
+            // 玩家输入指令
             const cmd = document.getElementById("cmd");
+            // 连接游戏按钮
             const bmc = document.getElementById("bmc");
+            // 指令发送按钮
             const bsc = document.getElementById("bsc");
+            // 状态提示日志
             const log = document.getElementById("log");
+            // 回车发送指令
             cmd.addEventListener("keydown", (e) => {
                 if (e.key === "Enter") {
                     sendCmd();
@@ -25,6 +32,12 @@
 
         function mudConnect() {
             if ("WebSocket" in window) {
+                let term = new Terminal({
+                    convertEol: true,
+                    disableStdin: true
+                });
+                term.open(document.getElementById('terminal'));
+
                 let url = document.getElementById("url").value;
                 // 打开一个 web socket
                 ws = new WebSocket(url, "ascii");
@@ -40,11 +53,13 @@
                 ws.onmessage = (event) => {
                     let data = event.data;
                     let textarea = document.getElementById("mud");
-                    if (typeof data === "string") {
-                        textarea.innerHTML += data;
-                    } else if (data instanceof ArrayBuffer) {
+
+                    if (data instanceof ArrayBuffer) {
                         // console.log(data);
                         let u8array = new Uint8Array(data);
+
+                        term.write(u8array);
+
                         let decoder = new TextDecoder('utf-8');
                         let msg = decoder.decode(u8array);
                         textarea.innerHTML += msg;
@@ -55,7 +70,10 @@
                         reader.onload = (_e) => {
                             textarea.innerHTML += reader.result;
                         }
+                    } else if (typeof data === "string") {
+                        textarea.innerHTML += data;
                     }
+
                     textarea.scrollTop = textarea.scrollHeight;
                 };
                 ws.onclose = (_event) => {
@@ -84,6 +102,7 @@
                 log.value = "服务器未连接！";
             }
         }
+
     </script>
 </head>
 
@@ -92,7 +111,7 @@
         <div class="container">
             <h2 class="title has-text-centered">Mud WebSocket Test</h2>
             <div class="field has-addons">
-                <input type="text" class="input" name="url" id="url" value="ws://mud.ren:8888"
+                <input type="text" class="input" name="url" id="url" value="wss://mud.ren:8888"
                     placeholder="请输入 websocket 服务器地址，如：ws://mud.ren:8888">
                 <input type="text" class="input is-warning" name="log" id="log" placeholder="服务器未连接！"
                     readonly="readonly">
@@ -106,6 +125,7 @@
                 <input type="text" class="input" name="cmd" id="cmd" disabled="disabled" placeholder="请输入游戏指令">
                 <input type="submit" class="button is-success" onclick="sendCmd()" id="bsc" disabled="disabled">
             </div>
+            <div id="terminal"></div>
         </div>
     </section>
     <footer>
