@@ -118,9 +118,9 @@
                                 <!--li class="pure-menu-item">
                                     <a href="https://mud.ren:8080" class="pure-menu-link">勇者斗恶龙</a>
                                 </li-->
-                                <li class="pure-menu-item">
+                                <!-- <li class="pure-menu-item">
                                     <a href="https://mud.ren:8008" class="pure-menu-link">诡秘之主</a>
-                                </li>
+                                </li> -->
                             </ul>
                         </li>
                     </ul>

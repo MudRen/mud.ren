@@ -12,9 +12,9 @@
 <table class="table table-striped table-dark table-hover table-sm">
     <thead>
         <tr>
+            <th>排名</th>
+            <th>ID</th>
             <th>姓名</th>
-            <!-- <th>性别</th> -->
-            <!-- <th>性格</th> -->
             <th>年龄</th>
             <th>title</th>
             <th>师父</th>
@@ -23,8 +23,6 @@
             <th>内力</th>
             <th>精力</th>
             <th>经验</th>
-            <th>威望</th>
-            <th>正气</th>
             <th>杀敌</th>
             <th>死亡</th>
         </tr>
@@ -32,26 +30,20 @@
 
     <tbody>
 @foreach ($users as $user)
-    @php
-        $dbase = json_decode($user, true);
-    @endphp
-    @continue(!data_get($dbase, 'id'))
     <tr>
-        <td>{{ data_get($dbase, 'name') }}（{{ data_get($dbase, 'id') }}）</td>
-        <!-- <td>{{ data_get($dbase, 'gender') }}</td> -->
-        <!-- <td>{{ data_get($dbase, 'character') }}</td> -->
-        <td>{{ data_get($dbase, 'age') }}</td>
-        <td>{{ data_get($dbase, 'title') }}</td>
-        <td>{{ data_get($dbase, 'family.master_name') }}</td>
-        <td>{{ data_get($dbase, 'max_qi') }}</td>
-        <td>{{ data_get($dbase, 'max_jing') }}</td>
-        <td>{{ data_get($dbase, 'max_neili') }}</td>
-        <td>{{ data_get($dbase, 'max_jingli') }}</td>
-        <td>{{ data_get($dbase, 'combat_exp') }}</td>
-        <td>{{ data_get($dbase, 'weiwang') }}</td>
-        <td>{{ data_get($dbase, 'shen') }}</td>
-        <td>{{ data_get($dbase, 'combat.MKS') }}</td>
-        <td>{{ data_get($dbase, 'combat.dietimes') }}</td>
+        <td>{{$loop->iteration}}</td>
+        <td>{{$user->id}}</td>
+        <td>{{$user->name}}</td>
+        <td>{{$user->age}}</td>
+        <td>{{$user->title}}</td>
+        <td>{{$user->master}}</td>
+        <td>{{$user->qi}}</td>
+        <td>{{$user->jing}}</td>
+        <td>{{$user->neili}}</td>
+        <td>{{$user->jingli}}</td>
+        <td>{{$user->combat_exp}}</td>
+        <td>{{$user->kill}}</td>
+        <td>{{$user->die}}</td>
     </tr>
 @endforeach
     </tbody>
