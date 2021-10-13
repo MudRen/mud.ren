@@ -25,6 +25,7 @@
             <th>经验</th>
             <th>杀敌</th>
             <th>死亡</th>
+            <th>最近登录</th>
         </tr>
     </thead>
 
@@ -44,6 +45,7 @@
         <td>{{$user->combat_exp}}</td>
         <td>{{$user->kill}}</td>
         <td>{{$user->die}}</td>
+        <td>{{$user->updated_at->diffForHumans()}}</td>
     </tr>
 @endforeach
     </tbody>

@@ -15,4 +15,7 @@ class Mud extends Model
     public $incrementing = false;
     public $timestamps = false;
 
+    protected $casts = [
+        'updated_at' => 'datetime',
+    ];
 }
