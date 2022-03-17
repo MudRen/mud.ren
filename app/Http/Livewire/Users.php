@@ -4,21 +4,23 @@ namespace App\Http\Livewire;
 
 use App\Mud;
 use Livewire\Component;
-use Illuminate\Support\Arr;
+use Livewire\WithPagination;
 
 class Users extends Component
 {
-    public $message = "炎黄英雄榜";
-    public $users;
+    use WithPagination;
 
-    public function mount()
-    {
-        // $this->users = Arr::pluck(array_values(cache('users')), 'dbase');
-        $this->users = Mud::orderBy('combat_exp', 'desc')->get();
-    }
+    public $search;
+    protected $queryString = ['search' => ['except' => '']];
+    protected $paginationTheme = 'bootstrap';
 
     public function render()
     {
-        return view('livewire.users');
+        return view('livewire.users', [
+            'users' => Mud::where('id', 'like', $this->search . '%')
+                ->orWhere('name', 'like', '%' . $this->search . '%')
+                ->orWhere('title', 'like', '%' . $this->search . '%')
+                ->orderBy('combat_exp', 'desc')->paginate(100),
+        ]);
     }
 }

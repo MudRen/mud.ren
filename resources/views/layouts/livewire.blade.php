@@ -30,15 +30,12 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 <script>
-    var _mtac = {};
+    var _hmt = _hmt || [];
     (function() {
-        var mta = document.createElement("script");
-        mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.4";
-        mta.setAttribute("name", "MTAH5");
-        mta.setAttribute("sid", "500724040");
-
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?5b97c97363890ad3134047bd30955ec5";
         var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(mta, s);
+        s.parentNode.insertBefore(hm, s);
     })();
 </script>
 </body>
