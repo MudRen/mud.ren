@@ -11,13 +11,13 @@ class Threads extends Component
     use WithPagination;
 
     public $search;
-    protected $queryString = ['search'];
+    protected $queryString = ['search' => ['except' => '']];
     protected $paginationTheme = 'bootstrap';
 
     public function render()
     {
-        return view('livewire.threads',[
-            'threads' => Thread::where('title', 'like', '%'.$this->search.'%')->orderBy('id', 'desc')->with(['author', 'node'])->paginate(20),
+        return view('livewire.threads', [
+            'threads' => Thread::where('title', 'like', '%' . $this->search . '%')->orderBy('id', 'desc')->with(['author', 'node'])->paginate(20),
         ]);
     }
 }
