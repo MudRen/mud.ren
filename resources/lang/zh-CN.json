@@ -1,0 +1,14 @@
+{
+    "Name" : "名称",
+    "Type" : "类型",
+    "Category" : "分类",
+    "Created at" : "创建时间",
+    "Updated at" : "更新时间",
+    "Order" : "排序",
+    "Title" : "标题名称",
+    "Question" : "问题",
+    "Difficulty" : "难度",
+    "Score" : "分值",
+    "Answer" : "答案",
+    "Analysis" : "解析"
+}
