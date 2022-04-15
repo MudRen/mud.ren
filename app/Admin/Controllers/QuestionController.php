@@ -29,24 +29,32 @@ class QuestionController extends AdminController
         $grid = new Grid(new Question());
 
         $grid->column('id', __('Id'));
-        $grid->column('type_id', __('Type'))->display(function(){
+        $grid->column('type_id', __('Type'))->display(function () {
             return $this->type->name;
         });
-        $grid->column('category_id', __('Category'))->display(function(){
+        $grid->column('category_id', __('Category'))->display(function () {
             return $this->category->title;
-        });
+        })->sortable();
         $grid->column('question', __('Question'));
         $grid->column('difficulty', __('Difficulty'))->using(['简单', '普通', '困难'], '？');
         $grid->column('score', __('Score'));
         $grid->column('meta', __('Meta'))->label();
-        $grid->column('answer', __('Answer'))->display(function($value){
-            return array_map(function($n){
-                return ['A', 'B', 'C', 'D', 'E', 'F', 'G'][$n];
+        $grid->column('answer', __('Answer'))->display(function ($value) {
+            // 非选择题直接返回结果
+            if ($this->type->id > 3) {
+                return $value;
+            }
+            return array_map(function ($n) {
+                // return ['A', 'B', 'C', 'D', 'E', 'F', 'G'][$n];
+                return chr($n + 65);
             }, $value);
         })->label();
-        $grid->column('analysis', __('Analysis'));
-        $grid->column('created_at', __('Created at'));
-        $grid->column('updated_at', __('Updated at'));
+        $grid->column('analysis', __('Analysis'))->hide();
+        $grid->column('created_at', __('Created at'))->sortable();
+        // $grid->column('updated_at', __('Updated at'));
+
+        $grid->quickSearch('question', 'meta');
+        $grid->enableHotKeys();
 
         return $grid;
     }
