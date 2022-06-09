@@ -29,7 +29,7 @@ class ContentController extends AdminController
         $grid->column('id', __('Id'))->sortable();
         $grid->column('contentable_type', __('Contentable type'));
         $grid->column('contentable_id', __('Contentable id'));
-        $grid->column('body', __('Body'));
+        $grid->column('body', __('Body'))->hide();
         $grid->column('markdown', __('Markdown'));
         $grid->column('created_at', __('Created at'))->hide();
         $grid->column('updated_at', __('Updated at'))->hide();

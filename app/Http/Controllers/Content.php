@@ -15,6 +15,11 @@ class Content extends Controller
      */
     public function __invoke($id)
     {
-        return view('content', ['content' => Thread::findOrFail($id)]);
+        $thread = Thread::findOrFail($id);
+        // logger("thread",$thread->cache);
+        $thread->loadMissing('content');
+        $thread->update(['cache->views_count' => $thread->cache['views_count'] + 1]);
+
+        return view('content', ['thread' => $thread]);
     }
 }

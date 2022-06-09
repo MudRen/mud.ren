@@ -40,7 +40,7 @@ class UserController extends AdminController
         // $grid->column('settings', __('Settings'));
         $grid->column('level', __('Level'))->hide();
         $grid->column('is_admin', __('Is admin'))->hide();
-        $grid->column('cache', __('Cache'));
+        $grid->column('cache', __('Cache'))->hide();
         // $grid->column('last_active_at', __('Last active at'));
         $grid->column('banned_at', __('Banned at'))->hide();
         $grid->column('activated_at', __('Activated at'));

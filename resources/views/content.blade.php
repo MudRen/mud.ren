@@ -1,24 +1,29 @@
 @extends('layouts.app')
 
-@section('title', $content->title)
+@section('title', $thread->title)
 
 @section('content')
-<h2 class="text-center mt-3">{{$content->title}}</h2>
+<h2 class="text-center mt-3">{{$thread->title}}</h2>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{asset('threads')}}">首页</a></li>
-        <li class="breadcrumb-item"><a href="https://bbs.mud.ren/nodes/{{$content->node->id}}">{{$content->node->title}}</a></li>
+        <li class="breadcrumb-item"><a href="https://bbs.mud.ren/nodes/{{$thread->node->id}}">{{$thread->node->title}}</a></li>
         <li class="breadcrumb-item active" aria-current="page">内容</li>
     </ol>
 </nav>
 <div class="shadow-lg p-3 mb-3 bg-white rounded">
 <div class="alert alert-success d-flex justify-content-between" role="alert">
-<span>原文链接：<a href="https://bbs.mud.ren/threads/{{$content->id}}" class="alert-link">{{$content->title}}</a></span>
-<span>作者：<a href="https://bbs.mud.ren/{{$content->author->username}}/">{{$content->author->name}}</a></span>
-<span>发布时间：{{$content->published_at}}</span>
+<span>原文链接：<a href="https://bbs.mud.ren/threads/{{$thread->id}}" class="alert-link">{{$thread->title}}</a></span>
+<span>作者：<a href="https://bbs.mud.ren/{{$thread->author->username}}/">{{$thread->author->name}}</a></span>
+<span>发布时间：{{$thread->published_at}}</span>
 </div>
 <div class="content">
-{!! $content->content->body !!}
+{!! $thread->content->body !!}
+</div>
+<div class="alert alert-success d-flex justify-content-between" role="alert">
+<span>原文链接：<a href="https://bbs.mud.ren/threads/{{$thread->id}}" class="alert-link">{{$thread->title}}</a></span>
+<span>作者：<a href="https://bbs.mud.ren/{{$thread->author->username}}/">{{$thread->author->name}}</a></span>
+<span>发布时间：{{$thread->published_at}}</span>
 </div>
 </div>
 @endsection
