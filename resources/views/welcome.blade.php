@@ -100,7 +100,7 @@
 
                             <div class="ml-12">
                                 <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    MudRen社区开源和开发的游戏： <a href="https://mud.ren:8888" class="underline" target="_blank">炎黄群侠传</a>, <a href="https://mud.ren:8080" class="underline" target="_blank">勇者斗恶龙</a>, <a href="#" class="underline">诡秘之主</a>。
+                                    MudRen社区开源和开发的游戏： <a href="https://mud.ren:8888" class="underline" target="_blank">炎黄群侠传</a>, <a href="http://x.mud.ren" class="underline" target="_blank">灵境行者</a>, <a href="#" class="underline">诡秘之主</a>。
                                 </div>
                             </div>
                         </div>

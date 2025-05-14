@@ -7,7 +7,7 @@
         <table class="table table-striped table-dark table-hover table-sm">
             <thead>
                 <tr>
-                    <th></th>
+                    <th>排名</th>
                     <th>ID</th>
                     <th>姓名</th>
                     <th>年龄</th>
@@ -25,22 +25,22 @@
             </thead>
 
             <tbody>
-                @foreach ($users as $user)
+                @foreach ($users as $index => $user)
                 <tr>
-                    <td>{{$loop->iteration}}</td>
-                    <td>{{$user->id}}</td>
-                    <td>{{$user->name}}</td>
-                    <td>{{$user->age}}</td>
-                    <td>{{$user->title}}</td>
-                    <td>{{$user->master}}</td>
-                    <td>{{$user->qi}}</td>
-                    <td>{{$user->jing}}</td>
-                    <td>{{$user->neili}}</td>
-                    <td>{{$user->jingli}}</td>
-                    <td>{{$user->combat_exp}}</td>
-                    <td>{{$user->kill}}</td>
-                    <td>{{$user->die}}</td>
-                    <td>{{$user->updated_at->diffForHumans()}}</td>
+                    <td>{{ $this->getAccurateRank($index + 1, $users) }}</td>
+                    <td>{{ $user->id }}</td>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->age }}</td>
+                    <td>{{ $user->title }}</td>
+                    <td>{{ $user->master }}</td>
+                    <td>{{ $user->qi }}</td>
+                    <td>{{ $user->jing }}</td>
+                    <td>{{ $user->neili }}</td>
+                    <td>{{ $user->jingli }}</td>
+                    <td>{{ $user->combat_exp }}</td>
+                    <td>{{ $user->kill }}</td>
+                    <td>{{ $user->die }}</td>
+                    <td>{{ $user->updated_at->diffForHumans() }}</td>
                 </tr>
                 @endforeach
             </tbody>
