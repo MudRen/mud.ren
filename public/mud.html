@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUD游戏客户端 - mud.ren</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'Consolas', 'Monaco', 'Courier New', 'Fira Code', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 0, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 255, 0, 0.02) 0%, transparent 50%);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
+            padding: 15px;
+            border-bottom: 2px solid #0f0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 255, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #0f0;
+            font-size: 18px;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .status-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 15px;
+            background: linear-gradient(90deg, #111 0%, #0a0a0a 100%);
+            border-bottom: 1px solid #333;
+            font-size: 12px;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status.connected .status-indicator {
+            background-color: #0f0;
+            box-shadow: 0 0 8px #0f0;
+        }
+
+        .status.disconnected .status-indicator {
+            background-color: #f00;
+            box-shadow: 0 0 8px #f00;
+        }
+
+        .status.connecting .status-indicator {
+            background-color: #ff0;
+            box-shadow: 0 0 8px #ff0;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .terminal {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #000;
+            font-family: 'Consolas', 'Monaco', 'Courier New', 'Fira Code', monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 1.6;
+            background-image: 
+                linear-gradient(rgba(0, 255, 0, 0.03) 1px, transparent 1px);
+            background-size: 100% 20px;
+        }
+
+        .terminal::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .terminal::-webkit-scrollbar-track {
+            background: linear-gradient(180deg, #111 0%, #0a0a0a 100%);
+        }
+
+        .terminal::-webkit-scrollbar-thumb {
+            background: #008000;
+            border-radius: 4px;
+        }
+
+        .terminal::-webkit-scrollbar-thumb:hover {
+            background: #006400;
+        }
+
+        .input-container {
+            position: relative;
+            flex: 1;
+        }
+
+        .command-input {
+            width: 100%;
+            background-color: #0a0a0a;
+            color: #0f0;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 10px 40px 10px 12px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', 'Fira Code', monospace;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .command-input:focus {
+            border-color: #0f0;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+            background-color: #111;
+        }
+
+        .input-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background: linear-gradient(90deg, #111 0%, #0a0a0a 100%);
+            border-top: 1px solid #0f0;
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, #0f0 0%, #0a0 100%);
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: 'Consolas', 'Monaco', 'Courier New', 'Fira Code', monospace;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 255, 0, 0.3);
+        }
+
+        .send-btn:hover {
+            background: linear-gradient(135deg, #0a0 0%, #0f0 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 255, 0, 0.4);
+        }
+
+        .send-btn:disabled {
+            background: #333;
+            color: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .message {
+            margin-bottom: 4px;
+            padding: 2px 0;
+            transition: all 0.3s ease;
+        }
+
+        .message:hover {
+            background-color: rgba(0, 255, 0, 0.05);
+        }
+
+        .error {
+            color: #ff6b6b;
+            border-left: 2px solid #ff6b6b;
+            padding-left: 8px;
+        }
+
+        .system {
+            color: #ffd93d;
+            border-left: 2px solid #ffd93d;
+            padding-left: 8px;
+        }
+
+        .history-hint {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 10px;
+            color: #666;
+            pointer-events: none;
+        }
+
+        .typing-indicator {
+            color: #0f0;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 12px;
+            }
+            
+            .header h1 {
+                font-size: 16px;
+            }
+            
+            .terminal {
+                padding: 10px;
+            }
+            
+            .input-area {
+                padding: 10px;
+            }
+            
+            .command-input {
+                font-size: 12px;
+                padding: 8px 35px 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎮 MUD游戏客户端</h1>
+    </div>
+
+    <div class="status-container">
+        <div class="status connecting" id="status">
+            <div class="status-indicator"></div>
+            <span>正在连接炎黄MUD...</span>
+        </div>
+    </div>
+
+    <div class="terminal" id="terminal">欢迎使用MUD游戏Web客户端！正在连接到炎黄MUD……</div>
+
+    <div class="input-area">
+        <div class="input-container">
+            <input type="text" class="command-input" id="commandInput" placeholder="输入命令..." disabled>
+            <div class="history-hint" id="historyHint" style="display: none;">↑↓历史</div>
+        </div>
+        <button class="send-btn" id="sendBtn" disabled>发送</button>
+    </div>
+
+    <script>
+        class MUDClient {
+            constructor() {
+                this.ws = null;
+                this.connected = false;
+                this.terminal = document.getElementById('terminal');
+                this.commandInput = document.getElementById('commandInput');
+                this.sendBtn = document.getElementById('sendBtn');
+                this.status = document.getElementById('status');
+                this.history = [];
+                this.historyIndex = -1;
+                this.currentInput = '';
+
+                this.init();
+            }
+
+            init() {
+                this.retryCount = 0;
+                this.maxRetries = 3;
+                this.connect();
+                this.setupEventListeners();
+            }
+
+            connect() {
+                try {
+                    this.status.textContent = '正在连接...';
+                    this.status.className = 'status connecting';
+                    
+                    this.ws = new WebSocket('wss://mud.ren:8888', ['ascii', 'text']);
+
+                    this.ws.onopen = () => {
+                        this.connected = true;
+                        this.retryCount = 0;
+                        this.status.textContent = '已连接';
+                        this.status.className = 'status connected';
+                        this.commandInput.disabled = false;
+                        this.sendBtn.disabled = false;
+                        this.appendMessage('✅ 已连接到MUD服务器', 'system');
+                    };
+
+                    this.ws.onmessage = (event) => {
+                        this.handleMessage(event.data);
+                    };
+
+                    this.ws.onclose = () => {
+                        this.connected = false;
+                        this.status.textContent = '已断开';
+                        this.status.className = 'status disconnected';
+                        this.commandInput.disabled = true;
+                        this.sendBtn.disabled = true;
+                        this.appendMessage('🔌 连接已断开', 'error');
+                        
+                        // 自动重连
+                        if (this.retryCount < this.maxRetries) {
+                            this.retryCount++;
+                            setTimeout(() => {
+                                this.appendMessage(`🔄 正在重连...(${this.retryCount}/${this.maxRetries})`, 'system');
+                                this.connect();
+                            }, 2000 * this.retryCount);
+                        }
+                    };
+
+                    this.ws.onerror = (error) => {
+                        console.error('WebSocket error:', error);
+                        this.appendMessage('❌ 连接错误，请检查网络', 'error');
+                    };
+
+                } catch (error) {
+                    console.error('Connection failed:', error);
+                    this.appendMessage('❌ 创建连接失败: ' + error.message, 'error');
+                }
+            }
+
+            handleMessage(data) {
+                if (data instanceof Blob) {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        this.appendMessage(reader.result);
+                    };
+                    reader.readAsText(data, 'utf-8');
+                } else {
+                    this.appendMessage(data);
+                }
+            }
+
+            appendMessage(message, className = '') {
+                const div = document.createElement('div');
+                div.className = 'message ' + className;
+
+                // 解析ANSI颜色代码
+                const html = this.parseANSI(message);
+                div.innerHTML = html;
+
+                this.terminal.appendChild(div);
+                
+                // 限制终端消息数量，避免内存泄漏
+                const maxMessages = 1000;
+                if (this.terminal.children.length > maxMessages) {
+                    this.terminal.removeChild(this.terminal.firstChild);
+                }
+                
+                this.terminal.scrollTop = this.terminal.scrollHeight;
+            }
+
+            parseANSI(text) {
+                // 处理ANSI转义序列（颜色、光标控制等）
+                let result = text;
+                let openSpans = 0;
+
+                // 处理颜色相关的ANSI代码
+                result = result.replace(/\x1b\[([0-9;]*)m/g, (match, codes) => {
+                    const codeArray = codes.split(';').map(Number);
+                    let styles = [];
+
+                    for (const code of codeArray) {
+                        switch (code) {
+                            case 0: 
+                                // 重置 - 关闭所有span
+                                const closeTags = '</span>'.repeat(openSpans);
+                                openSpans = 0;
+                                return closeTags;
+                            case 1: styles.push('font-weight:bold'); break;
+                            case 30: styles.push('color:black'); break;
+                            case 31: styles.push('color:red'); break;
+                            case 32: styles.push('color:green'); break;
+                            case 33: styles.push('color:yellow'); break;
+                            case 34: styles.push('color:blue'); break;
+                            case 35: styles.push('color:magenta'); break;
+                            case 36: styles.push('color:cyan'); break;
+                            case 37: styles.push('color:white'); break;
+                            case 40: styles.push('background-color:black'); break;
+                            case 41: styles.push('background-color:darkred'); break;
+                            case 42: styles.push('background-color:darkgreen'); break;
+                            case 43: styles.push('background-color:darkyellow'); break;
+                            case 44: styles.push('background-color:darkblue'); break;
+                            case 45: styles.push('background-color:darkmagenta'); break;
+                            case 46: styles.push('background-color:darkcyan'); break;
+                            case 47: styles.push('background-color:lightgray'); break;
+                            case 90: styles.push('color:darkgray'); break;
+                            case 91: styles.push('color:lightcoral'); break;
+                            case 92: styles.push('color:lightgreen'); break;
+                            case 93: styles.push('color:gold'); break;
+                            case 94: styles.push('color:lightblue'); break;
+                            case 95: styles.push('color:violet'); break;
+                            case 96: styles.push('color:lightcyan'); break;
+                            case 97: styles.push('color:white'); break;
+                        }
+                    }
+
+                    if (styles.length > 0) {
+                        openSpans++;
+                        return `<span style="${styles.join(';')}">`;
+                    }
+                    return '';
+                });
+
+                // 清理所有光标控制序列
+                const cursorPatterns = [
+                    /\x1b\[\d*[A-D]/g,      // 光标移动
+                    /\x1b\[\d*;\d*[Hf]/g,  // 光标定位
+                    /\x1b\[\d*[JK]/g,       // 清除行
+                    /\x1b\[\?\d*[hl]/g,     // 模式设置
+                    /\x1b\[[\d;]*[sr]/g,    // 滚动区域
+                    /\x1b\[[\d;]*[m]/g      // 残留的颜色代码
+                ];
+                
+                cursorPatterns.forEach(pattern => {
+                    result = result.replace(pattern, '');
+                });
+
+                // 清理所有剩余的转义序列
+                result = result.replace(/\x1b\[[\d;]*[@-~]/g, '');
+                result = result.replace(/\x1b[@-~]/g, '');
+
+                // 关闭所有未关闭的span
+                if (openSpans > 0) {
+                    result += '</span>'.repeat(openSpans);
+                }
+
+                return result;
+            }
+
+            sendCommand(command) {
+                if (!this.connected) return;
+
+                // 允许空输入（用于分页等场景）
+                if (!command) {
+                    command = '\n';
+                } else if (!command.endsWith('\n')) {
+                    command += '\n';
+                }
+
+                this.ws.send(command);
+            }
+
+            setupEventListeners() {
+                this.commandInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        this.handleSendCommand();
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        this.navigateHistory(-1);
+                    } else if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        this.navigateHistory(1);
+                    } else if (this.historyIndex !== -1 && !['ArrowUp', 'ArrowDown'].includes(e.key)) {
+                        // 如果正在浏览历史，保存当前输入并开始新的输入
+                        this.currentInput = this.commandInput.value;
+                        this.historyIndex = -1;
+                    }
+                });
+
+                this.sendBtn.addEventListener('click', () => {
+                    this.handleSendCommand();
+                });
+
+                // 自动聚焦输入框
+                this.commandInput.focus();
+            }
+
+            handleSendCommand() {
+                const command = this.commandInput.value;
+                if (command.trim()) {
+                    this.addToHistory(command);
+                    this.sendCommand(command);
+                } else {
+                    this.sendCommand('\n');
+                }
+                this.commandInput.value = '';
+                this.historyIndex = -1;
+                this.currentInput = '';
+            }
+
+            addToHistory(command) {
+                // 避免重复添加相同的命令
+                if (command !== this.history[this.history.length - 1]) {
+                    this.history.push(command);
+                    // 限制历史记录大小
+                    if (this.history.length > 100) {
+                        this.history.shift();
+                    }
+                }
+            }
+
+            navigateHistory(direction) {
+                if (this.history.length === 0) return;
+
+                if (this.historyIndex === -1) {
+                    // 开始浏览历史 - 从最新开始
+                    this.currentInput = this.commandInput.value;
+                    if (direction === -1) { // 上箭头
+                        this.historyIndex = this.history.length - 1;
+                    } else { // 下箭头
+                        return; // 已经在最新，不做操作
+                    }
+                } else {
+                    this.historyIndex += direction;
+                }
+
+                if (this.historyIndex < 0) {
+                    // 超出最旧，回到当前输入
+                    this.historyIndex = -1;
+                    this.commandInput.value = this.currentInput;
+                } else if (this.historyIndex >= this.history.length) {
+                    // 超出最新，保持在最新
+                    this.historyIndex = this.history.length - 1;
+                    this.commandInput.value = this.history[this.historyIndex];
+                } else {
+                    this.commandInput.value = this.history[this.historyIndex];
+                }
+            }
+        }
+
+        // 启动客户端
+        const client = new MUDClient();
+    </script>
+</body>
+</html>
