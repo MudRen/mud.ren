@@ -85,6 +85,100 @@
             100% { opacity: 1; transform: scale(1); }
         }
 
+.connection-panel {
+            background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
+            border: 1px solid #333;
+            border-radius: 8px;
+            margin: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .panel-header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .panel-header h3 {
+            color: #0f0;
+            font-size: 16px;
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+        }
+
+        .panel-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .form-group {
+            display: contents;
+        }
+
+        .form-group label {
+            color: #ccc;
+            font-size: 12px;
+            text-align: right;
+            padding-right: 10px;
+        }
+
+        .form-group input,
+        .form-group select {
+            background-color: #222;
+            color: #0f0;
+            border: 1px solid #444;
+            border-radius: 4px;
+            padding: 8px 12px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', 'Fira Code', monospace;
+            font-size: 13px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #0f0;
+            box-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
+            background-color: #333;
+        }
+
+        .panel-actions {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .connect-btn {
+            background: linear-gradient(135deg, #0f0 0%, #0a0 100%);
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: 'Consolas', 'Monaco', 'Courier New', 'Fira Code', monospace;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 255, 0, 0.3);
+        }
+
+        .connect-btn:hover {
+            background: linear-gradient(135deg, #0a0 0%, #0f0 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 255, 0, 0.4);
+        }
+
+        .connect-btn.secondary {
+            background: linear-gradient(135deg, #333 0%, #555 100%);
+            color: #ccc;
+        }
+
+        .connect-btn.secondary:hover {
+            background: linear-gradient(135deg, #555 0%, #777 100%);
+        }
+
         .terminal {
             flex: 1;
             padding: 15px;
@@ -97,6 +191,7 @@
             background-image: 
                 linear-gradient(rgba(0, 255, 0, 0.03) 1px, transparent 1px);
             background-size: 100% 20px;
+            display: none; /* 初始隐藏 */
         }
 
         .terminal::-webkit-scrollbar {
@@ -246,11 +341,47 @@
     <div class="status-container">
         <div class="status connecting" id="status">
             <div class="status-indicator"></div>
-            <span>正在连接炎黄MUD...</span>
+            <span>等待连接配置...</span>
         </div>
     </div>
 
-    <div class="terminal" id="terminal">欢迎使用MUD游戏Web客户端！正在连接到炎黄MUD……</div>
+    <div class="connection-panel" id="connectionPanel">
+        <div class="panel-header">
+            <h3>🔌 连接配置</h3>
+        </div>
+        <div class="panel-content">
+            <div class="form-group">
+                <label>协议:</label>
+                <select id="protocolSelect">
+                    <option value="wss://">wss:// (安全WebSocket)</option>
+                    <option value="ws://">ws:// (WebSocket)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>地址:</label>
+                <input type="text" id="addressInput" placeholder="mud.ren" value="mud.ren">
+            </div>
+            <div class="form-group">
+                <label>端口:</label>
+                <input type="number" id="portInput" placeholder="8888" value="8888" min="1" max="65535">
+            </div>
+            <div class="form-group">
+                <label>子协议:</label>
+                <select id="subprotocolSelect">
+                    <option value="ascii">ASCII (游戏交互)</option>
+                    <option value="telnet">Telnet (兼容模式)</option>
+                    <option value="http">HTTP (静态文件)</option>
+                    <option value="">无</option>
+                </select>
+            </div>
+            <div class="panel-actions">
+                <button class="connect-btn" id="connectBtn">连接</button>
+                <button class="connect-btn secondary" id="defaultBtn">默认配置</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="terminal" id="terminal">欢迎使用MUD游戏Web客户端！正在连接到MUD……</div>
 
     <div class="input-area">
         <div class="input-container">
@@ -269,6 +400,7 @@
                 this.commandInput = document.getElementById('commandInput');
                 this.sendBtn = document.getElementById('sendBtn');
                 this.status = document.getElementById('status');
+                this.connectionPanel = document.getElementById('connectionPanel');
                 this.history = [];
                 this.historyIndex = -1;
                 this.currentInput = '';
@@ -279,16 +411,68 @@
             init() {
                 this.retryCount = 0;
                 this.maxRetries = 3;
-                this.connect();
+                this.setupConnectionUI();
                 this.setupEventListeners();
             }
 
-            connect() {
+            setupConnectionUI() {
+                this.protocolSelect = document.getElementById('protocolSelect');
+                this.addressInput = document.getElementById('addressInput');
+                this.portInput = document.getElementById('portInput');
+                this.subprotocolSelect = document.getElementById('subprotocolSelect');
+                this.connectBtn = document.getElementById('connectBtn');
+                this.defaultBtn = document.getElementById('defaultBtn');
+
+                // 设置默认值
+                this.setDefaultConfig();
+
+                // 绑定事件
+                this.connectBtn.addEventListener('click', () => this.handleConnect());
+                this.defaultBtn.addEventListener('click', () => this.setDefaultConfig());
+
+                // 支持回车键连接
+                [this.addressInput, this.portInput].forEach(input => {
+                    input.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter') this.handleConnect();
+                    });
+                });
+            }
+
+            setDefaultConfig() {
+                this.protocolSelect.value = 'wss://';
+                this.addressInput.value = 'mud.ren';
+                this.portInput.value = '8888';
+                this.subprotocolSelect.value = 'ascii';
+            }
+
+            handleConnect() {
+                const protocol = this.protocolSelect.value;
+                const address = this.addressInput.value.trim();
+                const port = this.portInput.value;
+                const subprotocol = this.subprotocolSelect.value;
+
+                if (!address) {
+                    alert('请输入服务器地址');
+                    return;
+                }
+
+                if (!port || port < 1 || port > 65535) {
+                    alert('请输入有效的端口号（1-65535）');
+                    return;
+                }
+
+                const wsUrl = `${protocol}${address}:${port}`;
+                const protocols = subprotocol ? [subprotocol] : [];
+
+                this.connect(wsUrl, protocols);
+            }
+
+            connect(wsUrl = 'wss://mud.ren:8888', protocols = ['ascii']) {
                 try {
                     this.status.textContent = '正在连接...';
                     this.status.className = 'status connecting';
                     
-                    this.ws = new WebSocket('wss://mud.ren:8888', ['ascii', 'text']);
+                    this.ws = new WebSocket(wsUrl, protocols);
 
                     this.ws.onopen = () => {
                         this.connected = true;
@@ -297,6 +481,11 @@
                         this.status.className = 'status connected';
                         this.commandInput.disabled = false;
                         this.sendBtn.disabled = false;
+                        
+                        // 隐藏连接面板，显示终端
+                        this.connectionPanel.style.display = 'none';
+                        this.terminal.style.display = 'block';
+                        
                         this.appendMessage('✅ 已连接到MUD服务器', 'system');
                     };
 
@@ -310,6 +499,11 @@
                         this.status.className = 'status disconnected';
                         this.commandInput.disabled = true;
                         this.sendBtn.disabled = true;
+                        
+                        // 显示连接面板，隐藏终端
+                        this.connectionPanel.style.display = 'block';
+                        this.terminal.style.display = 'none';
+                        
                         this.appendMessage('🔌 连接已断开', 'error');
                         
                         // 自动重连
@@ -317,7 +511,9 @@
                             this.retryCount++;
                             setTimeout(() => {
                                 this.appendMessage(`🔄 正在重连...(${this.retryCount}/${this.maxRetries})`, 'system');
-                                this.connect();
+                                const wsUrl = `${this.protocolSelect.value}${this.addressInput.value}:${this.portInput.value}`;
+                                const protocols = this.subprotocolSelect.value ? [this.subprotocolSelect.value] : [];
+                                this.connect(wsUrl, protocols);
                             }, 2000 * this.retryCount);
                         }
                     };
