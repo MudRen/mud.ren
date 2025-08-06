@@ -20,7 +20,7 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            background-image:
+            background-image: 
                 radial-gradient(circle at 20% 50%, rgba(0, 255, 0, 0.03) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(0, 255, 0, 0.02) 0%, transparent 50%);
         }
@@ -188,7 +188,7 @@
             white-space: pre-wrap;
             word-wrap: break-word;
             line-height: 1.6;
-            background-image:
+            background-image: 
                 linear-gradient(rgba(0, 255, 0, 0.03) 1px, transparent 1px);
             background-size: 100% 20px;
             display: none; /* 初始隐藏 */
@@ -313,19 +313,19 @@
             body {
                 font-size: 12px;
             }
-
+            
             .header h1 {
                 font-size: 16px;
             }
-
+            
             .terminal {
                 padding: 10px;
             }
-
+            
             .input-area {
                 padding: 10px;
             }
-
+            
             .command-input {
                 font-size: 12px;
                 padding: 8px 35px 8px 10px;
@@ -415,7 +415,7 @@
             ABORT: 238, // Abort
             SUSP: 237,  // Suspend Process
             EOF: 236,   // End of File
-
+            
             // Telnet Options
             ECHO: 1,    // Echo
             SUPPRESS_GO_AHEAD: 3, // Suppress Go Ahead
@@ -425,7 +425,7 @@
             NAWS: 31,   // Negotiate About Window Size
             NEW_ENVIRON: 39, // New Environment Option
             CHARSET: 42, // Charset Option
-
+            
             // MUD Protocols (按编号排序)
             MSDP: 69,   // Mud Server Data Protocol
             MSSP: 70,   // Mud Server Status Protocol
@@ -598,16 +598,16 @@
             updateTerminalSize() {
                 const width = Math.floor(window.innerWidth / 8);
                 const height = Math.floor(window.innerHeight / 16);
-
+                
                 if (width !== this.state.terminalWidth || height !== this.state.terminalHeight) {
                     this.state.terminalWidth = width;
                     this.state.terminalHeight = height;
-
+                    
                     const bytes = [
                         (width >> 8) & 0xFF, width & 0xFF,
                         (height >> 8) & 0xFF, height & 0xFF
                     ];
-
+                    
                     this.sendSubnegotiation(TELNET.NAWS, bytes);
                 }
             }
@@ -669,11 +669,11 @@
             // 发送GMCP消息
             send(module, data) {
                 if (!this.enabled) return;
-
+                
                 const message = module + ' ' + JSON.stringify(data);
                 const encoder = new TextEncoder();
                 const bytes = encoder.encode(message);
-
+                
                 this.telnet.sendSubnegotiation(TELNET.GMCP, Array.from(bytes));
             }
 
@@ -685,7 +685,7 @@
                     type: 'websocket',
                     client: 'FluffOS-WebClient'
                 });
-
+                
                 this.send('Client.Window', {
                     width: this.telnet.state.terminalWidth,
                     height: this.telnet.state.terminalHeight
@@ -803,7 +803,7 @@
                 try {
                     this.status.textContent = '正在连接...';
                     this.status.className = 'status connecting';
-
+                    
                     this.ws = new WebSocket(wsUrl, protocols);
 
                     this.ws.onopen = () => {
@@ -813,10 +813,10 @@
                         this.status.className = 'status connected';
                         this.commandInput.disabled = false;
                         this.sendBtn.disabled = false;
-
+                        
                         this.connectionPanel.style.display = 'none';
                         this.terminal.style.display = 'block';
-
+                        
                         if (this.protocolType === 'telnet' || this.protocolType === 'binary') {
                             const protocolName = this.protocolType === 'telnet' ? 'Telnet' : 'Binary';
                             this.appendMessage(`✅ ${protocolName}协议已激活，正在协商...`, 'system');
@@ -844,12 +844,12 @@
                         this.status.className = 'status disconnected';
                         this.commandInput.disabled = true;
                         this.sendBtn.disabled = true;
-
+                        
                         this.connectionPanel.style.display = 'block';
                         this.terminal.style.display = 'none';
-
+                        
                         this.appendMessage('🔌 连接已断开', 'error');
-
+                        
                         if (this.retryCount < this.maxRetries) {
                             this.retryCount++;
                             setTimeout(() => {
@@ -881,10 +881,9 @@
             }
 
             handleGMCPMessage(data) {
-                this.appendMessage(`📊 GMCP: ${JSON.stringify(data)}`, 'system');
-                // 在控制台记录GMCP数据
+                // 在控制台记录GMCP数据，但不显示在终端界面上
                 console.log('GMCP消息:', data);
-
+                
                 // 可以在这里添加GMCP数据的实际处理逻辑
                 // 例如更新状态栏、地图、技能面板等
                 this.processGMCPData(data);
@@ -892,7 +891,7 @@
 
             processGMCPData(data) {
                 if (!data || !data.module) return;
-
+                
                 switch (data.module) {
                     case 'Char.Vitals':
                         // 处理角色状态数据，可以更新状态栏
@@ -914,8 +913,8 @@
             updateCharacterStatus(vitals) {
                 // 这里可以更新角色状态显示，例如创建状态栏
                 // 示例：更新一个假设的状态栏元素
-                console.log('角色状态:', vitals);
-
+                console.log('角色状态更新:', vitals);
+                
                 // 实际实现时，可以更新HTML元素
                 // const statusBar = document.getElementById('status-bar');
                 // if (statusBar) {
@@ -928,8 +927,8 @@
 
             updateRoomInfo(roomInfo) {
                 // 这里可以更新房间信息显示
-                console.log('房间信息:', roomInfo);
-
+                console.log('房间信息更新:', roomInfo);
+                
                 // 实际实现时，可以更新房间名称、出口等信息
                 // const roomDisplay = document.getElementById('room-info');
                 // if (roomDisplay) {
@@ -946,16 +945,16 @@
                 this.sendTelnetCommand(TELNET.WILL, TELNET.NAWS);
                 this.sendTelnetCommand(TELNET.WILL, TELNET.GMCP);
                 this.sendTelnetCommand(TELNET.WILL, TELNET.SUPPRESS_GO_AHEAD);
-
+                
                 // 请求服务器支持的选项
                 this.sendTelnetCommand(TELNET.DO, TELNET.TERMINAL_TYPE);
                 this.sendTelnetCommand(TELNET.DO, TELNET.NAWS);
                 this.sendTelnetCommand(TELNET.DO, TELNET.GMCP);
                 this.sendTelnetCommand(TELNET.DO, TELNET.SUPPRESS_GO_AHEAD);
-
+                
                 // 发送窗口大小
                 this.sendWindowSize();
-
+                
                 this.appendMessage('✅ Telnet协商完成', 'system');
             }
 
@@ -974,7 +973,7 @@
                     this.handleMessage(data);
                     return;
                 }
-
+                
                 this.processTelnetBytes(new Uint8Array(data));
             }
 
@@ -992,7 +991,7 @@
                     if (byte === TELNET.IAC) {
                         if (i + 1 < bytes.length) {
                             const next = bytes[i + 1];
-
+                            
                             if (next === TELNET.IAC) {
                                 // 转义的IAC
                                 result.push(TELNET.IAC);
@@ -1002,7 +1001,7 @@
                                 subnegotiation = true;
                                 subBuffer = [];
                                 i += 2;
-
+                                
                                 if (i < bytes.length) {
                                     subnegotiationType = bytes[i];
                                     i++;
@@ -1044,7 +1043,7 @@
                     [TELNET.BRK]: 'BRK', [TELNET.DM]: 'DM', [TELNET.NOP]: 'NOP',
                     [TELNET.EOR]: 'EOR'
                 };
-
+                
                 const optionNames = {
                     [TELNET.TERMINAL_TYPE]: 'TERMINAL_TYPE', [TELNET.NAWS]: 'NAWS',
                     [TELNET.GMCP]: 'GMCP', [TELNET.SUPPRESS_GO_AHEAD]: 'SUPPRESS_GO_AHEAD',
@@ -1054,17 +1053,17 @@
                     [TELNET.MSSP]: 'MSSP', [TELNET.MSDP]: 'MSDP',
                     [TELNET.MCCP]: 'MCCP'
                 };
-
+                
                 const cmdName = commandNames[command] || `CMD_${command}`;
                 const optName = optionNames[option] || `OPT_${option}`;
-
+                
                 // 所有协商信息只记录在控制台
                 if ([TELNET.GA, TELNET.EL, TELNET.EC, TELNET.AYT, TELNET.AO, TELNET.IP, TELNET.BRK, TELNET.DM, TELNET.NOP, TELNET.EOR].includes(command)) {
                     console.log(`Telnet: ${cmdName}`);
                 } else {
                     console.log(`Telnet: ${cmdName} ${optName}`);
                 }
-
+                
                 switch (command) {
                     case TELNET.DO:
                         this.handleTelnetDo(option);
@@ -1167,7 +1166,7 @@
                     type: 'websocket',
                     client: 'FluffOS-WebClient'
                 });
-
+                
                 this.sendWindowSize();
             }
 
@@ -1183,7 +1182,7 @@
                     const spaceIndex = text.indexOf(' ');
                     const module = spaceIndex > -1 ? text.substring(0, spaceIndex) : text;
                     const jsonData = spaceIndex > -1 ? text.substring(spaceIndex + 1) : '';
-
+                    
                     if (jsonData) {
                         const parsed = JSON.parse(jsonData);
                         this.handleGMCPMessage({ module, data: parsed });
@@ -1207,7 +1206,7 @@
                     const encoder = new TextEncoder();
                     const bytes = encoder.encode(command);
                     const escaped = [];
-
+                    
                     for (const byte of bytes) {
                         if (byte === TELNET.IAC) {
                             escaped.push(TELNET.IAC, TELNET.IAC);
@@ -1215,7 +1214,7 @@
                             escaped.push(byte);
                         }
                     }
-
+                    
                     this.ws.send(Uint8Array.from(escaped));
                 } else {
                     this.ws.send(command);
@@ -1252,12 +1251,12 @@
                 const html = this.parseANSI(message);
                 div.innerHTML = html;
                 this.terminal.appendChild(div);
-
+                
                 const maxMessages = 1000;
                 if (this.terminal.children.length > maxMessages) {
                     this.terminal.removeChild(this.terminal.firstChild);
                 }
-
+                
                 this.terminal.scrollTop = this.terminal.scrollHeight;
             }
 
@@ -1271,7 +1270,7 @@
 
                     for (const code of codeArray) {
                         switch (code) {
-                            case 0:
+                            case 0: 
                                 const closeTags = '</span>'.repeat(openSpans);
                                 openSpans = 0;
                                 return closeTags;
@@ -1304,7 +1303,7 @@
                     /\x1b\[\d*[JK]/g,
                     /\x1b\[[\d;]*[@-~]/g
                 ];
-
+                
                 cursorPatterns.forEach(pattern => {
                     result = result.replace(pattern, '');
                 });
