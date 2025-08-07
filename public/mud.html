@@ -379,6 +379,9 @@
                 <button class="connect-btn" id="connectBtn">连接</button>
                 <button class="connect-btn secondary" id="defaultBtn">默认配置</button>
             </div>
+            <div style="text-align: center; margin-top: 15px; font-size: 11px; color: #666; width: 100%; grid-column: 1 / -1;">
+                Powered by <a href="https://bbs.mud.ren" target="_blank" style="color: #0f0; text-decoration: none;">mud.ren</a>
+            </div>
         </div>
     </div>
 
@@ -773,7 +776,7 @@
                 this.protocolSelect.value = 'wss://';
                 this.addressInput.value = 'mud.ren';
                 this.portInput.value = '8888';
-                this.subprotocolSelect.value = 'ascii';
+                this.subprotocolSelect.value = 'telnet';
             }
 
             handleConnect() {
