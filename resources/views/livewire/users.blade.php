@@ -17,7 +17,7 @@
                 <input class="form-control" type="search" 
                        placeholder="🔍 搜索玩家ID、姓名或称号..." 
                        aria-label="Search" 
-                       wire:model.debounce.300ms="search"
+                       wire:model.live.debounce.300ms="search"
                        style="border-radius: 0 25px 25px 0;">
             </div>
         </div>
@@ -418,7 +418,7 @@
 
     <!-- 分页组件 -->
     <div class="d-flex justify-content-center mt-4">
-        {{ $users->links() }}
+        {{ $users->links('pagination::bootstrap-4') }}
     </div>
 </div>
 
