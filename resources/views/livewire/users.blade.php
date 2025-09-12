@@ -1,3 +1,537 @@
+<!-- 添加自定义CSS -->
+<style>
+/* ===== MUD游戏暗黑色调主题 ===== */
+
+/* 全局暗色背景 */
+body {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+/* 英雄区域 - 深灰色渐变 */
+.hero-section {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    border: 1px solid #444;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.hero-section h1 {
+    color: #ffd700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.hero-section p {
+    color: #ccc;
+}
+
+/* 搜索框 - 终端风格 */
+.search-container .input-group-text {
+    background: #333;
+    border: 1px solid #555;
+    color: #ffd700;
+    border-radius: 25px 0 0 25px;
+}
+
+.search-container .form-control {
+    background: #2a2a2a;
+    border: 1px solid #555;
+    color: #e0e0e0;
+    border-left: none;
+}
+
+.search-container .form-control:focus {
+    background: #333;
+    border-color: #ffd700;
+    box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25);
+    color: #fff;
+}
+
+.search-container .form-control::placeholder {
+    color: #888;
+}
+
+/* MUD风格卡片 */
+.mud-card {
+    background: #2a2a2a;
+    border: 1px solid #444;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+/* MUD风格表格 */
+.mud-table {
+    background: #2a2a2a;
+    color: #e0e0e0;
+}
+
+/* MUD表头 - 深灰色带金色边框 */
+.mud-thead {
+    background: linear-gradient(135deg, #333 0%, #2a2a2a 100%);
+    border-bottom: 2px solid #ffd700;
+    color: #ffd700;
+}
+
+.mud-thead th {
+    border: none;
+    border-right: 1px solid #444;
+    font-weight: 600;
+}
+
+.mud-thead th:last-child {
+    border-right: none;
+}
+
+/* 表格行悬停效果 */
+.mud-table tbody tr {
+    border-bottom: 1px solid #333;
+    transition: all 0.2s ease;
+}
+
+.mud-table tbody tr:hover {
+    background: #333;
+    box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.1);
+}
+
+.mud-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+/* MUD风格单元格 */
+.mud-table td {
+    border: none;
+    border-right: 1px solid #333;
+    vertical-align: middle;
+}
+
+.mud-table td:last-child {
+    border-right: none;
+}
+
+/* 排名样式 - 金色 */
+.text-mud-rank {
+    color: #ffd700 !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+/* ID样式 - 银灰色 */
+.text-mud-id {
+    color: #b0b0b0 !important;
+}
+
+/* 重要数值颜色 */
+.text-mud-gold {
+    color: #ffd700 !important;
+    font-weight: bold;
+}
+
+.text-mud-danger {
+    color: #ff6b6b !important;
+    font-weight: bold;
+}
+
+.text-mud-health {
+    color: #4ecdc4 !important;
+    font-weight: bold;
+}
+
+.text-mud-mana {
+    color: #45b7d1 !important;
+    font-weight: bold;
+}
+
+.text-mud-energy {
+    color: #f9ca24 !important;
+    font-weight: bold;
+}
+
+.text-mud-spirit {
+    color: #6c5ce7 !important;
+    font-weight: bold;
+}
+
+.text-mud-success {
+    color: #51cf66 !important;
+    font-weight: bold;
+}
+
+.text-mud-rank {
+    color: #ffd700 !important;
+    font-weight: bold;
+}
+
+.text-mud-id {
+    color: #b0b0b0 !important;
+}
+
+/* 优化姓名字段显示 - 防止换行 */
+.text-mud-name {
+    color: #e0e0e0 !important;
+    font-weight: bold;
+    font-size: 0.85rem;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+    display: block;
+    padding: 0.1rem 0;
+}
+
+/* 表格单元格优化 - 确保内容不溢出 */
+.mud-table td {
+    vertical-align: middle;
+    padding: 0.5rem 0.3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 针对不同屏幕尺寸的列宽优化 */
+@media (min-width: 1200px) {
+    .mud-table th:nth-child(3), /* 姓名列 */
+    .mud-table td:nth-child(3) {
+        max-width: 90px;
+        min-width: 80px;
+    }
+
+    .mud-table th:nth-child(6), /* 师父列 */
+    .mud-table td:nth-child(6) {
+        max-width: 75px;
+        min-width: 65px;
+    }
+
+    .mud-table th:nth-child(11), /* 经验列 */
+    .mud-table td:nth-child(11) {
+        max-width: 80px;
+        min-width: 70px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .mud-table th:nth-child(3), /* 姓名列 */
+    .mud-table td:nth-child(3) {
+        max-width: 80px;
+        min-width: 70px;
+    }
+
+    .mud-table th:nth-child(6), /* 师父列 */
+    .mud-table td:nth-child(6) {
+        max-width: 70px;
+        min-width: 60px;
+    }
+
+    .mud-table th:nth-child(11), /* 经验列 */
+    .mud-table td:nth-child(11) {
+        max-width: 75px;
+        min-width: 65px;
+    }
+}
+
+@media (max-width: 991px) {
+    .mud-table th:nth-child(3), /* 姓名列 */
+    .mud-table td:nth-child(3) {
+        max-width: 75px;
+        min-width: 65px;
+    }
+
+    .mud-table th:nth-child(6), /* 师父列 */
+    .mud-table td:nth-child(6) {
+        max-width: 60px;
+        min-width: 50px;
+    }
+
+    .mud-table th:nth-child(11), /* 经验列 */
+    .mud-table td:nth-child(11) {
+        max-width: 70px;
+        min-width: 60px;
+    }
+}
+
+/* 师父字段优化 - 字号稍大以突出显示 */
+.text-mud-master {
+    color: #d4a574 !important;
+    font-size: 0.9rem;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+    font-weight: 600;
+}
+
+/* 称号字段优化 */
+.text-mud-title {
+    color: #ccc !important;
+    font-style: italic;
+    font-size: 0.8rem;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+.text-mud-time {
+    color: #888 !important;
+    font-size: 0.8rem;
+}
+
+.text-mud-label {
+    color: #aaa !important;
+    font-size: 0.75rem;
+}
+
+.text-mud-value {
+    color: #e0e0e0 !important;
+    font-weight: bold;
+}
+
+/* 表头文字样式 */
+.header-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.header-icon {
+    font-size: 0.9rem;
+    margin-bottom: 0.15rem;
+    filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.5));
+}
+
+.header-text {
+    font-size: 0.75rem;
+    font-weight: 500;
+    opacity: 0.9;
+    color: #ccc;
+}
+
+/* MUD风格徽章 */
+.mud-badge {
+    background: #444;
+    color: #ffd700;
+    border: 1px solid #666;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-weight: 500;
+}
+
+.mud-badge-id {
+    background: #3a3a3a;
+    color: #b0b0b0;
+    border: 1px solid #666;
+}
+
+.mud-badge-success {
+    background: #2a4a2a;
+    color: #51cf66;
+    border: 1px solid #51cf66;
+}
+
+.mud-badge-danger {
+    background: #4a2a2a;
+    color: #ff6b6b;
+    border: 1px solid #ff6b6b;
+}
+
+/* 移动端卡片样式 */
+.mud-mobile-card {
+    background: #2a2a2a;
+    border: 1px solid #444;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.mud-mobile-card-header {
+    background: linear-gradient(135deg, #333 0%, #2a2a2a 100%);
+    border-bottom: 1px solid #ffd700;
+    color: #ffd700;
+}
+
+.mud-mobile-card-footer {
+    background: #252525;
+    border-top: 1px solid #333;
+}
+
+/* 移动端卡片内容优化 */
+.mud-mobile-card .card-body {
+    padding: 0.75rem;
+}
+
+.mud-mobile-card .card-title {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.mud-mobile-card .card-text {
+    margin-bottom: 0.5rem;
+}
+
+.mud-mobile-card small {
+    font-size: 0.8rem;
+    line-height: 1.3;
+}
+
+/* 移动端数值显示优化 */
+.mud-mobile-card .text-mud-health,
+.mud-mobile-card .text-mud-mana,
+.mud-mobile-card .text-mud-energy,
+.mud-mobile-card .text-mud-spirit,
+.mud-mobile-card .text-mud-gold {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.mud-mobile-card .text-mud-label {
+    font-size: 0.7rem;
+    margin-bottom: 0.2rem;
+}
+
+.mud-mobile-card .text-mud-value {
+    font-size: 0.9rem;
+}
+
+/* 移动端姓名优化 */
+.mud-mobile-card .text-mud-name {
+    font-size: 1rem;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 移动端师父字段优化 */
+.mud-mobile-card .text-mud-master {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #d4a574 !important;
+}
+
+/* 不同屏幕尺寸下师父字段的精细调整 */
+@media (min-width: 1200px) {
+    .text-mud-master {
+        font-size: 0.95rem;
+        padding: 0.4rem 0.2rem;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .text-mud-master {
+        font-size: 0.9rem;
+        padding: 0.3rem 0.2rem;
+    }
+}
+
+@media (max-width: 991px) {
+    .text-mud-master {
+        font-size: 0.85rem;
+        padding: 0.2rem 0.1rem;
+    }
+}
+
+/* 移动端卡片中的师父字段 */
+@media (max-width: 767px) {
+    .mud-mobile-card .text-mud-master {
+        font-size: 0.9rem;
+        font-weight: 600;
+        line-height: 1.3;
+    }
+}
+
+/* 卡片悬停效果 */
+.mud-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+    border-color: #555;
+}
+
+/* 移动端卡片样式 */
+.mud-mobile-card {
+    background: #2a2a2a;
+    border: 1px solid #444;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.mud-mobile-card .card-header {
+    background: linear-gradient(135deg, #333 0%, #2a2a2a 100%);
+    border-bottom: 1px solid #ffd700;
+    color: #ffd700;
+}
+
+/* 响应式调整 */
+@media (max-width: 1200px) {
+    .mud-table th {
+        font-size: 0.8rem !important;
+        padding: 0.5rem 0.3rem !important;
+    }
+
+    .header-icon {
+        font-size: 0.8rem;
+    }
+
+    .header-text {
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero-section p {
+        font-size: 0.9rem;
+    }
+
+    .mud-card {
+        margin: 0 10px;
+    }
+}
+
+/* 分页样式 */
+.pagination {
+    background: #2a2a2a;
+    border: 1px solid #444;
+}
+
+.page-link {
+    background: #333;
+    border: 1px solid #555;
+    color: #ccc;
+}
+
+.page-link:hover {
+    background: #444;
+    border-color: #ffd700;
+    color: #ffd700;
+}
+
+.page-item.active .page-link {
+    background: #ffd700;
+    border-color: #ffd700;
+    color: #1a1a1a;
+}
+
+/* 滚动条美化 */
+.table-responsive::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+</style>
+
 <div>
     <!-- 页面标题区域美化 -->
     <div class="text-center mb-4">
@@ -5,7 +539,7 @@
             <h1 class="display-4 font-weight-bold">炎黄英雄榜</h1>
             <p class="lead mb-0">MUD江湖，谁与争锋</p>
         </div>
-        
+
         <!-- 搜索框美化 -->
         <div class="search-container mb-3">
             <div class="input-group input-group-lg">
@@ -14,9 +548,9 @@
                         <i class="fas fa-search"></i>
                     </span>
                 </div>
-                <input class="form-control" type="search" 
-                       placeholder="🔍 搜索玩家ID、姓名或称号..." 
-                       aria-label="Search" 
+                <input class="form-control" type="search"
+                       placeholder="🔍 搜索玩家ID、姓名或称号..."
+                       aria-label="Search"
                        wire:model.live.debounce.300ms="search"
                        style="border-radius: 0 25px 25px 0;">
             </div>
@@ -421,537 +955,3 @@
         {{ $users->links('pagination::bootstrap-4') }}
     </div>
 </div>
-
-<!-- 添加自定义CSS -->
-<style>
-/* ===== MUD游戏暗黑色调主题 ===== */
-
-/* 全局暗色背景 */
-body {
-    background-color: #1a1a1a;
-    color: #e0e0e0;
-}
-
-/* 英雄区域 - 深灰色渐变 */
-.hero-section {
-    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
-    border: 1px solid #444;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
-}
-
-.hero-section h1 {
-    color: #ffd700;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-}
-
-.hero-section p {
-    color: #ccc;
-}
-
-/* 搜索框 - 终端风格 */
-.search-container .input-group-text {
-    background: #333;
-    border: 1px solid #555;
-    color: #ffd700;
-    border-radius: 25px 0 0 25px;
-}
-
-.search-container .form-control {
-    background: #2a2a2a;
-    border: 1px solid #555;
-    color: #e0e0e0;
-    border-left: none;
-}
-
-.search-container .form-control:focus {
-    background: #333;
-    border-color: #ffd700;
-    box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25);
-    color: #fff;
-}
-
-.search-container .form-control::placeholder {
-    color: #888;
-}
-
-/* MUD风格卡片 */
-.mud-card {
-    background: #2a2a2a;
-    border: 1px solid #444;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-}
-
-/* MUD风格表格 */
-.mud-table {
-    background: #2a2a2a;
-    color: #e0e0e0;
-}
-
-/* MUD表头 - 深灰色带金色边框 */
-.mud-thead {
-    background: linear-gradient(135deg, #333 0%, #2a2a2a 100%);
-    border-bottom: 2px solid #ffd700;
-    color: #ffd700;
-}
-
-.mud-thead th {
-    border: none;
-    border-right: 1px solid #444;
-    font-weight: 600;
-}
-
-.mud-thead th:last-child {
-    border-right: none;
-}
-
-/* 表格行悬停效果 */
-.mud-table tbody tr {
-    border-bottom: 1px solid #333;
-    transition: all 0.2s ease;
-}
-
-.mud-table tbody tr:hover {
-    background: #333;
-    box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.1);
-}
-
-.mud-table tbody tr:last-child {
-    border-bottom: none;
-}
-
-/* MUD风格单元格 */
-.mud-table td {
-    border: none;
-    border-right: 1px solid #333;
-    vertical-align: middle;
-}
-
-.mud-table td:last-child {
-    border-right: none;
-}
-
-/* 排名样式 - 金色 */
-.text-mud-rank {
-    color: #ffd700 !important;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-}
-
-/* ID样式 - 银灰色 */
-.text-mud-id {
-    color: #b0b0b0 !important;
-}
-
-/* 重要数值颜色 */
-.text-mud-gold {
-    color: #ffd700 !important;
-    font-weight: bold;
-}
-
-.text-mud-danger {
-    color: #ff6b6b !important;
-    font-weight: bold;
-}
-
-.text-mud-health {
-    color: #4ecdc4 !important;
-    font-weight: bold;
-}
-
-.text-mud-mana {
-    color: #45b7d1 !important;
-    font-weight: bold;
-}
-
-.text-mud-energy {
-    color: #f9ca24 !important;
-    font-weight: bold;
-}
-
-.text-mud-spirit {
-    color: #6c5ce7 !important;
-    font-weight: bold;
-}
-
-.text-mud-success {
-    color: #51cf66 !important;
-    font-weight: bold;
-}
-
-.text-mud-rank {
-    color: #ffd700 !important;
-    font-weight: bold;
-}
-
-.text-mud-id {
-    color: #b0b0b0 !important;
-}
-
-/* 优化姓名字段显示 - 防止换行 */
-.text-mud-name {
-    color: #e0e0e0 !important;
-    font-weight: bold;
-    font-size: 0.85rem;
-    line-height: 1.2;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 100%;
-    display: block;
-    padding: 0.1rem 0;
-}
-
-/* 表格单元格优化 - 确保内容不溢出 */
-.mud-table td {
-    vertical-align: middle;
-    padding: 0.5rem 0.3rem;
-    position: relative;
-    overflow: hidden;
-}
-
-/* 针对不同屏幕尺寸的列宽优化 */
-@media (min-width: 1200px) {
-    .mud-table th:nth-child(3), /* 姓名列 */
-    .mud-table td:nth-child(3) {
-        max-width: 90px;
-        min-width: 80px;
-    }
-    
-    .mud-table th:nth-child(6), /* 师父列 */
-    .mud-table td:nth-child(6) {
-        max-width: 75px;
-        min-width: 65px;
-    }
-    
-    .mud-table th:nth-child(11), /* 经验列 */
-    .mud-table td:nth-child(11) {
-        max-width: 80px;
-        min-width: 70px;
-    }
-}
-
-@media (min-width: 992px) and (max-width: 1199px) {
-    .mud-table th:nth-child(3), /* 姓名列 */
-    .mud-table td:nth-child(3) {
-        max-width: 80px;
-        min-width: 70px;
-    }
-    
-    .mud-table th:nth-child(6), /* 师父列 */
-    .mud-table td:nth-child(6) {
-        max-width: 70px;
-        min-width: 60px;
-    }
-    
-    .mud-table th:nth-child(11), /* 经验列 */
-    .mud-table td:nth-child(11) {
-        max-width: 75px;
-        min-width: 65px;
-    }
-}
-
-@media (max-width: 991px) {
-    .mud-table th:nth-child(3), /* 姓名列 */
-    .mud-table td:nth-child(3) {
-        max-width: 75px;
-        min-width: 65px;
-    }
-    
-    .mud-table th:nth-child(6), /* 师父列 */
-    .mud-table td:nth-child(6) {
-        max-width: 60px;
-        min-width: 50px;
-    }
-    
-    .mud-table th:nth-child(11), /* 经验列 */
-    .mud-table td:nth-child(11) {
-        max-width: 70px;
-        min-width: 60px;
-    }
-}
-
-/* 师父字段优化 - 字号稍大以突出显示 */
-.text-mud-master {
-    color: #d4a574 !important;
-    font-size: 0.9rem;
-    line-height: 1.2;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 100%;
-    font-weight: 600;
-}
-
-/* 称号字段优化 */
-.text-mud-title {
-    color: #ccc !important;
-    font-style: italic;
-    font-size: 0.8rem;
-    line-height: 1.2;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 100%;
-}
-
-.text-mud-time {
-    color: #888 !important;
-    font-size: 0.8rem;
-}
-
-.text-mud-label {
-    color: #aaa !important;
-    font-size: 0.75rem;
-}
-
-.text-mud-value {
-    color: #e0e0e0 !important;
-    font-weight: bold;
-}
-
-/* 表头文字样式 */
-.header-cell {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    line-height: 1.2;
-}
-
-.header-icon {
-    font-size: 0.9rem;
-    margin-bottom: 0.15rem;
-    filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.5));
-}
-
-.header-text {
-    font-size: 0.75rem;
-    font-weight: 500;
-    opacity: 0.9;
-    color: #ccc;
-}
-
-/* MUD风格徽章 */
-.mud-badge {
-    background: #444;
-    color: #ffd700;
-    border: 1px solid #666;
-    font-size: 0.75rem;
-    padding: 0.2rem 0.4rem;
-    border-radius: 0.25rem;
-    font-weight: 500;
-}
-
-.mud-badge-id {
-    background: #3a3a3a;
-    color: #b0b0b0;
-    border: 1px solid #666;
-}
-
-.mud-badge-success {
-    background: #2a4a2a;
-    color: #51cf66;
-    border: 1px solid #51cf66;
-}
-
-.mud-badge-danger {
-    background: #4a2a2a;
-    color: #ff6b6b;
-    border: 1px solid #ff6b6b;
-}
-
-/* 移动端卡片样式 */
-.mud-mobile-card {
-    background: #2a2a2a;
-    border: 1px solid #444;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-}
-
-.mud-mobile-card-header {
-    background: linear-gradient(135deg, #333 0%, #2a2a2a 100%);
-    border-bottom: 1px solid #ffd700;
-    color: #ffd700;
-}
-
-.mud-mobile-card-footer {
-    background: #252525;
-    border-top: 1px solid #333;
-}
-
-/* 移动端卡片内容优化 */
-.mud-mobile-card .card-body {
-    padding: 0.75rem;
-}
-
-.mud-mobile-card .card-title {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-}
-
-.mud-mobile-card .card-text {
-    margin-bottom: 0.5rem;
-}
-
-.mud-mobile-card small {
-    font-size: 0.8rem;
-    line-height: 1.3;
-}
-
-/* 移动端数值显示优化 */
-.mud-mobile-card .text-mud-health,
-.mud-mobile-card .text-mud-mana,
-.mud-mobile-card .text-mud-energy,
-.mud-mobile-card .text-mud-spirit,
-.mud-mobile-card .text-mud-gold {
-    font-size: 0.85rem;
-    font-weight: 600;
-}
-
-.mud-mobile-card .text-mud-label {
-    font-size: 0.7rem;
-    margin-bottom: 0.2rem;
-}
-
-.mud-mobile-card .text-mud-value {
-    font-size: 0.9rem;
-}
-
-/* 移动端姓名优化 */
-.mud-mobile-card .text-mud-name {
-    font-size: 1rem;
-    line-height: 1.2;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-/* 移动端师父字段优化 */
-.mud-mobile-card .text-mud-master {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #d4a574 !important;
-}
-
-/* 不同屏幕尺寸下师父字段的精细调整 */
-@media (min-width: 1200px) {
-    .text-mud-master {
-        font-size: 0.95rem;
-        padding: 0.4rem 0.2rem;
-    }
-}
-
-@media (min-width: 992px) and (max-width: 1199px) {
-    .text-mud-master {
-        font-size: 0.9rem;
-        padding: 0.3rem 0.2rem;
-    }
-}
-
-@media (max-width: 991px) {
-    .text-mud-master {
-        font-size: 0.85rem;
-        padding: 0.2rem 0.1rem;
-    }
-}
-
-/* 移动端卡片中的师父字段 */
-@media (max-width: 767px) {
-    .mud-mobile-card .text-mud-master {
-        font-size: 0.9rem;
-        font-weight: 600;
-        line-height: 1.3;
-    }
-}
-
-/* 卡片悬停效果 */
-.mud-card:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
-    border-color: #555;
-}
-
-/* 移动端卡片样式 */
-.mud-mobile-card {
-    background: #2a2a2a;
-    border: 1px solid #444;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-}
-
-.mud-mobile-card .card-header {
-    background: linear-gradient(135deg, #333 0%, #2a2a2a 100%);
-    border-bottom: 1px solid #ffd700;
-    color: #ffd700;
-}
-
-/* 响应式调整 */
-@media (max-width: 1200px) {
-    .mud-table th {
-        font-size: 0.8rem !important;
-        padding: 0.5rem 0.3rem !important;
-    }
-    
-    .header-icon {
-        font-size: 0.8rem;
-    }
-    
-    .header-text {
-        font-size: 0.65rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .hero-section h1 {
-        font-size: 1.8rem;
-    }
-    
-    .hero-section p {
-        font-size: 0.9rem;
-    }
-    
-    .mud-card {
-        margin: 0 10px;
-    }
-}
-
-/* 分页样式 */
-.pagination {
-    background: #2a2a2a;
-    border: 1px solid #444;
-}
-
-.page-link {
-    background: #333;
-    border: 1px solid #555;
-    color: #ccc;
-}
-
-.page-link:hover {
-    background: #444;
-    border-color: #ffd700;
-    color: #ffd700;
-}
-
-.page-item.active .page-link {
-    background: #ffd700;
-    border-color: #ffd700;
-    color: #1a1a1a;
-}
-
-/* 滚动条美化 */
-.table-responsive::-webkit-scrollbar {
-    height: 8px;
-}
-
-.table-responsive::-webkit-scrollbar-track {
-    background: #1a1a1a;
-}
-
-.table-responsive::-webkit-scrollbar-thumb {
-    background: #444;
-    border-radius: 4px;
-}
-
-.table-responsive::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-</style>
