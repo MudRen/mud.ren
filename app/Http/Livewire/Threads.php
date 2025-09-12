@@ -12,7 +12,6 @@ class Threads extends Component
 
     public $search;
     protected $queryString = ['search' => ['except' => '']];
-    protected $paginationTheme = 'bootstrap';
 
     public function render()
     {

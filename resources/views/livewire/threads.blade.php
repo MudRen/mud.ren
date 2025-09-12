@@ -1,5 +1,5 @@
 <div class="shadow-sm p-3 mb-3 g-white rounded">
-    <input class="form-control mr-sm-2" type="search" placeholder="贴子按发布时间倒序，可在此输入关键字搜索..." aria-label="Search" wire:model="search">
+    <input class="form-control mr-sm-2" type="search" placeholder="贴子按发布时间倒序，可在此输入关键字搜索..." aria-label="Search" wire:model.live="search">
     <div class="list-group">
         @foreach ($threads as $thread)
         <a href="{{asset('threads/'.$thread->id)}}" class="list-group-item list-group-item-action">
@@ -14,5 +14,5 @@
         </a>
         @endforeach
     </div>
-    {{ $threads->links() }}
+    {{ $threads->links('pagination::bootstrap-4') }}
 </div>
