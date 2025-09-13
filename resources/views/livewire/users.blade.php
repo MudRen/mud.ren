@@ -1,4 +1,428 @@
-<!-- 添加自定义CSS -->
+<div>
+    <!-- 页面标题区域美化 -->
+    <div class="text-center mb-4">
+        <div class="hero-section bg-gradient-primary text-white rounded-lg py-4 mb-3">
+            <h1 class="display-4 font-weight-bold">炎黄英雄榜</h1>
+            <p class="lead mb-0">MUD江湖，谁与争锋</p>
+        </div>
+
+        <!-- 搜索框美化 -->
+        <div class="search-container mb-3">
+            <div class="input-group input-group-lg">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-primary text-white">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </div>
+                <input class="form-control" type="search"
+                       placeholder="🔍 搜索玩家ID、姓名或称号..."
+                       aria-label="Search"
+                       wire:model.live.debounce.300ms="search"
+                       style="border-radius: 0 25px 25px 0;">
+            </div>
+        </div>
+    </div>
+
+    <!-- 桌面端表格视图 - 根据屏幕大小调整显示 -->
+    <div class="d-none d-xl-block">
+        <div class="card border-0 mud-card shadow-lg">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0 mud-table">
+                        <thead class="mud-thead">
+                            <tr>
+                                <th width="45" class="text-center font-weight-bold" style="white-space: nowrap;">
+                                    <div class="header-cell">
+                                        <div class="header-icon">🏆</div>
+                                        <div class="header-text">排名</div>
+                                    </div>
+                                </th>
+                                <th width="65" class="text-center font-weight-bold" style="white-space: nowrap;">
+                                    <div class="header-cell">ID</div>
+                                </th>
+                                <th width="85" class="font-weight-bold" style="white-space: nowrap;">
+                                    <div class="header-cell">👤 姓名</div>
+                                </th>
+                                <th width="45" class="text-center font-weight-bold" style="white-space: nowrap;">
+                                    <div class="header-cell">年龄</div>
+                                </th>
+                                <th width="95" class="font-weight-bold" style="white-space: nowrap;">
+                                    <div class="header-cell">🎖️ 称号</div>
+                                </th>
+                                <th width="75" class="font-weight-bold" style="white-space: nowrap;">
+                                    <div class="header-cell">👨‍🏫 师父</div>
+                                </th>
+                                <th width="60" class="text-center font-weight-bold text-danger" style="white-space: nowrap;">
+                                    <div class="header-cell">
+                                        <div class="header-icon">💔</div>
+                                        <div class="header-text">气血</div>
+                                    </div>
+                                </th>
+                                <th width="60" class="text-center font-weight-bold text-info" style="white-space: nowrap;">
+                                    <div class="header-cell">
+                                        <div class="header-icon">💙</div>
+                                        <div class="header-text">精气</div>
+                                    </div>
+                                </th>
+                                <th width="60" class="text-center font-weight-bold text-warning" style="white-space: nowrap;">
+                                    <div class="header-cell">
+                                        <div class="header-icon">⚡</div>
+                                        <div class="header-text">内力</div>
+                                    </div>
+                                </th>
+                                <th width="60" class="text-center font-weight-bold text-success" style="white-space: nowrap;">
+                                    <div class="header-cell">
+                                        <div class="header-icon">🌟</div>
+                                        <div class="header-text">精力</div>
+                                    </div>
+                                </th>
+                                <th width="75" class="text-center font-weight-bold text-mud-gold" style="white-space: nowrap;">
+                                    <div class="header-cell">
+                                        <div class="header-icon">⭐</div>
+                                        <div class="header-text">经验</div>
+                                    </div>
+                                </th>
+                                <th width="45" class="text-center font-weight-bold text-success" style="white-space: nowrap;">
+                                    <div class="header-cell">
+                                        <div class="header-icon">⚔️</div>
+                                        <div class="header-text">杀敌</div>
+                                    </div>
+                                </th>
+                                <th width="45" class="text-center font-weight-bold text-danger" style="white-space: nowrap;">
+                                    <div class="header-cell">
+                                        <div class="header-icon">💀</div>
+                                        <div class="header-text">死亡</div>
+                                    </div>
+                                </th>
+                                <th width="80" class="text-center font-weight-bold" style="white-space: nowrap;">
+                                    <div class="header-cell">
+                                        <div class="header-icon">🕐</div>
+                                        <div class="header-text">最近登录</div>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($users as $index => $user)
+                            <tr class="transition-hover">
+                                <td class="text-center font-weight-bold text-mud-rank">
+                                    {{ $this->getAccurateRank($index + 1, $users) }}
+                                </td>
+                                <td class="text-center">
+                                    <span class="mud-badge mud-badge-id">{{ $user->id }}</span>
+                                </td>
+                                <td class="text-mud-name">{{ $user->name }}</td>
+                                <td class="text-center">
+                                    <small class="mud-badge">{{ $user->age }}</small>
+                                </td>
+                                <td class="text-mud-title">{{ $user->title ?: '-' }}</td>
+                                <td class="text-mud-master py-1">
+                                    <small>{{ $user->master ?: '-' }}</small>
+                                </td>
+                                <td class="text-center font-weight-bold text-mud-health">{{ number_format($user->qi) }}</td>
+                                <td class="text-center font-weight-bold text-mud-mana">{{ number_format($user->jing) }}</td>
+                                <td class="text-center font-weight-bold text-mud-energy">{{ number_format($user->neili) }}</td>
+                                <td class="text-center font-weight-bold text-mud-spirit">{{ number_format($user->jingli) }}</td>
+                                <td class="text-center text-mud-gold">
+                                    <small><strong>{{ number_format($user->combat_exp) }}</strong></small>
+                                </td>
+                                <td class="text-center">
+                                    <span class="mud-badge mud-badge-success">{{ $user->kill }}</span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="mud-badge mud-badge-danger">{{ $user->die }}</span>
+                                </td>
+                                <td class="text-center">
+                                    <small class="text-mud-time">{{ $user->updated_at->diffForHumans() }}</small>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 中等屏幕表格视图 - 紧凑型表头 -->
+    <div class="d-none d-lg-block d-xl-none">
+        <div class="card border-0 mud-card shadow-lg">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0 mud-table table-sm">
+                        <thead class="mud-thead">
+                            <tr>
+                                <th width="40" class="text-center font-weight-bold text-mud-rank" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">
+                                    <div>🏆</div>
+                                    <div class="small">排名</div>
+                                </th>
+                                <th width="60" class="text-center font-weight-bold text-mud-id" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">ID</th>
+                                <th width="80" class="font-weight-bold text-mud-name" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">👤 姓名</th>
+                                <th width="40" class="text-center font-weight-bold" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">年龄</th>
+                                <th width="90" class="font-weight-bold text-mud-title" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">🎖️ 称号</th>
+                                <th width="70" class="font-weight-bold" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">👨‍🏫 师父</th>
+                                <th width="55" class="text-center font-weight-bold text-mud-health" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">
+                                    <div>💔</div>
+                                    <div class="small">气血</div>
+                                </th>
+                                <th width="55" class="text-center font-weight-bold text-mud-mana" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">
+                                    <div>💙</div>
+                                    <div class="small">精气</div>
+                                </th>
+                                <th width="55" class="text-center font-weight-bold text-mud-energy" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">
+                                    <div>⚡</div>
+                                    <div class="small">内力</div>
+                                </th>
+                                <th width="55" class="text-center font-weight-bold text-mud-spirit" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">
+                                    <div>🌟</div>
+                                    <div class="small">精力</div>
+                                </th>
+                                <th width="70" class="text-center font-weight-bold text-mud-gold" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">
+                                    <div>⭐</div>
+                                    <div class="small">经验</div>
+                                </th>
+                                <th width="40" class="text-center font-weight-bold text-mud-success" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">
+                                    <div>⚔️</div>
+                                    <div class="small">杀敌</div>
+                                </th>
+                                <th width="40" class="text-center font-weight-bold text-mud-danger" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">
+                                    <div>💀</div>
+                                    <div class="small">死亡</div>
+                                </th>
+                                <th width="75" class="text-center font-weight-bold text-mud-time" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">
+                                    <div>🕐</div>
+                                    <div class="small">最近登录</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($users as $index => $user)
+                            <tr class="transition-hover">
+                                <td class="text-center font-weight-bold text-mud-rank py-1">
+                                    <small>{{ $this->getAccurateRank($index + 1, $users) }}</small>
+                                </td>
+                                <td class="text-center py-1">
+                                    <span class="mud-badge mud-badge-id">{{ $user->id }}</span>
+                                </td>
+                                <td class="text-mud-name py-1">
+                                    <small>{{ $user->name }}</small>
+                                </td>
+                                <td class="text-center py-1">
+                                    <small class="mud-badge">{{ $user->age }}</small>
+                                </td>
+                                <td class="text-mud-title py-1">
+                                    <small>{{ $user->title ?: '-' }}</small>
+                                </td>
+                                <td class="text-mud-master py-1">
+                                    <small>{{ $user->master ?: '-' }}</small>
+                                </td>
+                                <td class="text-center font-weight-bold text-mud-health py-1">
+                                    <small>{{ number_format($user->qi) }}</small>
+                                </td>
+                                <td class="text-center font-weight-bold text-mud-mana py-1">
+                                    <small>{{ number_format($user->jing) }}</small>
+                                </td>
+                                <td class="text-center font-weight-bold text-mud-energy py-1">
+                                    <small>{{ number_format($user->neili) }}</small>
+                                </td>
+                                <td class="text-center font-weight-bold text-mud-spirit py-1">
+                                    <small>{{ number_format($user->jingli) }}</small>
+                                </td>
+                                <td class="text-center text-mud-gold py-1">
+                                    <small><strong>{{ number_format($user->combat_exp) }}</strong></small>
+                                </td>
+                                <td class="text-center py-1">
+                                    <span class="mud-badge mud-badge-success">{{ $user->kill }}</span>
+                                </td>
+                                <td class="text-center py-1">
+                                    <span class="mud-badge mud-badge-danger">{{ $user->die }}</span>
+                                </td>
+                                <td class="text-center py-1">
+                                    <small class="text-mud-time">{{ $user->updated_at->diffForHumans() }}</small>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 小屏幕桌面端表格视图 - 超紧凑型 -->
+    <div class="d-none d-md-block d-lg-none">
+        <div class="card border-0 mud-card shadow">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0 mud-table table-sm">
+                        <thead class="mud-thead">
+                            <tr>
+                                <th width="35" class="text-center font-weight-bold" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">🏆</th>
+                                <th width="55" class="text-center font-weight-bold" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">ID</th>
+                                <th width="75" class="font-weight-bold" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">姓名</th>
+                                <th width="40" class="text-center font-weight-bold" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">年龄</th>
+                                <th width="80" class="font-weight-bold" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">称号</th>
+                                <th width="60" class="text-center font-weight-bold" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">
+                                    <div class="text-danger">💔</div>
+                                    <div class="small">气血</div>
+                                </th>
+                                <th width="60" class="text-center font-weight-bold" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">
+                                    <div class="text-info">💙</div>
+                                    <div class="small">精气</div>
+                                </th>
+                                <th width="60" class="text-center font-weight-bold" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">
+                                    <div class="text-warning">⚡</div>
+                                    <div class="small">内力</div>
+                                </th>
+                                <th width="60" class="text-center font-weight-bold" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">
+                                    <div class="text-success">🌟</div>
+                                    <div class="small">精力</div>
+                                </th>
+                                <th width="65" class="text-center font-weight-bold text-primary" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">
+                                    <div>⭐</div>
+                                    <div class="small">经验</div>
+                                </th>
+                                <th width="35" class="text-center font-weight-bold text-success" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">
+                                    <div>⚔️</div>
+                                    <div class="small">杀敌</div>
+                                </th>
+                                <th width="35" class="text-center font-weight-bold text-danger" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">
+                                    <div>💀</div>
+                                    <div class="small">死亡</div>
+                                </th>
+                                <th width="70" class="text-center font-weight-bold" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">
+                                    <div>🕐</div>
+                                    <div class="small">最近登录</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($users as $index => $user)
+                            <tr class="transition-hover">
+                                <td class="text-center font-weight-bold text-mud-rank py-1">
+                                    <small><strong>{{ $this->getAccurateRank($index + 1, $users) }}</strong></small>
+                                </td>
+                                <td class="text-center py-1">
+                                    <span class="mud-badge mud-badge-id">{{ $user->id }}</span>
+                                </td>
+                                <td class="text-mud-name py-1">
+                                    <small>{{ $user->name }}</small>
+                                </td>
+                                <td class="text-center py-1">
+                                    <small class="mud-badge">{{ $user->age }}</small>
+                                </td>
+                                <td class="text-mud-title py-1">
+                                    <small>{{ $user->title ?: '-' }}</small>
+                                </td>
+                                <td class="text-center py-1">
+                                    <small class="text-mud-health">{{ number_format($user->qi) }}</small>
+                                </td>
+                                <td class="text-center py-1">
+                                    <small class="text-mud-mana">{{ number_format($user->jing) }}</small>
+                                </td>
+                                <td class="text-center py-1">
+                                    <small class="text-mud-energy">{{ number_format($user->neili) }}</small>
+                                </td>
+                                <td class="text-center py-1">
+                                    <small class="text-mud-spirit">{{ number_format($user->jingli) }}</small>
+                                </td>
+                                <td class="text-center py-1">
+                                    <small class="text-mud-gold">{{ number_format($user->combat_exp) }}</small>
+                                </td>
+                                <td class="text-center py-1">
+                                    <span class="mud-badge mud-badge-success">{{ $user->kill }}</span>
+                                </td>
+                                <td class="text-center py-1">
+                                    <span class="mud-badge mud-badge-danger">{{ $user->die }}</span>
+                                </td>
+                                <td class="text-center py-1">
+                                    <small class="text-mud-time">{{ $user->updated_at->diffForHumans() }}</small>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 移动端卡片视图 -->
+    <div class="d-lg-none">
+        <div class="row">
+            @foreach ($users as $index => $user)
+            <div class="col-12 col-md-6 mb-3">
+                <div class="card h-100 mud-mobile-card shadow-sm">
+                    <div class="card-header mud-mobile-card-header py-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="font-weight-bold text-mud-rank">🏆 #{{ $this->getAccurateRank($index + 1, $users) }}</span>
+                            <span class="mud-badge mud-badge-id">{{ $user->id }}</span>
+                        </div>
+                    </div>
+                    <div class="card-body py-2">
+                        <h5 class="card-title mb-2 font-weight-bold text-mud-name">{{ $user->name }}</h5>
+                        <p class="card-text mb-1">
+                            <small class="text-mud-title">称号: {{ $user->title ?: '无' }}</small>
+                        </p>
+                        <div class="row text-center mb-2">
+                            <div class="col-4">
+                                <small class="text-mud-label d-block">年龄</small>
+                                <span class="font-weight-bold text-mud-value">{{ $user->age }}</span>
+                            </div>
+                            <div class="col-4">
+                                <small class="text-mud-label d-block">师父</small>
+                                <span class="font-weight-bold text-mud-value">{{ $user->master ?: '-' }}</span>
+                            </div>
+                            <div class="col-4">
+                                <small class="text-mud-label d-block">经验</small>
+                                <span class="font-weight-bold text-mud-gold">{{ number_format($user->combat_exp) }}</span>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-3">
+                                <small class="text-mud-health d-block">气血</small>
+                                <span class="font-weight-bold text-mud-health">{{ number_format($user->qi) }}</span>
+                            </div>
+                            <div class="col-3">
+                                <small class="text-mud-mana d-block">精气</small>
+                                <span class="font-weight-bold text-mud-mana">{{ number_format($user->jing) }}</span>
+                            </div>
+                            <div class="col-3">
+                                <small class="text-mud-energy d-block">内力</small>
+                                <span class="font-weight-bold text-mud-energy">{{ number_format($user->neili) }}</span>
+                            </div>
+                            <div class="col-3">
+                                <small class="text-mud-spirit d-block">精力</small>
+                                <span class="font-weight-bold text-mud-spirit">{{ number_format($user->jingli) }}</span>
+                            </div>
+                        </div>
+                        <div class="row text-center mt-2">
+                            <div class="col-6">
+                                <small class="text-mud-label d-block">杀敌</small>
+                                <span class="mud-badge mud-badge-success">{{ $user->kill }}</span>
+                            </div>
+                            <div class="col-6">
+                                <small class="text-mud-label d-block">死亡</small>
+                                <span class="mud-badge mud-badge-danger">{{ $user->die }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer mud-mobile-card-footer py-1">
+                        <small class="text-mud-time float-right">{{ $user->updated_at->diffForHumans() }}</small>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+
+    <!-- 分页组件 -->
+    <div class="d-flex justify-content-center mt-4">
+        {{ $users->links('pagination::bootstrap-4') }}
+    </div>
+</div>
+
+@push('styles')
 <style>
 /* ===== MUD游戏暗黑色调主题 ===== */
 
@@ -531,427 +955,4 @@ body {
     background: #555;
 }
 </style>
-
-<div>
-    <!-- 页面标题区域美化 -->
-    <div class="text-center mb-4">
-        <div class="hero-section bg-gradient-primary text-white rounded-lg py-4 mb-3">
-            <h1 class="display-4 font-weight-bold">炎黄英雄榜</h1>
-            <p class="lead mb-0">MUD江湖，谁与争锋</p>
-        </div>
-
-        <!-- 搜索框美化 -->
-        <div class="search-container mb-3">
-            <div class="input-group input-group-lg">
-                <div class="input-group-prepend">
-                    <span class="input-group-text bg-primary text-white">
-                        <i class="fas fa-search"></i>
-                    </span>
-                </div>
-                <input class="form-control" type="search"
-                       placeholder="🔍 搜索玩家ID、姓名或称号..."
-                       aria-label="Search"
-                       wire:model.live.debounce.300ms="search"
-                       style="border-radius: 0 25px 25px 0;">
-            </div>
-        </div>
-    </div>
-
-    <!-- 桌面端表格视图 - 根据屏幕大小调整显示 -->
-    <div class="d-none d-xl-block">
-        <div class="card border-0 mud-card shadow-lg">
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0 mud-table">
-                        <thead class="mud-thead">
-                            <tr>
-                                <th width="45" class="text-center font-weight-bold" style="white-space: nowrap;">
-                                    <div class="header-cell">
-                                        <div class="header-icon">🏆</div>
-                                        <div class="header-text">排名</div>
-                                    </div>
-                                </th>
-                                <th width="65" class="text-center font-weight-bold" style="white-space: nowrap;">
-                                    <div class="header-cell">ID</div>
-                                </th>
-                                <th width="85" class="font-weight-bold" style="white-space: nowrap;">
-                                    <div class="header-cell">👤 姓名</div>
-                                </th>
-                                <th width="45" class="text-center font-weight-bold" style="white-space: nowrap;">
-                                    <div class="header-cell">年龄</div>
-                                </th>
-                                <th width="95" class="font-weight-bold" style="white-space: nowrap;">
-                                    <div class="header-cell">🎖️ 称号</div>
-                                </th>
-                                <th width="75" class="font-weight-bold" style="white-space: nowrap;">
-                                    <div class="header-cell">👨‍🏫 师父</div>
-                                </th>
-                                <th width="60" class="text-center font-weight-bold text-danger" style="white-space: nowrap;">
-                                    <div class="header-cell">
-                                        <div class="header-icon">💔</div>
-                                        <div class="header-text">气血</div>
-                                    </div>
-                                </th>
-                                <th width="60" class="text-center font-weight-bold text-info" style="white-space: nowrap;">
-                                    <div class="header-cell">
-                                        <div class="header-icon">💙</div>
-                                        <div class="header-text">精气</div>
-                                    </div>
-                                </th>
-                                <th width="60" class="text-center font-weight-bold text-warning" style="white-space: nowrap;">
-                                    <div class="header-cell">
-                                        <div class="header-icon">⚡</div>
-                                        <div class="header-text">内力</div>
-                                    </div>
-                                </th>
-                                <th width="60" class="text-center font-weight-bold text-success" style="white-space: nowrap;">
-                                    <div class="header-cell">
-                                        <div class="header-icon">🌟</div>
-                                        <div class="header-text">精力</div>
-                                    </div>
-                                </th>
-                                <th width="75" class="text-center font-weight-bold text-mud-gold" style="white-space: nowrap;">
-                                    <div class="header-cell">
-                                        <div class="header-icon">⭐</div>
-                                        <div class="header-text">经验</div>
-                                    </div>
-                                </th>
-                                <th width="45" class="text-center font-weight-bold text-success" style="white-space: nowrap;">
-                                    <div class="header-cell">
-                                        <div class="header-icon">⚔️</div>
-                                        <div class="header-text">杀敌</div>
-                                    </div>
-                                </th>
-                                <th width="45" class="text-center font-weight-bold text-danger" style="white-space: nowrap;">
-                                    <div class="header-cell">
-                                        <div class="header-icon">💀</div>
-                                        <div class="header-text">死亡</div>
-                                    </div>
-                                </th>
-                                <th width="80" class="text-center font-weight-bold" style="white-space: nowrap;">
-                                    <div class="header-cell">
-                                        <div class="header-icon">🕐</div>
-                                        <div class="header-text">最近登录</div>
-                                    </div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($users as $index => $user)
-                            <tr class="transition-hover">
-                                <td class="text-center font-weight-bold text-mud-rank">
-                                    {{ $this->getAccurateRank($index + 1, $users) }}
-                                </td>
-                                <td class="text-center">
-                                    <span class="mud-badge mud-badge-id">{{ $user->id }}</span>
-                                </td>
-                                <td class="text-mud-name">{{ $user->name }}</td>
-                                <td class="text-center">
-                                    <small class="mud-badge">{{ $user->age }}</small>
-                                </td>
-                                <td class="text-mud-title">{{ $user->title ?: '-' }}</td>
-                                <td class="text-mud-master py-1">
-                                    <small>{{ $user->master ?: '-' }}</small>
-                                </td>
-                                <td class="text-center font-weight-bold text-mud-health">{{ number_format($user->qi) }}</td>
-                                <td class="text-center font-weight-bold text-mud-mana">{{ number_format($user->jing) }}</td>
-                                <td class="text-center font-weight-bold text-mud-energy">{{ number_format($user->neili) }}</td>
-                                <td class="text-center font-weight-bold text-mud-spirit">{{ number_format($user->jingli) }}</td>
-                                <td class="text-center text-mud-gold">
-                                    <small><strong>{{ number_format($user->combat_exp) }}</strong></small>
-                                </td>
-                                <td class="text-center">
-                                    <span class="mud-badge mud-badge-success">{{ $user->kill }}</span>
-                                </td>
-                                <td class="text-center">
-                                    <span class="mud-badge mud-badge-danger">{{ $user->die }}</span>
-                                </td>
-                                <td class="text-center">
-                                    <small class="text-mud-time">{{ $user->updated_at->diffForHumans() }}</small>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 中等屏幕表格视图 - 紧凑型表头 -->
-    <div class="d-none d-lg-block d-xl-none">
-        <div class="card border-0 mud-card shadow-lg">
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0 mud-table table-sm">
-                        <thead class="mud-thead">
-                            <tr>
-                                <th width="40" class="text-center font-weight-bold text-mud-rank" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">
-                                    <div>🏆</div>
-                                    <div class="small">排名</div>
-                                </th>
-                                <th width="60" class="text-center font-weight-bold text-mud-id" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">ID</th>
-                                <th width="80" class="font-weight-bold text-mud-name" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">👤 姓名</th>
-                                <th width="40" class="text-center font-weight-bold" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">年龄</th>
-                                <th width="90" class="font-weight-bold text-mud-title" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">🎖️ 称号</th>
-                                <th width="70" class="font-weight-bold" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">👨‍🏫 师父</th>
-                                <th width="55" class="text-center font-weight-bold text-mud-health" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">
-                                    <div>💔</div>
-                                    <div class="small">气血</div>
-                                </th>
-                                <th width="55" class="text-center font-weight-bold text-mud-mana" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">
-                                    <div>💙</div>
-                                    <div class="small">精气</div>
-                                </th>
-                                <th width="55" class="text-center font-weight-bold text-mud-energy" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">
-                                    <div>⚡</div>
-                                    <div class="small">内力</div>
-                                </th>
-                                <th width="55" class="text-center font-weight-bold text-mud-spirit" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">
-                                    <div>🌟</div>
-                                    <div class="small">精力</div>
-                                </th>
-                                <th width="70" class="text-center font-weight-bold text-mud-gold" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">
-                                    <div>⭐</div>
-                                    <div class="small">经验</div>
-                                </th>
-                                <th width="40" class="text-center font-weight-bold text-mud-success" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">
-                                    <div>⚔️</div>
-                                    <div class="small">杀敌</div>
-                                </th>
-                                <th width="40" class="text-center font-weight-bold text-mud-danger" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">
-                                    <div>💀</div>
-                                    <div class="small">死亡</div>
-                                </th>
-                                <th width="75" class="text-center font-weight-bold text-mud-time" style="white-space: nowrap; font-size: 0.8rem; padding: 0.5rem 0.25rem;">
-                                    <div>🕐</div>
-                                    <div class="small">最近登录</div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($users as $index => $user)
-                            <tr class="transition-hover">
-                                <td class="text-center font-weight-bold text-mud-rank py-1">
-                                    <small>{{ $this->getAccurateRank($index + 1, $users) }}</small>
-                                </td>
-                                <td class="text-center py-1">
-                                    <span class="mud-badge mud-badge-id">{{ $user->id }}</span>
-                                </td>
-                                <td class="text-mud-name py-1">
-                                    <small>{{ $user->name }}</small>
-                                </td>
-                                <td class="text-center py-1">
-                                    <small class="mud-badge">{{ $user->age }}</small>
-                                </td>
-                                <td class="text-mud-title py-1">
-                                    <small>{{ $user->title ?: '-' }}</small>
-                                </td>
-                                <td class="text-mud-master py-1">
-                                    <small>{{ $user->master ?: '-' }}</small>
-                                </td>
-                                <td class="text-center font-weight-bold text-mud-health py-1">
-                                    <small>{{ number_format($user->qi) }}</small>
-                                </td>
-                                <td class="text-center font-weight-bold text-mud-mana py-1">
-                                    <small>{{ number_format($user->jing) }}</small>
-                                </td>
-                                <td class="text-center font-weight-bold text-mud-energy py-1">
-                                    <small>{{ number_format($user->neili) }}</small>
-                                </td>
-                                <td class="text-center font-weight-bold text-mud-spirit py-1">
-                                    <small>{{ number_format($user->jingli) }}</small>
-                                </td>
-                                <td class="text-center text-mud-gold py-1">
-                                    <small><strong>{{ number_format($user->combat_exp) }}</strong></small>
-                                </td>
-                                <td class="text-center py-1">
-                                    <span class="mud-badge mud-badge-success">{{ $user->kill }}</span>
-                                </td>
-                                <td class="text-center py-1">
-                                    <span class="mud-badge mud-badge-danger">{{ $user->die }}</span>
-                                </td>
-                                <td class="text-center py-1">
-                                    <small class="text-mud-time">{{ $user->updated_at->diffForHumans() }}</small>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 小屏幕桌面端表格视图 - 超紧凑型 -->
-    <div class="d-none d-md-block d-lg-none">
-        <div class="card border-0 mud-card shadow">
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0 mud-table table-sm">
-                        <thead class="mud-thead">
-                            <tr>
-                                <th width="35" class="text-center font-weight-bold" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">🏆</th>
-                                <th width="55" class="text-center font-weight-bold" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">ID</th>
-                                <th width="75" class="font-weight-bold" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">姓名</th>
-                                <th width="40" class="text-center font-weight-bold" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">年龄</th>
-                                <th width="80" class="font-weight-bold" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">称号</th>
-                                <th width="60" class="text-center font-weight-bold" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">
-                                    <div class="text-danger">💔</div>
-                                    <div class="small">气血</div>
-                                </th>
-                                <th width="60" class="text-center font-weight-bold" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">
-                                    <div class="text-info">💙</div>
-                                    <div class="small">精气</div>
-                                </th>
-                                <th width="60" class="text-center font-weight-bold" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">
-                                    <div class="text-warning">⚡</div>
-                                    <div class="small">内力</div>
-                                </th>
-                                <th width="60" class="text-center font-weight-bold" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">
-                                    <div class="text-success">🌟</div>
-                                    <div class="small">精力</div>
-                                </th>
-                                <th width="65" class="text-center font-weight-bold text-primary" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">
-                                    <div>⭐</div>
-                                    <div class="small">经验</div>
-                                </th>
-                                <th width="35" class="text-center font-weight-bold text-success" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">
-                                    <div>⚔️</div>
-                                    <div class="small">杀敌</div>
-                                </th>
-                                <th width="35" class="text-center font-weight-bold text-danger" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">
-                                    <div>💀</div>
-                                    <div class="small">死亡</div>
-                                </th>
-                                <th width="70" class="text-center font-weight-bold" style="white-space: nowrap; font-size: 0.75rem; padding: 0.4rem 0.2rem;">
-                                    <div>🕐</div>
-                                    <div class="small">最近登录</div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($users as $index => $user)
-                            <tr class="transition-hover">
-                                <td class="text-center font-weight-bold text-mud-rank py-1">
-                                    <small><strong>{{ $this->getAccurateRank($index + 1, $users) }}</strong></small>
-                                </td>
-                                <td class="text-center py-1">
-                                    <span class="mud-badge mud-badge-id">{{ $user->id }}</span>
-                                </td>
-                                <td class="text-mud-name py-1">
-                                    <small>{{ $user->name }}</small>
-                                </td>
-                                <td class="text-center py-1">
-                                    <small class="mud-badge">{{ $user->age }}</small>
-                                </td>
-                                <td class="text-mud-title py-1">
-                                    <small>{{ $user->title ?: '-' }}</small>
-                                </td>
-                                <td class="text-center py-1">
-                                    <small class="text-mud-health">{{ number_format($user->qi) }}</small>
-                                </td>
-                                <td class="text-center py-1">
-                                    <small class="text-mud-mana">{{ number_format($user->jing) }}</small>
-                                </td>
-                                <td class="text-center py-1">
-                                    <small class="text-mud-energy">{{ number_format($user->neili) }}</small>
-                                </td>
-                                <td class="text-center py-1">
-                                    <small class="text-mud-spirit">{{ number_format($user->jingli) }}</small>
-                                </td>
-                                <td class="text-center py-1">
-                                    <small class="text-mud-gold">{{ number_format($user->combat_exp) }}</small>
-                                </td>
-                                <td class="text-center py-1">
-                                    <span class="mud-badge mud-badge-success">{{ $user->kill }}</span>
-                                </td>
-                                <td class="text-center py-1">
-                                    <span class="mud-badge mud-badge-danger">{{ $user->die }}</span>
-                                </td>
-                                <td class="text-center py-1">
-                                    <small class="text-mud-time">{{ $user->updated_at->diffForHumans() }}</small>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 移动端卡片视图 -->
-    <div class="d-lg-none">
-        <div class="row">
-            @foreach ($users as $index => $user)
-            <div class="col-12 col-md-6 mb-3">
-                <div class="card h-100 mud-mobile-card shadow-sm">
-                    <div class="card-header mud-mobile-card-header py-2">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span class="font-weight-bold text-mud-rank">🏆 #{{ $this->getAccurateRank($index + 1, $users) }}</span>
-                            <span class="mud-badge mud-badge-id">{{ $user->id }}</span>
-                        </div>
-                    </div>
-                    <div class="card-body py-2">
-                        <h5 class="card-title mb-2 font-weight-bold text-mud-name">{{ $user->name }}</h5>
-                        <p class="card-text mb-1">
-                            <small class="text-mud-title">称号: {{ $user->title ?: '无' }}</small>
-                        </p>
-                        <div class="row text-center mb-2">
-                            <div class="col-4">
-                                <small class="text-mud-label d-block">年龄</small>
-                                <span class="font-weight-bold text-mud-value">{{ $user->age }}</span>
-                            </div>
-                            <div class="col-4">
-                                <small class="text-mud-label d-block">师父</small>
-                                <span class="font-weight-bold text-mud-value">{{ $user->master ?: '-' }}</span>
-                            </div>
-                            <div class="col-4">
-                                <small class="text-mud-label d-block">经验</small>
-                                <span class="font-weight-bold text-mud-gold">{{ number_format($user->combat_exp) }}</span>
-                            </div>
-                        </div>
-                        <div class="row text-center">
-                            <div class="col-3">
-                                <small class="text-mud-health d-block">气血</small>
-                                <span class="font-weight-bold text-mud-health">{{ number_format($user->qi) }}</span>
-                            </div>
-                            <div class="col-3">
-                                <small class="text-mud-mana d-block">精气</small>
-                                <span class="font-weight-bold text-mud-mana">{{ number_format($user->jing) }}</span>
-                            </div>
-                            <div class="col-3">
-                                <small class="text-mud-energy d-block">内力</small>
-                                <span class="font-weight-bold text-mud-energy">{{ number_format($user->neili) }}</span>
-                            </div>
-                            <div class="col-3">
-                                <small class="text-mud-spirit d-block">精力</small>
-                                <span class="font-weight-bold text-mud-spirit">{{ number_format($user->jingli) }}</span>
-                            </div>
-                        </div>
-                        <div class="row text-center mt-2">
-                            <div class="col-6">
-                                <small class="text-mud-label d-block">杀敌</small>
-                                <span class="mud-badge mud-badge-success">{{ $user->kill }}</span>
-                            </div>
-                            <div class="col-6">
-                                <small class="text-mud-label d-block">死亡</small>
-                                <span class="mud-badge mud-badge-danger">{{ $user->die }}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer mud-mobile-card-footer py-1">
-                        <small class="text-mud-time float-right">{{ $user->updated_at->diffForHumans() }}</small>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
-
-    <!-- 分页组件 -->
-    <div class="d-flex justify-content-center mt-4">
-        {{ $users->links('pagination::bootstrap-4') }}
-    </div>
-</div>
+@endpush
